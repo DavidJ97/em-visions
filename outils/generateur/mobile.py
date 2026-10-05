@@ -32,7 +32,7 @@ ARRL='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d
 DIAG='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18L18 6M8 6h10v10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 # Sites des fournisseurs, dans l'ordre de la page Catalogue (à faire valider par EM).
 # Eside = distributeur canadien des casquettes Flexfit ; Projob = vêtements de travail, distribués au Canada par Texet.
-SUP_URL={0:'https://fr-ca.ssactivewear.com/',1:'https://canadasportswear.com/',2:'https://fabrik.ca/',4:'https://www.justlikehero.com/'}
+SUP_URL={0:'https://fr-ca.ssactivewear.com/',1:'https://canadasportswear.com/',2:'https://fabrik.ca/',3:'https://eside.ca/fr/',4:'https://www.justlikehero.com/',5:'https://texet.ca/pages/projob'}
 def carctl(p):
     pp=p=='accueil'
     return (f'<div class="mctl">'+('<i class="ppsp" aria-hidden="true"></i>' if pp else '')+f'<button class="arrow prev" data-pg="{p}" aria-label="Image précédente">{ARRL}</button>'
