@@ -20,3 +20,8 @@ PRIVACY_OFFICER='Eduardo Mazzonna'
 RETENTION_YEARS=2          # durée de conservation des demandes sans suite
 POLICY_DATE=('5 octobre 2026','October 5, 2026')
 FORM_SERVICE='FormSubmit'  # service qui achemine le formulaire vers le courriel
+# Envoi du formulaire de devis. Avec CONTACT_EMAIL rempli, les demandes partent par FormSubmit
+# (formsubmit.co) vers cette adresse. À la première demande, FormSubmit envoie un courriel de
+# confirmation à cliquer une fois ; il fournit alors un code à coller ici à la place de l'adresse
+# pour ne pas l'exposer dans le code de la page : FORM_ENDPOINT='https://formsubmit.co/<code>'.
+FORM_ENDPOINT=os.environ.get('FORM_ENDPOINT') or (f'https://formsubmit.co/{CONTACT_EMAIL}' if CONTACT_EMAIL else None)

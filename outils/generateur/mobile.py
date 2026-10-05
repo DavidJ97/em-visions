@@ -1,5 +1,11 @@
 import html as H, re
-from config import CONTACT_EMAIL, INSTAGRAM, HOURS, HOURS_FR, ABOUT_FR
+from config import CONTACT_EMAIL, INSTAGRAM, HOURS, HOURS_FR, ABOUT_FR, FORM_ENDPOINT
+def form_attrs():
+    return f' action="{FORM_ENDPOINT}" method="post" enctype="multipart/form-data" data-send="1"' if FORM_ENDPOINT else ''
+def form_hidden():
+    if not FORM_ENDPOINT: return ''
+    return ('<input type="hidden" name="_subject" value="Demande de devis — site EM Visions"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false">'
+            '<input type="hidden" name="_next" value=""><input type="hidden" name="_replyto" value=""><input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">')
 CLOCK='<svg width="{s}" height="{s}" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="{c}" stroke-width="2.2"/><path d="M12 6.5V12l3.6 2.4" fill="none" stroke="{c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 def ko_html():
     if CONTACT_EMAIL:
@@ -64,7 +70,7 @@ def mobile_html(EL,META,span):
         +('<p class="maddr mhrs">'+CLOCK.format(s=30,c='#0a3cff')+'<span>'+'<br>'.join(HOURS_FR)+'</span></p>' if HOURS else '')
         +'<div class="mpaper"><img class="edge etop" data-plate="mtop" src="img/m-paper-top.webp" alt="" aria-hidden="true"><div class="pbody">'
         +'<h2 class="mh2">Demande de devis<i class="sq" aria-hidden="true"></i></h2>'
-        +'<form class="qform" novalidate>'
+        +f'<form class="qform" novalidate{form_attrs()}>'+form_hidden()
         +''.join(f'<label class="mf"><span class="flab">{lab}</span>{ctl}<em class="err" data-err="{n}"></em></label>' for n,lab,ctl in [
             ('nom','Nom *','<input name="nom" type="text" autocomplete="name" maxlength="150" placeholder="Votre nom" required>'),
             ('courriel','Courriel *','<input name="courriel" type="email" autocomplete="email" inputmode="email" placeholder="votre@courriel.com" required>'),

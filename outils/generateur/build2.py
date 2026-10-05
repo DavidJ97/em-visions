@@ -97,7 +97,7 @@ def page_html(p):
     if p=='contact':
         F=[('nom','text','name',(954,295,1495,338)),('courriel','email','email',(954,386,1495,430)),('projet','textarea','',(954,479,1495,588)),('qte','number','',(954,636,1495,680))]
         if HOURS: out.append('<p class="hrs" style="left:264px;top:859px">'+MOB.CLOCK.format(s=20,c='#fff')+'<span>'+'</span><i aria-hidden="true">·</i><span>'.join(HOURS_FR)+'</span></p>')
-        out.append('<form id="devis" class="qform" novalidate>')
+        out.append(f'<form id="devis" class="qform" novalidate{MOB.form_attrs()}>'+MOB.form_hidden())
         for name,typ,ac,b in F:
             ph=[e for e in els if e.get('ph')==name][0]
             req=' required' if name in('nom','courriel','projet') else ''
@@ -219,7 +219,7 @@ html,body{background:#050505;overflow-x:clip}a{color:inherit;text-decoration:non
 .hrs{position:absolute;display:flex;align-items:center;gap:9px;height:46px;padding:0 20px 0 15px;border-radius:23px;background:#0b0b0b;color:#fff;font:600 15.5px/1 'Kumbh Sans',sans-serif;white-space:nowrap;box-shadow:0 2px 10px #0006}.hrs i{font-style:normal;opacity:.6}
 .about{position:absolute;color:var(--fg);font:300 17.5px/1.52 'Kumbh Sans',sans-serif;letter-spacing:.01em}
 .plink{position:absolute;text-align:center;font:400 11.5px/1.3 Inter,sans-serif;color:#3a3a3b;text-decoration:underline;text-underline-offset:2px}.plink:hover{color:#0a3cff}
-.round{border-radius:50%}.pp svg+svg,.pp[data-on="0"] svg{display:none}.pp[data-on="0"] svg+svg{display:block}.pp[hidden]{display:none!important}.arrow{color:var(--fg);border:2px solid var(--fg);display:grid;place-items:center;transition:background .2s,border-color .2s}.arrow:hover{background:var(--blue)!important;border-color:var(--blue)}.round:hover{background:#0a3cff55}
+.hp{display:none!important}.round{border-radius:50%}.pp svg+svg,.pp[data-on="0"] svg{display:none}.pp[data-on="0"] svg+svg{display:block}.pp[hidden]{display:none!important}.arrow{color:var(--fg);border:2px solid var(--fg);display:grid;place-items:center;transition:background .2s,border-color .2s}.arrow:hover{background:var(--blue)!important;border-color:var(--blue)}.round:hover{background:#0a3cff55}
 .pill{border-radius:44px}.pill:hover{backdrop-filter:brightness(1.12) contrast(1.05)}
 .hit:focus-visible,.sup:focus-visible,.nl:focus-visible .t,.fld :focus-visible{outline:3px solid #6f8cff;outline-offset:3px}
 .bars{position:absolute;left:1257px;top:898px;width:233px;height:16px}
@@ -364,6 +364,8 @@ const band=document.getElementById('cat-band');if(band){const ROWS=%ROWS%;let ac
   a.addEventListener('click',e=>{act=+a.dataset.row;if(a.target)return;e.preventDefault();toast('Lien bientôt disponible.')})});
  document.getElementById('p-catalogue').querySelector('.ui').addEventListener('mouseleave',()=>mv(act))}
 document.querySelectorAll('.msup a').forEach(a=>a.addEventListener('click',e=>{document.querySelectorAll('.msup a').forEach(x=>x.classList.toggle('on',x===a));if(a.target)return;e.preventDefault();toast('Lien bientôt disponible.')}));
+const SENT=new URLSearchParams(location.search).has('envoye');if(SENT)history.replaceState(null,'',location.pathname+location.hash);
+addEventListener('pageshow',e=>{if(e.persisted)document.querySelectorAll('.qform [type=submit]').forEach(b=>b.disabled=false)});
 function initForm(form,fname,fhint,ok){const ko=ok.nextElementSibling;const MSG={nom:'Indiquez votre nom',courriel:'Courriel invalide',projet:'Décrivez votre projet',qte:'Nombre entier ≥ 1'};
  const F=n=>form.querySelector(`[name="${n}"]`),ERR=n=>form.querySelector(`[data-err="${n}"]`)||document.querySelector(`#e-${n}`);
  const fl=F('fichier');const ft=[fname.textContent,fhint.textContent];const N=['nom','courriel','projet','qte'];
@@ -378,11 +380,13 @@ function initForm(form,fname,fhint,ok){const ko=ok.nextElementSibling;const MSG=
  fl.addEventListener('change',chkFile);
  form.addEventListener('submit',async e=>{e.preventDefault();const r=N.map(n=>chk(n,true));if(r.includes(false)){F(N[r.indexOf(false)]).focus();return}
   const btn=form.querySelector('[type=submit]');btn.disabled=true;toast('Envoi en cours…');
+  if(form.dataset.send){form.querySelector('[name=_next]').value=location.origin+location.pathname+'?envoye=1'+hashFor('contact');form.querySelector('[name=_replyto]').value=F('courriel').value.trim();form.submit();return}
   let sent=false;try{const ac=new AbortController(),to=setTimeout(()=>ac.abort(),20000);const res=await fetch('/api/demandes',{method:'POST',body:new FormData(form),signal:ac.signal});clearTimeout(to);if(!res.ok)throw 0;sent=true;
    let ref='';try{ref=(await res.json()).reference||''}catch(_){}ok.querySelector('.ref').textContent=ref?T('Référence : ')+ref:''}catch(_){}
   btn.disabled=false;form.hidden=true;toastEl.classList.remove('on');const show=el=>{el.hidden=false;el.focus({preventScroll:true});if(isM())el.scrollIntoView({block:'start'})};if(sent){show(ok)}else{
    const v=n=>F(n).value.trim();const body=[T('Nom')+' : '+v('nom'),T('Courriel')+' : '+v('courriel'),T('Quantité approximative')+' : '+(v('qte')||'—'),'',v('projet')].join('\n');
    const bm=ko.querySelector('.bymail');if(bm.dataset.mail)bm.href='mailto:'+bm.dataset.mail+'?subject='+encodeURIComponent(T('Demande de devis')+' — '+v('nom'))+'&body='+encodeURIComponent(body);show(ko)}});
+ if(SENT){form.hidden=true;ok.hidden=false}
  ok.querySelector('.again').onclick=()=>{form.reset();chkFile();form.hidden=false;ok.hidden=true;F('nom').focus()};
  ko.querySelector('.retry').onclick=()=>{form.hidden=false;ko.hidden=true;form.querySelector('[type=submit]').focus()}}
 const dform=document.getElementById('devis');if(dform)initForm(dform,document.getElementById('contact-filelabel'),document.getElementById('contact-filehint'),document.getElementById('ok'));
