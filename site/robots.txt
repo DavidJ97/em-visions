@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://davidj97.github.io/em-visions/site/sitemap.xml
