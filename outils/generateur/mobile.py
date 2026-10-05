@@ -1,4 +1,14 @@
 import html as H, re
+from config import CONTACT_EMAIL, INSTAGRAM
+def ko_html():
+    if CONTACT_EMAIL:
+        note='Vos réponses sont conservées. Vous pouvez réessayer ou nous écrire directement par courriel.'
+        alt=f'<a class="bymail" data-mail="{CONTACT_EMAIL}" href="mailto:{CONTACT_EMAIL}">Écrire par courriel</a>'
+    else:
+        note='Vos réponses sont conservées. Vous pouvez réessayer, nous écrire sur Instagram ou passer à l’atelier.'
+        alt=f'<a class="bymail" href="{INSTAGRAM}" target="_blank" rel="noopener">Écrire sur Instagram</a>'
+    return ('<div class="ok ko" hidden role="alert" tabindex="-1"><b>OUPS.</b><p>Votre demande n’a pas pu être envoyée.</p>'
+            f'<p class="note">{note}</p><div class="okb"><button type="button" class="retry">Réessayer</button>{alt}</div></div>')
 VECF=lambda p,b:''
 LOGO=''
 NAV=[('accueil','Accueil'),('services','Services'),('realisations','Réalisations'),('catalogue','Catalogue'),('a-propos','À propos'),('contact','Contact')]
@@ -62,7 +72,7 @@ def mobile_html(EL,META,span):
         +'<span><b data-fl>Choisir un fichier</b><small data-fh>JPG, PNG, PDF (max 10 Mo)</small></span></label><em class="err" data-err="fichier"></em></div>'
         +'<button type="submit" class="msubmit">Demander un devis '+ARR+'</button>'
         +'<p class="legal">En soumettant ce formulaire, vous nous permettez de vous contacter concernant votre demande.</p></form>'
-        +'<div class="ok" hidden role="status" tabindex="-1"><b>MERCI.</b><p>Votre demande est bien envoyée.</p><p class="note">Nous vous répondrons par courriel.</p><p class="note ref"></p><button type="button" class="again">Nouvelle demande</button></div><div class="ok ko" hidden role="alert" tabindex="-1"><b>OUPS.</b><p>Votre demande n’a pas pu être envoyée.</p><p class="note">Vos réponses sont conservées. Vous pouvez réessayer ou nous écrire directement par courriel.</p><div class="okb"><button type="button" class="retry">Réessayer</button><a class="bymail" href="mailto:info@emvisions.ca">Écrire par courriel</a></div></div>'
+        +'<div class="ok" hidden role="status" tabindex="-1"><b>MERCI.</b><p>Votre demande est bien envoyée.</p><p class="note">Nous vous répondrons par courriel.</p><p class="note ref"></p><button type="button" class="again">Nouvelle demande</button></div>'+ko_html()+''
         +'</div><img class="edge ebot" data-plate="mbot" src="img/m-paper-bot.webp" alt="" aria-hidden="true"></div>'
         +crop('contact',435,112,875,592,'','bleed comp')
         +'<div class="mmap">'+crop('contact',35,592,865,930,mspan(span([e for e in EL if e['page']=='contact' and e['text']=='Itinéraire'][0]))+'<a class="mitin" href="https://goo.gl/maps/oVVn3rjDxX8nbqMw5" target="_blank" rel="noopener" aria-label="Itinéraire (Google Maps)"></a>','bleed comp')+'</div>')
@@ -73,7 +83,7 @@ def mobile_html(EL,META,span):
         +'<div class="mnav-foot"><span class="lang"><a href="#accueil" class="mlang-fr" hreflang="fr" lang="fr">FR</a><i></i><a href="en/#home" class="mlang-en" hreflang="en" lang="en">EN</a></span>'
         +'<button class="mtheme" aria-label="Mode sombre" aria-pressed="true"><svg viewBox="0 0 59 59" width="52" height="52" aria-hidden="true"><circle cx="29.5" cy="29.5" r="22.3" fill="none" stroke="#0a3cff" stroke-width="2.6"/><path d="M32.4 19.2a10.6 10.6 0 1 0 6.9 17.2 8.6 8.6 0 0 1-6.9-17.2z" fill="currentColor"/></svg></button></div></div></nav>']
     for k,_ in NAV: out.append(f'<section class="mpage" id="m-{k}" aria-label="{k}">{P[k]}</section>')
-    out.append('<footer class="mfoot">'+LOGO.replace('logo-svg','logo-svg flogo')+'<p>5825, rue Jean-Talon Est, Saint-Léonard</p><a href="mailto:info@emvisions.ca">info@emvisions.ca</a><a href="https://instagram.com/visionsem" target="_blank" rel="noopener">Instagram</a></footer></div>')
+    out.append('<footer class="mfoot">'+LOGO.replace('logo-svg','logo-svg flogo')+'<p>5825, rue Jean-Talon Est, Saint-Léonard</p>'+(f'<a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>' if CONTACT_EMAIL else '')+f'<a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a></footer></div>')
     return '\n'.join(out)
 MCSS='''
 @media (max-width:1024px){

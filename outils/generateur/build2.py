@@ -4,6 +4,7 @@ import json, os, sys, html as H
 from mobile import mobile_html, MCSS
 from i18n import EN, SLUG, TITLES
 import buttons, mobile as MOB
+from config import SITE_URL, CONTACT_EMAIL, INSTAGRAM
 HH,SH=112,880
 LOGO_D=open('logo_path.txt').read()
 LOGO_VB=open('logo_vb.txt').read()
@@ -106,7 +107,7 @@ def page_html(p):
         out.append('<label class="file" style="left:954px;top:728px;width:541px;height:76px"><input type="file" id="f-fichier" name="fichier" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf"><span class="sr">Joindre un visuel</span></label>')
         out.append('<em class="err" id="e-fichier" data-err="fichier" style="left:958px;top:806px"></em>')
         out.append('<button type="submit" class="hit submit" style="left:954px;top:814px;width:541px;height:57px"><span class="sr">Demander un devis</span></button>')
-        out.append('</form><div class="ok" id="ok" hidden role="status" tabindex="-1"><b>MERCI.</b><p>Votre demande est bien envoyée.</p><p class="note">Nous vous répondrons par courriel.</p><p class="note ref"></p><button type="button" class="again">Nouvelle demande</button></div><div class="ok ko" hidden role="alert" tabindex="-1"><b>OUPS.</b><p>Votre demande n’a pas pu être envoyée.</p><p class="note">Vos réponses sont conservées. Vous pouvez réessayer ou nous écrire directement par courriel.</p><div class="okb"><button type="button" class="retry">Réessayer</button><a class="bymail" href="mailto:info@emvisions.ca">Écrire par courriel</a></div></div>')
+        out.append('</form><div class="ok" id="ok" hidden role="status" tabindex="-1"><b>MERCI.</b><p>Votre demande est bien envoyée.</p><p class="note">Nous vous répondrons par courriel.</p><p class="note ref"></p><button type="button" class="again">Nouvelle demande</button></div>'+MOB.ko_html()+'')
     out.append('</div>')
     return '<div class="pin">'+'\n'.join(out)+'</div>'
 UID=[0]
@@ -375,7 +376,7 @@ function initForm(form,fname,fhint,ok){const ko=ok.nextElementSibling;const MSG=
    let ref='';try{ref=(await res.json()).reference||''}catch(_){}ok.querySelector('.ref').textContent=ref?T('Référence : ')+ref:''}catch(_){}
   btn.disabled=false;form.hidden=true;toastEl.classList.remove('on');const show=el=>{el.hidden=false;el.focus({preventScroll:true});if(isM())el.scrollIntoView({block:'start'})};if(sent){show(ok)}else{
    const v=n=>F(n).value.trim();const body=[T('Nom')+' : '+v('nom'),T('Courriel')+' : '+v('courriel'),T('Quantité approximative')+' : '+(v('qte')||'—'),'',v('projet')].join('\n');
-   ko.querySelector('.bymail').href='mailto:info@emvisions.ca?subject='+encodeURIComponent(T('Demande de devis')+' — '+v('nom'))+'&body='+encodeURIComponent(body);show(ko)}});
+   const bm=ko.querySelector('.bymail');if(bm.dataset.mail)bm.href='mailto:'+bm.dataset.mail+'?subject='+encodeURIComponent(T('Demande de devis')+' — '+v('nom'))+'&body='+encodeURIComponent(body);show(ko)}});
  ok.querySelector('.again').onclick=()=>{form.reset();chkFile();form.hidden=false;ok.hidden=true;F('nom').focus()};
  ko.querySelector('.retry').onclick=()=>{form.hidden=false;ko.hidden=true;form.querySelector('[type=submit]').focus()}}
 const dform=document.getElementById('devis');if(dform)initForm(dform,document.getElementById('contact-filelabel'),document.getElementById('contact-filehint'),document.getElementById('ok'));
@@ -408,7 +409,6 @@ if('IntersectionObserver' in window){const vo=new IntersectionObserver(es=>es.fo
 const kick=()=>document.querySelectorAll('video').forEach(v=>{if(v.paused&&inView(v))playV(v)});
 ['pointerdown','touchend','keydown','scroll'].forEach(ev=>addEventListener(ev,kick,{passive:true}));
 '''
-SITE_URL=os.environ.get('SITE_URL','https://davidj97.github.io/em-visions/site').rstrip('/')   # à remplacer par le domaine final au lancement
 SEO={'fr':{'path':'/','locale':'fr_CA','title':'EM Visions — Vêtements et objets personnalisés à Saint-Léonard, Montréal',
            'desc':'Atelier à Saint-Léonard (Montréal) : vêtements et objets personnalisés, impression, design graphique, impression 3D et sites web. Demandez un devis.',
            'alt':'Page d’accueil EM Visions : « Faites bonne impression »'},
@@ -418,9 +418,9 @@ SEO={'fr':{'path':'/','locale':'fr_CA','title':'EM Visions — Vêtements et obj
 def head_seo(L):
     m=SEO[L]; o=SEO['en' if L=='fr' else 'fr']; e=H.escape; up='' if L=='fr' else '../'
     ld={'@context':'https://schema.org','@type':'LocalBusiness','@id':SITE_URL+'/#atelier','name':'EM Visions','alternateName':'EM Custom Design','description':m['desc'],
-        'url':SITE_URL+m['path'],'image':SITE_URL+'/img/og.jpg','logo':SITE_URL+'/img/icon-512.png','email':'info@emvisions.ca',
+        'url':SITE_URL+m['path'],'image':SITE_URL+'/img/og.jpg','logo':SITE_URL+'/img/icon-512.png',**({'email':CONTACT_EMAIL} if CONTACT_EMAIL else {}),
         'address':{'@type':'PostalAddress','streetAddress':'5825, rue Jean-Talon Est','addressLocality':'Saint-Léonard','addressRegion':'QC','postalCode':'H1S 1M4','addressCountry':'CA'},
-        'areaServed':'Montréal','sameAs':['https://instagram.com/visionsem']}
+        'areaServed':'Montréal','sameAs':[INSTAGRAM]}
     return (f'<title>{e(m["title"])}</title><meta name="description" content="{e(m["desc"])}">'
       f'<link rel="canonical" href="{SITE_URL}{m["path"]}"><link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/"><link rel="alternate" hreflang="en-CA" href="{SITE_URL}/en/"><link rel="alternate" hreflang="x-default" href="{SITE_URL}/">'
       f'<meta property="og:type" content="website"><meta property="og:site_name" content="EM Visions"><meta property="og:title" content="{e(m["title"])}"><meta property="og:description" content="{e(m["desc"])}">'
