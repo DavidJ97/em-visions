@@ -80,7 +80,7 @@ def page_html(p):
             out.append(f'<div class="vfwrap" id="cat-vf">{span(L[0])}'+''.join(buttons.svg(v) for v in d0)+'</div>')
         elif g=='sup':
             e=L[0]; r=e['row']; y=M['rows'][r]
-            su=MOB.SUP_URL.get(r); out.append(f'<a class="sup" '+(f'href="{su}" target="_blank" rel="noopener"' if su else 'href="#catalogue"')+f' data-row="{r}" aria-label="{H.escape(e["text"])} — voir le fournisseur" style="left:70px;top:{y-32}px;width:590px;height:64px"></a>{span(e)}')
+            su=MOB.SUP_URL.get(r); out.append(f'<a class="sup" '+(f'href="{su}" target="_blank" rel="noopener"' if su else 'href="#catalogue"')+f' data-row="{r}" aria-label="{H.escape(e["text"])} — voir le fournisseur" style="left:70px;top:{y-32}px;width:590px;height:64px"></a>'+span(e).replace('class="t"','class="t" data-suprow="%d"%s'%(r,' data-fixed' if r==0 else ''),1))
         else:
             tag=e0.get('tag') or 'div'
             if p!='accueil' and tag=='h1': tag='h2'
@@ -363,7 +363,7 @@ const lb=document.createElement('div');lb.className='lb';lb.hidden=true;lb.setAt
 let lastF;function openLB(it){lastF=document.activeElement;lb.querySelector('img').src=it.big||it.m;lb.querySelector('img').alt=T(it.a||it.n);lb.querySelector('figcaption').textContent=it.n.toUpperCase();lb.hidden=false;lb.querySelector('button').focus()}
 function closeLB(){lb.hidden=true;lastF&&lastF.focus()}lb.onclick=e=>{if(e.target===lb||e.target.tagName==='BUTTON')closeLB()};addEventListener('keydown',e=>{if(e.key==='Escape'&&!lb.hidden)closeLB()});
 document.querySelectorAll('#realisations-voir-hit,[data-voir]').forEach(v=>v.addEventListener('click',e=>{e.preventDefault();openLB(CARS.realisations.cur())}));
-const band=document.getElementById('cat-band');if(band){const ROWS=%ROWS%;let act=0;const vfw=document.getElementById('cat-vf');const mv=r=>{band.style.transform=vfw.style.transform='translateY('+(ROWS[r]-ROWS[0])+'px)'};
+const band=document.getElementById('cat-band');if(band){const ROWS=%ROWS%;let act=0;const vfw=document.getElementById('cat-vf');const mv=r=>{band.style.transform=vfw.style.transform='translateY('+(ROWS[r]-ROWS[0])+'px)';document.querySelectorAll('[data-suprow]').forEach(t=>t.toggleAttribute('data-fixed',+t.dataset.suprow===r))};
  document.querySelectorAll('.sup').forEach(a=>{a.addEventListener('mouseenter',()=>mv(+a.dataset.row));a.addEventListener('focus',()=>mv(+a.dataset.row));
   a.addEventListener('click',e=>{act=+a.dataset.row;if(a.target)return;e.preventDefault();toast('Lien bientôt disponible.')})});
  document.getElementById('p-catalogue').querySelector('.ui').addEventListener('mouseleave',()=>mv(act))}
