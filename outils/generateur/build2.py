@@ -153,7 +153,7 @@ def vclips(p,bounds=None):
                 if minus is not None:
                     q=t['pieces'][minus]; a0,b0,a1,b1=q['box']; qp=_shift(q['d'],a0,b0)
                     keep=(f'<div class="vclip vkeep" style="left:{a0}px;top:{b0}px;width:{a1-a0}px;height:{b1-b0}px;clip-path:path(\'{qp}\')">'
-                          f'<img data-plate="{p}" src="img/plate-{p}.webp" alt="" loading="lazy" style="position:absolute;left:{-a0}px;top:{-b0}px;width:1586px;height:992px;max-width:none"></div>')
+                          f'<img data-plate="{p}" data-defer="1" data-dark="img/plate-{p}.webp" alt="" style="position:absolute;left:{-a0}px;top:{-b0}px;width:1586px;height:992px;max-width:none"></div>')
                 mk=f";-webkit-mask:url({opt['mask']}) 0 0/100% 100% no-repeat;mask:url({opt['mask']}) 0 0/100% 100% no-repeat;background:none" if opt.get('mask') else ''
                 o.append(f'<div class="vclip" role="img" aria-label="{H.escape(VALT[v])}" style="left:{x0}px;top:{y0}px;width:{x1-x0}px;height:{y1-y0}px;clip-path:path(\'{path}\'){mk}">'
                          f'<video src="{VIDS[v]}" data-poster="{poster}" style="{vst}" muted loop playsinline preload="none" aria-hidden="true"></video></div>'+keep)
@@ -302,7 +302,7 @@ function kk(){return Math.max(frame.clientWidth,320)/1586}
 function secTop(p){if(isM()){const el=document.getElementById('m-'+p),mh=document.querySelector('.mhead');return el.getBoundingClientRect().top+scrollY-(mh?mh.offsetHeight:0)+(p==='accueil'?-999:0)}
  return frame.getBoundingClientRect().top+scrollY+PAGES.indexOf(p)*SH*kk()}
 let lock=0;
-function goTo(p,smooth){lock=Date.now();setActive(p);scrollTo({top:Math.max(0,secTop(p)),behavior:smooth?'smooth':'auto'})}
+function goTo(p,smooth){lock=Date.now();loadPage(p);setActive(p);scrollTo({top:Math.max(0,secTop(p)),behavior:smooth?'smooth':'auto'})}
 function hashFor(p){return LANG==='en'?'#'+SLUG[p]:'#'+p}
 function route(smooth){const{L,p}=parse(location.hash);const ch=L!==lang;lang=L;if(ch||!route.done)apply();route.done=1;goTo(p,smooth)}
 addEventListener('hashchange',()=>route(true));
@@ -338,7 +338,7 @@ function put(el,src,pos,instant,vid){const old=el.querySelector(':scope>:not(.ou
  if(instant){if(old)old.remove();if(vid)im.play().catch(()=>{});return}
  const show=()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{im.classList.remove('out');if(vid)im.play().catch(()=>{});if(old){old.classList.add('out');setTimeout(()=>old.remove(),900)}}));
  if(vid){im.readyState>=2?show():(im.onloadeddata=show,setTimeout(show,1500))}else im.complete?show():im.onload=show}
-const NC=navigator.connection,LITE=!!(NC&&(NC.saveData||/2g|3g/.test(NC.effectiveType||''))),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;let READY=document.readyState==='complete';const VOK=()=>READY&&!RM&&!LITE;
+const NC=navigator.connection,LITE=!!(NC&&(NC.saveData||/2g|3g/.test(NC.effectiveType||''))),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;let READY=false;const VOK=()=>READY&&!RM&&!LITE;
 Object.keys(SETS).forEach(p=>{const items=SETS[p];let idx=0;
  const S=i=>[...document.querySelectorAll(`.slot[data-pg="${p}"][data-slot="${i}"]`)];
  document.querySelectorAll(`.bars[data-pg="${p}"]`).forEach(bars=>SEGS.forEach((s,i)=>{const b=document.createElement('button');b.style.left=(s[0]-1257)+'px';b.style.width=(s[1]-s[0])+'px';b.setAttribute('aria-label',(lang==='en'?'Go to image ':'Aller à l’image ')+(i+1));b.innerHTML='<i></i>';b.onclick=()=>go(i);bars.appendChild(b)}));
@@ -355,8 +355,8 @@ Object.keys(SETS).forEach(p=>{const items=SETS[p];let idx=0;
  S(0).forEach(el=>el.onclick=()=>{if(p==='realisations')openLB(items[idx])});
  document.querySelectorAll(`#p-${p},#m-${p}`).forEach(sec=>{let sx=null;sec.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});sec.addEventListener('touchend',e=>{if(sx==null)return;const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50&&e.target.closest('.crop'))go(idx+(d<0?1:-1));sx=null})});
  addEventListener('keydown',e=>{if(curPage!==p||e.target.closest('input,textarea'))return;if(e.key==='ArrowRight')go(idx+1);if(e.key==='ArrowLeft')go(idx-1)});
- CARS[p]={cur:()=>items[idx]};CARS[p].render=render;render(true);if(AUTO)arm()});
-function vidsGo(){if(READY)return;READY=true;if(!VOK())return;Object.values(CARS).forEach(c=>c.render());
+ CARS[p]={cur:()=>items[idx]};CARS[p].render=render;CARS[p].arm=arm;render(true)});
+function vidsGo(){if(READY)return;READY=true;CARS.accueil.arm();setTimeout(allPlates,LITE?15000:1800);if(!VOK())return;Object.values(CARS).forEach(c=>c.render());
  const list=SETS.accueil.filter(x=>x.v).map(x=>x.v);let i=0;CARS.accueil.pre=[];(function next(){if(i>=list.length)return;const v=document.createElement('video');v.muted=true;v.preload='auto';let done=false;const go=()=>{if(done)return;done=true;next()};v.oncanplaythrough=go;v.onerror=go;setTimeout(go,4000);v.src=list[i++];CARS.accueil.pre.push(v)})()}
 if(document.readyState==='complete')setTimeout(vidsGo,0);else addEventListener('load',()=>setTimeout(vidsGo,300));
 const lb=document.createElement('div');lb.className='lb';lb.hidden=true;lb.setAttribute('role','dialog');lb.setAttribute('aria-modal','true');lb.innerHTML='<figure><img alt=""><figcaption></figcaption></figure><button aria-label="Fermer">×</button>';document.body.appendChild(lb);
@@ -398,10 +398,15 @@ document.querySelectorAll('.mobile .qform').forEach(f=>{const pb=f.closest('.pbo
 function fitCrops(){document.querySelectorAll('.crop').forEach(c=>{if(!c.offsetWidth)return;const k=c.offsetWidth/+c.dataset.w;c.firstElementChild.style.transform=`scale(${k}) translate(${-c.dataset.x0}px,${-c.dataset.y0}px)`})}
 addEventListener('resize',()=>{fitCrops();setActive(curPage,true);if(CARS[curPage]&&CARS[curPage].render)CARS[curPage].render()});fitCrops();document.fonts.ready.then(()=>{collect();route(false)});
 const LIGHT=%LIGHT%;
-document.querySelectorAll('[data-plate]').forEach(i=>i.dataset.dark=i.getAttribute('src'));
+document.querySelectorAll('[data-plate]').forEach(i=>{if(!i.dataset.dark)i.dataset.dark=i.getAttribute('src')});
+function loadPlate(i){if(!i.dataset.defer)return;delete i.dataset.defer;i.src=i.dataset.want||i.dataset.dark}
+const pio='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){loadPlate(e.target);pio.unobserve(e.target)}}),{rootMargin:'900px 0px'}):null;
+document.querySelectorAll('img[data-defer]').forEach(i=>pio?pio.observe(i):loadPlate(i));
+function loadPage(p){document.querySelectorAll('#p-'+p+' img[data-defer],#m-'+p+' img[data-defer]').forEach(i=>{if(i.getClientRects().length)loadPlate(i)})}
+function allPlates(){document.querySelectorAll('img[data-defer]').forEach(i=>{if(i.getClientRects().length)loadPlate(i)});document.documentElement.classList.add('rdy')}
 function setTheme(t,save){document.documentElement.dataset.theme=t;const L=t==='light';
  document.querySelectorAll('source[data-th]').forEach(x=>x.media=L?'all':'not all');
- document.querySelectorAll('[data-plate]').forEach(i=>{const s=L?LIGHT[i.dataset.plate]:i.dataset.dark;if(i.getAttribute('src')!==s)i.src=s});
+ document.querySelectorAll('[data-plate]').forEach(i=>{const s=L?LIGHT[i.dataset.plate]:i.dataset.dark;if(i.dataset.defer){i.dataset.want=s;return}if(i.getAttribute('src')!==s)i.src=s});
  document.querySelectorAll('.theme-toggle,.mtheme').forEach(b=>{b.setAttribute('aria-pressed',!L)});
  if(REC)apply();
  if(save){try{localStorage.setItem('em-theme',t)}catch(e){}toast(L?(lang==='en'?'Light theme':'Thème clair'):(lang==='en'?'Dark theme':'Thème sombre'))}}

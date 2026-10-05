@@ -5,7 +5,7 @@ def plate_img(cls,p):
     if p=='accueil':
         return (f'<picture><source data-th srcset="img/plate-{p}-light.webp" media="(prefers-color-scheme: light)">'
                 f'<img class="{cls}" data-plate="{p}" src="img/plate-{p}.webp" alt="" aria-hidden="true" draggable="false" fetchpriority="high"></picture>')
-    return f'<img class="{cls}" data-plate="{p}" src="img/plate-{p}.webp" alt="" aria-hidden="true" draggable="false" loading="lazy" decoding="async">'
+    return f'<img class="{cls}" data-plate="{p}" data-defer="1" data-dark="img/plate-{p}.webp" alt="" aria-hidden="true" draggable="false">'
 def form_attrs():
     return f' action="{FORM_ENDPOINT}" method="post" enctype="multipart/form-data" data-send="1"' if FORM_ENDPOINT else ''
 def form_hidden():
@@ -135,8 +135,8 @@ MCSS='''
  @keyframes mfade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
  .mh1{position:relative;isolation:isolate;font:400 clamp(26px,7.9vw,58px)/1.16 Sekuya,Anton;text-transform:uppercase;letter-spacing:.05em;color:#f6f6f4;margin:18px 0 0}
  .mh1::before{content:'';position:absolute;z-index:-1;left:30%;right:-70px;top:-45%;bottom:-55%;background:url(img/ink0.webp) 60% 50%/contain no-repeat;pointer-events:none}
- #m-services .mh1::before,#m-a-propos .mh1::before{background-image:url(img/ink1.webp)}
- #m-realisations .mh1::before,#m-contact .mh1::before{background-image:url(img/ink2.webp)}
+ .rdy #m-services .mh1::before,.rdy #m-a-propos .mh1::before{background-image:url(img/ink1.webp)}
+ .rdy #m-realisations .mh1::before,.rdy #m-contact .mh1::before{background-image:url(img/ink2.webp)}
  #m-catalogue .mh1::before{left:42%;top:-35%;bottom:-25%}
  .mh1 .sq,.mh2 .sq{display:inline-block;width:.2em;height:.22em;background:#0a3cff;margin-left:.06em;-webkit-text-stroke:0}
  .rule{display:block;width:64px;height:6px;background:#0a3cff;margin:22px 0 18px}
