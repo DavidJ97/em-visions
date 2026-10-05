@@ -4,7 +4,7 @@ import json, os, sys, html as H
 from mobile import mobile_html, MCSS
 from i18n import EN, SLUG, TITLES
 import buttons, mobile as MOB
-from config import SITE_URL, CONTACT_EMAIL, INSTAGRAM
+from config import SITE_URL, CONTACT_EMAIL, INSTAGRAM, HOURS, HOURS_FR
 HH,SH=112,880
 LOGO_D=open('logo_path.txt').read()
 LOGO_VB=open('logo_vb.txt').read()
@@ -95,6 +95,7 @@ def page_html(p):
 <button class="hit round next arrow" data-pg="{p}" aria-label="Image suivante" style="left:1443px;top:835px;width:47px;height:47px"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M4 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="bars" data-pg="{p}"></div>{PPBTN if p=='accueil' else ''}</div>''')
     if p=='contact':
         F=[('nom','text','name',(954,295,1495,338)),('courriel','email','email',(954,386,1495,430)),('projet','textarea','',(954,479,1495,588)),('qte','number','',(954,636,1495,680))]
+        if HOURS: out.append('<p class="hrs" style="left:264px;top:859px">'+MOB.CLOCK.format(s=20,c='#fff')+'<span>'+'</span><i aria-hidden="true">·</i><span>'.join(HOURS_FR)+'</span></p>')
         out.append('<form id="devis" class="qform" novalidate>')
         for name,typ,ac,b in F:
             ph=[e for e in els if e.get('ph')==name][0]
@@ -213,6 +214,7 @@ html,body{background:#050505;overflow-x:clip}a{color:inherit;text-decoration:non
 .grp,nav,address{font-style:normal;font-weight:inherit;font-size:inherit}
 .nl .t{pointer-events:auto;transition:opacity .2s}.nl .t::after{content:'';position:absolute;inset:-12px -10px}.nl:hover .t{opacity:.65}
 .hit{position:absolute;background:transparent;border:0;cursor:pointer;display:block}
+.hrs{position:absolute;display:flex;align-items:center;gap:9px;height:46px;padding:0 20px 0 15px;border-radius:23px;background:#0b0b0b;color:#fff;font:600 15.5px/1 'Kumbh Sans',sans-serif;white-space:nowrap;box-shadow:0 2px 10px #0006}.hrs i{font-style:normal;opacity:.6}
 .round{border-radius:50%}.pp svg+svg,.pp[data-on="0"] svg{display:none}.pp[data-on="0"] svg+svg{display:block}.pp[hidden]{display:none!important}.arrow{color:var(--fg);border:2px solid var(--fg);display:grid;place-items:center;transition:background .2s,border-color .2s}.arrow:hover{background:var(--blue)!important;border-color:var(--blue)}.round:hover{background:#0a3cff55}
 .pill{border-radius:44px}.pill:hover{backdrop-filter:brightness(1.12) contrast(1.05)}
 .hit:focus-visible,.sup:focus-visible,.nl:focus-visible .t,.fld :focus-visible{outline:3px solid #6f8cff;outline-offset:3px}
@@ -420,7 +422,7 @@ def head_seo(L):
     ld={'@context':'https://schema.org','@type':'LocalBusiness','@id':SITE_URL+'/#atelier','name':'EM Visions','alternateName':'EM Custom Design','description':m['desc'],
         'url':SITE_URL+m['path'],'image':SITE_URL+'/img/og.jpg','logo':SITE_URL+'/img/icon-512.png',**({'email':CONTACT_EMAIL} if CONTACT_EMAIL else {}),
         'address':{'@type':'PostalAddress','streetAddress':'5825, rue Jean-Talon Est','addressLocality':'Saint-Léonard','addressRegion':'QC','postalCode':'H1S 1M4','addressCountry':'CA'},
-        'areaServed':'Montréal','sameAs':[INSTAGRAM]}
+        'areaServed':'Montréal','sameAs':[INSTAGRAM],**({'openingHoursSpecification':[{'@type':'OpeningHoursSpecification','dayOfWeek':d,'opens':a,'closes':b} for d,a,b in HOURS]} if HOURS else {})}
     return (f'<title>{e(m["title"])}</title><meta name="description" content="{e(m["desc"])}">'
       f'<link rel="canonical" href="{SITE_URL}{m["path"]}"><link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/"><link rel="alternate" hreflang="en-CA" href="{SITE_URL}/en/"><link rel="alternate" hreflang="x-default" href="{SITE_URL}/">'
       f'<meta property="og:type" content="website"><meta property="og:site_name" content="EM Visions"><meta property="og:title" content="{e(m["title"])}"><meta property="og:description" content="{e(m["desc"])}">'

@@ -1,5 +1,6 @@
 import html as H, re
-from config import CONTACT_EMAIL, INSTAGRAM
+from config import CONTACT_EMAIL, INSTAGRAM, HOURS, HOURS_FR
+CLOCK='<svg width="{s}" height="{s}" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="{c}" stroke-width="2.2"/><path d="M12 6.5V12l3.6 2.4" fill="none" stroke="{c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 def ko_html():
     if CONTACT_EMAIL:
         note='Vos réponses sont conservées. Vous pouvez réessayer ou nous écrire directement par courriel.'
@@ -59,6 +60,7 @@ def mobile_html(EL,META,span):
         +cta('a-propos',EL,span,(1078,756,1492,864),'#a-propos','Découvrir notre équipe'))
     P['contact']=(h1(['On en','parle ?'],'h2')+'<p class="msub">Un projet, une idée, une question ? On est là pour en discuter. Écrivez-nous et on vous répond rapidement.</p><i class="rule"></i>'
         +'<address class="maddr"><svg width="30" height="38" viewBox="0 0 24 30" aria-hidden="true"><path d="M12 1.5a9 9 0 0 0-9 9c0 6.8 9 17.5 9 17.5s9-10.7 9-17.5a9 9 0 0 0-9-9z" fill="none" stroke="#0a3cff" stroke-width="2.6"/><circle cx="12" cy="10.5" r="3.3" fill="#0a3cff"/></svg><span>5825, rue Jean-Talon Est<br>Saint-Léonard, QC H1S 1M4</span></address>'
+        +('<p class="maddr mhrs">'+CLOCK.format(s=30,c='#0a3cff')+'<span>'+'<br>'.join(HOURS_FR)+'</span></p>' if HOURS else '')
         +'<div class="mpaper"><img class="edge etop" data-plate="mtop" src="img/m-paper-top.webp" alt="" aria-hidden="true"><div class="pbody">'
         +'<h2 class="mh2">Demande de devis<i class="sq" aria-hidden="true"></i></h2>'
         +'<form class="qform" novalidate>'
@@ -151,7 +153,7 @@ MCSS='''
  .mteam div{padding-right:14px}.mteam div+div{border-left:2px solid #f4f4f2;padding-left:14px}
  .mteam b{display:block;font:700 clamp(19px,5vw,26px)/1.1 Oswald;text-transform:uppercase}
  .mteam span{display:block;font:400 11px Jost;letter-spacing:.2em;text-transform:uppercase;margin-top:8px}
- .maddr{display:flex;gap:14px;align-items:center;font:600 18px/1.45 Figtree,sans-serif;font-style:normal}
+ .maddr{display:flex;gap:14px;align-items:center;font:600 18px/1.45 Figtree,sans-serif;font-style:normal}.mhrs{margin-top:14px}
  .mpaper{margin:30px -12px 0;filter:drop-shadow(0 6px 18px #000a)}
  .mpaper .edge{display:block;width:100%;height:auto}
  .pbody{background:linear-gradient(#efefef,#e5e5e5);padding:6px 22px 18px;color:#111}
