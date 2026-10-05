@@ -1,0 +1,67 @@
+EN={
+# nav
+'ACCUEIL':'HOME','SERVICES':'SERVICES','RÉALISATIONS':'WORK','CATALOGUE':'CATALOG','À PROPOS':'ABOUT','CONTACT':'CONTACT',
+'Accueil':'Home','Services':'Services','Réalisations':'Work','Catalogue':'Catalog','À propos':'About','Contact':'Contact',
+# accueil
+'FAITES':'MAKE','BONNE':'A GOOD','accueil:IMPRESSION':'IMPRESSION',
+'Vêtements et objets personnalisés':'Custom apparel and objects','pour donner forme à vos idées.':'that give shape to your ideas.',
+'Vêtements et objets personnalisés pour donner forme à vos idées.':'Custom apparel and objects that give shape to your ideas.',
+'Demander un devis':'Request a quote','Demander un devis ':'Request a quote ',
+'Faites':'Make','bonne':'a good','impression':'impression',
+# services
+'DE L’IDÉE':'FROM IDEA','À LA':'TO','MATIÈRE':'MATTER','De l’idée':'From idea','à la':'to','matière':'matter',
+'DESIGN GRAPHIQUE':'GRAPHIC DESIGN','services:IMPRESSION':'PRINTING','VÊTEMENTS':'CUSTOM','PERSONNALISÉS':'APPAREL','IMPRESSION 3D':'3D PRINTING','SITES WEB':'WEBSITES','APPLICATIONS':'APPLICATIONS',
+'Des visuels qui marquent':'Visuals that define','votre identité.':'your identity.',
+'Des supports de qualité':'Quality materials','pour vos projets.':'for your projects.',
+'Des textiles uniques':'Unique textiles','à votre image.':'that reflect you.',
+'Des idées qui prennent':'Ideas that take','forme.':'shape.',
+'Des plateformes sur mesure':'Custom platforms','pour propulser votre marque.':'to boost your brand.',
+'Des outils performants':'High-performance tools','pour vos besoins spécifiques.':'for your specific needs.',
+'Design graphique':'Graphic design','Impression':'Printing','Vêtements personnalisés':'Custom apparel','Impression 3D':'3D printing','Sites Web':'Websites','Applications':'Applications',
+'Des visuels qui marquent votre identité.':'Visuals that define your identity.','Des supports de qualité pour vos projets.':'Quality materials for your projects.',
+'Des textiles uniques à votre image.':'Unique textiles that reflect you.','Des idées qui prennent forme.':'Ideas that take shape.',
+'Des plateformes sur mesure pour propulser votre marque.':'Custom platforms to boost your brand.','Des outils performants pour vos besoins spécifiques.':'High-performance tools for your specific needs.',
+'Parler de mon projet':'Talk about my project',
+# realisations
+'LE':'THE','TRAVAIL':'WORK','PARLE':'SPEAKS','Le':'The','travail':'work','parle':'speaks',
+'Des idées devenues réelles.':'Ideas made real.','Voir le projet':'View the project',
+# catalogue
+'CHOISISSEZ':'CHOOSE','VOTRE SUPPORT':'YOUR MEDIUM','Choisissez':'Choose','votre support':'your medium',
+'Des fournisseurs de confiance':'Trusted suppliers','pour concrétiser vos idées.':'to bring your ideas to life.',
+'Des fournisseurs de confiance pour concrétiser vos idées.':'Trusted suppliers to bring your ideas to life.',
+'Voir le fournisseur':'View supplier',
+# about
+'LES GENS':'THE PEOPLE','DERRIÈRE':'BEHIND','L’IMPRESSION':'THE PRINT','Les gens':'The people','derrière':'behind','l’impression':'the print',
+'GESTION DE PROJETS':'PROJECT MANAGEMENT','Gestion de projets':'Project management','Découvrir notre équipe':'Meet our team',
+# contact
+'ON EN':'LET’S','PARLE ?':'TALK?','On en':'Let’s','parle ?':'talk?',
+'Un projet, une idée, une question ?':'A project, an idea, a question?','On est là pour en discuter. Écrivez-nous':'We’re here to talk it through. Write to us','et on vous répond rapidement.':'and we’ll get back to you quickly.',
+'Un projet, une idée, une question ? On est là pour en discuter. Écrivez-nous et on vous répond rapidement.':'A project, an idea, a question? We’re here to talk it through. Write to us and we’ll get back to you quickly.',
+'Itinéraire':'Directions','Itinéraire ':'Directions ',
+'DEMANDE DE DEVIS':'QUOTE REQUEST','Demande de devis':'Quote request',
+'Nom *':'Name *','Courriel *':'Email *','Votre projet *':'Your project *','Quantité approximative':'Approximate quantity','Joindre un visuel':'Attach a visual',
+'Votre nom':'Your name','votre@courriel.com':'you@email.com','Décrivez-nous votre projet en quelques mots...':'Tell us about your project in a few words...','Ex. : 50, 100, 500, etc.':'E.g. 50, 100, 500, etc.',
+'Choisir un fichier':'Choose a file','JPG, PNG, PDF (max 10 Mo)':'JPG, PNG, PDF (max 10 MB)',
+'En soumettant ce formulaire, vous nous permettez de vous contacter':'By submitting this form, you allow us to contact you','concernant votre demande.':'regarding your request.',
+'En soumettant ce formulaire, vous nous permettez de vous contacter concernant votre demande.':'By submitting this form, you allow us to contact you regarding your request.',
+'MERCI.':'THANK YOU.','Votre demande est bien envoyée.':'Your request has been sent.','Nous vous répondrons par courriel.':'We will reply by email.',
+'OUPS.':'OOPS.','Votre demande n’a pas pu être envoyée.':'Your request could not be sent.','Vos réponses sont conservées. Vous pouvez réessayer ou nous écrire directement par courriel.':'Your answers are kept. You can try again or email us directly.',
+'Réessayer':'Try again','Écrire par courriel':'Send by email','Référence : ':'Reference: ','Nom':'Name','Courriel':'Email','Quantité approximative':'Approximate quantity','Demande de devis':'Quote request',
+'Nouvelle demande':'New request',
+# messages / aria
+'Indiquez votre nom':'Please enter your name','Courriel invalide':'Invalid email','Décrivez votre projet':'Please describe your project','Nombre entier ≥ 1':'Whole number ≥ 1',
+'Format non accepté : JPG, PNG ou PDF':'Unsupported format: JPG, PNG or PDF','Fichier trop lourd (max 10 Mo)':'File too large (max 10 MB)',
+' Mo — toucher pour changer':' MB — tap to change',' Mo — cliquer pour changer':' MB — click to change',
+'Envoi en cours…':'Sending…','Lien bientôt disponible.':'Link coming soon.','Le thème clair n’est pas encore maquetté.':'The light theme isn’t designed yet.',
+'Navigation principale':'Main navigation','Image précédente':'Previous image','Image suivante':'Next image','Ouvrir le menu':'Open menu','Fermer le menu':'Close menu',
+'Mode sombre':'Dark mode','Fermer':'Close','EM Visions — accueil':'EM Visions — home','Aller au contenu':'Skip to content','Itinéraire (Google Maps)':'Directions (Google Maps)',
+'Devanture de l’atelier EM Custom Design, rue Jean-Talon Est':'EM Custom Design storefront on Jean-Talon Street East','Manteau de travail haute visibilité au logo Ricova':'High-visibility work jacket with the Ricova logo',
+'Lettrage de vitrine pour le pop-up shop Buono Bites':'Window lettering for the Buono Bites pop-up shop','T-shirt imprimé El3vate Miami, palmiers et bandes dégradées':'Printed El3vate Miami t-shirt with palm trees and gradient stripes',
+'Enseigne ronde suspendue M/A':'Round hanging M/A sign','Impression Balloon Babe sur tissu rose':'Balloon Babe print on pink fabric','Casquettes bleues et blanches au logo EM':'Blue and white caps with the EM logo',
+'Mettre le carrousel en pause':'Pause the carousel','Relancer le carrousel':'Resume the carousel',
+'Notre atelier':'Our workshop','Enseigne MA':'MA sign',
+'5825, rue Jean-Talon Est, Saint-Léonard':'5825 Jean-Talon St. East, Saint-Léonard',
+}
+SLUG={'accueil':'home','services':'services','realisations':'work','catalogue':'catalog','a-propos':'about','contact':'contact'}
+TITLES={'fr':{'accueil':'Accueil','services':'Services','realisations':'Réalisations','catalogue':'Catalogue','a-propos':'À propos','contact':'Contact'},
+        'en':{'accueil':'Home','services':'Services','realisations':'Work','catalogue':'Catalog','a-propos':'About','contact':'Contact'}}
