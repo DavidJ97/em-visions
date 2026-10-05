@@ -4,7 +4,7 @@ import json, os, sys, html as H
 from mobile import mobile_html, MCSS
 from i18n import EN, SLUG, TITLES
 import buttons, mobile as MOB
-from config import SITE_URL, CONTACT_EMAIL, INSTAGRAM, HOURS, HOURS_FR
+from config import SITE_URL, CONTACT_EMAIL, INSTAGRAM, HOURS, HOURS_FR, ABOUT_FR
 HH,SH=112,880
 LOGO_D=open('logo_path.txt').read()
 LOGO_VB=open('logo_vb.txt').read()
@@ -65,13 +65,13 @@ def page_html(p):
             z=.2*k['fs']; qx=k['x']+k['w']+.09*k['fs']; q=dict(q,box=[qx,k['base']-z,qx+z,k['base']])
         out.append(f'<i class="sqd" aria-hidden="true" data-line="{q["line"]}" {box(q["box"],"background:"+q["color"])}></i>')
     for v in M.get('vec',[]):
-        if v['kind'] in ('logo','toggle') or v.get('row')==0: continue
+        if v['kind'] in ('logo','toggle') or v.get('row')==0 or (p=='a-propos' and v['kind']=='pill'): continue
         out.append(buttons.svg(v))
     groups={}
     for e in els: groups.setdefault((e['group'],e['block']),[]).append(e)
     for (g,bi),L in groups.items():
         e0=L[0]
-        if g in ('nav','lang'):
+        if g in ('nav','lang') or (p=='a-propos' and g=='cta'):
             continue
         elif g=='ph':
             continue
@@ -93,6 +93,7 @@ def page_html(p):
     if p in ('accueil','realisations'):
         out.append(f'''<div class="car" data-page="{p}"><button class="hit round prev arrow" data-pg="{p}" aria-label="Image précédente" style="left:1257px;top:835px;width:47px;height:47px"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M20 12H4M11 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <button class="hit round next arrow" data-pg="{p}" aria-label="Image suivante" style="left:1443px;top:835px;width:47px;height:47px"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M4 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="bars" data-pg="{p}"></div>{PPBTN if p=='accueil' else ''}</div>''')
+    if p=='a-propos': out.append(f'<p class="about" style="left:1033px;top:736px;width:440px">{H.escape(ABOUT_FR)}</p>')
     if p=='contact':
         F=[('nom','text','name',(954,295,1495,338)),('courriel','email','email',(954,386,1495,430)),('projet','textarea','',(954,479,1495,588)),('qte','number','',(954,636,1495,680))]
         if HOURS: out.append('<p class="hrs" style="left:264px;top:859px">'+MOB.CLOCK.format(s=20,c='#fff')+'<span>'+'</span><i aria-hidden="true">·</i><span>'.join(HOURS_FR)+'</span></p>')
@@ -215,6 +216,7 @@ html,body{background:#050505;overflow-x:clip}a{color:inherit;text-decoration:non
 .nl .t{pointer-events:auto;transition:opacity .2s}.nl .t::after{content:'';position:absolute;inset:-12px -10px}.nl:hover .t{opacity:.65}
 .hit{position:absolute;background:transparent;border:0;cursor:pointer;display:block}
 .hrs{position:absolute;display:flex;align-items:center;gap:9px;height:46px;padding:0 20px 0 15px;border-radius:23px;background:#0b0b0b;color:#fff;font:600 15.5px/1 'Kumbh Sans',sans-serif;white-space:nowrap;box-shadow:0 2px 10px #0006}.hrs i{font-style:normal;opacity:.6}
+.about{position:absolute;color:var(--fg);font:300 17.5px/1.52 'Kumbh Sans',sans-serif;letter-spacing:.01em}
 .round{border-radius:50%}.pp svg+svg,.pp[data-on="0"] svg{display:none}.pp[data-on="0"] svg+svg{display:block}.pp[hidden]{display:none!important}.arrow{color:var(--fg);border:2px solid var(--fg);display:grid;place-items:center;transition:background .2s,border-color .2s}.arrow:hover{background:var(--blue)!important;border-color:var(--blue)}.round:hover{background:#0a3cff55}
 .pill{border-radius:44px}.pill:hover{backdrop-filter:brightness(1.12) contrast(1.05)}
 .hit:focus-visible,.sup:focus-visible,.nl:focus-visible .t,.fld :focus-visible{outline:3px solid #6f8cff;outline-offset:3px}

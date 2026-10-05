@@ -12,3 +12,6 @@ INSTAGRAM='https://instagram.com/visionsem'
 HOURS=[(['Monday','Tuesday','Wednesday','Thursday','Friday'],'09:00','17:00'),(['Saturday'],'12:00','14:00')]
 HOURS_FR=['Lun–ven : 9 h à 17 h','Sam : 12 h à 14 h']
 HOURS_EN=['Mon–Fri: 9 am to 5 pm','Sat: 12 pm to 2 pm']
+# Texte de présentation de la section À propos (remplace le bouton « Découvrir notre équipe »).
+ABOUT_FR='Ouvert depuis la pandémie, EM Visions est un atelier de Saint-Léonard qui s’occupe de design graphique, d’impression et de vêtements personnalisés. Vous arrivez avec une idée, on la mène jusqu’au produit fini. Passez nous voir, rue Jean-Talon Est.'
+ABOUT_EN='Open since the pandemic, EM Visions is a Saint-Léonard workshop handling graphic design, printing and custom apparel. You come in with an idea, we take it all the way to the finished product. Come see us on Jean-Talon Street East.'
