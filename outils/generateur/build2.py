@@ -400,7 +400,7 @@ addEventListener('resize',()=>{fitCrops();setActive(curPage,true);if(CARS[curPag
 const LIGHT=%LIGHT%;
 document.querySelectorAll('[data-plate]').forEach(i=>{if(!i.dataset.dark)i.dataset.dark=i.getAttribute('src')});
 function loadPlate(i){if(!i.dataset.defer)return;delete i.dataset.defer;i.src=i.dataset.want||i.dataset.dark}
-const pio='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){loadPlate(e.target);pio.unobserve(e.target)}}),{rootMargin:'900px 0px'}):null;
+const pio='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){loadPlate(e.target);pio.unobserve(e.target)}}),{rootMargin:'300px 0px'}):null;
 document.querySelectorAll('img[data-defer]').forEach(i=>pio?pio.observe(i):loadPlate(i));
 function loadPage(p){document.querySelectorAll('#p-'+p+' img[data-defer],#m-'+p+' img[data-defer]').forEach(i=>{if(i.getClientRects().length)loadPlate(i)})}
 function allPlates(){document.querySelectorAll('img[data-defer]').forEach(i=>{if(i.getClientRects().length)loadPlate(i)});document.documentElement.classList.add('rdy')}
