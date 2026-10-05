@@ -20,7 +20,7 @@ VECF=lambda p,b:''
 LOGO=''
 NAV=[('accueil','Accueil'),('services','Services'),('realisations','Réalisations'),('catalogue','Catalogue'),('a-propos','À propos'),('contact','Contact')]
 def crop(p,x0,y0,x1,y1,inner='',cls='',plate=True,extra=''):
-    pl=f'<img class="cplate" data-plate="{p}" src="img/plate-{p}.webp" alt="" aria-hidden="true" draggable="false">' if plate else ''
+    pl=(f'<img class="cplate" data-plate="{p}" src="img/plate-{p}.webp" alt="" aria-hidden="true" draggable="false"'+('' if p=='accueil' else ' loading="lazy" decoding="async"')+'>') if plate else ''
     return (f'<div class="crop {cls}" data-x0="{x0}" data-y0="{y0}" data-w="{x1-x0}" style="aspect-ratio:{x1-x0}/{y1-y0}" {extra}>'
             f'<div class="cin">{pl}{VECF(p,(x0,y0,x1,y1))}{inner}</div></div>')
 def mspan(span_html):
@@ -68,7 +68,7 @@ def mobile_html(EL,META,span):
     P['contact']=(h1(['On en','parle ?'],'h2')+'<p class="msub">Un projet, une idée, une question ? On est là pour en discuter. Écrivez-nous et on vous répond rapidement.</p><i class="rule"></i>'
         +'<address class="maddr"><svg width="30" height="38" viewBox="0 0 24 30" aria-hidden="true"><path d="M12 1.5a9 9 0 0 0-9 9c0 6.8 9 17.5 9 17.5s9-10.7 9-17.5a9 9 0 0 0-9-9z" fill="none" stroke="#0a3cff" stroke-width="2.6"/><circle cx="12" cy="10.5" r="3.3" fill="#0a3cff"/></svg><span>5825, rue Jean-Talon Est<br>Saint-Léonard, QC H1S 1M4</span></address>'
         +('<p class="maddr mhrs">'+CLOCK.format(s=30,c='#0a3cff')+'<span>'+'<br>'.join(HOURS_FR)+'</span></p>' if HOURS else '')
-        +'<div class="mpaper"><img class="edge etop" data-plate="mtop" src="img/m-paper-top.webp" alt="" aria-hidden="true"><div class="pbody">'
+        +'<div class="mpaper"><img class="edge etop" data-plate="mtop" src="img/m-paper-top.webp" alt="" aria-hidden="true" loading="lazy"><div class="pbody">'
         +'<h2 class="mh2">Demande de devis<i class="sq" aria-hidden="true"></i></h2>'
         +f'<form class="qform" novalidate{form_attrs()}>'+form_hidden()
         +''.join(f'<label class="mf"><span class="flab">{lab}</span>{ctl}<em class="err" data-err="{n}"></em></label>' for n,lab,ctl in [
@@ -82,7 +82,7 @@ def mobile_html(EL,META,span):
         +'<button type="submit" class="msubmit">Demander un devis '+ARR+'</button>'
         +'<p class="legal">En soumettant ce formulaire, vous nous permettez de vous contacter concernant votre demande.<br><a data-privacy href="confidentialite/">Politique de confidentialité</a></p></form>'
         +'<div class="ok" hidden role="status" tabindex="-1"><b>MERCI.</b><p>Votre demande est bien envoyée.</p><p class="note">Nous vous répondrons par courriel.</p><p class="note ref"></p><button type="button" class="again">Nouvelle demande</button></div>'+ko_html()+''
-        +'</div><img class="edge ebot" data-plate="mbot" src="img/m-paper-bot.webp" alt="" aria-hidden="true"></div>'
+        +'</div><img class="edge ebot" data-plate="mbot" src="img/m-paper-bot.webp" alt="" aria-hidden="true" loading="lazy"></div>'
         +crop('contact',435,112,875,592,'','bleed comp')
         +'<div class="mmap">'+crop('contact',35,592,865,930,mspan(span([e for e in EL if e['page']=='contact' and e['text']=='Itinéraire'][0]))+'<a class="mitin" href="https://goo.gl/maps/oVVn3rjDxX8nbqMw5" target="_blank" rel="noopener" aria-label="Itinéraire (Google Maps)"></a>','bleed comp')+'</div>')
     out=['<div class="mobile" id="mobile">',

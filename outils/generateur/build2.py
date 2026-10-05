@@ -54,9 +54,9 @@ TOAST={'en':'La version anglaise sera ajoutée après validation du français.',
 def page_html(p):
     els=[e for e in EL if e['page']==p]; M=META[p]; out=[]
     for i,s in enumerate(M['slots']): out.append(f'<div class="slot" data-pg="{p}" data-slot="{i}" {box(s)}></div>')
-    out.append(f'<img class="plate" data-plate="{p}" src="img/plate-{p}.webp" alt="" aria-hidden="true" draggable="false">')
+    out.append(f'<img class="plate" data-plate="{p}" src="img/plate-{p}.webp" alt="" aria-hidden="true" draggable="false"'+('' if p=='accueil' else ' loading="lazy" decoding="async"')+'>')
     if p=='catalogue':
-        b=M['band']; out.append(f'<img class="band" id="cat-band" src="img/cat-band.webp" alt="" aria-hidden="true" {box(b)}>')
+        b=M['band']; out.append(f'<img class="band" id="cat-band" src="img/cat-band.webp" alt="" aria-hidden="true" loading="lazy" {box(b)}>')
     out.append(vclips(p))
     out.append('<div class="ui">')
     for q in M.get('sq',[]):
@@ -153,10 +153,10 @@ def vclips(p,bounds=None):
                 if minus is not None:
                     q=t['pieces'][minus]; a0,b0,a1,b1=q['box']; qp=_shift(q['d'],a0,b0)
                     keep=(f'<div class="vclip vkeep" style="left:{a0}px;top:{b0}px;width:{a1-a0}px;height:{b1-b0}px;clip-path:path(\'{qp}\')">'
-                          f'<img data-plate="{p}" src="img/plate-{p}.webp" alt="" style="position:absolute;left:{-a0}px;top:{-b0}px;width:1586px;height:992px;max-width:none"></div>')
+                          f'<img data-plate="{p}" src="img/plate-{p}.webp" alt="" loading="lazy" style="position:absolute;left:{-a0}px;top:{-b0}px;width:1586px;height:992px;max-width:none"></div>')
                 mk=f";-webkit-mask:url({opt['mask']}) 0 0/100% 100% no-repeat;mask:url({opt['mask']}) 0 0/100% 100% no-repeat;background:none" if opt.get('mask') else ''
                 o.append(f'<div class="vclip" role="img" aria-label="{H.escape(VALT[v])}" style="left:{x0}px;top:{y0}px;width:{x1-x0}px;height:{y1-y0}px;clip-path:path(\'{path}\'){mk}">'
-                         f'<video src="{VIDS[v]}" poster="{poster}" style="{vst}" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video></div>'+keep)
+                         f'<video src="{VIDS[v]}" poster="{poster}" style="{vst}" muted loop playsinline preload="none" aria-hidden="true"></video></div>'+keep)
     return ''.join(o)
 def header_html():
     els=[e for e in EL if e['page']=='accueil']
@@ -294,7 +294,7 @@ function setActive(p,force){if(p===setActive.cur&&!force)return;setActive.cur=p;
  if(at&&vis(at)){const b=box(at);ul.style.left=(b.l-2)+'px';ul.style.width=(b.r-b.l+4)+'px'}
  document.querySelectorAll('[data-nav]').forEach(a=>{a.removeAttribute('aria-current');if(a.dataset.nav===p)a.setAttribute('aria-current','page')});
  document.querySelectorAll('.lang-fr,.mlang-fr').forEach(a=>a.setAttribute('href',(LANG==='en'?'../'+IDX:'')+'#'+p));document.querySelectorAll('.lang-en,.mlang-en').forEach(a=>a.setAttribute('href',(LANG==='fr'?'en/'+IDX:'')+'#'+SLUG[p]));
- document.title=p==='accueil'?DOCT:TITLES[lang][p]+' — EM Visions'}
+ document.title=p==='accueil'?DOCT:TITLES[lang][p]+' — EM Visions';if(setActive.car!==p){const o=setActive.car;setActive.car=p;[o,p].forEach(k=>{if(k&&CARS[k]&&CARS[k].render)CARS[k].render()})}}
 const DOCT=document.title;
 function parse(h){h=(h||'').replace(/^#/,'');if(h==='en'||h.startsWith('en/')){const r=h.slice(3);if(LANG==='fr'){location.replace('en/'+IDX+(r?'#'+r:''));return{L:LANG,p:curPage}}h=r}
  if(LANG==='en')h=UNSLUG[h]||h;return{L:LANG,p:PAGES.includes(h)?h:'accueil'}}
@@ -338,10 +338,11 @@ function put(el,src,pos,instant,vid){const old=el.querySelector(':scope>:not(.ou
  if(instant){if(old)old.remove();if(vid)im.play().catch(()=>{});return}
  const show=()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{im.classList.remove('out');if(vid)im.play().catch(()=>{});if(old){old.classList.add('out');setTimeout(()=>old.remove(),900)}}));
  if(vid){im.readyState>=2?show():(im.onloadeddata=show,setTimeout(show,1500))}else im.complete?show():im.onload=show}
+const NC=navigator.connection,LITE=!!(NC&&(NC.saveData||/2g|3g/.test(NC.effectiveType||''))),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;let READY=document.readyState==='complete';const VOK=()=>READY&&!RM&&!LITE;
 Object.keys(SETS).forEach(p=>{const items=SETS[p];let idx=0;
  const S=i=>[...document.querySelectorAll(`.slot[data-pg="${p}"][data-slot="${i}"]`)];
  document.querySelectorAll(`.bars[data-pg="${p}"]`).forEach(bars=>SEGS.forEach((s,i)=>{const b=document.createElement('button');b.style.left=(s[0]-1257)+'px';b.style.width=(s[1]-s[0])+'px';b.setAttribute('aria-label',(lang==='en'?'Go to image ':'Aller à l’image ')+(i+1));b.innerHTML='<i></i>';b.onclick=()=>go(i);bars.appendChild(b)}));
- function render(instant){const n=items.length;S(0).forEach(el=>{put(el,items[idx].m,null,instant,matchMedia('(prefers-reduced-motion:reduce)').matches?null:items[idx].v);el.setAttribute('role','img');el.setAttribute('aria-label',T(items[idx].a||items[idx].n))});
+ function render(instant){const n=items.length;S(0).forEach(el=>{put(el,items[idx].m,null,instant,VOK()&&curPage===p&&el.getClientRects().length?items[idx].v:null);el.setAttribute('role','img');el.setAttribute('aria-label',T(items[idx].a||items[idx].n))});
   S(1).forEach(el=>put(el,items[(idx+1)%n].t,items[(idx+1)%n].tp,instant));S(2).forEach(el=>put(el,items[(idx+2)%n].t,items[(idx+2)%n].tp,instant));
   document.querySelectorAll(`[data-count="${p}"]`).forEach(c=>c.textContent=String(idx+1).padStart(2,'0'));
   document.querySelectorAll(`.bars[data-pg="${p}"]`).forEach(bars=>[...bars.children].forEach((x,i)=>x.setAttribute('aria-current',i===idx)))}
@@ -354,7 +355,10 @@ Object.keys(SETS).forEach(p=>{const items=SETS[p];let idx=0;
  S(0).forEach(el=>el.onclick=()=>{if(p==='realisations')openLB(items[idx])});
  document.querySelectorAll(`#p-${p},#m-${p}`).forEach(sec=>{let sx=null;sec.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});sec.addEventListener('touchend',e=>{if(sx==null)return;const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50&&e.target.closest('.crop'))go(idx+(d<0?1:-1));sx=null})});
  addEventListener('keydown',e=>{if(curPage!==p||e.target.closest('input,textarea'))return;if(e.key==='ArrowRight')go(idx+1);if(e.key==='ArrowLeft')go(idx-1)});
- CARS[p]={cur:()=>items[idx]};render(true);if(AUTO&&!(navigator.connection&&navigator.connection.saveData)){CARS[p].pre=items.filter(x=>x.v).map(x=>{const v=document.createElement('video');v.muted=true;v.preload='auto';v.src=x.v;return v})}if(AUTO)arm()});
+ CARS[p]={cur:()=>items[idx]};CARS[p].render=render;render(true);if(AUTO)arm()});
+function vidsGo(){if(READY)return;READY=true;if(!VOK())return;Object.values(CARS).forEach(c=>c.render());
+ const list=SETS.accueil.filter(x=>x.v).map(x=>x.v);let i=0;CARS.accueil.pre=[];(function next(){if(i>=list.length)return;const v=document.createElement('video');v.muted=true;v.preload='auto';let done=false;const go=()=>{if(done)return;done=true;next()};v.oncanplaythrough=go;v.onerror=go;setTimeout(go,4000);v.src=list[i++];CARS.accueil.pre.push(v)})()}
+if(document.readyState==='complete')setTimeout(vidsGo,0);else addEventListener('load',()=>setTimeout(vidsGo,300));
 const lb=document.createElement('div');lb.className='lb';lb.hidden=true;lb.setAttribute('role','dialog');lb.setAttribute('aria-modal','true');lb.innerHTML='<figure><img alt=""><figcaption></figcaption></figure><button aria-label="Fermer">×</button>';document.body.appendChild(lb);
 let lastF;function openLB(it){lastF=document.activeElement;lb.querySelector('img').src=it.big||it.m;lb.querySelector('img').alt=T(it.a||it.n);lb.querySelector('figcaption').textContent=it.n.toUpperCase();lb.hidden=false;lb.querySelector('button').focus()}
 function closeLB(){lb.hidden=true;lastF&&lastF.focus()}lb.onclick=e=>{if(e.target===lb||e.target.tagName==='BUTTON')closeLB()};addEventListener('keydown',e=>{if(e.key==='Escape'&&!lb.hidden)closeLB()});
@@ -392,7 +396,7 @@ function initForm(form,fname,fhint,ok){const ko=ok.nextElementSibling;const MSG=
 const dform=document.getElementById('devis');if(dform)initForm(dform,document.getElementById('contact-filelabel'),document.getElementById('contact-filehint'),document.getElementById('ok'));
 document.querySelectorAll('.mobile .qform').forEach(f=>{const pb=f.closest('.pbody');initForm(f,f.querySelector('[data-fl]'),f.querySelector('[data-fh]'),pb.querySelector('.ok'))});
 function fitCrops(){document.querySelectorAll('.crop').forEach(c=>{if(!c.offsetWidth)return;const k=c.offsetWidth/+c.dataset.w;c.firstElementChild.style.transform=`scale(${k}) translate(${-c.dataset.x0}px,${-c.dataset.y0}px)`})}
-addEventListener('resize',()=>{fitCrops();setActive(curPage,true)});fitCrops();document.fonts.ready.then(()=>{collect();route(false)});
+addEventListener('resize',()=>{fitCrops();setActive(curPage,true);if(CARS[curPage]&&CARS[curPage].render)CARS[curPage].render()});fitCrops();document.fonts.ready.then(()=>{collect();route(false)});
 const LIGHT=%LIGHT%;
 document.querySelectorAll('[data-plate]').forEach(i=>i.dataset.dark=i.getAttribute('src'));
 function setTheme(t,save){document.documentElement.dataset.theme=t;const L=t==='light';
@@ -415,7 +419,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&!mnav.hidden){menu(false);bu
 // Videos: start each framed video when it comes into view, and retry on the first tap for browsers that block autoplay.
 const inView=v=>{const r=v.getBoundingClientRect();return r.width>0&&r.bottom>0&&r.top<innerHeight};
 const playV=v=>{v.muted=true;v.defaultMuted=true;v.setAttribute('playsinline','');const p=v.play();if(p)p.catch(()=>{})};
-if('IntersectionObserver' in window){const vo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)playV(e.target);else e.target.pause()}),{threshold:.1});document.querySelectorAll('.vclip video').forEach(v=>vo.observe(v))}
+if('IntersectionObserver' in window){const vo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)playV(e.target);else e.target.pause()}),{rootMargin:'300px 0px',threshold:0});document.querySelectorAll('.vclip video').forEach(v=>vo.observe(v))}else document.querySelectorAll('.vclip video').forEach(playV)
 const kick=()=>document.querySelectorAll('video').forEach(v=>{if(v.paused&&inView(v))playV(v)});
 ['pointerdown','touchend','keydown','scroll'].forEach(ev=>addEventListener(ev,kick,{passive:true}));
 '''
