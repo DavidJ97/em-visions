@@ -109,6 +109,7 @@ def page_html(p):
         out.append('<label class="file" style="left:954px;top:728px;width:541px;height:76px"><input type="file" id="f-fichier" name="fichier" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf"><span class="sr">Joindre un visuel</span></label>')
         out.append('<em class="err" id="e-fichier" data-err="fichier" style="left:958px;top:806px"></em>')
         out.append('<button type="submit" class="hit submit" style="left:954px;top:814px;width:541px;height:57px"><span class="sr">Demander un devis</span></button>')
+        out.append('<a class="plink" data-privacy href="confidentialite/" style="left:1074px;top:920px;width:300px">Politique de confidentialité</a>')
         out.append('</form><div class="ok" id="ok" hidden role="status" tabindex="-1"><b>MERCI.</b><p>Votre demande est bien envoyée.</p><p class="note">Nous vous répondrons par courriel.</p><p class="note ref"></p><button type="button" class="again">Nouvelle demande</button></div>'+MOB.ko_html()+'')
     out.append('</div>')
     return '<div class="pin">'+'\n'.join(out)+'</div>'
@@ -217,6 +218,7 @@ html,body{background:#050505;overflow-x:clip}a{color:inherit;text-decoration:non
 .hit{position:absolute;background:transparent;border:0;cursor:pointer;display:block}
 .hrs{position:absolute;display:flex;align-items:center;gap:9px;height:46px;padding:0 20px 0 15px;border-radius:23px;background:#0b0b0b;color:#fff;font:600 15.5px/1 'Kumbh Sans',sans-serif;white-space:nowrap;box-shadow:0 2px 10px #0006}.hrs i{font-style:normal;opacity:.6}
 .about{position:absolute;color:var(--fg);font:300 17.5px/1.52 'Kumbh Sans',sans-serif;letter-spacing:.01em}
+.plink{position:absolute;text-align:center;font:400 11.5px/1.3 Inter,sans-serif;color:#3a3a3b;text-decoration:underline;text-underline-offset:2px}.plink:hover{color:#0a3cff}
 .round{border-radius:50%}.pp svg+svg,.pp[data-on="0"] svg{display:none}.pp[data-on="0"] svg+svg{display:block}.pp[hidden]{display:none!important}.arrow{color:var(--fg);border:2px solid var(--fg);display:grid;place-items:center;transition:background .2s,border-color .2s}.arrow:hover{background:var(--blue)!important;border-color:var(--blue)}.round:hover{background:#0a3cff55}
 .pill{border-radius:44px}.pill:hover{backdrop-filter:brightness(1.12) contrast(1.05)}
 .hit:focus-visible,.sup:focus-visible,.nl:focus-visible .t,.fld :focus-visible{outline:3px solid #6f8cff;outline-offset:3px}
@@ -458,8 +460,10 @@ if not CAL:
     en=en_page.translate(en,EN,SLUG)
     en=re.sub(r'''(?<=["'(=])(img|fonts|vid)/''',r'../\1/',en)
     os.makedirs('out/en',exist_ok=True); open('out/en/index.html','w').write(en)
+    import pages_extra; pages_extra.write(LOGO_VB,LOGO_D)
     open('out/robots.txt','w').write(f'User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n')
     alt=''.join(f'<xhtml:link rel="alternate" hreflang="{h}" href="{SITE_URL}{p}"/>' for h,p in (('fr-CA','/'),('en-CA','/en/'),('x-default','/')))
+    alt2=''.join(f'<xhtml:link rel="alternate" hreflang="{h}" href="{SITE_URL}{p}"/>' for h,p in (('fr-CA','/confidentialite/'),('en-CA','/en/privacy/')))
     open('out/sitemap.xml','w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
-        +''.join(f'<url><loc>{SITE_URL}{p}</loc>{alt}</url>\n' for p in ('/','/en/'))+'</urlset>\n')
+        +''.join(f'<url><loc>{SITE_URL}{p}</loc>{alt}</url>\n' for p in ('/','/en/'))+''.join(f'<url><loc>{SITE_URL}{p}</loc>{alt2}</url>\n' for p in ('/confidentialite/','/en/privacy/'))+'</urlset>\n')
 print('built',len(doc))

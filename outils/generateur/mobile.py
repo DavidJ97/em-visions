@@ -74,7 +74,7 @@ def mobile_html(EL,META,span):
         +'<svg width="22" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 6.5l-8 8a2.5 2.5 0 0 0 3.5 3.5l8.5-8.5a4.5 4.5 0 0 0-6.4-6.4L5.6 11.6a6.5 6.5 0 0 0 9.2 9.2L20 15.5" fill="none" stroke="#222" stroke-width="1.6" stroke-linecap="round"/></svg>'
         +'<span><b data-fl>Choisir un fichier</b><small data-fh>JPG, PNG, PDF (max 10 Mo)</small></span></label><em class="err" data-err="fichier"></em></div>'
         +'<button type="submit" class="msubmit">Demander un devis '+ARR+'</button>'
-        +'<p class="legal">En soumettant ce formulaire, vous nous permettez de vous contacter concernant votre demande.</p></form>'
+        +'<p class="legal">En soumettant ce formulaire, vous nous permettez de vous contacter concernant votre demande.<br><a data-privacy href="confidentialite/">Politique de confidentialité</a></p></form>'
         +'<div class="ok" hidden role="status" tabindex="-1"><b>MERCI.</b><p>Votre demande est bien envoyée.</p><p class="note">Nous vous répondrons par courriel.</p><p class="note ref"></p><button type="button" class="again">Nouvelle demande</button></div>'+ko_html()+''
         +'</div><img class="edge ebot" data-plate="mbot" src="img/m-paper-bot.webp" alt="" aria-hidden="true"></div>'
         +crop('contact',435,112,875,592,'','bleed comp')
@@ -86,7 +86,7 @@ def mobile_html(EL,META,span):
         +'<div class="mnav-foot"><span class="lang"><a href="#accueil" class="mlang-fr" hreflang="fr" lang="fr">FR</a><i></i><a href="en/#home" class="mlang-en" hreflang="en" lang="en">EN</a></span>'
         +'<button class="mtheme" aria-label="Mode sombre" aria-pressed="true"><svg viewBox="0 0 59 59" width="52" height="52" aria-hidden="true"><circle cx="29.5" cy="29.5" r="22.3" fill="none" stroke="#0a3cff" stroke-width="2.6"/><path d="M32.4 19.2a10.6 10.6 0 1 0 6.9 17.2 8.6 8.6 0 0 1-6.9-17.2z" fill="currentColor"/></svg></button></div></div></nav>']
     for k,_ in NAV: out.append(f'<section class="mpage" id="m-{k}" aria-label="{k}">{P[k]}</section>')
-    out.append('<footer class="mfoot">'+LOGO.replace('logo-svg','logo-svg flogo')+'<p>5825, rue Jean-Talon Est, Saint-Léonard</p>'+(f'<a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>' if CONTACT_EMAIL else '')+f'<a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a></footer></div>')
+    out.append('<footer class="mfoot">'+LOGO.replace('logo-svg','logo-svg flogo')+'<p>5825, rue Jean-Talon Est, Saint-Léonard</p>'+(f'<a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>' if CONTACT_EMAIL else '')+f'<a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a><a data-privacy href="confidentialite/">Politique de confidentialité</a></footer></div>')
     return '\n'.join(out)
 MCSS='''
 @media (max-width:1024px){
@@ -168,7 +168,7 @@ MCSS='''
  .mfile{display:flex;gap:16px;align-items:center;border:1.5px dashed #8d8d8d;border-radius:4px;padding:14px 16px;cursor:pointer;position:relative;background:#f4f4f280}
  .mfile input{position:absolute;inset:0;opacity:0;cursor:pointer}.mfile b{display:block;font:500 16px Inter}.mfile small{display:block;font:400 14px Inter;color:#777;margin-top:2px}
  .msubmit{width:100%;height:56px;border:0;border-radius:4px;background:#0a3cff;color:#fff;font:600 18px Inter;display:flex;justify-content:center;align-items:center;gap:10px;cursor:pointer;margin-top:4px}
- .legal{font:400 12px/1.4 Figtree;color:#444;text-align:center;margin-top:12px}
+ .legal{font:400 12px/1.4 Figtree;color:#444;text-align:center;margin-top:12px}.legal a{color:#222;display:inline-block;margin-top:6px;padding:4px 0}
  .pbody .ok{position:static;width:auto;height:auto;padding:40px 0;background:none;border-radius:0}
  .mmap{position:relative}.mitin{position:absolute;z-index:4;left:74px;top:852px;width:174px;height:56px;border-radius:40px}
  .mfoot{border-top:1px solid #333;margin-top:30px;padding:30px 20px 50px;display:flex;flex-direction:column;align-items:center;gap:8px;font:400 14px Kumbh Sans;color:#bbb;text-align:center}

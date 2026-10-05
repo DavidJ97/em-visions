@@ -12,6 +12,7 @@ JS=r"""([html,EN,SLUG])=>{const doc=new DOMParser().parseFromString(html,'text/h
  doc.querySelectorAll('[aria-label],[placeholder],[alt]').forEach(el=>{const m={};['aria-label','placeholder','alt'].forEach(a=>{const v=el.getAttribute(a);if(v&&EN[v]!==undefined){m[a]=v;el.setAttribute(a,EN[v])}});
   if(Object.keys(m).length)el.dataset.fra=JSON.stringify(m)});
  doc.querySelectorAll('a[href^="#"]').forEach(a=>{const k=a.getAttribute('href').slice(1);if(SLUG[k])a.setAttribute('href','#'+SLUG[k])});
+ doc.querySelectorAll('a[data-privacy]').forEach(a=>a.setAttribute('href','privacy/'));
  doc.querySelectorAll('.lang-fr,.mlang-fr').forEach(a=>a.setAttribute('href','../#accueil'));doc.querySelectorAll('.lang-en,.mlang-en').forEach(a=>a.setAttribute('href','#home'));
  return '<!doctype html>'+doc.documentElement.outerHTML}"""
 async def _run(html,EN,SLUG):

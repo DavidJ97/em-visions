@@ -15,3 +15,8 @@ HOURS_EN=['Mon–Fri: 9 am to 5 pm','Sat: 12 pm to 2 pm']
 # Texte de présentation de la section À propos (remplace le bouton « Découvrir notre équipe »).
 ABOUT_FR='Ouvert depuis la pandémie, EM Visions est un atelier de Saint-Léonard qui s’occupe de design graphique, d’impression et de vêtements personnalisés. Vous arrivez avec une idée, on la mène jusqu’au produit fini. Passez nous voir, rue Jean-Talon Est.'
 ABOUT_EN='Open since the pandemic, EM Visions is a Saint-Léonard workshop handling graphic design, printing and custom apparel. You come in with an idea, we take it all the way to the finished product. Come see us on Jean-Talon Street East.'
+# Politique de confidentialité (Loi 25). Par défaut, la loi désigne la personne qui dirige l'entreprise.
+PRIVACY_OFFICER='Eduardo Mazzonna'
+RETENTION_YEARS=2          # durée de conservation des demandes sans suite
+POLICY_DATE=('5 octobre 2026','October 5, 2026')
+FORM_SERVICE='FormSubmit'  # service qui achemine le formulaire vers le courriel

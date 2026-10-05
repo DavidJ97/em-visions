@@ -47,7 +47,7 @@ EN={
 'MERCI.':'THANK YOU.','Votre demande est bien envoyée.':'Your request has been sent.','Nous vous répondrons par courriel.':'We will reply by email.',
 'OUPS.':'OOPS.','Votre demande n’a pas pu être envoyée.':'Your request could not be sent.','Vos réponses sont conservées. Vous pouvez réessayer ou nous écrire directement par courriel.':'Your answers are kept. You can try again or email us directly.',
 'Vos réponses sont conservées. Vous pouvez réessayer, nous écrire sur Instagram ou passer à l’atelier.':'Your answers are kept. You can try again, message us on Instagram or drop by the workshop.','Écrire sur Instagram':'Message us on Instagram',
-'Réessayer':'Try again','Écrire par courriel':'Send by email','Référence : ':'Reference: ','Nom':'Name','Courriel':'Email','Quantité approximative':'Approximate quantity','Demande de devis':'Quote request',
+'Politique de confidentialité':'Privacy policy','Réessayer':'Try again','Écrire par courriel':'Send by email','Référence : ':'Reference: ','Nom':'Name','Courriel':'Email','Quantité approximative':'Approximate quantity','Demande de devis':'Quote request',
 'Nouvelle demande':'New request',
 # messages / aria
 'Indiquez votre nom':'Please enter your name','Courriel invalide':'Invalid email','Décrivez votre projet':'Please describe your project','Nombre entier ≥ 1':'Whole number ≥ 1',
