@@ -419,13 +419,15 @@ Object.keys(SETS).forEach(p=>{const items=SETS[p];let idx=0;
   S(1).forEach(el=>put(el,items[(idx+1)%n].t,items[(idx+1)%n].tp,instant));S(2).forEach(el=>put(el,items[(idx+2)%n].t,items[(idx+2)%n].tp,instant));
   document.querySelectorAll(`[data-count="${p}"]`).forEach(c=>c.textContent=String(idx+1).padStart(2,'0'));
   document.querySelectorAll(`.bars[data-pg="${p}"]`).forEach(bars=>[...bars.children].forEach((x,i)=>x.setAttribute('aria-current',i===idx)))}
- function go(i){idx=(i+items.length)%items.length;render()}
+ const AUTO=p==='accueil'&&!matchMedia('(prefers-reduced-motion:reduce)').matches;let timer=0;
+ function arm(){if(!AUTO)return;clearInterval(timer);timer=setInterval(()=>{if(document.hidden||curPage!==p)return;go(idx+1,true)},1500)}
+ function go(i,auto){idx=(i+items.length)%items.length;render();if(!auto)arm()}
  document.querySelectorAll(`.prev[data-pg="${p}"]`).forEach(b=>b.onclick=()=>go(idx-1));document.querySelectorAll(`.next[data-pg="${p}"]`).forEach(b=>b.onclick=()=>go(idx+1));
  S(1).forEach(el=>el.onclick=()=>go(idx+1));S(2).forEach(el=>el.onclick=()=>go(idx+2));
  S(0).forEach(el=>el.onclick=()=>{if(p==='realisations')openLB(items[idx])});
  document.querySelectorAll(`#p-${p},#m-${p}`).forEach(sec=>{let sx=null;sec.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});sec.addEventListener('touchend',e=>{if(sx==null)return;const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50&&e.target.closest('.crop'))go(idx+(d<0?1:-1));sx=null})});
  addEventListener('keydown',e=>{if(curPage!==p||e.target.closest('input,textarea'))return;if(e.key==='ArrowRight')go(idx+1);if(e.key==='ArrowLeft')go(idx-1)});
- CARS[p]={cur:()=>items[idx]};render(true)});
+ CARS[p]={cur:()=>items[idx]};render(true);if(AUTO){CARS[p].pre=items.filter(x=>x.v).map(x=>{const v=document.createElement('video');v.muted=true;v.preload='auto';v.src=x.v;return v});arm()}});
 const lb=document.createElement('div');lb.className='lb';lb.hidden=true;lb.setAttribute('role','dialog');lb.setAttribute('aria-modal','true');lb.innerHTML='<figure><img alt=""><figcaption></figcaption></figure><button aria-label="Fermer">×</button>';document.body.appendChild(lb);
 let lastF;function openLB(it){lastF=document.activeElement;lb.querySelector('img').src=it.big||it.m;lb.querySelector('img').alt=it.n;lb.querySelector('figcaption').textContent=it.n.toUpperCase();lb.hidden=false;lb.querySelector('button').focus()}
 function closeLB(){lb.hidden=true;lastF&&lastF.focus()}lb.onclick=e=>{if(e.target===lb||e.target.tagName==='BUTTON')closeLB()};addEventListener('keydown',e=>{if(e.key==='Escape'&&!lb.hidden)closeLB()});
