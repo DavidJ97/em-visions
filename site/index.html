@@ -478,4 +478,10 @@ const burger=document.querySelector('.burger'),mnav=document.getElementById('mna
 function menu(open){burger.setAttribute('aria-expanded',open);burger.setAttribute('aria-label',T(open?'Fermer le menu':'Ouvrir le menu'));mnav.hidden=!open;document.body.style.overflow=open?'hidden':''}
 burger.onclick=()=>menu(mnav.hidden);mnav.addEventListener('click',e=>{if(e.target.closest('a[href^="#"]:not([data-toast])'))menu(false)});
 addEventListener('keydown',e=>{if(e.key==='Escape'&&!mnav.hidden){menu(false);burger.focus()}});
+// Videos: start each framed video when it comes into view, and retry on the first tap for browsers that block autoplay.
+const inView=v=>{const r=v.getBoundingClientRect();return r.width>0&&r.bottom>0&&r.top<innerHeight};
+const playV=v=>{v.muted=true;v.defaultMuted=true;v.setAttribute('playsinline','');const p=v.play();if(p)p.catch(()=>{})};
+if('IntersectionObserver' in window){const vo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)playV(e.target);else e.target.pause()}),{threshold:.1});document.querySelectorAll('.vclip video').forEach(v=>vo.observe(v))}
+const kick=()=>document.querySelectorAll('video').forEach(v=>{if(v.paused&&inView(v))playV(v)});
+['pointerdown','touchend','keydown','scroll'].forEach(ev=>addEventListener(ev,kick,{passive:true}));
 </script></body></html>
