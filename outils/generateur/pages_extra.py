@@ -13,7 +13,7 @@ def body(L):
 <h2>Ce que nous recueillons</h2>
 <p>Seulement ce que vous écrivez dans le formulaire de demande de devis : votre nom, votre courriel, la description de votre projet, la quantité souhaitée et, si vous en joignez un, votre fichier (logo ou visuel).</p>
 <p>Le site n’utilise ni témoins (cookies) publicitaires, ni outil de mesure d’audience, ni technologie qui vous identifie, vous localise ou dresse votre profil. Il retient seulement, dans votre navigateur, votre choix de thème clair ou sombre ; cette information ne nous est pas transmise.</p>
-<p>Comme pour tout site web, l’hébergeur du site et le service qui diffuse certaines vidéos reçoivent automatiquement des données techniques (adresse IP, type d’appareil et de navigateur) nécessaires à l’affichage des pages. Nous ne nous en servons pas pour vous identifier.</p>
+<p>Comme pour tout site web, l’hébergeur du site reçoit automatiquement des données techniques (adresse IP, type d’appareil et de navigateur) nécessaires à l’affichage des pages. Nous ne nous en servons pas pour vous identifier.</p>
 <h2>Pourquoi nous les recueillons</h2>
 <p>Uniquement pour répondre à votre demande, préparer un devis et, si vous devenez client, réaliser votre commande. Nous ne vendons ni ne louons vos renseignements, et nous ne vous envoyons pas de publicité sans votre accord.</p>
 <p>Rien ne vous oblige à utiliser le formulaire : vous pouvez aussi passer à l’atelier. Sans vos coordonnées, nous ne pouvons simplement pas vous répondre à distance.</p>
@@ -37,7 +37,7 @@ def body(L):
 <h2>What we collect</h2>
 <p>Only what you write in the quote request form: your name, your email, the description of your project, the quantity you need and, if you attach one, your file (logo or artwork).</p>
 <p>The site uses no advertising cookies, no audience measurement tool and no technology that identifies you, locates you or builds a profile of you. It only remembers, in your browser, whether you chose the light or dark theme; that information is not sent to us.</p>
-<p>As with any website, the site host and the service that delivers some of the videos automatically receive technical data (IP address, device and browser type) needed to display the pages. We do not use it to identify you.</p>
+<p>As with any website, the site host automatically receives technical data (IP address, device and browser type) needed to display the pages. We do not use it to identify you.</p>
 <h2>Why we collect it</h2>
 <p>Only to answer your request, prepare a quote and, if you become a client, carry out your order. We do not sell or rent your information, and we do not send you advertising without your agreement.</p>
 <p>You are never required to use the form: you can also drop by the workshop. Without your contact details, we simply cannot reply to you remotely.</p>
