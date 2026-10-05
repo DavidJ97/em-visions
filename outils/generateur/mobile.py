@@ -1,5 +1,11 @@
 import html as H, re
 from config import CONTACT_EMAIL, INSTAGRAM, HOURS, HOURS_FR, ABOUT_FR, FORM_ENDPOINT
+def plate_img(cls,p):
+    # Accueil : chargée tout de suite, en priorité, et directement dans le bon thème. Les autres : à l'approche de l'écran.
+    if p=='accueil':
+        return (f'<picture><source data-th srcset="img/plate-{p}-light.webp" media="(prefers-color-scheme: light)">'
+                f'<img class="{cls}" data-plate="{p}" src="img/plate-{p}.webp" alt="" aria-hidden="true" draggable="false" fetchpriority="high"></picture>')
+    return f'<img class="{cls}" data-plate="{p}" src="img/plate-{p}.webp" alt="" aria-hidden="true" draggable="false" loading="lazy" decoding="async">'
 def form_attrs():
     return f' action="{FORM_ENDPOINT}" method="post" enctype="multipart/form-data" data-send="1"' if FORM_ENDPOINT else ''
 def form_hidden():
@@ -20,7 +26,7 @@ VECF=lambda p,b:''
 LOGO=''
 NAV=[('accueil','Accueil'),('services','Services'),('realisations','Réalisations'),('catalogue','Catalogue'),('a-propos','À propos'),('contact','Contact')]
 def crop(p,x0,y0,x1,y1,inner='',cls='',plate=True,extra=''):
-    pl=(f'<img class="cplate" data-plate="{p}" src="img/plate-{p}.webp" alt="" aria-hidden="true" draggable="false"'+('' if p=='accueil' else ' loading="lazy" decoding="async"')+'>') if plate else ''
+    pl=plate_img('cplate',p) if plate else ''
     return (f'<div class="crop {cls}" data-x0="{x0}" data-y0="{y0}" data-w="{x1-x0}" style="aspect-ratio:{x1-x0}/{y1-y0}" {extra}>'
             f'<div class="cin">{pl}{VECF(p,(x0,y0,x1,y1))}{inner}</div></div>')
 def mspan(span_html):

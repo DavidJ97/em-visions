@@ -54,7 +54,7 @@ TOAST={'en':'La version anglaise sera ajoutée après validation du français.',
 def page_html(p):
     els=[e for e in EL if e['page']==p]; M=META[p]; out=[]
     for i,s in enumerate(M['slots']): out.append(f'<div class="slot" data-pg="{p}" data-slot="{i}" {box(s)}></div>')
-    out.append(f'<img class="plate" data-plate="{p}" src="img/plate-{p}.webp" alt="" aria-hidden="true" draggable="false"'+('' if p=='accueil' else ' loading="lazy" decoding="async"')+'>')
+    out.append(MOB.plate_img('plate',p))
     if p=='catalogue':
         b=M['band']; out.append(f'<img class="band" id="cat-band" src="img/cat-band.webp" alt="" aria-hidden="true" loading="lazy" {box(b)}>')
     out.append(vclips(p))
@@ -156,7 +156,7 @@ def vclips(p,bounds=None):
                           f'<img data-plate="{p}" src="img/plate-{p}.webp" alt="" loading="lazy" style="position:absolute;left:{-a0}px;top:{-b0}px;width:1586px;height:992px;max-width:none"></div>')
                 mk=f";-webkit-mask:url({opt['mask']}) 0 0/100% 100% no-repeat;mask:url({opt['mask']}) 0 0/100% 100% no-repeat;background:none" if opt.get('mask') else ''
                 o.append(f'<div class="vclip" role="img" aria-label="{H.escape(VALT[v])}" style="left:{x0}px;top:{y0}px;width:{x1-x0}px;height:{y1-y0}px;clip-path:path(\'{path}\'){mk}">'
-                         f'<video src="{VIDS[v]}" poster="{poster}" style="{vst}" muted loop playsinline preload="none" aria-hidden="true"></video></div>'+keep)
+                         f'<video src="{VIDS[v]}" data-poster="{poster}" style="{vst}" muted loop playsinline preload="none" aria-hidden="true"></video></div>'+keep)
     return ''.join(o)
 def header_html():
     els=[e for e in EL if e['page']=='accueil']
@@ -165,7 +165,7 @@ def header_html():
     tog=(f'<button class="theme-toggle htog" aria-label="Mode sombre" aria-pressed="true" style="left:{t[0]}px;top:{t[1]}px;width:{t[2]-t[0]}px;height:{t[3]-t[1]}px">'
          f'<svg viewBox="0 0 59 59" aria-hidden="true"><circle cx="29.5" cy="29.5" r="22.3" fill="none" stroke="#0a3cff" stroke-width="2.6"/>'
          f'<path class="moon" d="M32.4 19.2a10.6 10.6 0 1 0 6.9 17.2 8.6 8.6 0 0 1-6.9-17.2z"/></svg></button>')
-    return (f'<header class="dhead" id="dhead"><img class="hbg" data-plate="head" src="img/head.webp" alt="" aria-hidden="true">'
+    return (f'<header class="dhead" id="dhead"><picture><source data-th srcset="img/head-light.webp" media="(prefers-color-scheme: light)"><img class="hbg" data-plate="head" src="img/head.webp" alt="" aria-hidden="true"></picture>'
             f'<a class="hlogo" href="#accueil" aria-label="EM Visions — accueil"><svg viewBox="{LOGO_VB}" aria-hidden="true"><use href="#emlogo"/></svg></a>'
             '<nav aria-label="Navigation principale">'+''.join(f'<a class="nl" data-key="{e["href"][1:]}" href="{e["href"]}">{span(e)}</a>' for e in nav)+'</nav>'
             f'<i class="uline" aria-hidden="true"></i><a class="nl lang-fr" href="#accueil" hreflang="fr" lang="fr">{span(fr)}</a><a class="nl lang-en" href="en/#home" hreflang="en" lang="en">{span(en)}</a>{tog}</header>')
@@ -219,7 +219,7 @@ html,body{background:#050505;overflow-x:clip}a{color:inherit;text-decoration:non
 .hrs{position:absolute;display:flex;align-items:center;gap:9px;height:46px;padding:0 20px 0 15px;border-radius:23px;background:#0b0b0b;color:#fff;font:600 15.5px/1 'Kumbh Sans',sans-serif;white-space:nowrap;box-shadow:0 2px 10px #0006}.hrs i{font-style:normal;opacity:.6}
 .about{position:absolute;color:var(--fg);font:300 17.5px/1.52 'Kumbh Sans',sans-serif;letter-spacing:.01em}
 .plink{position:absolute;text-align:center;font:400 11.5px/1.3 Inter,sans-serif;color:#3a3a3b;text-decoration:underline;text-underline-offset:2px}.plink:hover{color:#0a3cff}
-.hp{display:none!important}.round{border-radius:50%}.pp svg+svg,.pp[data-on="0"] svg{display:none}.pp[data-on="0"] svg+svg{display:block}.pp[hidden]{display:none!important}.arrow{color:var(--fg);border:2px solid var(--fg);display:grid;place-items:center;transition:background .2s,border-color .2s}.arrow:hover{background:var(--blue)!important;border-color:var(--blue)}.round:hover{background:#0a3cff55}
+.hp{display:none!important}picture{display:contents}.round{border-radius:50%}.pp svg+svg,.pp[data-on="0"] svg{display:none}.pp[data-on="0"] svg+svg{display:block}.pp[hidden]{display:none!important}.arrow{color:var(--fg);border:2px solid var(--fg);display:grid;place-items:center;transition:background .2s,border-color .2s}.arrow:hover{background:var(--blue)!important;border-color:var(--blue)}.round:hover{background:#0a3cff55}
 .pill{border-radius:44px}.pill:hover{backdrop-filter:brightness(1.12) contrast(1.05)}
 .hit:focus-visible,.sup:focus-visible,.nl:focus-visible .t,.fld :focus-visible{outline:3px solid #6f8cff;outline-offset:3px}
 .bars{position:absolute;left:1257px;top:898px;width:233px;height:16px}
@@ -332,8 +332,8 @@ const SETS={accueil:[
  {n:'Enseigne MA',a:'Enseigne ronde suspendue M/A',m:'img/ma-main.webp',t:'img/ma-main.webp',tp:'45% 50%',v:VIDS.ma},
  {n:'Balloon Babe',a:'Impression Balloon Babe sur tissu rose',m:'img/src-balloon.webp',t:'img/src-balloon.webp',v:VIDS.balloon}]};
 const CARS={};
-function put(el,src,pos,instant,vid){const old=el.querySelector(':scope>:not(.out)');const key=vid||src;if(old&&old.dataset.k===key)return;
- let im;if(vid){im=document.createElement('video');Object.assign(im,{muted:true,loop:true,autoplay:true,playsInline:true,poster:src});im.setAttribute('muted','');im.setAttribute('playsinline','');im.preload='auto';im.src=vid}else{im=new Image();im.src=src;im.alt=''}
+function put(el,src,pos,instant,vid){const old=el.querySelector(':scope>:not(.out)');const key=vid||src;if(old&&old.dataset.k===key)return;const rc=el.getBoundingClientRect(),off=!(rc.width&&rc.bottom>-200&&rc.top<innerHeight+200);
+ let im;if(vid){im=document.createElement('video');Object.assign(im,{muted:true,loop:true,autoplay:true,playsInline:true,poster:src});im.setAttribute('muted','');im.setAttribute('playsinline','');im.preload='auto';im.src=vid}else{im=new Image();if(off){im.loading='lazy';instant=true}im.src=src;im.alt=''}
  im.dataset.k=key;if(!instant)im.classList.add('out');if(pos)im.style.objectPosition=pos;el.appendChild(im);
  if(instant){if(old)old.remove();if(vid)im.play().catch(()=>{});return}
  const show=()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{im.classList.remove('out');if(vid)im.play().catch(()=>{});if(old){old.classList.add('out');setTimeout(()=>old.remove(),900)}}));
@@ -400,6 +400,7 @@ addEventListener('resize',()=>{fitCrops();setActive(curPage,true);if(CARS[curPag
 const LIGHT=%LIGHT%;
 document.querySelectorAll('[data-plate]').forEach(i=>i.dataset.dark=i.getAttribute('src'));
 function setTheme(t,save){document.documentElement.dataset.theme=t;const L=t==='light';
+ document.querySelectorAll('source[data-th]').forEach(x=>x.media=L?'all':'not all');
  document.querySelectorAll('[data-plate]').forEach(i=>{const s=L?LIGHT[i.dataset.plate]:i.dataset.dark;if(i.getAttribute('src')!==s)i.src=s});
  document.querySelectorAll('.theme-toggle,.mtheme').forEach(b=>{b.setAttribute('aria-pressed',!L)});
  if(REC)apply();
@@ -418,7 +419,7 @@ burger.onclick=()=>menu(mnav.hidden);mnav.addEventListener('click',e=>{if(e.targ
 addEventListener('keydown',e=>{if(e.key==='Escape'&&!mnav.hidden){menu(false);burger.focus()}});
 // Videos: start each framed video when it comes into view, and retry on the first tap for browsers that block autoplay.
 const inView=v=>{const r=v.getBoundingClientRect();return r.width>0&&r.bottom>0&&r.top<innerHeight};
-const playV=v=>{v.muted=true;v.defaultMuted=true;v.setAttribute('playsinline','');const p=v.play();if(p)p.catch(()=>{})};
+const playV=v=>{if(v.dataset.poster&&!v.getAttribute('poster'))v.poster=v.dataset.poster;v.muted=true;v.defaultMuted=true;v.setAttribute('playsinline','');const p=v.play();if(p)p.catch(()=>{})};
 if('IntersectionObserver' in window){const vo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)playV(e.target);else e.target.pause()}),{rootMargin:'300px 0px',threshold:0});document.querySelectorAll('.vclip video').forEach(v=>vo.observe(v))}else document.querySelectorAll('.vclip video').forEach(playV)
 const kick=()=>document.querySelectorAll('video').forEach(v=>{if(v.paused&&inView(v))playV(v)});
 ['pointerdown','touchend','keydown','scroll'].forEach(ev=>addEventListener(ev,kick,{passive:true}));
