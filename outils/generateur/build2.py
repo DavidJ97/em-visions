@@ -56,10 +56,12 @@ TOAST={'en':'La version anglaise sera ajoutée après validation du français.',
 SVC_STEPS=[(496, 124, 312), (662, 224, 222), (828, 367, 246), (994, 489, 312), (1160, 588, 222), (1326, 732, 246)]
 def svc_desktop():
     o=['<i class="dsvfix" aria-hidden="true"></i><div class="dsvbg" aria-hidden="true"><i></i></div>']
+    # grand numéro et nom du service en vedette, qui change tout seul d'une marche à l'autre
+    o.append('<div class="dsvspot" aria-hidden="true">'+''.join(f'<div class="sp"><b>{n}</b><em>{H.escape(t)}</em><u></u></div>' for n,t,*_ in MOB.SVC)+'</div>')
     for i,((n,t,d,al,sz,w,rot,bk,bx,by),(x,y,tw)) in enumerate(zip(MOB.SVC,SVC_STEPS)):
         th=round(tw*sz[1]/sz[0])
-        o.append(f'<figure class="dsv" style="left:{x}px;top:{y}px;width:{tw}px;height:{th}px;--rot:{rot};--bk:{bk};--bx:{bx};--by:{by};--t:{MOB.TORN[i][0]};--u:{MOB.TORN[i][1]}">'
-                 f'<img src="img/svc-{i+1}.webp" alt="{H.escape(al)}" width="{sz[0]}" height="{sz[1]}" loading="lazy"><b aria-hidden="true">{n}</b></figure>')
+        o.append(f'<figure class="dsv" style="left:{x}px;top:{y}px;width:{tw}px;height:{th}px;--i:{i};--rot:{rot};--bk:{bk};--bx:{bx};--by:{by};--t:{MOB.TORN[i][0]};--u:{MOB.TORN[i][1]}">'
+                 f'<div class="fl"><i class="bk"></i><span class="im"><img src="img/svc-{i+1}.webp" alt="{H.escape(al)}" width="{sz[0]}" height="{sz[1]}" loading="lazy"><i class="cv"></i></span><s></s><b aria-hidden="true">{n}</b></div></figure>')
     return ''.join(o)
 def page_html(p):
     els=[e for e in EL if e['page']==p]; M=META[p]; out=[]
@@ -233,10 +235,45 @@ html,body{background:#050505;overflow-x:clip}a{color:inherit;text-decoration:non
 .dsvbg{position:absolute;left:472px;top:0;width:1114px;height:992px;filter:drop-shadow(-8px 0 14px #000a)}
 .dsvbg i{position:absolute;inset:0;background:#070707 url(img/tex.webp) repeat;background-size:256px;clip-path:polygon(1.2% 0,100% 0,100% 100%,.6% 100%,1.5% 96%,.3% 91%,1.6% 86%,.8% 80%,2% 74%,.5% 69%,1.4% 63%,.2% 57%,1.7% 51%,.7% 45%,1.9% 39%,.4% 33%,1.5% 27%,.6% 21%,1.8% 15%,.3% 9%,1.3% 4%)}
 html[data-theme=light] .dsvbg{filter:drop-shadow(-6px 0 10px #0004)}html[data-theme=light] .dsvbg i{background:#e9e9e6 url(img/tex-light.webp) repeat;background-size:256px}
-.dsv{--alt:#f4f4f2;position:absolute;margin:0;transform:rotate(var(--rot));filter:drop-shadow(0 8px 12px #0009)}html[data-theme=light] .dsv{--alt:#0a0a0a;filter:drop-shadow(0 6px 10px #0005)}
-.dsv:before{content:"";position:absolute;inset:0;background:var(--bk);clip-path:var(--t);transform:translate(var(--bx),var(--by))}
-.dsv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;clip-path:var(--u)}
-.dsv b{position:absolute;left:-12px;top:-14px;padding:3px 9px 4px;background:#0a3cff;color:#fff;font:400 24px/1 Anton,sans-serif;transform:rotate(-4deg)}
+.dsv{--alt:#f4f4f2;position:absolute;margin:0;pointer-events:auto;cursor:pointer;transform:rotate(var(--rot));filter:drop-shadow(0 8px 12px #0009);transition:transform .5s cubic-bezier(.2,1.3,.3,1),filter .45s;will-change:transform}
+html[data-theme=light] .dsv{--alt:#0a0a0a;filter:drop-shadow(0 6px 10px #0005)}
+.dsv .fl{position:absolute;inset:0}.dsv .bk{position:absolute;inset:0;background:var(--bk);clip-path:var(--t);transform:translate(var(--bx),var(--by));transition:transform .5s cubic-bezier(.2,1.5,.3,1)}
+.dsv .im{position:absolute;inset:0;overflow:hidden;clip-path:var(--u)}.dsv img{width:100%;height:100%;object-fit:cover;display:block}
+.dsv .cv{position:absolute;inset:0;background:#f1efe9;clip-path:inset(0 0 0 100%)}.dsv s{position:absolute;top:-5%;bottom:-5%;left:0;width:9px;margin-left:-4px;background:#0a3cff;opacity:0;pointer-events:none}
+.dsv b{position:absolute;left:-12px;top:-14px;padding:3px 9px 4px;background:#0a3cff;color:#fff;font:400 24px/1 Anton,sans-serif;transform:rotate(-4deg);transition:transform .35s cubic-bezier(.2,1.7,.4,1)}
+/* avant l'arrivée sur la page : tout attend hors champ */
+#p-services.svjs:not(.svin) .dsv{opacity:0;transition:none}
+/* arrivée : les marches tombent une à une, chaque image est « imprimée » par un passage de raclette, puis son numéro est tamponné */
+.svin .dsv{animation:dsvin .75s cubic-bezier(.2,1.25,.3,1) backwards;animation-delay:calc(var(--i)*.13s + .1s)}
+.svin .dsv .bk{animation:dsvbk .7s cubic-bezier(.2,1.5,.3,1) backwards;animation-delay:calc(var(--i)*.13s + .3s)}
+.svin .dsv .cv{animation:dsvcv .55s cubic-bezier(.62,0,.25,1) backwards;animation-delay:calc(var(--i)*.13s + .42s)}
+.svin .dsv s{animation:dsvsq .55s cubic-bezier(.62,0,.25,1) backwards;animation-delay:calc(var(--i)*.13s + .42s)}
+.svin .dsv b{animation:dsvst .4s cubic-bezier(.2,1.7,.4,1) backwards;animation-delay:calc(var(--i)*.13s + .85s)}
+@keyframes dsvin{from{opacity:0;transform:translate(-90px,-130px) rotate(calc(var(--rot) - 16deg)) scale(.62)}}
+@keyframes dsvbk{from{opacity:0;transform:translate(calc(var(--bx)*-7),calc(var(--by)*-7)) rotate(-10deg)}}
+@keyframes dsvcv{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 0 0 100%)}}
+@keyframes dsvsq{0%{left:0;opacity:1}90%{left:100%;opacity:1}100%{left:100%;opacity:0}}
+@keyframes dsvst{from{opacity:0;transform:rotate(16deg) scale(3)}}
+/* au repos : chaque feuille flotte à son rythme, l'image avance lentement dans son cadre */
+.svin .dsv .fl{animation:dsvfl calc(6s + var(--i)*.7s) ease-in-out calc(var(--i)*-1.3s) infinite alternate}
+.svin .dsv img{animation:dsvkb calc(9s + var(--i)*.8s) ease-in-out infinite alternate}
+@keyframes dsvfl{from{transform:translateY(-5px) rotate(-.5deg)}to{transform:translateY(6px) rotate(.6deg)}}
+@keyframes dsvkb{from{transform:scale(1.02)}to{transform:scale(1.14) translate(-1.5%,1%)}}
+/* la marche en vedette : elle avance, sa feuille se décale, la raclette repasse dessus ; les autres s'effacent un peu */
+.svhas .dsv:not(.on){filter:drop-shadow(0 8px 12px #0009) brightness(.7) saturate(.75)}html[data-theme=light] .svhas .dsv:not(.on){filter:drop-shadow(0 6px 10px #0005) brightness(.9) saturate(.7) opacity(.8)}
+.dsv.on{z-index:6;transform:rotate(calc(var(--rot)*-.6)) scale(1.17)}.dsv.on .bk{transform:translate(calc(var(--bx)*2.6),calc(var(--by)*2.6))}
+.dsv.on b{transform:rotate(-9deg) scale(1.35)}.dsv.on s{animation:dsvsq .5s cubic-bezier(.62,0,.25,1)}
+/* grand numéro en vedette, dans le coin libre en haut à droite */
+.dsvspot{position:absolute;left:1060px;top:104px;width:486px;height:330px;color:#f4f4f2}html[data-theme=light] .dsvspot{color:#0a0a0a}
+.dsvspot .sp{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-end;text-align:right;pointer-events:none}
+.dsvspot b{display:block;font:400 236px/.9 Anton,sans-serif;color:transparent;-webkit-text-stroke:3px #0a3cff;padding:0 6px;clip-path:inset(0 0 100% 0);transform:translateY(40px);transition:clip-path .45s cubic-bezier(.62,0,.25,1),transform .45s cubic-bezier(.62,0,.25,1)}
+.dsvspot em{display:block;margin-top:12px;font:700 30px/1 Oswald,sans-serif;font-style:normal;text-transform:uppercase;letter-spacing:.03em;opacity:0;transform:translateX(40px);transition:opacity .3s,transform .45s cubic-bezier(.2,1.2,.3,1)}
+.dsvspot u{display:block;width:210px;height:5px;margin-top:14px;background:#0a3cff;transform:scaleX(0);transform-origin:100% 50%}
+.dsvspot .sp.on b{clip-path:inset(0 0 0 0);transform:none;transition-delay:.12s}.dsvspot .sp.on em{opacity:1;transform:none;transition-delay:.26s}
+.dsvspot .sp.on u{animation:dsvbar var(--cyc,2.8s) linear both}@keyframes dsvbar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+/* la ligne de la liste qui correspond s'allume */
+#p-services .t.hot{translate:9px 0}#p-services .t.cold{opacity:.42}#p-services .svtx{transition:translate .4s cubic-bezier(.2,1.2,.3,1),opacity .4s}
+@media (prefers-reduced-motion:reduce){#p-services .dsv,#p-services .dsv *{animation:none!important;transition:none!important}#p-services.svjs:not(.svin) .dsv{opacity:1}.dsv .cv{display:none}}
 .slogo{display:block;flex:none;background:currentColor;-webkit-mask:var(--m) left center/contain no-repeat;mask:var(--m) left center/contain no-repeat}
 .slogo.d{position:absolute;color:#f4f4f2;pointer-events:none;transform-origin:0 50%;transform:scale(1.18)}html[data-theme=light] .slogo.d:not([data-fixed]){color:#141414}
 .t[data-suprow]{opacity:0!important}
@@ -370,6 +407,23 @@ function put(el,src,pos,instant,vid){const old=el.querySelector(':scope>:not(.ou
  if(instant){if(old)old.remove();if(vid)im.play().catch(()=>{});return}
  const show=()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{im.classList.remove('out');if(vid)im.play().catch(()=>{});if(old){old.classList.add('out');setTimeout(()=>old.remove(),900)}}));
  if(vid){im.readyState>=2?show():(im.onloadeddata=show,setTimeout(show,1500))}else im.complete?show():im.onload=show}
+// Services : mise en mouvement des illustrations.
+// Ordinateur : les marches arrivent une à une, puis une marche est mise en vedette à tour de rôle (ou celle qu'on survole).
+// Cellulaire : chaque image s'imprime quand elle entre à l'écran.
+(function(){const RMO=matchMedia('(prefers-reduced-motion:reduce)').matches,IO='IntersectionObserver' in window;
+ const root=document.getElementById('p-services'),T=root?[...root.querySelectorAll('.dsv')]:[];
+ if(T.length&&IO){const SP=[...root.querySelectorAll('.dsvspot .sp')],CYC=2800,tx=i=>root.querySelectorAll('[id^="services-'+(10+i)+'-"],[id^="services-'+(4+i)+'-"]');
+  root.classList.add('svjs');for(let k=0;k<T.length;k++)tx(k).forEach(e=>e.classList.add('svtx'));root.style.setProperty('--cyc',CYC+'ms');
+  let act=-1,timer=0,hover=false;
+  const set=i=>{if(i===act)return;act=i;root.classList.toggle('svhas',i>=0);T.forEach((t,k)=>t.classList.toggle('on',k===i));SP.forEach((s,k)=>s.classList.toggle('on',k===i));
+   for(let k=0;k<T.length;k++)tx(k).forEach(e=>{e.classList.toggle('hot',k===i);e.classList.toggle('cold',i>=0&&k!==i)})};
+  const go=()=>{clearInterval(timer);timer=setInterval(()=>{if(!hover&&!document.hidden)set((act+1)%T.length)},CYC)},halt=()=>{clearInterval(timer);timer=0};
+  T.forEach((t,k)=>{t.addEventListener('pointerenter',()=>{hover=true;set(k)});t.addEventListener('pointerleave',()=>{hover=false;if(timer)go()})});
+  let first=0;new IntersectionObserver(es=>{const v=es[0].isIntersecting;root.classList.toggle('svin',v);clearTimeout(first);
+   if(!v){halt();set(-1);return}if(RMO){set(0);return}first=setTimeout(()=>{set(0);go()},1500)},{threshold:.4}).observe(root)}
+ const ol=document.querySelector('.msvc');
+ if(ol&&IO&&!RMO){ol.classList.add('anim');const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.28});ol.querySelectorAll('li').forEach(li=>io.observe(li))}
+})();
 // grille des heures : la case d'aujourd'hui (heure de Montréal) s'allume
 try{const DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Date().toLocaleDateString('en-US',{weekday:'short',timeZone:'America/Toronto'}));document.querySelectorAll('.hgrid li[data-d="'+DN+'"]').forEach(e=>e.classList.add('now'))}catch(e){}
 const NC=navigator.connection,LITE=!!(NC&&(NC.saveData||/2g|3g/.test(NC.effectiveType||''))),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;let READY=false;const VOK=()=>READY&&!RM&&!LITE;

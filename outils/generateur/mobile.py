@@ -87,7 +87,7 @@ def mobile_html(EL,META,span):
         +cta('accueil',EL,span,(72,710,432,810),'#contact','Demander un devis')
         +crop('accueil',405,95,1586,925,slots('accueil',META),'bleed comp')+carctl('accueil'))
     P['services']=(h1(['De l’idée','à la','matière'],'h2')+'<i class="rule"></i>'
-        +'<ol class="msvc">'+''.join(f'<li class="{"r" if i%2 else "l"}"><div class="ph" style="--w:{w};--ar:{sz[0]}/{sz[1]};--rot:{rot};--bk:{bk};--bx:{bx};--by:{by};--t:{TORN[i][0]};--u:{TORN[i][1]}"><img src="img/svc-{i+1}.webp" alt="{H.escape(al)}" width="{sz[0]}" height="{sz[1]}" loading="lazy"></div><span class="n">{n}</span><div><b>{H.escape(t)}</b><span>{H.escape(d)}</span></div></li>' for i,(n,t,d,al,sz,w,rot,bk,bx,by) in enumerate(SVC))+'</ol>'
+        +'<ol class="msvc">'+''.join(f'<li class="{"r" if i%2 else "l"}"><div class="ph" style="--w:{w};--ar:{sz[0]}/{sz[1]};--rot:{rot};--bk:{bk};--bx:{bx};--by:{by};--t:{TORN[i][0]};--u:{TORN[i][1]}"><em class="gn" aria-hidden="true">{n}</em><span class="im"><img src="img/svc-{i+1}.webp" alt="{H.escape(al)}" width="{sz[0]}" height="{sz[1]}" loading="lazy"><i class="cv"></i></span><s></s></div><span class="n">{n}</span><div><b>{H.escape(t)}</b><span>{H.escape(d)}</span></div></li>' for i,(n,t,d,al,sz,w,rot,bk,bx,by) in enumerate(SVC))+'</ol>'
         +cta('services',EL,span,(78,870,486,966),'#contact','Parler de mon projet'))
     P['realisations']=(h1(['Le','travail','parle'],'h2')+'<i class="rule"></i><p class="msub">Des idées devenues réelles.</p>'
         +crop('realisations',405,95,1586,925,slots('realisations',META),'bleed comp')+carctl('realisations')
@@ -188,7 +188,29 @@ MCSS='''
  .msvc .ph{grid-column:1/-1;position:relative;width:var(--w);aspect-ratio:var(--ar);transform:rotate(var(--rot));margin-left:-8px}
  .msvc li.r .ph{justify-self:end;margin:0 -8px 0 0}
  .msvc .ph::before{content:"";position:absolute;inset:0;background:var(--bk);clip-path:var(--t);transform:translate(var(--bx),var(--by))}
- .msvc .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;clip-path:var(--u)}
+ .msvc .im{position:absolute;inset:0;overflow:hidden;clip-path:var(--u)}.msvc .im img{width:100%;height:100%;object-fit:cover;display:block}
+ /* mouvement : chaque image arrive comme une impression (feuille blanche, passage de raclette, numéro tamponné) */
+ .msvc{margin-inline:-20px;padding-inline:20px;overflow-x:clip}
+ .msvc .cv{position:absolute;inset:0;background:#f1efe9;display:none}.msvc .ph>s{position:absolute;top:-4%;bottom:-4%;left:0;width:8px;margin-left:-4px;background:#0a3cff;opacity:0;pointer-events:none}
+ .msvc .gn{position:absolute;z-index:-1;top:50%;left:58%;font:400 46vw/.8 Anton,sans-serif;font-style:normal;color:transparent;-webkit-text-stroke:2px #0a3cff;transform:translateY(-50%);white-space:nowrap;pointer-events:none}
+ .msvc li.r .gn{left:auto;right:58%}
+ .msvc.anim .cv{display:block}
+ .msvc.anim .ph{transition:opacity .45s,transform .7s cubic-bezier(.2,1.25,.3,1)}.msvc.anim .ph::before{transition:transform .75s cubic-bezier(.2,1.5,.3,1) .3s,opacity .3s .3s}
+ .msvc.anim .n{transition:transform .4s cubic-bezier(.2,1.7,.4,1) .6s,opacity .2s .6s}.msvc.anim li>div:last-child{transition:transform .5s .68s,opacity .5s .68s}
+ .msvc.anim .gn{transition:opacity .8s .2s}
+ .msvc.anim li:not(.in) .ph{opacity:0;transform:rotate(calc(var(--rot)*4)) translateY(46px) scale(.9)}
+ .msvc.anim li:not(.in) .ph::before{opacity:0;transform:translate(calc(var(--bx)*-6),calc(var(--by)*6)) rotate(-9deg)}
+ .msvc.anim li:not(.in) .n{opacity:0;transform:scale(2.4) rotate(9deg)}.msvc.anim li:not(.in)>div:last-child{opacity:0;transform:translateY(18px)}.msvc.anim li:not(.in) .gn{opacity:0}
+ .msvc.anim li.in .cv{animation:svcv .62s cubic-bezier(.62,0,.25,1) .22s both}.msvc.anim li.in .ph>s{animation:svsq .62s cubic-bezier(.62,0,.25,1) .22s both}
+ .msvc.anim li.r.in .cv{animation-name:svcvr}.msvc.anim li.r.in .ph>s{animation-name:svsqr}
+ @keyframes svcv{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 0 0 100%)}}@keyframes svcvr{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 100% 0 0)}}
+ @keyframes svsq{0%{left:0;opacity:1}90%{left:100%;opacity:1}100%{left:100%;opacity:0}}@keyframes svsqr{0%{left:100%;opacity:1}90%{left:0;opacity:1}100%{left:0;opacity:0}}
+ @supports (animation-timeline:view()){
+  .msvc.anim .im img{animation:svkb linear both;animation-timeline:view();animation-range:entry 0% exit 100%}
+  .msvc.anim .gn{animation:svgn linear both;animation-timeline:view();animation-range:entry 0% exit 100%}
+  @keyframes svkb{from{transform:scale(1.16) translateY(-4%)}to{transform:scale(1.02) translateY(4%)}}
+  @keyframes svgn{from{transform:translateY(-12%)}to{transform:translateY(-88%)}}
+ }
  .msvc li.r .n{order:2;border-right:0;border-left:2px solid var(--ln);padding:0 0 0 14px;text-align:right}
  .msvc li.r>div:last-child{text-align:right}
  .msvc .n{font:400 52px/1 Anton;color:#0a3cff;min-width:58px;border-right:2px solid var(--ln);padding-right:14px}
@@ -231,7 +253,7 @@ MCSS='''
 @media (min-width:700px) and (max-width:1024px){
  .mpage{padding:20px 40px 50px}.bleed{width:calc(100% + 80px);margin-left:-40px}
  .mhead{padding:18px 40px 26px}.mlogo .logo-svg{height:64px}
- .msvc{grid-template-columns:1fr 1fr;column-gap:40px;row-gap:26px;align-items:start}.msvc li.r{margin-top:120px}.msvc .ph{width:100%;margin:0!important}
+ .msvc{grid-template-columns:1fr 1fr;column-gap:40px;row-gap:26px;align-items:start}.msvc li.r{margin-top:120px}.msvc .ph{width:100%;margin:0!important}.msvc{margin-inline:-40px;padding-inline:40px}.msvc .gn{font-size:30vw}
  .mteam{max-width:560px}
 
  .mpaper{margin:36px 0 0}
