@@ -1,4 +1,4 @@
-import html as H, re
+import html as H, re, random
 from config import CONTACT_EMAIL, INSTAGRAM, HOURS, HOURS_FR, ABOUT_FR, FORM_ENDPOINT
 def plate_img(cls,p):
     # Accueil : chargée tout de suite, en priorité, et directement dans le bon thème. Les autres : à l'approche de l'écran.
@@ -50,16 +50,26 @@ def carctl(p):
     return (f'<div class="mctl">'+('<i class="ppsp" aria-hidden="true"></i>' if pp else '')+f'<button class="arrow prev" data-pg="{p}" aria-label="Image précédente">{ARRL}</button>'
             f'<span class="mcount"><b data-count="{p}">01</b> / 05</span>'
             f'<button class="arrow next" data-pg="{p}" aria-label="Image suivante">{ARR}</button>'+('<button class="arrow pp" data-pg="accueil" data-on="1" aria-label="Mettre le carrousel en pause"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5v13l10-6.5z" fill="currentColor"/></svg></button>' if pp else '')+f'</div><div class="mbars bars" data-pg="{p}"></div>')
+A_BUONO='Lettrage de vitrine pour le pop-up shop Buono Bites'
+def _torn(seed,inset):
+    """Polygone CSS au bord irrégulier, comme du papier déchiré."""
+    r=random.Random(seed); pts=[]; j=lambda:inset+r.random()*1.6
+    for k in range(0,101,4): pts.append((k+ (r.random()-.5)*2 if 0<k<100 else k, j()*1.9))
+    for k in range(6,95,7): pts.append((100-j(), k+(r.random()-.5)*3))
+    for k in range(100,-1,-4): pts.append((k+ (r.random()-.5)*2 if 0<k<100 else k, 100-j()*1.9))
+    for k in range(94,5,-7): pts.append((j(), k+(r.random()-.5)*3))
+    return 'polygon('+','.join(f'{min(100,max(0,x)):.1f}% {min(100,max(0,y)):.1f}%' for x,y in pts)+')'
+TORN=[(_torn(11+i,0),_torn(71+i,1.4)) for i in range(6)]
 def mobile_html(EL,META,span):
     P={}
     P['accueil']=(h1(['Faites','bonne','impression'])+'<i class="rule"></i><p class="msub">Vêtements et objets personnalisés pour donner forme à vos idées.</p>'
         +cta('accueil',EL,span,(72,710,432,810),'#contact','Demander un devis')
         +crop('accueil',405,95,1586,925,slots('accueil',META),'bleed comp')+carctl('accueil'))
-    svc=[('01','Design graphique','Des visuels qui marquent votre identité.'),('02','Impression','Des supports de qualité pour vos projets.'),('03','Vêtements personnalisés','Des textiles uniques à votre image.'),
-         ('04','Impression 3D','Des idées qui prennent forme.'),('05','Sites Web','Des plateformes sur mesure pour propulser votre marque.'),('06','Applications','Des outils performants pour vos besoins spécifiques.')]
+    # chaque service a sa photo (img/svc-N.webp), posée comme un morceau de papier déchiré
+    svc=[('01','Design graphique','Des visuels qui marquent votre identité.','Illustration Balloon Babe imprimée en rose sur tissu'),('02','Impression','Des supports de qualité pour vos projets.',A_BUONO),('03','Vêtements personnalisés','Des textiles uniques à votre image.','T-shirt imprimé El3vate Miami, palmiers et bandes dégradées'),
+         ('04','Impression 3D','Des idées qui prennent forme.','Imprimante 3D en train d’imprimer une pièce bleue'),('05','Sites Web','Des plateformes sur mesure pour propulser votre marque.','Page d’accueil du site EM Visions'),('06','Applications','Des outils performants pour vos besoins spécifiques.','Outil de maquette 3D : un chandail à capuchon bleu avec le logo EM Visions')]
     P['services']=(h1(['De l’idée','à la','matière'],'h2')+'<i class="rule"></i>'
-        +'<ol class="msvc">'+''.join(f'<li><span class="n">{n}</span><div><b>{H.escape(t)}</b><span>{H.escape(d)}</span></div></li>' for n,t,d in svc)+'</ol>'
-        +crop('services',495,100,1586,985,'','bleed comp')
+        +'<ol class="msvc">'+''.join(f'<li><div class="ph" style="--t:{TORN[i][0]};--u:{TORN[i][1]}"><img src="img/svc-{i+1}.webp" alt="{H.escape(al)}" width="720" height="380" loading="lazy"></div><span class="n">{n}</span><div><b>{H.escape(t)}</b><span>{H.escape(d)}</span></div></li>' for i,(n,t,d,al) in enumerate(svc))+'</ol>'
         +cta('services',EL,span,(78,870,486,966),'#contact','Parler de mon projet'))
     P['realisations']=(h1(['Le','travail','parle'],'h2')+'<i class="rule"></i><p class="msub">Des idées devenues réelles.</p>'
         +crop('realisations',405,95,1586,925,slots('realisations',META),'bleed comp')+carctl('realisations')
@@ -153,8 +163,13 @@ MCSS='''
  .mctl .arrow{width:48px;height:48px;border-radius:50%;border:2px solid #fff;background:none;color:#fff;display:grid;place-items:center;cursor:pointer}
  .mcount{font:400 18px Jost;min-width:70px;text-align:center}.mcount b{font-weight:700}
  .mbars{position:relative;left:auto;top:auto;width:233px;height:16px;margin:10px auto 0}
- .msvc{list-style:none;display:grid;gap:22px;margin:8px 0 6px}
- .msvc li{display:flex;gap:16px;align-items:flex-start}
+ .msvc{list-style:none;display:grid;gap:34px;margin:14px 0 10px}
+ .msvc li{display:grid;grid-template-columns:auto 1fr;column-gap:16px;row-gap:14px;align-items:start}
+ .msvc .ph{grid-column:1/-1;position:relative;aspect-ratio:720/380;margin:0 -6px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45));transform:rotate(-1.1deg)}
+ .msvc li:nth-child(even) .ph{transform:rotate(.9deg)}
+ .msvc .ph::before{content:"";position:absolute;inset:0;background:#f4f4f2;clip-path:var(--t)}
+ .msvc .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;clip-path:var(--u)}
+ html[data-theme=light] .msvc .ph{filter:drop-shadow(0 5px 9px rgba(0,0,0,.28))}html[data-theme=light] .msvc .ph::before{background:#fff}
  .msvc .n{font:400 52px/1 Anton;color:#0a3cff;min-width:58px;border-right:2px solid #f4f4f2;padding-right:14px}
  .msvc b{display:block;font:700 22px/1.05 Oswald;text-transform:uppercase;letter-spacing:.01em}
  .msvc div span{display:block;font-weight:300;font-size:17px;line-height:1.3;margin-top:4px;color:#e8e8e8}

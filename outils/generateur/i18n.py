@@ -58,7 +58,7 @@ EN={
 'Mode sombre':'Dark mode','Fermer':'Close','EM Visions — accueil':'EM Visions — home','Aller au contenu':'Skip to content','Itinéraire (Google Maps)':'Directions (Google Maps)',
 'Devanture de l’atelier EM Custom Design, rue Jean-Talon Est':'EM Custom Design storefront on Jean-Talon Street East','Manteau de travail haute visibilité au logo Ricova':'High-visibility work jacket with the Ricova logo',
 'Lettrage de vitrine pour le pop-up shop Buono Bites':'Window lettering for the Buono Bites pop-up shop','T-shirt imprimé El3vate Miami, palmiers et bandes dégradées':'Printed El3vate Miami t-shirt with palm trees and gradient stripes',
-'Enseigne ronde suspendue M/A':'Round hanging M/A sign','Impression Balloon Babe sur tissu rose':'Balloon Babe print on pink fabric','Casquettes bleues et blanches au logo EM':'Blue and white caps with the EM logo',
+'Enseigne ronde suspendue M/A':'Round hanging M/A sign','Illustration Balloon Babe imprimée en rose sur tissu':'Balloon Babe illustration printed in pink on fabric','Imprimante 3D en train d’imprimer une pièce bleue':'3D printer printing a blue part','Page d’accueil du site EM Visions':'Home page of the EM Visions website','Outil de maquette 3D : un chandail à capuchon bleu avec le logo EM Visions':'3D mockup tool: a blue hoodie with the EM Visions logo','Impression Balloon Babe sur tissu rose':'Balloon Babe print on pink fabric','Casquettes bleues et blanches au logo EM':'Blue and white caps with the EM logo',
 'Mettre le carrousel en pause':'Pause the carousel','Relancer le carrousel':'Resume the carousel',
 'Notre atelier':'Our workshop','Enseigne MA':'MA sign',
 '5825, rue Jean-Talon Est, Saint-Léonard':'5825 Jean-Talon St. East, Saint-Léonard',
