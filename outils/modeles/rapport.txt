@@ -1,31 +1,31 @@
 v20.20.2
 
-added 26 packages in 3s
+added 26 packages in 4s
 total 305488
-drwxr-xr-x 2 runner runner      4096 Oct  6 06:22 .
-drwxr-xr-x 4 runner runner      4096 Oct  6 06:21 ..
--rw-r--r-- 1 runner runner    281240 Oct  6 06:21 19c8fe5702b544d0a1409d3dac1cf90e.glb
--rw-r--r-- 1 runner runner   7255444 Oct  6 06:21 1c1d34d73fd94e6b9e8f82b1eb7194a0.glb
--rw-r--r-- 1 runner runner   3958312 Oct  6 06:21 1f6f7318f9364456b8d58c1eaf71762b.glb
--rw-r--r-- 1 runner runner 234491128 Oct  6 06:21 340b9e30d622464d8a27bd732ab8b75a.glb
--rw-r--r-- 1 runner runner   5285820 Oct  6 06:21 38d07cea51d04e9fb419376d1fdaa77e.glb
--rw-r--r-- 1 runner runner   2895760 Oct  6 06:21 3e5f382200c9449cb41120a2fc977372.glb
--rw-r--r-- 1 runner runner    707904 Oct  6 06:22 45e786c1ad634bffa8348154ef9751cd.glb
--rw-r--r-- 1 runner runner  10935304 Oct  6 06:21 5a21282b2e454d1696547148f617d3d0.glb
--rw-r--r-- 1 runner runner    632096 Oct  6 06:21 5a75d007bcb64ad29a326669d67a30dc.glb
--rw-r--r-- 1 runner runner   1598960 Oct  6 06:21 74c33d16b31346f1a46a55c3ec8e8a78.glb
--rw-r--r-- 1 runner runner   8295120 Oct  6 06:21 794b730ae452424bb3a9ce3c6caaff7a.glb
--rw-r--r-- 1 runner runner   2653424 Oct  6 06:21 919543b91c9448ac877fdf671fdcfee5.glb
--rw-r--r-- 1 runner runner   1546656 Oct  6 06:21 99ab368be9eb474d9db3fa84ae68960e.glb
--rw-r--r-- 1 runner runner   2331144 Oct  6 06:21 a1328e74b0f44b4284af05eb2aa5cfb6.glb
--rw-r--r-- 1 runner runner   4119668 Oct  6 06:21 abb2916c07214d9d95cd70bd2dafa8fc.glb
--rw-r--r-- 1 runner runner   2636768 Oct  6 06:21 d6b2561de39f423f9c7a2e7944485beb.glb
--rw-r--r-- 1 runner runner    651536 Oct  6 06:21 dd7f1d2b5a8147719cef11a331176fdf.glb
--rw-r--r-- 1 runner runner   3719256 Oct  6 06:21 e1ae456da04b4cbb9dff6accbc5ac965.glb
--rw-r--r-- 1 runner runner    462748 Oct  6 06:21 e8457e91baf043cdae0ddaa9c054ca31.glb
--rw-r--r-- 1 runner runner  16272648 Oct  6 06:21 edb7f2c044b64d5da40484495239fee3.glb
--rw-r--r-- 1 runner runner   1873692 Oct  6 06:21 f6f27327fbaf423081ae9da8e5dc109e.glb
--rw-r--r-- 1 runner runner    165016 Oct  6 06:21 f93512f5abd64d95b475c4f66637165b.glb
+drwxr-xr-x 2 runner runner      4096 Oct  6 06:30 .
+drwxr-xr-x 4 runner runner      4096 Oct  6 06:30 ..
+-rw-r--r-- 1 runner runner    281240 Oct  6 06:30 19c8fe5702b544d0a1409d3dac1cf90e.glb
+-rw-r--r-- 1 runner runner   7255444 Oct  6 06:30 1c1d34d73fd94e6b9e8f82b1eb7194a0.glb
+-rw-r--r-- 1 runner runner   3958312 Oct  6 06:30 1f6f7318f9364456b8d58c1eaf71762b.glb
+-rw-r--r-- 1 runner runner 234491128 Oct  6 06:30 340b9e30d622464d8a27bd732ab8b75a.glb
+-rw-r--r-- 1 runner runner   5285820 Oct  6 06:30 38d07cea51d04e9fb419376d1fdaa77e.glb
+-rw-r--r-- 1 runner runner   2895760 Oct  6 06:30 3e5f382200c9449cb41120a2fc977372.glb
+-rw-r--r-- 1 runner runner    707904 Oct  6 06:30 45e786c1ad634bffa8348154ef9751cd.glb
+-rw-r--r-- 1 runner runner  10935304 Oct  6 06:30 5a21282b2e454d1696547148f617d3d0.glb
+-rw-r--r-- 1 runner runner    632096 Oct  6 06:30 5a75d007bcb64ad29a326669d67a30dc.glb
+-rw-r--r-- 1 runner runner   1598960 Oct  6 06:30 74c33d16b31346f1a46a55c3ec8e8a78.glb
+-rw-r--r-- 1 runner runner   8295120 Oct  6 06:30 794b730ae452424bb3a9ce3c6caaff7a.glb
+-rw-r--r-- 1 runner runner   2653424 Oct  6 06:30 919543b91c9448ac877fdf671fdcfee5.glb
+-rw-r--r-- 1 runner runner   1546656 Oct  6 06:30 99ab368be9eb474d9db3fa84ae68960e.glb
+-rw-r--r-- 1 runner runner   2331144 Oct  6 06:30 a1328e74b0f44b4284af05eb2aa5cfb6.glb
+-rw-r--r-- 1 runner runner   4119668 Oct  6 06:30 abb2916c07214d9d95cd70bd2dafa8fc.glb
+-rw-r--r-- 1 runner runner   2636768 Oct  6 06:30 d6b2561de39f423f9c7a2e7944485beb.glb
+-rw-r--r-- 1 runner runner    651536 Oct  6 06:30 dd7f1d2b5a8147719cef11a331176fdf.glb
+-rw-r--r-- 1 runner runner   3719256 Oct  6 06:30 e1ae456da04b4cbb9dff6accbc5ac965.glb
+-rw-r--r-- 1 runner runner    462748 Oct  6 06:30 e8457e91baf043cdae0ddaa9c054ca31.glb
+-rw-r--r-- 1 runner runner  16272648 Oct  6 06:30 edb7f2c044b64d5da40484495239fee3.glb
+-rw-r--r-- 1 runner runner   1873692 Oct  6 06:30 f6f27327fbaf423081ae9da8e5dc109e.glb
+-rw-r--r-- 1 runner runner    165016 Oct  6 06:30 f93512f5abd64d95b475c4f66637165b.glb
 tshirt pièces : 4
     123426  Object_4  FABRIC_1_FRONT_4193  [-7.61,41.5,-7.09]  [7.75,65.7,-0.319]
     120680  Object_6  FABRIC_1_FRONT_4193  [-11.5,41.6,-7.05]  [11.6,65.8,3.55]
@@ -123,7 +123,7 @@ hoodie pièces : 61
     1691  Object_14  Rib2_FRONT_494451  [-0.297,0.988,0.0766]  [-0.215,1.08,0.168]
     1691  Object_15  Rib2_FRONT_494451  [-0.295,0.989,0.078]  [-0.217,1.08,0.167]
     1685  Object_5  Rib2_FRONT_494451  [0.216,0.99,0.0764]  [0.29,1.08,0.165]
-hoodie {"tris":1194130,"after":90251,"ko":1918}
+hoodie {"tris":1194130,"after":82678,"ko":1837}
 jacket pièces : 4
     7328  defaultMaterial  blinn1  [-2.74,4.41,-0.807]  [2.74,7.12,0.665]
     504  defaultMaterial  blinn1  [0.0547,4.33,0.588]  [0.13,4.44,0.609]
