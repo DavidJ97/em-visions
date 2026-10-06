@@ -20,5 +20,7 @@
  "pillow":     {"uid":"3e5f382200c9449cb41120a2fc977372","path":"glbs/000-101/3e5f382200c9449cb41120a2fc977372.glb","tris":4000,"solid":[".*"],"credit":["Simple waves cushion/Pillow","Caio Stange","caiostange"]},
  "umbrella":   {"uid":"99ab368be9eb474d9db3fa84ae68960e","path":"glbs/000-135/99ab368be9eb474d9db3fa84ae68960e.glb","tris":40000,"solid":["^Material\\.001$"],"credit":["umbrella","kowbassen","kowbassen"]},
  "rollup":     {"uid":"e1ae456da04b4cbb9dff6accbc5ac965","path":"glbs/000-158/e1ae456da04b4cbb9dff6accbc5ac965.glb","tris":20000,"solid":["^Material$"],"credit":["Rollup Luxury","YouniqueĪdeaStudio","sinnervoncrawsz"]},
- "banner":     {"uid":"45e786c1ad634bffa8348154ef9751cd","path":"glbs/000-037/45e786c1ad634bffa8348154ef9751cd.glb","tris":25000,"solid":[".*"],"credit":["Cloth Fabric Hanging Wall Banner Flag Poster","mikpav","mikpav"]}
+ "banner":     {"uid":"45e786c1ad634bffa8348154ef9751cd","path":"glbs/000-037/45e786c1ad634bffa8348154ef9751cd.glb","tris":25000,"solid":[".*"],"credit":["Cloth Fabric Hanging Wall Banner Flag Poster","mikpav","mikpav"]},
+ "pen":        {"uid":"202a0bed656f4ad291d58e936e3161a0","path":"glbs/000-049/202a0bed656f4ad291d58e936e3161a0.glb","tris":4000,"solid":["PlasticBody","PlasticButton"],"credit":["Ballpoint Pen","spendoge","spendoge"]},
+ "pencil":     {"uid":"739e586999a248dea5422a7e4d74d134","path":"glbs/000-026/739e586999a248dea5422a7e4d74d134.glb","tris":10000,"solid":["MaderaNaranja"],"credit":["Pencil - Lapiz","Diego G.","empty_mirror"]}
 }
