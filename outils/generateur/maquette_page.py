@@ -78,7 +78,7 @@ def page(L,logo_vb,logo_d):
       f'<label class="up"><input type="file" id="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b id="upname">{e(t["pick"])}</b><small>{e(t["fmt"])}</small></span></label>'
       f'<div id="adj" hidden>{sl("size",t["size"],.15,1.8,.01,.9)}{sl("cx",t["x"],-1.2,1.2,.01,0)}{sl("cy",t["y"],-1.2,1.2,.01,0)}{sl("rot",t["rot"],-180,180,1,0)}<button type="button" class="rm" id="rm">{e(t["rm"])}</button></div>'
       f'<button type="button" class="cta" id="send" data-to="{t["to"]}">{e(t["send"])}<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
-      f'<p class="note">{e(t["note"])}</p></aside></main><div class="toast" id="toast" role="status"></div>'
+      f'<p class="note">{e(t["note"])}</p>{credits(L)}</aside></main><div class="toast" id="toast" role="status"></div>'
       f'<script type="module" src="{t["app"]}"></script></body></html>')
 def write(logo_vb,logo_d):
     for L,d in (('fr','out/maquette'),('en','out/en/mockup')):
