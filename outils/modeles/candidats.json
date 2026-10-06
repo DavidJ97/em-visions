@@ -1,0 +1,466 @@
+{
+ "hoodie-1": {
+  "uid": "3a3d8d3fc80c42baab590a63b180a65e",
+  "path": "glbs/000-129/3a3d8d3fc80c42baab590a63b180a65e.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "hoodie and skirt",
+   "Takeru",
+   "takeru1124"
+  ],
+  "lic": "by",
+  "faces": 34454,
+  "likes": 906
+ },
+ "hoodie-2": {
+  "uid": "e0f2c66d6d014246a6055b157c99de03",
+  "path": "glbs/000-080/e0f2c66d6d014246a6055b157c99de03.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Bunny",
+   "Siesta",
+   "siesta"
+  ],
+  "lic": "by",
+  "faces": 37756,
+  "likes": 621
+ },
+ "hoodie-3": {
+  "uid": "340b9e30d622464d8a27bd732ab8b75a",
+  "path": "glbs/000-000/340b9e30d622464d8a27bd732ab8b75a.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "HoodieBaseModel",
+   "Marashe",
+   "Marashe"
+  ],
+  "lic": "by",
+  "faces": 1194612,
+  "likes": 395
+ },
+ "hoodie-4": {
+  "uid": "6dca9cd855a8441881f0b324236cf325",
+  "path": "glbs/000-057/6dca9cd855a8441881f0b324236cf325.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Hoodie",
+   "Pieter Ferreira",
+   "Badboy17Aiden"
+  ],
+  "lic": "by",
+  "faces": 25946,
+  "likes": 355
+ },
+ "hoodie-5": {
+  "uid": "3d9ec96f668a4665a34def2b2550a837",
+  "path": "glbs/000-138/3d9ec96f668a4665a34def2b2550a837.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Drape Hoodie (optimized)",
+   "Marashe",
+   "Marashe"
+  ],
+  "lic": "by",
+  "faces": 988209,
+  "likes": 329
+ },
+ "hoodie-6": {
+  "uid": "486a4220d8c14a68a02ee1ccd2cc7c6a",
+  "path": "glbs/000-088/486a4220d8c14a68a02ee1ccd2cc7c6a.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Roadie's Hoodie and Pants",
+   "Barno",
+   "Barno"
+  ],
+  "lic": "by",
+  "faces": 2903,
+  "likes": 306
+ },
+ "hoodie-7": {
+  "uid": "97611a53e3b846f69e0655b210f72b2f",
+  "path": "glbs/000-091/97611a53e3b846f69e0655b210f72b2f.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Hoodie",
+   "Virtual Pandora",
+   "virtualpandora"
+  ],
+  "lic": "by",
+  "faces": 240326,
+  "likes": 280
+ },
+ "hoodie-8": {
+  "uid": "4fc7bc06a5b94568b1923268f4a6e825",
+  "path": "glbs/000-139/4fc7bc06a5b94568b1923268f4a6e825.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Hoodie and Jeans",
+   "lizhiqiang",
+   "lizhiqiang89"
+  ],
+  "lic": "by",
+  "faces": 10542,
+  "likes": 265
+ },
+ "hooded-sweatshirt-1": {
+  "uid": "d51e89bfa33646ba8771ddf972dc1af2",
+  "path": "glbs/000-127/d51e89bfa33646ba8771ddf972dc1af2.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Hoodie",
+   "Alexander Kurmanin",
+   "kurmanin"
+  ],
+  "lic": "by",
+  "faces": 151900,
+  "likes": 174
+ },
+ "hooded-sweatshirt-2": {
+  "uid": "b3456b1fc6c54ef08bcdd8002e1e5834",
+  "path": "glbs/000-011/b3456b1fc6c54ef08bcdd8002e1e5834.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "BALENCIAGA HOODIE fw2020",
+   "ecophobic",
+   "ecophobic"
+  ],
+  "lic": "by",
+  "faces": 13788,
+  "likes": 70
+ },
+ "sweatpants-1": {
+  "uid": "7d9d047ebe724ec1ad99f317bbed04d4",
+  "path": "glbs/000-118/7d9d047ebe724ec1ad99f317bbed04d4.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Sweatpants",
+   "andrei.ilie",
+   "andrei.ilie"
+  ],
+  "lic": "by",
+  "faces": 368506,
+  "likes": 49
+ },
+ "sweatpants-2": {
+  "uid": "a24fcb0d7d754296802027293042714d",
+  "path": "glbs/000-112/a24fcb0d7d754296802027293042714d.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "HP Sweatpants",
+   "maxx_renn",
+   "maxrenn"
+  ],
+  "lic": "by",
+  "faces": 118604,
+  "likes": 21
+ },
+ "sweatpants-3": {
+  "uid": "c7116eb769634822b3c189f352d30451",
+  "path": "glbs/000-150/c7116eb769634822b3c189f352d30451.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "heated pants",
+   "victoriadunn001",
+   "victoriadunn001"
+  ],
+  "lic": "by",
+  "faces": 478,
+  "likes": 0
+ },
+ "joggers-pants-1": {
+  "uid": "609827d6151043bba45e7fcf3cc18943",
+  "path": "glbs/000-003/609827d6151043bba45e7fcf3cc18943.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "SERVICE FEMBOT FULLY ARTICULATED KIT",
+   "Binkley-Spacetrucker",
+   "Binkley-Piratepants"
+  ],
+  "lic": "by",
+  "faces": 69608,
+  "likes": 317
+ },
+ "joggers-pants-2": {
+  "uid": "cff6ea065e2e4029be5ba20f03937b63",
+  "path": "glbs/000-066/cff6ea065e2e4029be5ba20f03937b63.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Cockroach (3D photogrammetry scan)",
+   "Kathrin&Christian",
+   "extracrispi"
+  ],
+  "lic": "by",
+  "faces": 424789,
+  "likes": 199
+ },
+ "joggers-pants-3": {
+  "uid": "1f6f7318f9364456b8d58c1eaf71762b",
+  "path": "glbs/000-082/1f6f7318f9364456b8d58c1eaf71762b.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Dillard, Darren Joggers",
+   "darrendillard1",
+   "darrendillard1"
+  ],
+  "lic": "by",
+  "faces": 3514,
+  "likes": 177
+ },
+ "joggers-pants-4": {
+  "uid": "ca1a747f27cd4a4080098d6823105b7f",
+  "path": "glbs/000-099/ca1a747f27cd4a4080098d6823105b7f.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Model 1887 - Rusty Lever Action Shotgun",
+   "Ashe",
+   "Ashe52"
+  ],
+  "lic": "by",
+  "faces": 4574,
+  "likes": 141
+ },
+ "joggers-pants-5": {
+  "uid": "37db5ceee3374188871e83596b9694b5",
+  "path": "glbs/000-087/37db5ceee3374188871e83596b9694b5.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Plasma Rifle",
+   "GameHorizons",
+   "tanbe2010"
+  ],
+  "lic": "by",
+  "faces": 34872,
+  "likes": 126
+ },
+ "joggers-pants-6": {
+  "uid": "8fc3e995522846e0844d3b1c29316fee",
+  "path": "glbs/000-129/8fc3e995522846e0844d3b1c29316fee.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Plasma Rifle type 1",
+   "GameHorizons",
+   "tanbe2010"
+  ],
+  "lic": "by",
+  "faces": 35127,
+  "likes": 81
+ },
+ "joggers-pants-7": {
+  "uid": "4fafe0a4319547a8a8ce133aace72ce3",
+  "path": "glbs/000-041/4fafe0a4319547a8a8ce133aace72ce3.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Hirschafer - Medabots",
+   "Dandelion",
+   "dandelion4days"
+  ],
+  "lic": "by",
+  "faces": 4738,
+  "likes": 62
+ },
+ "joggers-pants-8": {
+  "uid": "1420fa18eea64d6aa3c5c3d4b7f4f758",
+  "path": "glbs/000-044/1420fa18eea64d6aa3c5c3d4b7f4f758.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "[WR] Natasha",
+   ">corrupted ogre",
+   "corruptedogre"
+  ],
+  "lic": "by",
+  "faces": 4528,
+  "likes": 56
+ },
+ "long-sleeve-shirt-1": {
+  "uid": "14cc81980a06473a820f811596418fae",
+  "path": "glbs/000-118/14cc81980a06473a820f811596418fae.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Hangers and Long Sleeve Shirt",
+   "dudecon",
+   "dudecon"
+  ],
+  "lic": "by",
+  "faces": 3676,
+  "likes": 395
+ },
+ "long-sleeve-shirt-2": {
+  "uid": "44e260855c7f4c1ca611af8d2370195a",
+  "path": "glbs/000-157/44e260855c7f4c1ca611af8d2370195a.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Hangers and Tee-shirt",
+   "dudecon",
+   "dudecon"
+  ],
+  "lic": "by",
+  "faces": 4323,
+  "likes": 329
+ },
+ "long-sleeve-shirt-3": {
+  "uid": "f6f27327fbaf423081ae9da8e5dc109e",
+  "path": "glbs/000-081/f6f27327fbaf423081ae9da8e5dc109e.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Dickies Long Sleeve Shirt",
+   "Kodie Russell",
+   "KodieRussell"
+  ],
+  "lic": "by",
+  "faces": 7727,
+  "likes": 241
+ },
+ "long-sleeve-shirt-4": {
+  "uid": "37b92fbde5ca45448c50fc2cb6a376d8",
+  "path": "glbs/000-084/37b92fbde5ca45448c50fc2cb6a376d8.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Hangers and Pants",
+   "dudecon",
+   "dudecon"
+  ],
+  "lic": "by",
+  "faces": 1890,
+  "likes": 211
+ },
+ "long-sleeve-shirt-5": {
+  "uid": "86d4292baa6c489ab5fab374bf803106",
+  "path": "glbs/000-106/86d4292baa6c489ab5fab374bf803106.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "T-shirt - Lengan Panjang",
+   "Ikal.Ichwan",
+   "Ikal.Ichwan"
+  ],
+  "lic": "by",
+  "faces": 16776,
+  "likes": 73
+ },
+ "long-sleeve-shirt-6": {
+  "uid": "fbfa86ea615e4028b8ad400de902bfd4",
+  "path": "glbs/000-130/fbfa86ea615e4028b8ad400de902bfd4.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Party Starter - Layered T-Shirts",
+   "RealityRoller",
+   "RealityRoller"
+  ],
+  "lic": "by",
+  "faces": 9706,
+  "likes": 71
+ },
+ "long-sleeve-shirt-7": {
+  "uid": "858f8c952ab74dbd87882e043f78df03",
+  "path": "glbs/000-106/858f8c952ab74dbd87882e043f78df03.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "longsleeve with vest",
+   "williamscynthia21",
+   "williamscynthia21"
+  ],
+  "lic": "by",
+  "faces": 7901,
+  "likes": 57
+ },
+ "long-sleeve-shirt-8": {
+  "uid": "e7a03de4e430450697f06884e40b927c",
+  "path": "glbs/000-028/e7a03de4e430450697f06884e40b927c.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Hangers Pack tank top tshirt men long sleeve t-s",
+   "kopofx",
+   "kopofx"
+  ],
+  "lic": "by",
+  "faces": 13848,
+  "likes": 55
+ }
+}
