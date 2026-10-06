@@ -71,10 +71,24 @@ def build(page,im,E,EL):
             bx=[int(xs.min()),int(ys.min()),int(xs.max())+1,int(ys.max())+1]
             out.append(dict(kind='diag' if r==0 else 'arrow',box=bx,col='#fff',row=r))
     return out
-def svg(el,theme_fg='var(--fg)'):
+# Bouton « Demander un devis » : cyan, dégradé qui défile, reflet qui passe, étoiles qui scintillent, halo qui respire.
+_DV=[0]
+STAR='M0-7C.9-1.9 1.9-.9 7 0 1.9.9.9 1.9 0 7-.9 1.9-1.9.9-7 0-1.9-.9-.9-1.9 0-7Z'
+def _devis(shape,x0,y0,w_,h_,stars):
+    _DV[0]+=1; cid=f'dvc{_DV[0]}'
+    st=''.join(f'<g transform="translate({x:.0f} {y:.0f}) scale({k})"><path class="dvst" style="animation-delay:{dl}s" d="{STAR}"/></g>' for x,y,k,dl in stars)
+    return (f'<defs><clipPath id="{cid}">{shape}</clipPath></defs>'
+            +shape.replace('/>',' class="dvh" fill="#12e2ff" filter="url(#dvblur)"/>')
+            +f'<g clip-path="url(#{cid})"><rect class="dvg" x="{x0}" y="{y0}" width="{w_+360}" height="{h_}" fill="url(#dvgrad)"/>'
+            f'<rect class="dvs" style="--dvw:{w_+150}px" x="{x0-100}" y="{y0-20}" width="46" height="{h_+40}" fill="url(#dvsheen)"/></g>'+st)
+def svg(el,devis=False):
     x0,y0,x1,y1=el['box']; w_,h_=x1-x0,y1-y0; k=el['kind']
     st=f'style="left:{x0}px;top:{y0}px;width:{w_}px;height:{h_}px"'
     vb=f'viewBox="{x0} {y0} {w_} {h_}"'
+    if k=='pill' and devis:
+        cx,cy,r=el['disc']
+        return (f'<svg class="vsvg dv" aria-hidden="true" {st} {vb}>'+_devis(f'<path d="{el["d"]}"/>',x0,y0,w_,h_,((x0+30,y0+17,2.1,0),(cx-58,y1-19,1.5,.9),(x0+w_*.5,y0+15,1.15,1.8)))
+                +f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r:.1f}" fill="#04090c"/><g class="dva">{arrow(cx,cy,r*0.8,"#fff",2.6)}</g></svg>')
     if k=='pill':
         cx,cy,r=el['disc']
         return (f'<svg class="vsvg" aria-hidden="true" {st} {vb}><path d="{el["d"]}" fill="url(#paperfill)" filter="url(#paperedge)"/>'
@@ -82,6 +96,7 @@ def svg(el,theme_fg='var(--fg)'):
     if k=='darkpill':
         return f'<svg class="vsvg" aria-hidden="true" {st} {vb}><path d="{el["d"]}" fill="#0b0b0c"/></svg>'
     if k=='submit':
+        return (f'<svg class="vsvg dv" aria-hidden="true" {st} {vb}>'+_devis(f'<rect x="{x0}" y="{y0}" width="{w_}" height="{h_}" rx="4"/>',x0,y0,w_,h_,((x0+34,y0+16,1.8,0),(x1-40,y1-16,1.4,.9),(x0+w_*.7,y0+14,1.05,1.8)))+'</svg>')
         return f'<svg class="vsvg" aria-hidden="true" {st} {vb}><rect x="{x0}" y="{y0}" width="{w_}" height="{h_}" rx="4" fill="#0a3cff"/></svg>'
     if k in ('arrow','diag'):
         cx,cy=(x0+x1)/2,(y0+y1)/2; s=max(w_,h_)

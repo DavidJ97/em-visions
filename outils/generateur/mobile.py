@@ -243,7 +243,12 @@ MCSS='''
  .mf.bad input,.mf.bad textarea{border-color:#d6002a}.mf .err{position:static;display:block;font:600 13px Archivo,sans-serif;color:#d6002a;margin-top:4px;font-style:normal}
  .mfile{display:flex;gap:16px;align-items:center;border:1.5px dashed #8d8d8d;border-radius:4px;padding:14px 16px;cursor:pointer;position:relative;background:#f4f4f280}
  .mfile input{position:absolute;inset:0;opacity:0;cursor:pointer}.mfile b{display:block;font:500 16px Archivo,sans-serif}.mfile small{display:block;font:400 14px Archivo,sans-serif;color:#777;margin-top:2px}
- .msubmit{width:100%;height:56px;border:0;border-radius:4px;background:#0a3cff;color:#fff;font:600 18px Archivo,sans-serif;display:flex;justify-content:center;align-items:center;gap:10px;cursor:pointer;margin-top:4px}
+ .msubmit{width:100%;height:58px;border:0;border-radius:4px;color:#04121a;font:700 18px Archivo,sans-serif;display:flex;justify-content:center;align-items:center;gap:10px;cursor:pointer;margin-top:4px;position:relative;overflow:hidden;isolation:isolate;
+  background:linear-gradient(90deg,#12e2ff,#9dfdff 22%,#12e2ff 48%,#00b0ff 76%,#12e2ff) 0 0/200% 100%;animation:msg 5s linear infinite,msh 2.4s ease-in-out infinite}
+ .msubmit::after{content:'';position:absolute;z-index:-1;top:-20%;bottom:-20%;left:-90px;width:46px;background:linear-gradient(90deg,#fff0,#ffffffe6,#fff0);transform:skewX(-20deg);animation:mss 3.2s cubic-bezier(.4,0,.2,1) infinite}
+ @keyframes msg{to{background-position:200% 0}}@keyframes msh{0%,100%{box-shadow:0 0 0 #12e2ff00}50%{box-shadow:0 0 24px #12e2ffb0}}@keyframes mss{0%,55%{left:-90px}100%{left:calc(100% + 60px)}}
+ .msubmit svg{animation:dva 1.6s ease-in-out infinite}
+ @media (prefers-reduced-motion:reduce){.msubmit,.msubmit::after,.msubmit svg{animation:none}.msubmit::after{display:none}}
  .mm3d{display:inline-flex;align-items:center;gap:10px;margin:22px 0 4px;height:48px;padding:0 20px;border-radius:24px;border:2px solid #0a3cff;background:#0a3cff22;color:inherit;font:600 16px/1 Archivo,sans-serif;text-decoration:none}.mpills{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}.mpills .mm3d{margin:0}.mm3d.prix{background:#0a3cff;color:#fff}.mprix{margin:12px 0 6px;font-size:13.5px;line-height:1.4;opacity:.72;max-width:36ch}.mm3dl{display:inline-block;margin-top:8px;padding:6px 0;color:#0a3cff;font:500 14px Archivo,sans-serif;text-underline-offset:3px}
  .legal{font:400 12px/1.4 Archivo,sans-serif;color:#444;text-align:center;margin-top:12px}.legal a{color:#222;display:inline-block;margin-top:6px;padding:4px 0}
  .pbody .ok{position:static;width:auto;height:auto;padding:40px 0;background:none;border-radius:0}

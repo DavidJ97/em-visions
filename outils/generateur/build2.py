@@ -75,7 +75,7 @@ def page_html(p):
         out.append(f'<i class="sqd" aria-hidden="true" data-line="{q["line"]}" {box(q["box"],"background:"+q["color"])}></i>')
     for v in M.get('vec',[]):
         if v['kind'] in ('logo','toggle') or v.get('row')==0 or (p=='a-propos' and v['kind']=='pill'): continue
-        out.append(buttons.svg(v))
+        out.append(buttons.svg(v,p=='accueil'))
     groups={}
     for e in els: groups.setdefault((e['group'],e['block']),[]).append(e)
     for (g,bi),L in groups.items():
@@ -190,7 +190,7 @@ def vecf(p,b):
     for v in META[p].get('vec',[]):
         if v['kind'] in ('logo','toggle'): continue
         a=v['box']
-        if a[0]>=x0-2 and a[1]>=y0-2 and a[2]<=x1+2 and a[3]<=y1+2: o.append(buttons.svg(v))
+        if a[0]>=x0-2 and a[1]>=y0-2 and a[2]<=x1+2 and a[3]<=y1+2: o.append(buttons.svg(v,p=='accueil'))
     o.insert(0,vclips(p,(x0,y0,x1,y1)))
     return ''.join(o)
 MOB.VECF=vecf
@@ -292,6 +292,14 @@ html[data-theme=light] .dsv{--alt:#0a0a0a;filter:drop-shadow(0 6px 10px #0005)}
 .pills{position:absolute;display:flex;gap:12px}.pills .m3dpill{position:static}.m3dpill.prix{background:#0a3cff;color:#fff}.m3dpill.prix:hover{background:var(--fg);border-color:var(--fg);color:var(--bg,#050505)}
 .prixnote{position:absolute;font:400 13px/1.3 Archivo,sans-serif;color:var(--fg);opacity:.85;white-space:nowrap;letter-spacing:.01em}
 .round{border-radius:50%}.pp svg+svg,.pp[data-on="0"] svg{display:none}.pp[data-on="0"] svg+svg{display:block}.pp[hidden]{display:none!important}.arrow{color:var(--fg);border:2px solid var(--fg);display:grid;place-items:center;transition:background .2s,border-color .2s}.arrow:hover{background:var(--blue)!important;border-color:var(--blue)}.round:hover{background:#0a3cff55}
+.dv .dvg{animation:dvg 5s linear infinite}@keyframes dvg{to{transform:translateX(-360px)}}
+.dv .dvs{transform-box:fill-box;transform-origin:center;transform:skewX(-20deg);animation:dvs 3.2s cubic-bezier(.4,0,.2,1) infinite}@keyframes dvs{0%,55%{transform:translateX(0) skewX(-20deg)}100%{transform:translateX(var(--dvw)) skewX(-20deg)}}
+.dv .dvh{opacity:.38;transform-box:fill-box;transform-origin:center;animation:dvh 2.4s ease-in-out infinite}@keyframes dvh{50%{opacity:.8;transform:scale(1.03,1.14)}}.cin .dvh{display:none}
+.dv .dvst{fill:#fff;transform-box:fill-box;transform-origin:center;transform:scale(0);animation:dvst 2.7s ease-in-out infinite}@keyframes dvst{0%,40%,100%{transform:scale(0) rotate(0)}20%{transform:scale(1) rotate(45deg)}}
+.dv .dva{animation:dva 1.6s ease-in-out infinite}@keyframes dva{0%,55%,100%{transform:translateX(0)}76%{transform:translateX(6px)}}
+#p-accueil:has(.pill:hover) .dv .dvg,form:has(.submit:hover) .dv .dvg{animation-duration:1.8s}
+#contact-19-0{color:#04121a!important;font-weight:700!important}.sqd[data-line="contact-19-0"] path{stroke:#04121a}
+@media (prefers-reduced-motion:reduce){.dv *{animation:none!important}.dv .dvst{transform:scale(.8)}.dv .dvs{display:none}}
 .pill{border-radius:44px}.pill:hover{backdrop-filter:brightness(1.12) contrast(1.05)}
 .hit:focus-visible,.sup:focus-visible,.nl:focus-visible .t,.fld :focus-visible{outline:3px solid #6f8cff;outline-offset:3px}
 .bars{position:absolute;left:1257px;top:898px;width:233px;height:16px}
@@ -559,6 +567,9 @@ doc=f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="v
 <a class="sr" href="#p-accueil">Aller au contenu</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="emlogo" viewBox="{LOGO_VB}"><path fill="currentColor" fill-rule="evenodd" d="{LOGO_D}"/></symbol>
 <filter id="fiber" x="-20%" y="-5%" width="140%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.09 0.6" numOctaves="2" seed="3" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="7"/></filter>
+<linearGradient id="dvgrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="360" y2="0" spreadMethod="repeat"><stop offset="0" stop-color="#12e2ff"/><stop offset=".22" stop-color="#9dfdff"/><stop offset=".48" stop-color="#12e2ff"/><stop offset=".76" stop-color="#00b0ff"/><stop offset="1" stop-color="#12e2ff"/></linearGradient>
+<linearGradient id="dvsheen"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<filter id="dvblur" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="11"/></filter>
 <linearGradient id="paperfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f4f2"/><stop offset="1" stop-color="#e6e6e3"/></linearGradient>
 <filter id="paperedge" x="-2%" y="-5%" width="104%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035 0.05" numOctaves="5" seed="7" result="n"/><feColorMatrix in="n" type="saturate" values="0" result="g"/>
 <feComponentTransfer in="g" result="g2"><feFuncR type="linear" slope="0.42" intercept="0.7"/><feFuncG type="linear" slope="0.42" intercept="0.7"/><feFuncB type="linear" slope="0.42" intercept="0.7"/></feComponentTransfer>
