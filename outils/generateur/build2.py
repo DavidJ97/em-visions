@@ -185,7 +185,7 @@ def header_html():
     return (f'<header class="dhead" id="dhead"><picture><source data-th srcset="img/head-light.webp" media="(prefers-color-scheme: light)"><img class="hbg" data-plate="head" src="img/head.webp" alt="" aria-hidden="true"></picture>'
             f'<a class="hlogo" href="#accueil" aria-label="EM Visions — accueil"><svg viewBox="{LOGO_VB}" aria-hidden="true"><use href="#emlogo"/></svg></a>'
             '<nav aria-label="Navigation principale">'+''.join(f'<a class="nl" data-key="{e["href"][1:]}" href="{e["href"]}">{span(e)}</a>' for e in nav)+'</nav>'
-            f'<i class="uline" aria-hidden="true"></i><a class="nl lang-fr" href="#accueil" hreflang="fr" lang="fr">{span(fr)}</a><a class="nl lang-en" href="en/#home" hreflang="en" lang="en">{span(en)}</a>{tog}</header>')
+            f'<i class="uline" aria-hidden="true"></i><a class="nl lang-fr" href="#accueil" hreflang="fr" lang="fr">{span(fr)}</a><a class="nl lang-en" href="../#home" hreflang="en" lang="en">{span(en)}</a>{tog}</header>')
 def vecf(p,b):
     x0,y0,x1,y1=b; o=[]
     for v in META[p].get('vec',[]):
@@ -401,10 +401,10 @@ function setActive(p,force){if(p===setActive.cur&&!force)return;setActive.cur=p;
  const at=document.querySelector('#dhead nav a[data-key="'+p+'"] .t'),ul=document.querySelector('.uline');
  if(at&&vis(at)){const b=box(at);ul.style.left=(b.l-2)+'px';ul.style.width=(b.r-b.l+4)+'px'}
  document.querySelectorAll('[data-nav]').forEach(a=>{a.removeAttribute('aria-current');if(a.dataset.nav===p)a.setAttribute('aria-current','page')});
- document.querySelectorAll('.lang-fr,.mlang-fr').forEach(a=>a.setAttribute('href',(LANG==='en'?'../'+IDX:'')+'#'+p));document.querySelectorAll('.lang-en,.mlang-en').forEach(a=>a.setAttribute('href',(LANG==='fr'?'en/'+IDX:'')+'#'+SLUG[p]));
+ document.querySelectorAll('.lang-fr,.mlang-fr').forEach(a=>a.setAttribute('href',(LANG==='en'?'fr/'+IDX:'')+'#'+p));document.querySelectorAll('.lang-en,.mlang-en').forEach(a=>a.setAttribute('href',(LANG==='fr'?'../'+IDX:'')+'#'+SLUG[p]));
  document.title=p==='accueil'?DOCT:TITLES[lang][p]+' — EM Visions';if(setActive.car!==p){const o=setActive.car;setActive.car=p;[o,p].forEach(k=>{if(k&&CARS[k]&&CARS[k].render)CARS[k].render()})}}
 const DOCT=document.title;
-function parse(h){h=(h||'').replace(/^#/,'');if(h==='en'||h.startsWith('en/')){const r=h.slice(3);if(LANG==='fr'){location.replace('en/'+IDX+(r?'#'+r:''));return{L:LANG,p:curPage}}h=r}
+function parse(h){h=(h||'').replace(/^#/,'');if(h==='fr'||h.startsWith('fr/')){const r=h.slice(3);if(LANG==='en'){location.replace('fr/'+IDX+(r?'#'+r:''));return{L:LANG,p:curPage}}h=r}
  if(LANG==='en')h=UNSLUG[h]||h;return{L:LANG,p:PAGES.includes(h)?h:'accueil'}}
 function kk(){return Math.max(frame.clientWidth,320)/1586}
 function secTop(p){if(isM()){const el=document.getElementById('m-'+p),mh=document.querySelector('.mhead');return el.getBoundingClientRect().top+scrollY-(mh?mh.offsetHeight:0)+(p==='accueil'?-999:0)}
@@ -415,7 +415,7 @@ function hashFor(p){return LANG==='en'?'#'+SLUG[p]:'#'+p}
 function route(smooth){const{L,p}=parse(location.hash);const ch=L!==lang;lang=L;if(ch||!route.done)apply();route.done=1;goTo(p,smooth)}
 addEventListener('hashchange',()=>route(true));
 document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a||a.hasAttribute('data-voir')||a.id.endsWith('-voir-hit'))return;const h=a.getAttribute('href');if(h==='#'||h==='#p-accueil')return;
- const{L,p}=parse(h);if(!/^#(en\/)?[a-z-]*$/.test(h))return;e.preventDefault();const ch=L!==lang;lang=L;if(ch)apply();history.pushState(null,'',h);goTo(p,!ch);if(typeof menu==='function'&&!mnav.hidden)menu(false)});
+ const{L,p}=parse(h);if(!/^#(fr\/)?[a-z-]*$/.test(h))return;e.preventDefault();const ch=L!==lang;lang=L;if(ch)apply();history.pushState(null,'',h);goTo(p,!ch);if(typeof menu==='function'&&!mnav.hidden)menu(false)});
 let spyT=0;addEventListener('scroll',()=>{if(spyT)return;spyT=requestAnimationFrame(()=>{spyT=0;let p;
  if(isM()){const mh=(document.querySelector('.mhead')||{offsetHeight:0}).offsetHeight;p='accueil';PAGES.forEach(k=>{const el=document.getElementById('m-'+k);if(el.getBoundingClientRect().top<=mh+innerHeight*0.35)p=k})}
  else{const i=Math.min(5,Math.max(0,Math.floor((scrollY-frame.getBoundingClientRect().top-scrollY+innerHeight*0.45)/(SH*kk())+ (scrollY>0?0:0))));p=PAGES[Math.min(5,Math.max(0,Math.floor((scrollY+innerHeight*0.45-HH*kk())/(SH*kk()))))]}
@@ -581,20 +581,20 @@ if('IntersectionObserver' in window){const vo=new IntersectionObserver(es=>es.fo
 const kick=()=>document.querySelectorAll('video').forEach(v=>{if(v.paused&&inView(v))playV(v)});
 ['pointerdown','touchend','keydown','scroll'].forEach(ev=>addEventListener(ev,kick,{passive:true}));
 '''
-SEO={'fr':{'path':'/','locale':'fr_CA','title':'EM Visions — Vêtements et objets personnalisés à Saint-Léonard, Montréal',
+SEO={'fr':{'path':'/fr/','locale':'fr_CA','title':'EM Visions — Vêtements et objets personnalisés à Saint-Léonard, Montréal',
            'desc':'Atelier à Saint-Léonard (Montréal) : vêtements et objets personnalisés, impression, design graphique, impression 3D et sites web. Demandez un devis.',
            'alt':'Page d’accueil EM Visions : « Faites bonne impression »'},
-     'en':{'path':'/en/','locale':'en_CA','title':'EM Visions — Custom apparel and objects in Saint-Léonard, Montréal',
+     'en':{'path':'/','locale':'en_CA','title':'EM Visions — Custom apparel and objects in Saint-Léonard, Montréal',
            'desc':'Workshop in Saint-Léonard (Montréal): custom apparel and objects, printing, graphic design, 3D printing and websites. Request a quote.',
            'alt':'EM Visions home page: “Make a good impression”'}}
 def head_seo(L):
-    m=SEO[L]; o=SEO['en' if L=='fr' else 'fr']; e=H.escape; up='' if L=='fr' else '../'
+    m=SEO[L]; o=SEO['en' if L=='fr' else 'fr']; e=H.escape; up='' if L=='en' else '../'
     ld={'@context':'https://schema.org','@type':'LocalBusiness','@id':SITE_URL+'/#atelier','name':'EM Visions','alternateName':'EM Custom Design','description':m['desc'],
         'url':SITE_URL+m['path'],'image':SITE_URL+'/img/og.jpg','logo':SITE_URL+'/img/icon-512.png',**({'email':CONTACT_EMAIL} if CONTACT_EMAIL else {}),
         'address':{'@type':'PostalAddress','streetAddress':'5825, rue Jean-Talon Est','addressLocality':'Saint-Léonard','addressRegion':'QC','postalCode':'H1S 1M4','addressCountry':'CA'},
         'areaServed':'Montréal','sameAs':[INSTAGRAM],**({'openingHoursSpecification':[{'@type':'OpeningHoursSpecification','dayOfWeek':d,'opens':a,'closes':b} for d,a,b in HOURS]} if HOURS else {})}
     return (f'<title>{e(m["title"])}</title><meta name="description" content="{e(m["desc"])}">'
-      f'<link rel="canonical" href="{SITE_URL}{m["path"]}"><link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/"><link rel="alternate" hreflang="en-CA" href="{SITE_URL}/en/"><link rel="alternate" hreflang="x-default" href="{SITE_URL}/">'
+      f'<link rel="canonical" href="{SITE_URL}{m["path"]}"><link rel="alternate" hreflang="en-CA" href="{SITE_URL}/"><link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/fr/"><link rel="alternate" hreflang="x-default" href="{SITE_URL}/">'
       f'<meta property="og:type" content="website"><meta property="og:site_name" content="EM Visions"><meta property="og:title" content="{e(m["title"])}"><meta property="og:description" content="{e(m["desc"])}">'
       f'<meta property="og:url" content="{SITE_URL}{m["path"]}"><meta property="og:locale" content="{m["locale"]}"><meta property="og:locale:alternate" content="{o["locale"]}">'
       f'<meta property="og:image" content="{SITE_URL}/img/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{e(m["alt"])}">'
@@ -623,19 +623,26 @@ doc=f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="v
 {sections}</div></div>
 {mobile_html(EL,META,span)}
 <script>{js}</script></body></html>'''
-open('out/cal.html' if CAL else 'out/index.html','w').write(doc)
-if not CAL:
+# L'anglais est le site principal (racine) ; le français est dans /fr/.
+if CAL: open('out/cal.html','w').write(doc)
+else:
     import en_page
-    en=doc.replace('<html lang="fr">','<html lang="en">',1); assert head_seo('fr') in en
-    en=en.replace(head_seo('fr'),head_seo('en'),1)
+    REL=lambda s:re.sub(r'''(?<=["'(=])(img|fonts|vid)/''',r'../\1/',s)
+    assert head_seo('fr') in doc
+    os.makedirs('out/fr',exist_ok=True); open('out/fr/index.html','w').write(REL(doc))
+    en=doc.replace('<html lang="fr">','<html lang="en">',1).replace(head_seo('fr'),head_seo('en'),1)
     en=en_page.translate(en,EN,SLUG)
-    en=re.sub(r'''(?<=["'(=])(img|fonts|vid)/''',r'../\1/',en)
-    os.makedirs('out/en',exist_ok=True); open('out/en/index.html','w').write(en)
+    open('out/index.html','w').write(en)
     import pages_extra; pages_extra.write(LOGO_VB,LOGO_D)
     import maquette_page; maquette_page.write(LOGO_VB,LOGO_D)
+    # anciennes adresses (avant le passage à l'anglais en premier) : elles renvoient aux nouvelles
+    for d,to in (('en','../'),('en/mockup','../../mockup/'),('en/privacy','../../privacy/'),('maquette','../fr/maquette/'),('confidentialite','../fr/confidentialite/')):
+        os.makedirs('out/'+d,exist_ok=True)
+        open(f'out/{d}/index.html','w').write(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>EM Visions</title><meta http-equiv="refresh" content="0;url={to}"><script>location.replace("{to}"+location.search+location.hash)</script></head><body><a href="{to}">EM Visions</a></body></html>')
     open('out/robots.txt','w').write(f'User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n')
-    alt=''.join(f'<xhtml:link rel="alternate" hreflang="{h}" href="{SITE_URL}{p}"/>' for h,p in (('fr-CA','/'),('en-CA','/en/'),('x-default','/')))
-    alt2=''.join(f'<xhtml:link rel="alternate" hreflang="{h}" href="{SITE_URL}{p}"/>' for h,p in (('fr-CA','/confidentialite/'),('en-CA','/en/privacy/')))
+    X=lambda ps:''.join(f'<xhtml:link rel="alternate" hreflang="{h}" href="{SITE_URL}{p}"/>' for h,p in ps)
+    G=[(('/','/fr/'),X((('en-CA','/'),('fr-CA','/fr/'),('x-default','/')))),(('/privacy/','/fr/confidentialite/'),X((('en-CA','/privacy/'),('fr-CA','/fr/confidentialite/')))),
+       (('/mockup/','/fr/maquette/'),X((('en-CA','/mockup/'),('fr-CA','/fr/maquette/'))))]
     open('out/sitemap.xml','w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
-        +''.join(f'<url><loc>{SITE_URL}{p}</loc>{alt}</url>\n' for p in ('/','/en/'))+''.join(f'<url><loc>{SITE_URL}{p}</loc>{alt2}</url>\n' for p in ('/confidentialite/','/en/privacy/'))+''.join(f'<url><loc>{SITE_URL}{p}</loc></url>\n' for p in ('/maquette/','/en/mockup/'))+'</urlset>\n')
+        +''.join(f'<url><loc>{SITE_URL}{p}</loc>{alt}</url>\n' for ps,alt in G for p in ps)+'</urlset>\n')
 print('built',len(doc))

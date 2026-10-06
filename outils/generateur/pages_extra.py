@@ -55,8 +55,8 @@ def body(L):
 <p>{H.escape(PRIVACY_OFFICER)}, person in charge of the protection of personal information at EM Visions.<br>By mail or in person: {ADDR}{_mail(L)}.</p>
 <h2>Changes</h2>
 <p>If this policy changes, the new version is published on this page with its update date.</p>'''
-T={'fr':{'title':'Politique de confidentialité','desc':'Quels renseignements personnels le site EM Visions recueille, pourquoi, pendant combien de temps, et comment exercer vos droits.','back':'Retour au site','path':'/confidentialite/','other':('EN','../en/privacy/'),'home':'../','up':'../'},
-   'en':{'title':'Privacy policy','desc':'What personal information the EM Visions website collects, why, for how long, and how to exercise your rights.','back':'Back to the site','path':'/en/privacy/','other':('FR','../../confidentialite/'),'home':'../','up':'../../'}}
+T={'fr':{'title':'Politique de confidentialité','desc':'Quels renseignements personnels le site EM Visions recueille, pourquoi, pendant combien de temps, et comment exercer vos droits.','back':'Retour au site','path':'/fr/confidentialite/','other':('EN','../../privacy/'),'home':'../','up':'../../'},
+   'en':{'title':'Privacy policy','desc':'What personal information the EM Visions website collects, why, for how long, and how to exercise your rights.','back':'Back to the site','path':'/privacy/','other':('FR','../fr/confidentialite/'),'home':'../','up':'../'}}
 CSS='''*{box-sizing:border-box;margin:0;padding:0}:root{--bg:#0a0a0a;--fg:#f4f4f2;--mut:#b9b9b6;--line:#2c2c2c;--blue:#4d74ff}
 html[data-theme=light]{--bg:#efefec;--fg:#141414;--mut:#555;--line:#cfcfcb;--blue:#0a3cff}
 body{background:var(--bg);color:var(--fg);font:400 17px/1.62 Archivo,system-ui,sans-serif;word-spacing:.06em;-webkit-font-smoothing:antialiased}button,input,textarea,select{word-spacing:inherit}
@@ -76,12 +76,12 @@ def page(L,logo_vb,logo_d):
     ff=fontface(up)
     return (f'<!doctype html><html lang="{L}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(t["title"])} — EM Visions</title>'
       f'<meta name="description" content="{e(t["desc"])}"><link rel="canonical" href="{SITE_URL}{t["path"]}">'
-      f'<link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/confidentialite/"><link rel="alternate" hreflang="en-CA" href="{SITE_URL}/en/privacy/">'
+      f'<link rel="alternate" hreflang="en-CA" href="{SITE_URL}/privacy/"><link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/fr/confidentialite/">'
       f'<link rel="icon" href="{up}img/favicon.svg" type="image/svg+xml"><link rel="icon" href="{up}img/favicon-32.png" sizes="32x32" type="image/png"><meta name="theme-color" content="#0a0a0a">'
       f'<script>{HEADJS}</script><style>{ff}{CSS}</style></head><body>'
       f'<header><a class="logo" href="{t["home"]}" aria-label="EM Visions"><svg viewBox="{logo_vb}" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="{logo_d}"/></svg></a>'
       f'<nav><a href="{t["home"]}">← {e(t["back"])}</a><a href="{t["other"][1]}" hreflang="{t["other"][0].lower()}" lang="{t["other"][0].lower()}">{t["other"][0]}</a></nav></header>'
       f'<main><h1>{e(t["title"])}</h1>{body(L)}</main></body></html>')
 def write(logo_vb,logo_d):
-    for L,d in (('fr','out/confidentialite'),('en','out/en/privacy')):
+    for L,d in (('fr','out/fr/confidentialite'),('en','out/privacy')):
         os.makedirs(d,exist_ok=True); open(d+'/index.html','w').write(page(L,logo_vb,logo_d))

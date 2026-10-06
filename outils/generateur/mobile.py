@@ -127,7 +127,7 @@ def mobile_html(EL,META,span):
         '<header class="mhead"><a href="#accueil" class="mlogo" aria-label="EM Visions — accueil">'+LOGO+'</a>',
         '<button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mnav"><i></i><i></i><i></i></button></header>',
         '<nav class="mnav" id="mnav" aria-label="Navigation principale" hidden><div class="mnav-in">'+''.join(f'<a href="#{k}" data-nav="{k}">{H.escape(v)}</a>' for k,v in NAV)
-        +'<div class="mnav-foot"><span class="lang"><a href="#accueil" class="mlang-fr" hreflang="fr" lang="fr">FR</a><i></i><a href="en/#home" class="mlang-en" hreflang="en" lang="en">EN</a></span>'
+        +'<div class="mnav-foot"><span class="lang"><a href="#accueil" class="mlang-fr" hreflang="fr" lang="fr">FR</a><i></i><a href="../#home" class="mlang-en" hreflang="en" lang="en">EN</a></span>'
         +'<button class="mtheme" aria-label="Mode sombre" aria-pressed="true"><svg viewBox="0 0 59 59" width="52" height="52" aria-hidden="true"><circle cx="29.5" cy="29.5" r="22.3" fill="none" stroke="#0a3cff" stroke-width="2.6"/><path d="M32.4 19.2a10.6 10.6 0 1 0 6.9 17.2 8.6 8.6 0 0 1-6.9-17.2z" fill="currentColor"/></svg></button></div></div></nav>']
     for k,_ in NAV: out.append(f'<section class="mpage" id="m-{k}" aria-label="{k}">{P[k]}</section>')
     out.append('<footer class="mfoot">'+LOGO.replace('logo-svg','logo-svg flogo')+'<p>5825, rue Jean-Talon Est, Saint-Léonard</p>'+(f'<a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>' if CONTACT_EMAIL else '')+f'<a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a><a data-privacy href="confidentialite/">Politique de confidentialité</a></footer></div>')
