@@ -298,7 +298,7 @@ html[data-theme=light] .dsv{--alt:#0a0a0a;filter:drop-shadow(0 6px 10px #0005)}
 .dv .dvst{fill:#fff;transform-box:fill-box;transform-origin:center;transform:scale(0);animation:dvst 2.7s ease-in-out infinite}@keyframes dvst{0%,40%,100%{transform:scale(0) rotate(0)}20%{transform:scale(1) rotate(45deg)}}
 .dv .dva{animation:dva 1.6s ease-in-out infinite}@keyframes dva{0%,55%,100%{transform:translateX(0)}76%{transform:translateX(6px)}}
 #p-accueil:has(.pill:hover) .dv .dvg,form:has(.submit:hover) .dv .dvg{animation-duration:1.8s}
-#contact-19-0{color:#04121a!important;font-weight:700!important}.sqd[data-line="contact-19-0"] path{stroke:#04121a}
+#accueil-5-0,#m-accueil-5-0{color:#fff!important}
 @media (prefers-reduced-motion:reduce){.dv *{animation:none!important}.dv .dvst{transform:scale(.8)}.dv .dvs{display:none}}
 .pill{border-radius:44px}.pill:hover{backdrop-filter:brightness(1.12) contrast(1.05)}
 .hit:focus-visible,.sup:focus-visible,.nl:focus-visible .t,.fld :focus-visible{outline:3px solid #6f8cff;outline-offset:3px}
@@ -567,8 +567,8 @@ doc=f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="v
 <a class="sr" href="#p-accueil">Aller au contenu</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="emlogo" viewBox="{LOGO_VB}"><path fill="currentColor" fill-rule="evenodd" d="{LOGO_D}"/></symbol>
 <filter id="fiber" x="-20%" y="-5%" width="140%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.09 0.6" numOctaves="2" seed="3" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="7"/></filter>
-<linearGradient id="dvgrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="360" y2="0" spreadMethod="repeat"><stop offset="0" stop-color="#12e2ff"/><stop offset=".22" stop-color="#9dfdff"/><stop offset=".48" stop-color="#12e2ff"/><stop offset=".76" stop-color="#00b0ff"/><stop offset="1" stop-color="#12e2ff"/></linearGradient>
-<linearGradient id="dvsheen"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="dvgrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="360" y2="0" spreadMethod="repeat"><stop offset="0" stop-color="#0a3cff"/><stop offset=".22" stop-color="#4f78ff"/><stop offset=".48" stop-color="#0a3cff"/><stop offset=".76" stop-color="#0526c9"/><stop offset="1" stop-color="#0a3cff"/></linearGradient>
+<linearGradient id="dvsheen"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
 <filter id="dvblur" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="11"/></filter>
 <linearGradient id="paperfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f4f2"/><stop offset="1" stop-color="#e6e6e3"/></linearGradient>
 <filter id="paperedge" x="-2%" y="-5%" width="104%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035 0.05" numOctaves="5" seed="7" result="n"/><feColorMatrix in="n" type="saturate" values="0" result="g"/>

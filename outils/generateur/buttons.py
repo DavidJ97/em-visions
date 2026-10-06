@@ -71,14 +71,14 @@ def build(page,im,E,EL):
             bx=[int(xs.min()),int(ys.min()),int(xs.max())+1,int(ys.max())+1]
             out.append(dict(kind='diag' if r==0 else 'arrow',box=bx,col='#fff',row=r))
     return out
-# Bouton « Demander un devis » : cyan, dégradé qui défile, reflet qui passe, étoiles qui scintillent, halo qui respire.
+# Bouton « Demander un devis » : bleu du site, dégradé qui défile, reflet qui passe, étoiles qui scintillent, halo qui respire.
 _DV=[0]
 STAR='M0-7C.9-1.9 1.9-.9 7 0 1.9.9.9 1.9 0 7-.9 1.9-1.9.9-7 0-1.9-.9-.9-1.9 0-7Z'
 def _devis(shape,x0,y0,w_,h_,stars):
     _DV[0]+=1; cid=f'dvc{_DV[0]}'
     st=''.join(f'<g transform="translate({x:.0f} {y:.0f}) scale({k})"><path class="dvst" style="animation-delay:{dl}s" d="{STAR}"/></g>' for x,y,k,dl in stars)
     return (f'<defs><clipPath id="{cid}">{shape}</clipPath></defs>'
-            +shape.replace('/>',' class="dvh" fill="#12e2ff" filter="url(#dvblur)"/>')
+            +shape.replace('/>',' class="dvh" fill="#0a3cff" filter="url(#dvblur)"/>')
             +f'<g clip-path="url(#{cid})"><rect class="dvg" x="{x0}" y="{y0}" width="{w_+360}" height="{h_}" fill="url(#dvgrad)"/>'
             f'<rect class="dvs" style="--dvw:{w_+150}px" x="{x0-100}" y="{y0-20}" width="46" height="{h_+40}" fill="url(#dvsheen)"/></g>'+st)
 def svg(el,devis=False):
