@@ -14,7 +14,10 @@ const SIDES=['front','back'],SIDE={front:t('Devant','Front'),back:t('Dos','Back'
 const sidesOf=p=>SIDES.filter(s=>p.print[s]);
 
 // ---------- état ----------
-const S={pi:0,ci:{},side:'front',art:{front:null,back:null},yaw:-.5,pitch:.1,zoom:1,auto:true,tyaw:null,guide:true};
+// auto : le produit tourne lentement sur lui-même, tout le temps. hold : moment jusqu'auquel la rotation attend
+// (pendant qu'on le fait pivoter à la main ou qu'on règle son image).
+const S={pi:0,ci:{},side:'front',art:{front:null,back:null},yaw:-.5,pitch:.1,zoom:1,auto:!matchMedia('(prefers-reduced-motion:reduce)').matches,hold:0,tyaw:null,guide:true};
+const SPIN=.00016,wait=ms=>{S.hold=performance.now()+ms},turnTo=y=>{S.tyaw=y+2*Math.PI*Math.round((S.yaw-y)/(2*Math.PI))};
 let cur=null,dirty=true,seq=0;
 
 // ---------- scène ----------
@@ -107,40 +110,41 @@ function resize(){const r=cv.parentElement.getBoundingClientRect();if(!r.width)r
 new ResizeObserver(resize).observe(cv.parentElement);
 function draw(){pivot.updateMatrixWorld(true);if(cur)cur.sync();R.render(scene,cam)}
 function frame(now){requestAnimationFrame(frame);
- if(S.auto){S.yaw=-.15+.5*Math.sin(now*.0007);dirty=true}
+ const dt=Math.min(100,now-(frame.t||now));frame.t=now;
  if(S.tyaw!==null){const d=S.tyaw-S.yaw;if(Math.abs(d)<.01){S.yaw=S.tyaw;S.tyaw=null}else S.yaw+=d*.14;dirty=true}
+ else if(S.auto&&cur&&!pts.size&&now>S.hold){S.yaw+=dt*SPIN;dirty=true}
  if(!dirty||!cur)return;dirty=false;pivot.rotation.set(S.pitch,S.yaw,0);draw()}
 
 // ---------- pivoter ----------
 const pts=new Map();let pinch=0;
-cv.addEventListener('pointerdown',e=>{pts.set(e.pointerId,[e.clientX,e.clientY]);cv.setPointerCapture(e.pointerId);S.auto=false;S.tyaw=null;cv.classList.add('grab')});
+cv.addEventListener('pointerdown',e=>{pts.set(e.pointerId,[e.clientX,e.clientY]);cv.setPointerCapture(e.pointerId);S.tyaw=null;cv.classList.add('grab')});
 cv.addEventListener('pointermove',e=>{const p=pts.get(e.pointerId);if(!p)return;
  if(pts.size===2){pts.set(e.pointerId,[e.clientX,e.clientY]);const[a,b]=[...pts.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);if(pinch)zoom(d/pinch);pinch=d;return}
  S.yaw+=(e.clientX-p[0])*.011;if(e.pointerType==='mouse')S.pitch=Math.max(-.7,Math.min(.9,S.pitch+(e.clientY-p[1])*.008));pts.set(e.pointerId,[e.clientX,e.clientY]);dirty=true});
-const up=e=>{pts.delete(e.pointerId);pinch=0;cv.classList.remove('grab')};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+const up=e=>{pts.delete(e.pointerId);pinch=0;cv.classList.remove('grab');wait(2500)};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
 function zoom(k){S.zoom=Math.max(.7,Math.min(2.4,S.zoom*k));fit();dirty=true}
-cv.addEventListener('wheel',e=>{if(!e.ctrlKey&&Math.abs(e.deltaY)<40)return;e.preventDefault();S.auto=false;zoom(e.deltaY<0?1.08:.93)},{passive:false});
-cv.addEventListener('keydown',e=>{const k={ArrowLeft:-.2,ArrowRight:.2}[e.key];if(k){S.auto=false;S.yaw+=k;dirty=true;e.preventDefault()}});
+cv.addEventListener('wheel',e=>{if(!e.ctrlKey&&Math.abs(e.deltaY)<40)return;e.preventDefault();zoom(e.deltaY<0?1.08:.93)},{passive:false});
+cv.addEventListener('keydown',e=>{const k={ArrowLeft:-.2,ArrowRight:.2}[e.key];if(k){wait(2500);S.yaw+=k;dirty=true;e.preventDefault()}});
 
 // ---------- interface ----------
 const toastEl=$('#toast');let tt;const toast=m=>{toastEl.textContent=m;toastEl.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('on'),2800)};
 const view=p=>p.view||{};
 const face=s=>(s==='back'?Math.PI:0)+(view(PRODUCTS[S.pi]).yaw||0);
-function pick(i){S.pi=i;S.auto=false;const v=view(PRODUCTS[i]);S.tyaw=(v.yaw||0)-.45;S.pitch=v.pitch===undefined?.1:v.pitch;S.zoom=1;uiAll();load()}
+function pick(i){S.pi=i;const v=view(PRODUCTS[i]);turnTo((v.yaw||0)-.45);wait(1200);S.pitch=v.pitch===undefined?.1:v.pitch;S.zoom=1;uiAll();load()}
 function uiProducts(){const box=$('#prods');box.innerHTML='';PRODUCTS.forEach((p,i)=>{const b=document.createElement('button');b.type='button';b.className='prod';b.setAttribute('aria-pressed',i===S.pi);b.dataset.i=i;
   b.innerHTML=`<img alt="" width="96" height="96" loading="lazy" src="${new URL('../img/m3d/'+p.id+'.webp',import.meta.url).href}"><span>${p.n[EN?1:0]}</span>`;b.onclick=()=>pick(i);box.appendChild(b)})}
 function uiColors(){const p=PRODUCTS[S.pi],box=$('#cols');box.innerHTML='';p.colors.forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.className='sw';b.style.background=c[2];b.title=c[EN?1:0];b.setAttribute('aria-label',c[EN?1:0]);
   b.setAttribute('aria-pressed',i===(S.ci[p.id]||0));b.onclick=()=>{S.ci[p.id]=i;apply();uiAll()};box.appendChild(b)});$('#colname').textContent=colorOf(p)[EN?1:0]}
 function uiSides(){const p=PRODUCTS[S.pi],sd=sidesOf(p),box=$('#tabs');box.innerHTML='';box.hidden=sd.length<2;sd.forEach(s=>{const b=document.createElement('button');b.type='button';b.textContent=SIDE[s]+(S.art[s]?' ●':'');b.setAttribute('aria-pressed',s===S.side);
-  b.onclick=()=>{S.side=s;S.auto=false;S.tyaw=face(s)-.3;apply();uiAll()};box.appendChild(b)})}
+  b.onclick=()=>{S.side=s;turnTo(face(s)-.3);wait(5000);apply();uiAll()};box.appendChild(b)})}
 function uiArt(){const a=S.art[S.side];$('#adj').hidden=!a;$('#upname').textContent=a?a.name:t('Choisir une image','Choose an image');if(!a)return;
  for(const k of['size','cx','cy','rot'])$('#s-'+k).value=a[k]}
 function uiAll(){document.querySelectorAll('.prod').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.i===S.pi));uiColors();uiSides();uiArt();$('#pname').textContent=PRODUCTS[S.pi].n[EN?1:0]}
 $('#file').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;if(!/^image\//.test(f.type)){toast(t('Choisissez une image (PNG, JPG ou SVG).','Please choose an image (PNG, JPG or SVG).'));return}
  if(f.size>12e6){toast(t('Image trop lourde (max 12 Mo).','Image too large (max 12 MB).'));return}
- const im=new Image();im.onload=()=>{const old=S.art[S.side];if(old)old.tex.dispose();S.art[S.side]={name:f.name,file:f,size:.9,cx:0,cy:0,rot:0,...imageTex(im)};S.auto=false;S.tyaw=face(S.side)-.25;apply();uiAll()};
+ const im=new Image();im.onload=()=>{const old=S.art[S.side];if(old)old.tex.dispose();S.art[S.side]={name:f.name,file:f,size:.9,cx:0,cy:0,rot:0,...imageTex(im)};turnTo(face(S.side)-.25);wait(6000);apply();uiAll()};
  im.onerror=()=>toast(t('Impossible de lire cette image.','This image could not be read.'));im.src=URL.createObjectURL(f);e.target.value=''});
-for(const k of['size','cx','cy','rot'])$('#s-'+k).addEventListener('input',e=>{const a=S.art[S.side];if(!a)return;a[k]=+e.target.value;apply()});
+for(const k of['size','cx','cy','rot'])$('#s-'+k).addEventListener('input',e=>{const a=S.art[S.side];if(!a)return;a[k]=+e.target.value;if(performance.now()>S.hold&&S.tyaw===null)turnTo(face(S.side)-.25);wait(6000);apply()});
 $('#rm').onclick=()=>{const a=S.art[S.side];if(a)a.tex.dispose();S.art[S.side]=null;apply();uiAll()};
 
 // ---------- rendu hors écran (captures, vignettes) : même pipeline que la vue principale ----------
