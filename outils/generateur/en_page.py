@@ -1,4 +1,4 @@
-"""Version anglaise statique (le site principal, à la racine) : traduit le texte et les attributs de la page française
+"""Version anglaise statique : traduit le texte et les attributs de la page française
 (même règles que le script de la page) et garde l'original dans data-fr / data-fra
 pour que la mise en page anglaise soit recalculée au chargement."""
 import json, asyncio
@@ -14,7 +14,7 @@ JS=r"""([html,EN,SLUG])=>{const doc=new DOMParser().parseFromString(html,'text/h
  doc.querySelectorAll('a[href^="#"]').forEach(a=>{const k=a.getAttribute('href').slice(1);if(SLUG[k])a.setAttribute('href','#'+SLUG[k])});
  doc.querySelectorAll('a[data-m3d]').forEach(a=>a.setAttribute('href','mockup/'));
  doc.querySelectorAll('a[data-privacy]').forEach(a=>a.setAttribute('href','privacy/'));
- doc.querySelectorAll('.lang-fr,.mlang-fr').forEach(a=>a.setAttribute('href','fr/#accueil'));doc.querySelectorAll('.lang-en,.mlang-en').forEach(a=>a.setAttribute('href','#home'));
+ doc.querySelectorAll('.lang-fr,.mlang-fr').forEach(a=>a.setAttribute('href','../#accueil'));doc.querySelectorAll('.lang-en,.mlang-en').forEach(a=>a.setAttribute('href','#home'));
  return '<!doctype html>'+doc.documentElement.outerHTML}"""
 async def _run(html,EN,SLUG):
     async with async_playwright() as p:

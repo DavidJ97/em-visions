@@ -1,13 +1,13 @@
-"""Page du modélisateur 3D : site/mockup/ (anglais, site principal) et site/fr/maquette/ (français). Le script reste dans site/maquette/."""
+"""Page du modélisateur 3D : site/maquette/ (français) et site/en/mockup/ (anglais)."""
 import html as H, os, shutil, json, re
 from config import SITE_URL, fontface
-T={'fr':{'path':'/fr/maquette/','up':'../../','app':'../../maquette/app.js','title':'Maquette 3D','h1':'Créez votre maquette','back':'Retour au site','other':('EN','../../mockup/'),'home':'../','to':'../#contact',
+T={'fr':{'path':'/maquette/','up':'../','app':'app.js','title':'Maquette 3D','h1':'Créez votre maquette','back':'Retour au site','other':('EN','../en/mockup/'),'home':'../','to':'../#contact',
   'desc':'Choisissez parmi une vingtaine de produits, posez votre image, faites-le pivoter en 3D et joignez la maquette à votre demande de devis.',
   'lead':'Choisissez un produit, posez votre image, faites-le pivoter, puis joignez la maquette à votre demande de devis.',
   's1':'Produit','s2':'Couleur','s3':'Votre image','pick':'Choisir une image','fmt':'PNG, JPG ou SVG, 12 Mo max.','size':'Taille','x':'Horizontal','y':'Vertical','rot':'Rotation','rm':'Retirer l’image',
   'send':'Joindre à ma demande de devis','prix':'Les prix ne sont pas affichés : on vous les envoie personnellement, en réponse à votre demande.','note':'Aperçu indicatif : les couleurs, les formats et l’emplacement exacts sont confirmés avec le devis. Votre image reste sur votre appareil tant que vous n’envoyez pas la demande.',
   'load':'Chargement du modèle…','cr':'Crédits des modèles 3D','crp':'Modèles 3D sous licence Creative Commons Attribution (CC BY 4.0), allégés et recolorés pour cet outil.','by':'par','hint':'Glissez pour faire pivoter','view':'Aperçu 3D du produit'},
- 'en':{'path':'/mockup/','up':'../','app':'../maquette/app.js','title':'3D mockup','h1':'Build your mockup','back':'Back to the site','other':('FR','../fr/maquette/'),'home':'../','to':'../#contact',
+ 'en':{'path':'/en/mockup/','up':'../../','app':'../../maquette/app.js','title':'3D mockup','h1':'Build your mockup','back':'Back to the site','other':('FR','../../maquette/'),'home':'../','to':'../#contact',
   'desc':'Pick from about twenty products, place your image, rotate it in 3D and attach the mockup to your quote request.',
   'lead':'Pick a product, place your image, rotate it, then attach the mockup to your quote request.',
   's1':'Product','s2':'Colour','s3':'Your image','pick':'Choose an image','fmt':'PNG, JPG or SVG, 12 MB max.','size':'Size','x':'Horizontal','y':'Vertical','rot':'Rotation','rm':'Remove image',
@@ -62,7 +62,7 @@ def page(L,logo_vb,logo_d):
     sl=lambda k,lab,mn,mx,st,v:f'<label class="sl"><span>{e(lab)}</span><input type="range" id="s-{k}" min="{mn}" max="{mx}" step="{st}" value="{v}"></label>'
     return (f'<!doctype html><html lang="{L}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(t["title"])} — EM Visions</title>'
       f'<meta name="description" content="{e(t["desc"])}"><link rel="canonical" href="{SITE_URL}{t["path"]}">'
-      f'<link rel="alternate" hreflang="en-CA" href="{SITE_URL}/mockup/"><link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/fr/maquette/">'
+      f'<link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/maquette/"><link rel="alternate" hreflang="en-CA" href="{SITE_URL}/en/mockup/">'
       f'<meta property="og:title" content="{e(t["title"])} — EM Visions"><meta property="og:description" content="{e(t["desc"])}"><meta property="og:image" content="{SITE_URL}/img/og.jpg">'
       f'<link rel="icon" href="{up}img/favicon.svg" type="image/svg+xml"><link rel="icon" href="{up}img/favicon-32.png" sizes="32x32" type="image/png"><meta name="theme-color" content="#0a0a0a">'
       f'<link rel="modulepreload" href="{up}vendor/three.module.min.js"><script>{HEADJS}</script><style>{ff}{CSS}</style></head><body>'
@@ -80,6 +80,6 @@ def page(L,logo_vb,logo_d):
       f'<p class="prix">{e(t["prix"])}</p><p class="note">{e(t["note"])}</p>{credits(L)}</aside></main><div class="toast" id="toast" role="status"></div>'
       f'<script type="module" src="{t["app"]}"></script></body></html>')
 def write(logo_vb,logo_d):
-    for L,d in (('fr','out/fr/maquette'),('en','out/mockup')):
+    for L,d in (('fr','out/maquette'),('en','out/en/mockup')):
         os.makedirs(d,exist_ok=True); open(d+'/index.html','w').write(page(L,logo_vb,logo_d))
-    os.makedirs('out/maquette',exist_ok=True); shutil.copy('maquette_app.js','out/maquette/app.js'); shutil.copy('maquette_produits.js','out/maquette/produits.js')
+    shutil.copy('maquette_app.js','out/maquette/app.js'); shutil.copy('maquette_produits.js','out/maquette/produits.js')
