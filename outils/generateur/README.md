@@ -9,6 +9,7 @@ mkdir -p out && cp -r ../../site/img ../../site/fonts ../../site/vid out/
 python3 build2.py            # écrit out/index.html, out/en/index.html, out/robots.txt, out/sitemap.xml
 cp out/index.html ../../site/ && cp out/en/index.html ../../site/en/ && cp out/robots.txt out/sitemap.xml ../../site/
 cp out/confidentialite/index.html ../../site/confidentialite/ && cp out/en/privacy/index.html ../../site/en/privacy/
+cp out/maquette/* ../../site/maquette/ && cp out/en/mockup/index.html ../../site/en/mockup/
 ```
 
 ## Réglages courants : `config.py`
@@ -35,5 +36,8 @@ ou modifier la valeur par défaut de `SITE_URL` dans `build2.py`.
 | `i18n.py` | Traductions anglaises |
 | `config.py` | Réglages (courriel, heures, textes, adresse du site) |
 | `pages_extra.py` | Politique de confidentialité, en français et en anglais |
+| `maquette_page.py` | Page du modélisateur 3D (`site/maquette/`, `site/en/mockup/`) |
+| `maquette_produits.js` | Les vingt produits du modélisateur : formes, couleurs, zones d'impression |
+| `maquette_app.js` | Le modélisateur lui-même (affichage 3D, pose de l'image, envoi vers le formulaire) |
 | `en_page.py` | Écrit la version anglaise statique (`site/en/`) |
 | `elements.json`, `meta.json`, `cal2.json`, `var2.json` | Positions et textes relevés sur les maquettes |
