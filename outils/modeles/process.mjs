@@ -22,7 +22,7 @@ for(const [id,c] of Object.entries(M)){if(only.length&&!only.includes(id))contin
     t.setImage(await img.linear(Math.min(6,208/mean),0).png().toBuffer()).setMimeType('image/png')}m.setBaseColorFactor([1,1,1,1])}
   if(mode)m.setExtras({...m.getExtras(),tint:mode})}
  await doc.transform(prune(),dedup(),flatten(),join({keepNamed:false}),weld());const tris=count(root);
- if(tris>c.tris*1.15)await doc.transform(simplify({simplifier:MeshoptSimplifier,ratio:c.tris/tris,error:0.004}));
+ if(tris>c.tris*1.15)await doc.transform(simplify({simplifier:MeshoptSimplifier,ratio:c.tris/tris,error:c.err||0.004}));
  await doc.transform(prune(),textureCompress({encoder:sharp,targetFormat:'webp',resize:[1024,1024],quality:80}),meshopt({encoder:MeshoptEncoder,level:'medium'}));
  await io.write(`${OUT}/${id}.glb`,doc);rep[id]={tris,after:count(root),ko:Math.round(fs.statSync(`${OUT}/${id}.glb`).size/1024)};console.log(id,JSON.stringify(rep[id]))}
  catch(e){fail++;console.log(id,'ÉCHEC',String(e).slice(0,300))}}

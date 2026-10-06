@@ -4,7 +4,7 @@
  "tank":       {"uid":"d6b2561de39f423f9c7a2e7944485beb","path":"glbs/000-127/d6b2561de39f423f9c7a2e7944485beb.glb","tris":22000,"solid":[".*"],"credit":["Tank Top","Shift4cube","Shift4cube"]},
  "polo":       {"uid":"74c33d16b31346f1a46a55c3ec8e8a78","path":"glbs/000-045/74c33d16b31346f1a46a55c3ec8e8a78.glb","tris":45000,"solid":[".*"],"credit":["T-shirt Polo Lengan Pendek","Ikal.Ichwan","Ikal.Ichwan"]},
  "crewneck":   {"uid":"abb2916c07214d9d95cd70bd2dafa8fc","path":"glbs/000-021/abb2916c07214d9d95cd70bd2dafa8fc.glb","tris":40000,"solid":[".*"],"credit":["sweater woman","Rouker","Rouker"]},
- "hoodie":     {"uid":"340b9e30d622464d8a27bd732ab8b75a","path":"glbs/000-000/340b9e30d622464d8a27bd732ab8b75a.glb","tris":60000,"solid":[".*"],"credit":["HoodieBaseModel","Marashe","Marashe"]},
+ "hoodie":     {"uid":"340b9e30d622464d8a27bd732ab8b75a","path":"glbs/000-000/340b9e30d622464d8a27bd732ab8b75a.glb","tris":50000,"err":0.02,"solid":[".*"],"credit":["HoodieBaseModel","Marashe","Marashe"]},
  "jacket":     {"uid":"919543b91c9448ac877fdf671fdcfee5","path":"glbs/000-093/919543b91c9448ac877fdf671fdcfee5.glb","tris":9000,"solid":[".*"],"credit":["QuickSilver Work Wear Jacket","danybeezly","danybeezly"]},
  "vest":       {"uid":"5a75d007bcb64ad29a326669d67a30dc","path":"glbs/000-066/5a75d007bcb64ad29a326669d67a30dc.glb","tris":5000,"credit":["High visibilty vest 1","Issa","holdmydrink"]},
  "pants":      {"uid":"1f6f7318f9364456b8d58c1eaf71762b","path":"glbs/000-082/1f6f7318f9364456b8d58c1eaf71762b.glb","tris":6000,"solid":[".*"],"credit":["Dillard, Darren Joggers","darrendillard1","darrendillard1"]},
