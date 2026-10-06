@@ -59,7 +59,7 @@ Panier et paiement en ligne, prix/stock synchronisés avec les fournisseurs, com
 
 ## Questions ouvertes
 1. URL définitives des 6 fournisseurs.
-2. Police officielle des titres (Anton utilisée en remplacement).
+2. ~~Police officielle des titres~~ — réglé : Sekuya pour les titres, Archivo pour tout le reste.
 3. Validation de la traduction anglaise par EM.
 4. Adresse de réception des devis et délai de réponse annoncé.
 5. Remplacement des photos générées par les photos originales haute résolution.

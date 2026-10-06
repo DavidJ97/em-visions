@@ -26,12 +26,13 @@ Esthétique « collage d'atelier » : papier déchiré, ruban adhésif, éclabou
 ## Typographie
 | Usage | Police | Taille bureau | Taille mobile |
 | --- | --- | --- | --- |
-| Titres H1 | Anton (épaissi 3 px) | 88–144 px | 58–128 px (17,5 vw) |
-| Titres de liste, boutons papier | Oswald 700 | 22–40 px | 22–38 px |
-| Navigation | Jost 400/700, capitales espacées | 14 px | 40–64 px (menu plein écran) |
-| Texte courant | Kumbh Sans 300 | 20–23 px | 17–23 px |
-| Formulaire | Inter 400/500/600 | 16–17 px | 16 px |
-| Adresse, itinéraire | Figtree 600 | 18 px | 18 px |
+| Titres H1 | Sekuya, capitales | 44–60 px | 26–58 px (7,9 vw) |
+| Numéros, heures, menu plein écran, « Demande de devis » | Archivo 900, largeur étroite (62,5 %) | 20–270 px | 21–74 px |
+| Titres de liste, noms, boutons papier | Archivo 700, largeur étroite (62,5–80 %) | 24–35 px | 22–30 px |
+| Navigation, étiquettes | Archivo 400/700, capitales espacées | 13 px | 11–16 px |
+| Texte courant, formulaire, adresse | Archivo 300–600, largeur normale | 16–25 px | 14–18 px |
+
+Deux polices seulement sur tout le site : Sekuya et Archivo (une seule police variable, déclinée en graisse et en largeur).
 
 ## Composants
 - **PaperAction** : bouton sur papier déchiré (SVG), disque noir + flèche.

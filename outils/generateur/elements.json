@@ -4,7 +4,7 @@
 "page": "accueil",
 "text": "ACCUEIL",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -31,7 +31,7 @@
 "page": "accueil",
 "text": "SERVICES",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -58,7 +58,7 @@
 "page": "accueil",
 "text": "RÉALISATIONS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -85,7 +85,7 @@
 "page": "accueil",
 "text": "CATALOGUE",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -112,7 +112,7 @@
 "page": "accueil",
 "text": "À PROPOS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -139,7 +139,7 @@
 "page": "accueil",
 "text": "CONTACT",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -166,7 +166,7 @@
 "page": "accueil",
 "text": "FR",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -193,7 +193,7 @@
 "page": "accueil",
 "text": "EN",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -220,10 +220,11 @@
 "page": "accueil",
 "text": "FAITES",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 72,
@@ -248,10 +249,11 @@
 "page": "accueil",
 "text": "BONNE",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 72,
@@ -276,10 +278,11 @@
 "page": "accueil",
 "text": "IMPRESSION",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 72,
@@ -304,7 +307,7 @@
 "page": "accueil",
 "text": "Vêtements et objets personnalisés",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -331,7 +334,7 @@
 "page": "accueil",
 "text": "pour donner forme à vos idées.",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -358,9 +361,10 @@
 "page": "accueil",
 "text": "Demander un devis",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 110,
@@ -393,7 +397,7 @@
 "page": "accueil",
 "text": "01",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -420,7 +424,7 @@
 "page": "accueil",
 "text": "/ 05",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -447,7 +451,7 @@
 "page": "services",
 "text": "ACCUEIL",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -474,7 +478,7 @@
 "page": "services",
 "text": "SERVICES",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -501,7 +505,7 @@
 "page": "services",
 "text": "RÉALISATIONS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -528,7 +532,7 @@
 "page": "services",
 "text": "CATALOGUE",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -555,7 +559,7 @@
 "page": "services",
 "text": "À PROPOS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -582,7 +586,7 @@
 "page": "services",
 "text": "CONTACT",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -609,7 +613,7 @@
 "page": "services",
 "text": "FR",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -636,7 +640,7 @@
 "page": "services",
 "text": "EN",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -663,10 +667,11 @@
 "page": "services",
 "text": "DE L’IDÉE",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 73,
@@ -691,10 +696,11 @@
 "page": "services",
 "text": "À LA",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 71,
@@ -719,10 +725,11 @@
 "page": "services",
 "text": "MATIÈRE",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 71,
@@ -747,9 +754,10 @@
 "page": "services",
 "text": "01",
 "spec": {
-"f": "Anton",
-"w": 400,
-"mode": "sx"
+"f": "Archivo",
+"w": 900,
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 75,
@@ -774,9 +782,10 @@
 "page": "services",
 "text": "02",
 "spec": {
-"f": "Anton",
-"w": 400,
-"mode": "sx"
+"f": "Archivo",
+"w": 900,
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 75,
@@ -801,9 +810,10 @@
 "page": "services",
 "text": "03",
 "spec": {
-"f": "Anton",
-"w": 400,
-"mode": "sx"
+"f": "Archivo",
+"w": 900,
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 76,
@@ -828,9 +838,10 @@
 "page": "services",
 "text": "04",
 "spec": {
-"f": "Anton",
-"w": 400,
-"mode": "sx"
+"f": "Archivo",
+"w": 900,
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 449,
@@ -855,9 +866,10 @@
 "page": "services",
 "text": "05",
 "spec": {
-"f": "Anton",
-"w": 400,
-"mode": "sx"
+"f": "Archivo",
+"w": 900,
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 449,
@@ -882,9 +894,10 @@
 "page": "services",
 "text": "06",
 "spec": {
-"f": "Anton",
-"w": 400,
-"mode": "sx"
+"f": "Archivo",
+"w": 900,
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 449,
@@ -909,9 +922,10 @@
 "page": "services",
 "text": "DESIGN GRAPHIQUE",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 175,
@@ -936,7 +950,7 @@
 "page": "services",
 "text": "Des visuels qui marquent",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -963,7 +977,7 @@
 "page": "services",
 "text": "votre identité.",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -990,9 +1004,10 @@
 "page": "services",
 "text": "IMPRESSION",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 177,
@@ -1017,7 +1032,7 @@
 "page": "services",
 "text": "Des supports de qualité",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -1044,7 +1059,7 @@
 "page": "services",
 "text": "pour vos projets.",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -1071,9 +1086,10 @@
 "page": "services",
 "text": "VÊTEMENTS",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 176,
@@ -1098,9 +1114,10 @@
 "page": "services",
 "text": "PERSONNALISÉS",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 177,
@@ -1125,7 +1142,7 @@
 "page": "services",
 "text": "Des textiles uniques",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -1152,7 +1169,7 @@
 "page": "services",
 "text": "à votre image.",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -1179,9 +1196,10 @@
 "page": "services",
 "text": "IMPRESSION 3D",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 552,
@@ -1206,7 +1224,7 @@
 "page": "services",
 "text": "Des idées qui prennent",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -1233,7 +1251,7 @@
 "page": "services",
 "text": "forme.",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -1260,9 +1278,10 @@
 "page": "services",
 "text": "SITES WEB",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 552,
@@ -1287,7 +1306,7 @@
 "page": "services",
 "text": "Des plateformes sur mesure",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -1314,7 +1333,7 @@
 "page": "services",
 "text": "pour propulser votre marque.",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -1341,9 +1360,10 @@
 "page": "services",
 "text": "APPLICATIONS",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 553,
@@ -1368,7 +1388,7 @@
 "page": "services",
 "text": "Des outils performants",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -1395,7 +1415,7 @@
 "page": "services",
 "text": "pour vos besoins spécifiques.",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -1422,9 +1442,10 @@
 "page": "services",
 "text": "Parler de mon projet",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 122,
@@ -1457,7 +1478,7 @@
 "page": "realisations",
 "text": "ACCUEIL",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -1484,7 +1505,7 @@
 "page": "realisations",
 "text": "SERVICES",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -1511,7 +1532,7 @@
 "page": "realisations",
 "text": "RÉALISATIONS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -1538,7 +1559,7 @@
 "page": "realisations",
 "text": "CATALOGUE",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -1565,7 +1586,7 @@
 "page": "realisations",
 "text": "À PROPOS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -1592,7 +1613,7 @@
 "page": "realisations",
 "text": "CONTACT",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -1619,7 +1640,7 @@
 "page": "realisations",
 "text": "FR",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -1646,7 +1667,7 @@
 "page": "realisations",
 "text": "EN",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -1673,10 +1694,11 @@
 "page": "realisations",
 "text": "LE",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 72,
@@ -1701,10 +1723,11 @@
 "page": "realisations",
 "text": "TRAVAIL",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 70,
@@ -1729,10 +1752,11 @@
 "page": "realisations",
 "text": "PARLE",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 73,
@@ -1757,7 +1781,7 @@
 "page": "realisations",
 "text": "Des idées devenues réelles.",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -1784,9 +1808,10 @@
 "page": "realisations",
 "text": "Voir le projet",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 130,
@@ -1819,7 +1844,7 @@
 "page": "realisations",
 "text": "01",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -1846,7 +1871,7 @@
 "page": "realisations",
 "text": "/ 05",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -1873,7 +1898,7 @@
 "page": "catalogue",
 "text": "ACCUEIL",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -1900,7 +1925,7 @@
 "page": "catalogue",
 "text": "SERVICES",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -1927,7 +1952,7 @@
 "page": "catalogue",
 "text": "RÉALISATIONS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -1954,7 +1979,7 @@
 "page": "catalogue",
 "text": "CATALOGUE",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -1981,7 +2006,7 @@
 "page": "catalogue",
 "text": "À PROPOS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2008,7 +2033,7 @@
 "page": "catalogue",
 "text": "CONTACT",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2035,7 +2060,7 @@
 "page": "catalogue",
 "text": "FR",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -2062,7 +2087,7 @@
 "page": "catalogue",
 "text": "EN",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2089,10 +2114,11 @@
 "page": "catalogue",
 "text": "CHOISISSEZ",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 70,
@@ -2117,10 +2143,11 @@
 "page": "catalogue",
 "text": "VOTRE SUPPORT",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 68,
@@ -2145,7 +2172,7 @@
 "page": "catalogue",
 "text": "Des fournisseurs de confiance",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -2172,7 +2199,7 @@
 "page": "catalogue",
 "text": "pour concrétiser vos idées.",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -2199,7 +2226,7 @@
 "page": "catalogue",
 "text": "Voir le fournisseur",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 600,
 "mode": "ls"
 },
@@ -2226,9 +2253,10 @@
 "page": "catalogue",
 "text": "S&S ACTIVEWEAR",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 104,
@@ -2253,9 +2281,10 @@
 "page": "catalogue",
 "text": "CANADA SPORTSWEAR",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 104,
@@ -2280,9 +2309,10 @@
 "page": "catalogue",
 "text": "FABRIK",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 104,
@@ -2307,9 +2337,10 @@
 "page": "catalogue",
 "text": "ESIDE",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 104,
@@ -2334,9 +2365,10 @@
 "page": "catalogue",
 "text": "JUST LIKE HERO",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 104,
@@ -2361,9 +2393,10 @@
 "page": "catalogue",
 "text": "PROJOB",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 104,
@@ -2388,7 +2421,7 @@
 "page": "a-propos",
 "text": "ACCUEIL",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2415,7 +2448,7 @@
 "page": "a-propos",
 "text": "SERVICES",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2442,7 +2475,7 @@
 "page": "a-propos",
 "text": "RÉALISATIONS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2469,7 +2502,7 @@
 "page": "a-propos",
 "text": "CATALOGUE",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2496,7 +2529,7 @@
 "page": "a-propos",
 "text": "À PROPOS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -2523,7 +2556,7 @@
 "page": "a-propos",
 "text": "CONTACT",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2550,7 +2583,7 @@
 "page": "a-propos",
 "text": "FR",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -2577,7 +2610,7 @@
 "page": "a-propos",
 "text": "EN",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2604,10 +2637,11 @@
 "page": "a-propos",
 "text": "LES GENS",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 1030,
@@ -2632,10 +2666,11 @@
 "page": "a-propos",
 "text": "DERRIÈRE",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 1030,
@@ -2660,10 +2695,11 @@
 "page": "a-propos",
 "text": "L’IMPRESSION",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 1031,
@@ -2688,9 +2724,10 @@
 "page": "a-propos",
 "text": "EDUARDO MAZZONNA",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 1033,
@@ -2715,9 +2752,10 @@
 "page": "a-propos",
 "text": "VINCE MARIANI",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 1325,
@@ -2742,7 +2780,7 @@
 "page": "a-propos",
 "text": "DESIGN GRAPHIQUE",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2769,7 +2807,7 @@
 "page": "a-propos",
 "text": "GESTION DE PROJETS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2796,9 +2834,10 @@
 "page": "a-propos",
 "text": "Découvrir notre équipe",
 "spec": {
-"f": "Oswald",
+"f": "Archivo",
 "w": 700,
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 1135,
@@ -2831,7 +2870,7 @@
 "page": "contact",
 "text": "ACCUEIL",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2858,7 +2897,7 @@
 "page": "contact",
 "text": "SERVICES",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2885,7 +2924,7 @@
 "page": "contact",
 "text": "RÉALISATIONS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2912,7 +2951,7 @@
 "page": "contact",
 "text": "CATALOGUE",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2939,7 +2978,7 @@
 "page": "contact",
 "text": "À PROPOS",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -2966,7 +3005,7 @@
 "page": "contact",
 "text": "CONTACT",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -2993,7 +3032,7 @@
 "page": "contact",
 "text": "FR",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 700,
 "mode": "ls"
 },
@@ -3020,7 +3059,7 @@
 "page": "contact",
 "text": "EN",
 "spec": {
-"f": "Jost",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -3047,10 +3086,11 @@
 "page": "contact",
 "text": "ON EN",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 75,
@@ -3075,10 +3115,11 @@
 "page": "contact",
 "text": "PARLE ?",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 75,
@@ -3103,7 +3144,7 @@
 "page": "contact",
 "text": "Un projet, une idée, une question ?",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -3130,7 +3171,7 @@
 "page": "contact",
 "text": "On est là pour en discuter. Écrivez-nous",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -3157,7 +3198,7 @@
 "page": "contact",
 "text": "et on vous répond rapidement.",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 300,
 "mode": "ls"
 },
@@ -3184,7 +3225,7 @@
 "page": "contact",
 "text": "5825, rue Jean-Talon Est",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 600,
 "mode": "ls"
 },
@@ -3211,7 +3252,7 @@
 "page": "contact",
 "text": "Saint-Léonard, QC H1S 1M4",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 600,
 "mode": "ls"
 },
@@ -3238,7 +3279,7 @@
 "page": "contact",
 "text": "Itinéraire",
 "spec": {
-"f": "Kumbh Sans",
+"f": "Archivo",
 "w": 600,
 "mode": "ls"
 },
@@ -3273,10 +3314,11 @@
 "page": "contact",
 "text": "DEMANDE DE DEVIS",
 "spec": {
-"f": "Anton",
-"w": 400,
+"f": "Archivo",
+"w": 900,
 "css": "-webkit-text-stroke:3px currentColor;letter-spacing:-.03em",
-"mode": "sx"
+"mode": "sx",
+"wd": 62.5
 },
 "box": [
 954,
@@ -3301,7 +3343,7 @@
 "page": "contact",
 "text": "Nom *",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 600,
 "mode": "ls"
 },
@@ -3328,7 +3370,7 @@
 "page": "contact",
 "text": "Courriel *",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 600,
 "mode": "ls"
 },
@@ -3355,7 +3397,7 @@
 "page": "contact",
 "text": "Votre projet *",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 600,
 "mode": "ls"
 },
@@ -3382,7 +3424,7 @@
 "page": "contact",
 "text": "Quantité approximative",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 600,
 "mode": "ls"
 },
@@ -3409,7 +3451,7 @@
 "page": "contact",
 "text": "Joindre un visuel",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 600,
 "mode": "ls"
 },
@@ -3436,7 +3478,7 @@
 "page": "contact",
 "text": "Votre nom",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -3463,7 +3505,7 @@
 "page": "contact",
 "text": "votre@courriel.com",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -3490,7 +3532,7 @@
 "page": "contact",
 "text": "Décrivez-nous votre projet en quelques mots...",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -3517,7 +3559,7 @@
 "page": "contact",
 "text": "Ex. : 50, 100, 500, etc.",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -3544,7 +3586,7 @@
 "page": "contact",
 "text": "Choisir un fichier",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 600,
 "mode": "ls"
 },
@@ -3571,7 +3613,7 @@
 "page": "contact",
 "text": "JPG, PNG, PDF (max 10 Mo)",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -3598,7 +3640,7 @@
 "page": "contact",
 "text": "Demander un devis",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 600,
 "mode": "ls"
 },
@@ -3625,7 +3667,7 @@
 "page": "contact",
 "text": "En soumettant ce formulaire, vous nous permettez de vous contacter",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },
@@ -3652,7 +3694,7 @@
 "page": "contact",
 "text": "concernant votre demande.",
 "spec": {
-"f": "Inter",
+"f": "Archivo",
 "w": 400,
 "mode": "ls"
 },

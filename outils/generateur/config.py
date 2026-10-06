@@ -37,3 +37,9 @@ FORM_SERVICE='FormSubmit'  # service qui achemine le formulaire vers le courriel
 # confirmation à cliquer une fois ; il fournit alors un code à coller ici à la place de l'adresse
 # pour ne pas l'exposer dans le code de la page : FORM_ENDPOINT='https://formsubmit.co/<code>'.
 FORM_ENDPOINT=os.environ.get('FORM_ENDPOINT') or (f'https://formsubmit.co/{CONTACT_EMAIL}' if CONTACT_EMAIL else None)
+
+# Deux polices pour tout le site : Sekuya (titres) et Archivo (tout le reste, en largeur normale ou étroite).
+def fontface(up='',swap=True):
+    d='font-display:swap;' if swap else ''
+    return (f"@font-face{{font-family:'Sekuya';font-weight:400;{d}src:url({up}fonts/sekuya-latin-400-normal.woff2) format('woff2')}}"
+            f"@font-face{{font-family:'Archivo';font-weight:100 900;font-stretch:62% 125%;{d}src:url({up}fonts/archivo-latin-wdth-normal.woff2) format('woff2')}}")

@@ -61,7 +61,7 @@ function imageTex(im){const w0=im.naturalWidth||im.width||1000,h0=im.naturalHeig
 const guides={};
 function guideTex(ar){const k=Math.round(ar*20);if(guides[k])return guides[k];const w=512,h=Math.max(64,Math.round(512/ar)),c=mk(w,h),x=c.getContext('2d'),u=Math.min(w,h);
  x.setLineDash([u*.07,u*.05]);x.lineWidth=Math.max(4,u*.02);x.strokeStyle=x.fillStyle='rgba(120,145,255,.95)';x.strokeRect(x.lineWidth,x.lineWidth,w-2*x.lineWidth,h-2*x.lineWidth);
- x.setLineDash([]);x.textAlign='center';x.textBaseline='middle';x.font=`600 ${Math.max(22,Math.min(w*.11,h*.3))}px Kumbh Sans,sans-serif`;x.fillText(t('Votre image','Your image'),w/2,h/2);return guides[k]=artTex(c)}
+ x.setLineDash([]);x.textAlign='center';x.textBaseline='middle';x.font=`600 ${Math.max(22,Math.min(w*.11,h*.3))}px Archivo,sans-serif`;x.fillText(t('Votre image','Your image'),w/2,h/2);return guides[k]=artTex(c)}
 
 // ---------- chargement et préparation d'un produit ----------
 const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);
@@ -162,7 +162,7 @@ const idb=()=>new Promise((ok,ko)=>{const r=indexedDB.open('em-visions',1);r.onu
 async function send(){const p=PRODUCTS[S.pi],btn=$('#send');if(!cur||cur.p!==p)return;btn.disabled=true;
  try{apply(false);const y=view(p).yaw||0,hasBack=cur.frames.back&&S.art.back,a=shot(y-.32),b=shot(y+(hasBack?Math.PI-.32:.75));apply();
   const c=mk(1680,940),x=c.getContext('2d');x.fillStyle='#111214';x.fillRect(0,0,1680,940);x.drawImage(a,10,20);x.drawImage(b,850,20);
-  x.fillStyle='#f4f4f2';x.font='600 30px Kumbh Sans,sans-serif';x.textBaseline='middle';x.fillText('EM Visions — '+summary(),40,895);
+  x.fillStyle='#f4f4f2';x.font='600 30px Archivo,sans-serif';x.textBaseline='middle';x.fillText('EM Visions — '+summary(),40,895);
   const snapB=await new Promise(r=>c.toBlob(r,'image/jpeg',.88)),orig=[];
   let tot=0;for(const s of sidesOf(p)){const ar=S.art[s];if(ar&&ar.file&&tot+ar.file.size<8e6){tot+=ar.file.size;orig.push({name:ar.file.name,type:ar.file.type,blob:ar.file})}}
   const db=await idb();await new Promise((ok,ko)=>{const tx=db.transaction('kv','readwrite');tx.objectStore('kv').put({snap:snapB,snapName:`maquette-${p.id}.jpg`,orig,summary:summary(),at:Date.now()},'maquette');tx.oncomplete=ok;tx.onerror=()=>ko(tx.error)});

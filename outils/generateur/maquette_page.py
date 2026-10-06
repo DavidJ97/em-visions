@@ -1,6 +1,6 @@
 """Page du modélisateur 3D : site/maquette/ (français) et site/en/mockup/ (anglais)."""
 import html as H, os, shutil, json, re
-from config import SITE_URL
+from config import SITE_URL, fontface
 T={'fr':{'path':'/maquette/','up':'../','app':'app.js','title':'Maquette 3D','h1':'Créez votre maquette','back':'Retour au site','other':('EN','../en/mockup/'),'home':'../','to':'../#contact',
   'desc':'Choisissez parmi une vingtaine de produits, posez votre image, faites-le pivoter en 3D et joignez la maquette à votre demande de devis.',
   'lead':'Choisissez un produit, posez votre image, faites-le pivoter, puis joignez la maquette à votre demande de devis.',
@@ -15,7 +15,7 @@ T={'fr':{'path':'/maquette/','up':'../','app':'app.js','title':'Maquette 3D','h1
   'load':'Loading the model…','cr':'3D model credits','crp':'3D models under the Creative Commons Attribution licence (CC BY 4.0), lightened and recoloured for this tool.','by':'by','hint':'Drag to rotate','view':'3D preview of the product'}}
 CSS='''*{box-sizing:border-box;margin:0;padding:0}:root{--bg:#0a0a0a;--fg:#f4f4f2;--mut:#a9a9a6;--line:#2a2a2c;--card:#1c1d21;--blue:#0a3cff;--stage1:#3b3f4a;--stage2:#0e0f12}
 html[data-theme=light]{--bg:#efefec;--fg:#141414;--mut:#555;--line:#cfcfcb;--card:#e4e4e0;--stage1:#fbfbf9;--stage2:#d9d9d4}
-html,body{height:100%}body{background:var(--bg);color:var(--fg);font:400 16px/1.5 'Kumbh Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+html,body{height:100%}body{background:var(--bg);color:var(--fg);font:400 16px/1.5 Archivo,system-ui,sans-serif;word-spacing:.06em;-webkit-font-smoothing:antialiased}button,input,textarea,select{word-spacing:inherit}
 a{color:var(--fg)}button{font:inherit;color:inherit;cursor:pointer}:focus-visible{outline:3px solid #6f8cff;outline-offset:2px}
 header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 24px;height:76px}
 .logo{display:block;width:128px;height:60px;color:var(--fg)}.logo svg{width:100%;height:100%;display:block}
@@ -25,12 +25,12 @@ nav{display:flex;gap:22px;align-items:center;font-weight:600;font-size:15px}
 #view{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y;outline-offset:-4px}#view.grab{cursor:grabbing}
 .ld{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--card);color:var(--fg);padding:10px 18px;border-radius:999px;font-size:14.5px;z-index:1}.ld[hidden]{display:none}
 .cap{position:absolute;left:24px;bottom:20px;right:24px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;pointer-events:none}
-.cap b{font:700 clamp(20px,2.4vw,30px)/1.05 Oswald,sans-serif;text-transform:uppercase;letter-spacing:.02em}.cap b small{display:block;font:400 14px/1.4 'Kumbh Sans';text-transform:none;color:var(--mut);letter-spacing:0;margin-top:4px}
+.cap b{font:700 clamp(23px,2.8vw,35px)/1.05 Archivo,sans-serif;font-stretch:70%;word-spacing:.08em;text-transform:uppercase;letter-spacing:.02em}.cap b small{display:block;font:400 14px/1.4 Archivo,sans-serif;text-transform:none;color:var(--mut);letter-spacing:0;margin-top:4px}
 .cap i{font-style:normal;font-size:13px;color:var(--mut);display:flex;gap:8px;align-items:center;white-space:nowrap}
 .panel{overflow:auto;padding:26px 26px 40px;border-left:1px solid var(--line);border-top:1px solid var(--line)}
-h1{font:400 clamp(22px,2.3vw,30px)/1.14 Sekuya,'Kumbh Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em}h1:after{content:"";display:block;width:60px;height:5px;background:var(--blue);margin-top:16px}
+h1{font:400 clamp(22px,2.3vw,30px)/1.14 Sekuya,Archivo,sans-serif;word-spacing:0;text-transform:uppercase;letter-spacing:.05em}h1:after{content:"";display:block;width:60px;height:5px;background:var(--blue);margin-top:16px}
 .lead{color:var(--mut);margin-top:14px;font-size:15.5px}
-h2{display:flex;align-items:center;gap:12px;font:700 17px/1 Oswald,sans-serif;text-transform:uppercase;letter-spacing:.04em;margin:30px 0 12px}h2 b{color:#4d74ff;font-size:22px}h2 span{margin-left:auto;font:400 13.5px 'Kumbh Sans';text-transform:none;letter-spacing:0;color:var(--mut)}
+h2{display:flex;align-items:center;gap:12px;font:700 20px/1 Archivo,sans-serif;font-stretch:70%;word-spacing:.08em;text-transform:uppercase;letter-spacing:.04em;margin:30px 0 12px}h2 b{color:#4d74ff;font-size:22px}h2 span{margin-left:auto;font:400 13.5px Archivo,sans-serif;text-transform:none;letter-spacing:0;color:var(--mut)}
 .prods{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .prod{background:var(--card);border:2px solid transparent;border-radius:10px;padding:6px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
 .prod img{width:100%;max-width:84px;aspect-ratio:1;height:auto;display:block}.prod span{font-size:11.5px;line-height:1.2;text-align:center;color:var(--mut);overflow-wrap:anywhere}
@@ -41,15 +41,14 @@ h2{display:flex;align-items:center;gap:12px;font:700 17px/1 Oswald,sans-serif;te
 .up svg{flex:none;color:#4d74ff}.up b{display:block;font-weight:600;overflow-wrap:anywhere}.up small{color:var(--mut);font-size:13px}
 #adj{margin-top:14px;display:grid;gap:10px}#adj[hidden]{display:none}.sl{display:grid;grid-template-columns:92px 1fr;align-items:center;gap:12px;font-size:14px}.sl input{width:100%;accent-color:#3d68ff;height:28px}
 .rm{justify-self:start;background:none;border:0;text-decoration:underline;text-underline-offset:3px;color:var(--mut);font-size:14px;padding:6px 0}
-.cta{margin-top:30px;width:100%;background:var(--blue);color:#fff;border:0;border-radius:6px;padding:17px 18px;font:600 17px 'Kumbh Sans',sans-serif;display:flex;justify-content:center;gap:12px;align-items:center}.cta:hover{background:#2a55ff}.cta:disabled{opacity:.6}
+.cta{margin-top:30px;width:100%;background:var(--blue);color:#fff;border:0;border-radius:6px;padding:17px 18px;font:600 17px Archivo,sans-serif;display:flex;justify-content:center;gap:12px;align-items:center}.cta:hover{background:#2a55ff}.cta:disabled{opacity:.6}
 .note{color:var(--mut);font-size:13px;margin-top:14px}
 .credits{margin-top:18px;color:var(--mut);font-size:12.5px}.credits summary{cursor:pointer;padding:6px 0;text-decoration:underline;text-underline-offset:3px}.credits ul{list-style:none;margin-top:8px;display:grid;gap:4px}.credits a{color:inherit}.credits p{margin-top:6px}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--blue);color:#fff;font:500 15px 'Kumbh Sans',sans-serif;padding:12px 20px;border-radius:6px;opacity:0;transition:.3s;z-index:9;pointer-events:none;max-width:90vw;text-align:center}.toast.on{opacity:1;transform:translateX(-50%)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--blue);color:#fff;font:500 15px Archivo,sans-serif;padding:12px 20px;border-radius:6px;opacity:0;transition:.3s;z-index:9;pointer-events:none;max-width:90vw;text-align:center}.toast.on{opacity:1;transform:translateX(-50%)}
 @media (max-width:900px){html,body{height:auto}header{padding:8px 16px;height:64px}.logo{width:104px;height:48px}.wrap{display:block;height:auto}
  .stagebox{position:sticky;top:0;height:44vh;min-height:280px;z-index:2;border-bottom:1px solid var(--line)}.cap{left:16px;right:16px;bottom:12px}.cap i{display:none}
  .panel{border-left:0;border-top:0;padding:22px 16px 48px;overflow:visible}.prods{grid-template-columns:repeat(4,1fr);gap:6px}}'''
 HEADJS='(function(){let t;try{t=localStorage.getItem("em-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t})()'
-FONTS=(('Sekuya',400,'sekuya-latin-400'),('Kumbh Sans',400,'kumbh-sans-latin-400'),('Kumbh Sans',600,'kumbh-sans-latin-600'),('Oswald',700,'oswald-latin-700'))
 def credits(L):
     """Mention exigée par la licence CC BY : titre, auteur, lien vers l'original, pour chaque modèle utilisé."""
     t=T[L]; e=H.escape
@@ -59,7 +58,7 @@ def credits(L):
     return f'<details class="credits"><summary>{e(t["cr"])}</summary><p>{e(t["crp"])} <a href="https://creativecommons.org/licenses/by/4.0/deed.{L}" rel="noopener license" target="_blank">CC BY 4.0</a></p><ul>{li}</ul></details>'
 def page(L,logo_vb,logo_d):
     t=T[L]; e=H.escape; up=t['up']
-    ff=''.join(f"@font-face{{font-family:'{n}';font-weight:{w};font-display:swap;src:url({up}fonts/{f}-normal.woff2) format('woff2')}}" for n,w,f in FONTS)
+    ff=fontface(up)
     sl=lambda k,lab,mn,mx,st,v:f'<label class="sl"><span>{e(lab)}</span><input type="range" id="s-{k}" min="{mn}" max="{mx}" step="{st}" value="{v}"></label>'
     return (f'<!doctype html><html lang="{L}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(t["title"])} — EM Visions</title>'
       f'<meta name="description" content="{e(t["desc"])}"><link rel="canonical" href="{SITE_URL}{t["path"]}">'

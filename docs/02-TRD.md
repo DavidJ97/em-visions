@@ -11,7 +11,7 @@ Web uniquement : navigateurs evergreen (Chrome, Safari, Firefox, Edge — 2 dern
 | Prototype actuel | HTML/CSS/JS autonome (`site/index.html`), sans framework |
 | Cible production | Next.js 16 (App Router) + React 19 — base `em-visions-composants` existante |
 | Hébergement | Cloudflare Workers/Pages (via vinext + `@cloudflare/vite-plugin`) |
-| Polices | Anton, Jost, Kumbh Sans, Oswald, Inter, Figtree — auto-hébergées (woff2, licence OFL) |
+| Polices | Deux seulement : Sekuya (titres) et Archivo variable (tout le reste, largeur normale ou étroite) — auto-hébergées (woff2, licence OFL) |
 | Médias | WebP (photos, calques), SVG (logo, boutons, icônes), MP4 H.264 muet (vidéos) |
 
 ## Backend et base de données

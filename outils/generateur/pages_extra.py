@@ -1,6 +1,6 @@
 """Pages de texte hors de la page principale : politique de confidentialité (FR et EN)."""
 import html as H, os
-from config import SITE_URL, CONTACT_EMAIL, INSTAGRAM, PRIVACY_OFFICER, RETENTION_YEARS, POLICY_DATE, FORM_SERVICE
+from config import SITE_URL, CONTACT_EMAIL, INSTAGRAM, PRIVACY_OFFICER, RETENTION_YEARS, POLICY_DATE, FORM_SERVICE, fontface
 ADDR='5825, rue Jean-Talon Est, Saint-Léonard (Québec) H1S 1M4'
 def _mail(L):
     if not CONTACT_EMAIL: return ''
@@ -59,21 +59,21 @@ T={'fr':{'title':'Politique de confidentialité','desc':'Quels renseignements pe
    'en':{'title':'Privacy policy','desc':'What personal information the EM Visions website collects, why, for how long, and how to exercise your rights.','back':'Back to the site','path':'/en/privacy/','other':('FR','../../confidentialite/'),'home':'../','up':'../../'}}
 CSS='''*{box-sizing:border-box;margin:0;padding:0}:root{--bg:#0a0a0a;--fg:#f4f4f2;--mut:#b9b9b6;--line:#2c2c2c;--blue:#4d74ff}
 html[data-theme=light]{--bg:#efefec;--fg:#141414;--mut:#555;--line:#cfcfcb;--blue:#0a3cff}
-body{background:var(--bg);color:var(--fg);font:400 17px/1.62 'Kumbh Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--fg);font:400 17px/1.62 Archivo,system-ui,sans-serif;word-spacing:.06em;-webkit-font-smoothing:antialiased}button,input,textarea,select{word-spacing:inherit}
 a{color:var(--blue);text-underline-offset:3px}a:focus-visible{outline:3px solid #6f8cff;outline-offset:3px}
 header{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:760px;margin:0 auto;padding:22px 20px}
 .logo{display:block;width:150px;height:70px;color:var(--fg)}.logo svg{width:100%;height:100%;display:block}
 nav{display:flex;gap:22px;align-items:center;font-weight:600;font-size:15px}nav a{color:var(--fg)}
 main{max-width:760px;margin:0 auto;padding:26px 20px 90px}
-h1{font:400 clamp(26px,6.2vw,44px)/1.14 Sekuya,'Kumbh Sans',sans-serif;text-transform:uppercase;letter-spacing:.05em;text-wrap:balance}
+h1{font:400 clamp(26px,6.2vw,44px)/1.14 Sekuya,Archivo,sans-serif;word-spacing:0;text-transform:uppercase;letter-spacing:.05em;text-wrap:balance}
 h1:after{content:"";display:block;width:72px;height:5px;background:#0a3cff;margin-top:22px}
 .date{color:var(--mut);font-size:14.5px;margin-top:22px}.lead{font-size:19px;line-height:1.55;margin-top:14px}
-h2{font:700 20px/1.3 'Kumbh Sans',sans-serif;margin-top:40px;padding-top:22px;border-top:1px solid var(--line)}
+h2{font:700 20px/1.3 Archivo,sans-serif;margin-top:40px;padding-top:22px;border-top:1px solid var(--line)}
 p{margin-top:12px;max-width:66ch}'''
 HEADJS='(function(){let t;try{t=localStorage.getItem("em-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t})()'
 def page(L,logo_vb,logo_d):
     t=T[L]; e=H.escape; up=t['up']
-    ff=''.join(f"@font-face{{font-family:'{n}';font-weight:{w};font-display:swap;src:url({up}fonts/{f}-normal.woff2) format('woff2')}}" for n,w,f in (('Sekuya',400,'sekuya-latin-400'),('Kumbh Sans',400,'kumbh-sans-latin-400'),('Kumbh Sans',600,'kumbh-sans-latin-600'),('Kumbh Sans',700,'kumbh-sans-latin-700')))
+    ff=fontface(up)
     return (f'<!doctype html><html lang="{L}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(t["title"])} — EM Visions</title>'
       f'<meta name="description" content="{e(t["desc"])}"><link rel="canonical" href="{SITE_URL}{t["path"]}">'
       f'<link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/confidentialite/"><link rel="alternate" hreflang="en-CA" href="{SITE_URL}/en/privacy/">'
