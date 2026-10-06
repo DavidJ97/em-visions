@@ -2,53 +2,53 @@ v20.20.2
 
 added 26 packages in 2s
 total 95792
-drwxr-xr-x 2 runner runner     4096 Oct  6 05:58 .
-drwxr-xr-x 4 runner runner     4096 Oct  6 05:58 ..
--rw-r--r-- 1 runner runner   281240 Oct  6 05:58 19c8fe5702b544d0a1409d3dac1cf90e.glb
--rw-r--r-- 1 runner runner  7255444 Oct  6 05:58 1c1d34d73fd94e6b9e8f82b1eb7194a0.glb
--rw-r--r-- 1 runner runner  5285820 Oct  6 05:58 38d07cea51d04e9fb419376d1fdaa77e.glb
--rw-r--r-- 1 runner runner  2895760 Oct  6 05:58 3e5f382200c9449cb41120a2fc977372.glb
--rw-r--r-- 1 runner runner   707904 Oct  6 05:58 45e786c1ad634bffa8348154ef9751cd.glb
--rw-r--r-- 1 runner runner 10935304 Oct  6 05:58 5a21282b2e454d1696547148f617d3d0.glb
--rw-r--r-- 1 runner runner   632096 Oct  6 05:58 5a75d007bcb64ad29a326669d67a30dc.glb
--rw-r--r-- 1 runner runner  2155592 Oct  6 05:58 6dca9cd855a8441881f0b324236cf325.glb
--rw-r--r-- 1 runner runner  1598960 Oct  6 05:58 74c33d16b31346f1a46a55c3ec8e8a78.glb
--rw-r--r-- 1 runner runner  8295120 Oct  6 05:58 794b730ae452424bb3a9ce3c6caaff7a.glb
--rw-r--r-- 1 runner runner 12811668 Oct  6 05:58 7d9d047ebe724ec1ad99f317bbed04d4.glb
--rw-r--r-- 1 runner runner   489740 Oct  6 05:58 86d4292baa6c489ab5fab374bf803106.glb
--rw-r--r-- 1 runner runner  2653424 Oct  6 05:58 919543b91c9448ac877fdf671fdcfee5.glb
--rw-r--r-- 1 runner runner  1546656 Oct  6 05:58 99ab368be9eb474d9db3fa84ae68960e.glb
--rw-r--r-- 1 runner runner  2331144 Oct  6 05:58 a1328e74b0f44b4284af05eb2aa5cfb6.glb
--rw-r--r-- 1 runner runner  4119668 Oct  6 05:58 abb2916c07214d9d95cd70bd2dafa8fc.glb
--rw-r--r-- 1 runner runner 10135752 Oct  6 05:58 d51e89bfa33646ba8771ddf972dc1af2.glb
--rw-r--r-- 1 runner runner  2636768 Oct  6 05:58 d6b2561de39f423f9c7a2e7944485beb.glb
--rw-r--r-- 1 runner runner   651536 Oct  6 05:58 dd7f1d2b5a8147719cef11a331176fdf.glb
--rw-r--r-- 1 runner runner  3719256 Oct  6 05:58 e1ae456da04b4cbb9dff6accbc5ac965.glb
--rw-r--r-- 1 runner runner   462748 Oct  6 05:58 e8457e91baf043cdae0ddaa9c054ca31.glb
--rw-r--r-- 1 runner runner 16272648 Oct  6 05:58 edb7f2c044b64d5da40484495239fee3.glb
--rw-r--r-- 1 runner runner   165016 Oct  6 05:58 f93512f5abd64d95b475c4f66637165b.glb
-tshirt ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-longsleeve ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-tank ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-polo ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-crewneck ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-hoodie ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-ziphoodie ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-jacket ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-vest ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-pants ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-cap ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-bucket ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-beanie ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-hardhat ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-tote ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-drawstring ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-mug ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-bottle ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-travel ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-pillow ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-umbrella ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-rollup ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-banner ÉCHEC TypeError: doc.getLogger(...).setVerbosity is not a function
-terminé, 0 modèles, 23 échec(s)
-code de sortie : 1
+drwxr-xr-x 2 runner runner     4096 Oct  6 06:00 .
+drwxr-xr-x 4 runner runner     4096 Oct  6 06:00 ..
+-rw-r--r-- 1 runner runner   281240 Oct  6 06:00 19c8fe5702b544d0a1409d3dac1cf90e.glb
+-rw-r--r-- 1 runner runner  7255444 Oct  6 06:00 1c1d34d73fd94e6b9e8f82b1eb7194a0.glb
+-rw-r--r-- 1 runner runner  5285820 Oct  6 06:00 38d07cea51d04e9fb419376d1fdaa77e.glb
+-rw-r--r-- 1 runner runner  2895760 Oct  6 06:00 3e5f382200c9449cb41120a2fc977372.glb
+-rw-r--r-- 1 runner runner   707904 Oct  6 06:00 45e786c1ad634bffa8348154ef9751cd.glb
+-rw-r--r-- 1 runner runner 10935304 Oct  6 06:00 5a21282b2e454d1696547148f617d3d0.glb
+-rw-r--r-- 1 runner runner   632096 Oct  6 06:00 5a75d007bcb64ad29a326669d67a30dc.glb
+-rw-r--r-- 1 runner runner  2155592 Oct  6 06:00 6dca9cd855a8441881f0b324236cf325.glb
+-rw-r--r-- 1 runner runner  1598960 Oct  6 06:00 74c33d16b31346f1a46a55c3ec8e8a78.glb
+-rw-r--r-- 1 runner runner  8295120 Oct  6 06:00 794b730ae452424bb3a9ce3c6caaff7a.glb
+-rw-r--r-- 1 runner runner 12811668 Oct  6 06:00 7d9d047ebe724ec1ad99f317bbed04d4.glb
+-rw-r--r-- 1 runner runner   489740 Oct  6 06:00 86d4292baa6c489ab5fab374bf803106.glb
+-rw-r--r-- 1 runner runner  2653424 Oct  6 06:00 919543b91c9448ac877fdf671fdcfee5.glb
+-rw-r--r-- 1 runner runner  1546656 Oct  6 06:00 99ab368be9eb474d9db3fa84ae68960e.glb
+-rw-r--r-- 1 runner runner  2331144 Oct  6 06:00 a1328e74b0f44b4284af05eb2aa5cfb6.glb
+-rw-r--r-- 1 runner runner  4119668 Oct  6 06:00 abb2916c07214d9d95cd70bd2dafa8fc.glb
+-rw-r--r-- 1 runner runner 10135752 Oct  6 06:00 d51e89bfa33646ba8771ddf972dc1af2.glb
+-rw-r--r-- 1 runner runner  2636768 Oct  6 06:00 d6b2561de39f423f9c7a2e7944485beb.glb
+-rw-r--r-- 1 runner runner   651536 Oct  6 06:00 dd7f1d2b5a8147719cef11a331176fdf.glb
+-rw-r--r-- 1 runner runner  3719256 Oct  6 06:00 e1ae456da04b4cbb9dff6accbc5ac965.glb
+-rw-r--r-- 1 runner runner   462748 Oct  6 06:00 e8457e91baf043cdae0ddaa9c054ca31.glb
+-rw-r--r-- 1 runner runner 16272648 Oct  6 06:00 edb7f2c044b64d5da40484495239fee3.glb
+-rw-r--r-- 1 runner runner   165016 Oct  6 06:00 f93512f5abd64d95b475c4f66637165b.glb
+tshirt {"tris":373280,"after":44999,"ko":311}
+longsleeve {"tris":16776,"after":16776,"ko":105}
+tank {"tris":21346,"after":21346,"ko":323}
+polo {"tris":49258,"after":49258,"ko":343}
+crewneck {"tris":103558,"after":40000,"ko":421}
+hoodie {"tris":151900,"after":50000,"ko":731}
+ziphoodie {"tris":49822,"after":49822,"ko":835}
+jacket {"tris":8066,"after":8066,"ko":319}
+vest {"tris":4362,"after":4362,"ko":100}
+pants {"tris":368506,"after":40680,"ko":338}
+cap {"tris":93184,"after":35118,"ko":1041}
+bucket {"tris":112640,"after":34997,"ko":407}
+beanie {"tris":506517,"after":44963,"ko":620}
+hardhat {"tris":2750,"after":2750,"ko":120}
+tote {"tris":8312,"after":8312,"ko":52}
+drawstring {"tris":4120,"after":4120,"ko":29}
+mug {"tris":9664,"after":9664,"ko":58}
+bottle {"tris":194404,"after":30000,"ko":412}
+travel {"tris":1704,"after":1704,"ko":17}
+pillow {"tris":3264,"after":3264,"ko":364}
+umbrella {"tris":47958,"after":40030,"ko":262}
+rollup {"tris":111880,"after":32441,"ko":253}
+banner {"tris":24824,"after":24824,"ko":125}
+terminé, 23 modèles, 0 échec(s)
+code de sortie : 0
