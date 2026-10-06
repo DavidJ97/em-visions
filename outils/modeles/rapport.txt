@@ -1,31 +1,33 @@
 v20.20.2
 
 added 26 packages in 4s
-total 305488
-drwxr-xr-x 2 runner runner      4096 Oct  6 06:30 .
-drwxr-xr-x 4 runner runner      4096 Oct  6 06:30 ..
--rw-r--r-- 1 runner runner    281240 Oct  6 06:30 19c8fe5702b544d0a1409d3dac1cf90e.glb
--rw-r--r-- 1 runner runner   7255444 Oct  6 06:30 1c1d34d73fd94e6b9e8f82b1eb7194a0.glb
--rw-r--r-- 1 runner runner   3958312 Oct  6 06:30 1f6f7318f9364456b8d58c1eaf71762b.glb
--rw-r--r-- 1 runner runner 234491128 Oct  6 06:30 340b9e30d622464d8a27bd732ab8b75a.glb
--rw-r--r-- 1 runner runner   5285820 Oct  6 06:30 38d07cea51d04e9fb419376d1fdaa77e.glb
--rw-r--r-- 1 runner runner   2895760 Oct  6 06:30 3e5f382200c9449cb41120a2fc977372.glb
--rw-r--r-- 1 runner runner    707904 Oct  6 06:30 45e786c1ad634bffa8348154ef9751cd.glb
--rw-r--r-- 1 runner runner  10935304 Oct  6 06:30 5a21282b2e454d1696547148f617d3d0.glb
--rw-r--r-- 1 runner runner    632096 Oct  6 06:30 5a75d007bcb64ad29a326669d67a30dc.glb
--rw-r--r-- 1 runner runner   1598960 Oct  6 06:30 74c33d16b31346f1a46a55c3ec8e8a78.glb
--rw-r--r-- 1 runner runner   8295120 Oct  6 06:30 794b730ae452424bb3a9ce3c6caaff7a.glb
--rw-r--r-- 1 runner runner   2653424 Oct  6 06:30 919543b91c9448ac877fdf671fdcfee5.glb
--rw-r--r-- 1 runner runner   1546656 Oct  6 06:30 99ab368be9eb474d9db3fa84ae68960e.glb
--rw-r--r-- 1 runner runner   2331144 Oct  6 06:30 a1328e74b0f44b4284af05eb2aa5cfb6.glb
--rw-r--r-- 1 runner runner   4119668 Oct  6 06:30 abb2916c07214d9d95cd70bd2dafa8fc.glb
--rw-r--r-- 1 runner runner   2636768 Oct  6 06:30 d6b2561de39f423f9c7a2e7944485beb.glb
--rw-r--r-- 1 runner runner    651536 Oct  6 06:30 dd7f1d2b5a8147719cef11a331176fdf.glb
--rw-r--r-- 1 runner runner   3719256 Oct  6 06:30 e1ae456da04b4cbb9dff6accbc5ac965.glb
--rw-r--r-- 1 runner runner    462748 Oct  6 06:30 e8457e91baf043cdae0ddaa9c054ca31.glb
--rw-r--r-- 1 runner runner  16272648 Oct  6 06:30 edb7f2c044b64d5da40484495239fee3.glb
--rw-r--r-- 1 runner runner   1873692 Oct  6 06:30 f6f27327fbaf423081ae9da8e5dc109e.glb
--rw-r--r-- 1 runner runner    165016 Oct  6 06:30 f93512f5abd64d95b475c4f66637165b.glb
+total 307904
+drwxr-xr-x 2 runner runner      4096 Oct  6 18:08 .
+drwxr-xr-x 4 runner runner      4096 Oct  6 18:08 ..
+-rw-r--r-- 1 runner runner    281240 Oct  6 18:08 19c8fe5702b544d0a1409d3dac1cf90e.glb
+-rw-r--r-- 1 runner runner   7255444 Oct  6 18:08 1c1d34d73fd94e6b9e8f82b1eb7194a0.glb
+-rw-r--r-- 1 runner runner   3958312 Oct  6 18:08 1f6f7318f9364456b8d58c1eaf71762b.glb
+-rw-r--r-- 1 runner runner   1416080 Oct  6 18:08 202a0bed656f4ad291d58e936e3161a0.glb
+-rw-r--r-- 1 runner runner 234491128 Oct  6 18:08 340b9e30d622464d8a27bd732ab8b75a.glb
+-rw-r--r-- 1 runner runner   5285820 Oct  6 18:08 38d07cea51d04e9fb419376d1fdaa77e.glb
+-rw-r--r-- 1 runner runner   2895760 Oct  6 18:08 3e5f382200c9449cb41120a2fc977372.glb
+-rw-r--r-- 1 runner runner    707904 Oct  6 18:08 45e786c1ad634bffa8348154ef9751cd.glb
+-rw-r--r-- 1 runner runner  10935304 Oct  6 18:08 5a21282b2e454d1696547148f617d3d0.glb
+-rw-r--r-- 1 runner runner    632096 Oct  6 18:08 5a75d007bcb64ad29a326669d67a30dc.glb
+-rw-r--r-- 1 runner runner   1056116 Oct  6 18:08 739e586999a248dea5422a7e4d74d134.glb
+-rw-r--r-- 1 runner runner   1598960 Oct  6 18:08 74c33d16b31346f1a46a55c3ec8e8a78.glb
+-rw-r--r-- 1 runner runner   8295120 Oct  6 18:08 794b730ae452424bb3a9ce3c6caaff7a.glb
+-rw-r--r-- 1 runner runner   2653424 Oct  6 18:08 919543b91c9448ac877fdf671fdcfee5.glb
+-rw-r--r-- 1 runner runner   1546656 Oct  6 18:08 99ab368be9eb474d9db3fa84ae68960e.glb
+-rw-r--r-- 1 runner runner   2331144 Oct  6 18:08 a1328e74b0f44b4284af05eb2aa5cfb6.glb
+-rw-r--r-- 1 runner runner   4119668 Oct  6 18:08 abb2916c07214d9d95cd70bd2dafa8fc.glb
+-rw-r--r-- 1 runner runner   2636768 Oct  6 18:08 d6b2561de39f423f9c7a2e7944485beb.glb
+-rw-r--r-- 1 runner runner    651536 Oct  6 18:08 dd7f1d2b5a8147719cef11a331176fdf.glb
+-rw-r--r-- 1 runner runner   3719256 Oct  6 18:08 e1ae456da04b4cbb9dff6accbc5ac965.glb
+-rw-r--r-- 1 runner runner    462748 Oct  6 18:08 e8457e91baf043cdae0ddaa9c054ca31.glb
+-rw-r--r-- 1 runner runner  16272648 Oct  6 18:08 edb7f2c044b64d5da40484495239fee3.glb
+-rw-r--r-- 1 runner runner   1873692 Oct  6 18:08 f6f27327fbaf423081ae9da8e5dc109e.glb
+-rw-r--r-- 1 runner runner    165016 Oct  6 18:08 f93512f5abd64d95b475c4f66637165b.glb
 tshirt pièces : 4
     123426  Object_4  FABRIC_1_FRONT_4193  [-7.61,41.5,-7.09]  [7.75,65.7,-0.319]
     120680  Object_6  FABRIC_1_FRONT_4193  [-11.5,41.6,-7.05]  [11.6,65.8,3.55]
@@ -218,5 +220,19 @@ rollup {"tris":111880,"after":32441,"ko":253}
 banner pièces : 1
     24824  simply_cloth__0  Scene_-_Root  [-0.138,0.264,-1.4]  [4.56e-7,3.08,1.4]
 banner {"tris":24824,"after":24824,"ko":125}
-terminé, 22 modèles, 0 échec(s)
+pen pièces : 4
+    640  pCylinder2_PlasticBody_0  PlasticBody  [-0.0134,0.0603,-0.0134]  [0.0134,0.237,0.0134]
+    220  pCylinder2_MetalTip_0  MetalTip  [-0.0107,0.0379,-0.0107]  [0.0107,0.0607,0.0107]
+    184  pCylinder2_MetalClip_0  MetalClip  [0.0115,0.148,-0.00395]  [0.0192,0.231,0.00395]
+    140  pCylinder2_PlasticButton_0  PlasticButton  [-0.00852,0.236,-0.00852]  [0.00852,0.256,0.00852]
+pen {"tris":1184,"after":1184,"ko":168}
+pencil pièces : 6
+    6528  Cylinder.003_Metal_0  Metal  [-0.516,2.02,-12.3]  [0.516,3.05,-10.5]
+    496  Text_Material.001_0  Material.001  [-0.227,2.97,-8.08]  [0.237,2.97,-6.48]
+    316  Cylinder.002_Goma_0  Goma  [-0.443,2.1,-13.1]  [0.443,2.99,-11.5]
+    282  Cylinder.004_Madera Interna_0  Madera_Interna  [-0.481,2.1,6.51]  [0.488,2.97,7.86]
+    140  Cylinder_MaderaNaranja_0  MaderaNaranja  [-0.489,2.1,-11.5]  [0.489,2.97,6.53]
+    68  Cylinder.004_Grafito_0  Grafito  [-0.15,2.4,7.82]  [0.151,2.67,8.44]
+pencil {"tris":7830,"after":7830,"ko":176}
+terminé, 24 modèles, 0 échec(s)
 code de sortie : 0
