@@ -65,11 +65,16 @@ def mobile_html(EL,META,span):
     P['accueil']=(h1(['Faites','bonne','impression'])+'<i class="rule"></i><p class="msub">Vêtements et objets personnalisés pour donner forme à vos idées.</p>'
         +cta('accueil',EL,span,(72,710,432,810),'#contact','Demander un devis')
         +crop('accueil',405,95,1586,925,slots('accueil',META),'bleed comp')+carctl('accueil'))
-    # chaque service a sa photo (img/svc-N.webp), posée comme un morceau de papier déchiré
-    svc=[('01','Design graphique','Des visuels qui marquent votre identité.','Illustration Balloon Babe imprimée en rose sur tissu'),('02','Impression','Des supports de qualité pour vos projets.',A_BUONO),('03','Vêtements personnalisés','Des textiles uniques à votre image.','T-shirt imprimé El3vate Miami, palmiers et bandes dégradées'),
-         ('04','Impression 3D','Des idées qui prennent forme.','Imprimante 3D en train d’imprimer une pièce bleue'),('05','Sites Web','Des plateformes sur mesure pour propulser votre marque.','Page d’accueil du site EM Visions'),('06','Applications','Des outils performants pour vos besoins spécifiques.','Outil de maquette 3D : un chandail à capuchon bleu avec le logo EM Visions')]
+    # chaque service a son illustration (img/svc-N.webp), posée en escalier : une à gauche, une à droite, en descendant.
+    # Chaque cadre est différent : format, largeur, inclinaison, déchirure et couleur du papier glissé dessous.
+    svc=[('01','Design graphique','Des visuels qui marquent votre identité.','Illustration : une main trace au marqueur une orbite et une étoile bleues',(900,600),'88%','-1.4deg','#0a3cff','7px','8px'),
+         ('02','Impression','Des supports de qualité pour vos projets.','Illustration : deux mains tirent une raclette d’encre bleue sur un cadre de sérigraphie',(720,900),'64%','1.2deg','var(--alt)','-8px','7px'),
+         ('03','Vêtements personnalisés','Des textiles uniques à votre image.','Illustration : un t-shirt, une casquette et un chandail à capuchon imprimés en bleu',(800,800),'76%','-.8deg','#0a3cff','8px','-7px'),
+         ('04','Impression 3D','Des idées qui prennent forme.','Illustration : la buse d’une imprimante 3D construit une pièce bleue couche par couche',(900,600),'88%','1deg','var(--alt)','-7px','-8px'),
+         ('05','Sites Web','Des plateformes sur mesure pour propulser votre marque.','Illustration : une page Web en papier déchiré, un curseur clique sur un bouton bleu',(720,900),'64%','-1.6deg','#0a3cff','-8px','8px'),
+         ('06','Applications','Des outils performants pour vos besoins spécifiques.','Illustration : une main tient un téléphone d’où s’échappent des icônes en papier',(800,800),'76%','1.3deg','var(--alt)','8px','8px')]
     P['services']=(h1(['De l’idée','à la','matière'],'h2')+'<i class="rule"></i>'
-        +'<ol class="msvc">'+''.join(f'<li><div class="ph" style="--t:{TORN[i][0]};--u:{TORN[i][1]}"><img src="img/svc-{i+1}.webp" alt="{H.escape(al)}" width="720" height="380" loading="lazy"></div><span class="n">{n}</span><div><b>{H.escape(t)}</b><span>{H.escape(d)}</span></div></li>' for i,(n,t,d,al) in enumerate(svc))+'</ol>'
+        +'<ol class="msvc">'+''.join(f'<li class="{"r" if i%2 else "l"}"><div class="ph" style="--w:{w};--ar:{sz[0]}/{sz[1]};--rot:{rot};--bk:{bk};--bx:{bx};--by:{by};--t:{TORN[i][0]};--u:{TORN[i][1]}"><img src="img/svc-{i+1}.webp" alt="{H.escape(al)}" width="{sz[0]}" height="{sz[1]}" loading="lazy"></div><span class="n">{n}</span><div><b>{H.escape(t)}</b><span>{H.escape(d)}</span></div></li>' for i,(n,t,d,al,sz,w,rot,bk,bx,by) in enumerate(svc))+'</ol>'
         +cta('services',EL,span,(78,870,486,966),'#contact','Parler de mon projet'))
     P['realisations']=(h1(['Le','travail','parle'],'h2')+'<i class="rule"></i><p class="msub">Des idées devenues réelles.</p>'
         +crop('realisations',405,95,1586,925,slots('realisations',META),'bleed comp')+carctl('realisations')
@@ -119,7 +124,7 @@ MCSS='''
  html[data-theme=light] .mnav{background:#e9e9e6 url(img/tex-light.webp)}
  html[data-theme=light] .mnav-in>a,html[data-theme=light] .mh1{color:#141414}
  html[data-theme=light] .lang i{background:#141414}html[data-theme=light] .mtheme{color:#141414}
- html[data-theme=light] .msvc .n{border-color:#141414}html[data-theme=light] .msvc div span{color:#333}
+ html[data-theme=light] .msvc div span{color:#333}
  html[data-theme=light] .msup a{border-left-color:#555;border-bottom-color:#aaa}html[data-theme=light] .msup a.on{border-color:transparent}
  html[data-theme=light] .mteam div+div{border-color:#141414}
  html[data-theme=light] .mctl .arrow{border-color:#141414;color:#141414}html[data-theme=light] .mfoot{color:#555;border-color:#ccc}
@@ -163,14 +168,17 @@ MCSS='''
  .mctl .arrow{width:48px;height:48px;border-radius:50%;border:2px solid #fff;background:none;color:#fff;display:grid;place-items:center;cursor:pointer}
  .mcount{font:400 18px Jost;min-width:70px;text-align:center}.mcount b{font-weight:700}
  .mbars{position:relative;left:auto;top:auto;width:233px;height:16px;margin:10px auto 0}
- .msvc{list-style:none;display:grid;gap:34px;margin:14px 0 10px}
- .msvc li{display:grid;grid-template-columns:auto 1fr;column-gap:16px;row-gap:14px;align-items:start}
- .msvc .ph{grid-column:1/-1;position:relative;aspect-ratio:720/380;margin:0 -6px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45));transform:rotate(-1.1deg)}
- .msvc li:nth-child(even) .ph{transform:rotate(.9deg)}
- .msvc .ph::before{content:"";position:absolute;inset:0;background:#f4f4f2;clip-path:var(--t)}
+ .msvc{--alt:#f4f4f2;--ln:#f4f4f2;list-style:none;display:grid;gap:46px;margin:22px 0 14px}
+ html[data-theme=light] .msvc{--alt:#0a0a0a;--ln:#141414}
+ .msvc li{display:grid;grid-template-columns:auto 1fr;column-gap:16px;row-gap:20px;align-items:start;align-content:start}
+ .msvc li.r{grid-template-columns:1fr auto}
+ .msvc .ph{grid-column:1/-1;position:relative;width:var(--w);aspect-ratio:var(--ar);transform:rotate(var(--rot));margin-left:-8px}
+ .msvc li.r .ph{justify-self:end;margin:0 -8px 0 0}
+ .msvc .ph::before{content:"";position:absolute;inset:0;background:var(--bk);clip-path:var(--t);transform:translate(var(--bx),var(--by))}
  .msvc .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;clip-path:var(--u)}
- html[data-theme=light] .msvc .ph{filter:drop-shadow(0 5px 9px rgba(0,0,0,.28))}html[data-theme=light] .msvc .ph::before{background:#fff}
- .msvc .n{font:400 52px/1 Anton;color:#0a3cff;min-width:58px;border-right:2px solid #f4f4f2;padding-right:14px}
+ .msvc li.r .n{order:2;border-right:0;border-left:2px solid var(--ln);padding:0 0 0 14px;text-align:right}
+ .msvc li.r>div:last-child{text-align:right}
+ .msvc .n{font:400 52px/1 Anton;color:#0a3cff;min-width:58px;border-right:2px solid var(--ln);padding-right:14px}
  .msvc b{display:block;font:700 22px/1.05 Oswald;text-transform:uppercase;letter-spacing:.01em}
  .msvc div span{display:block;font-weight:300;font-size:17px;line-height:1.3;margin-top:4px;color:#e8e8e8}
  .msup{list-style:none;margin:26px 0 0}
@@ -206,9 +214,9 @@ MCSS='''
 @media (min-width:700px) and (max-width:1024px){
  .mpage{padding:20px 40px 50px}.bleed{width:calc(100% + 80px);margin-left:-40px}
  .mhead{padding:18px 40px}.mlogo .logo-svg{height:64px}
- .msvc{grid-template-columns:1fr 1fr;column-gap:30px}
+ .msvc{grid-template-columns:1fr 1fr;column-gap:40px;row-gap:26px;align-items:start}.msvc li.r{margin-top:120px}.msvc .ph{width:100%;margin:0!important}
  .mteam{max-width:560px}
- .msvc{grid-auto-flow:column;grid-template-rows:repeat(3,auto)}
+
  .mpaper{margin:36px 0 0}
 }
 '''
