@@ -20,19 +20,24 @@ jobs:
       - name: Télécharger et préparer les modèles
         working-directory: outils/modeles
         run: |
-          set -euo pipefail
-          npm install --no-audit --no-fund --silent
-          mkdir -p raw
-          node -e "const m=require('./models.json');for(const k in m)console.log(m[k].uid,m[k].path)" | while read uid path; do
-            curl -fsSL --retry 3 -o raw/$uid.glb https://huggingface.co/datasets/allenai/objaverse/resolve/main/$path
-          done
-          node process.mjs
-          ls -la ../../site/models
+          set -uo pipefail
+          {
+            node --version
+            npm install --no-audit --no-fund 2>&1 | tail -5
+            mkdir -p raw
+            node -e "const m=JSON.parse(require('fs').readFileSync('models.json','utf8'));for(const k in m)console.log(m[k].uid,m[k].path)" > liste.txt
+            while read uid path; do
+              curl -fsSL --retry 3 -o raw/$uid.glb https://huggingface.co/datasets/allenai/objaverse/resolve/main/$path || echo "téléchargement raté : $uid"
+            done < liste.txt
+            ls -la raw | head -40
+            node process.mjs
+            echo "code de sortie : $?"
+          } 2>&1 | tee rapport.txt
       - name: Enregistrer dans le dépôt
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site/models
+          git add -A site/models outils/modeles/rapport.txt
           git diff --cached --quiet || git commit -m "Modèles 3D réalistes ajoutés au dépôt (23 produits)"
           git pull --rebase
           git push
