@@ -1,47 +1,40 @@
 v20.20.2
 
-added 26 packages in 2s
-total 95792
-drwxr-xr-x 2 runner runner     4096 Oct  6 06:18 .
-drwxr-xr-x 4 runner runner     4096 Oct  6 06:17 ..
--rw-r--r-- 1 runner runner   281240 Oct  6 06:18 19c8fe5702b544d0a1409d3dac1cf90e.glb
--rw-r--r-- 1 runner runner  7255444 Oct  6 06:18 1c1d34d73fd94e6b9e8f82b1eb7194a0.glb
--rw-r--r-- 1 runner runner  5285820 Oct  6 06:18 38d07cea51d04e9fb419376d1fdaa77e.glb
--rw-r--r-- 1 runner runner  2895760 Oct  6 06:18 3e5f382200c9449cb41120a2fc977372.glb
--rw-r--r-- 1 runner runner   707904 Oct  6 06:18 45e786c1ad634bffa8348154ef9751cd.glb
--rw-r--r-- 1 runner runner 10935304 Oct  6 06:17 5a21282b2e454d1696547148f617d3d0.glb
--rw-r--r-- 1 runner runner   632096 Oct  6 06:18 5a75d007bcb64ad29a326669d67a30dc.glb
--rw-r--r-- 1 runner runner  2155592 Oct  6 06:17 6dca9cd855a8441881f0b324236cf325.glb
--rw-r--r-- 1 runner runner  1598960 Oct  6 06:17 74c33d16b31346f1a46a55c3ec8e8a78.glb
--rw-r--r-- 1 runner runner  8295120 Oct  6 06:18 794b730ae452424bb3a9ce3c6caaff7a.glb
--rw-r--r-- 1 runner runner 12811668 Oct  6 06:18 7d9d047ebe724ec1ad99f317bbed04d4.glb
--rw-r--r-- 1 runner runner   489740 Oct  6 06:17 86d4292baa6c489ab5fab374bf803106.glb
--rw-r--r-- 1 runner runner  2653424 Oct  6 06:17 919543b91c9448ac877fdf671fdcfee5.glb
--rw-r--r-- 1 runner runner  1546656 Oct  6 06:18 99ab368be9eb474d9db3fa84ae68960e.glb
--rw-r--r-- 1 runner runner  2331144 Oct  6 06:18 a1328e74b0f44b4284af05eb2aa5cfb6.glb
--rw-r--r-- 1 runner runner  4119668 Oct  6 06:17 abb2916c07214d9d95cd70bd2dafa8fc.glb
--rw-r--r-- 1 runner runner 10135752 Oct  6 06:17 d51e89bfa33646ba8771ddf972dc1af2.glb
--rw-r--r-- 1 runner runner  2636768 Oct  6 06:17 d6b2561de39f423f9c7a2e7944485beb.glb
--rw-r--r-- 1 runner runner   651536 Oct  6 06:18 dd7f1d2b5a8147719cef11a331176fdf.glb
--rw-r--r-- 1 runner runner  3719256 Oct  6 06:18 e1ae456da04b4cbb9dff6accbc5ac965.glb
--rw-r--r-- 1 runner runner   462748 Oct  6 06:18 e8457e91baf043cdae0ddaa9c054ca31.glb
--rw-r--r-- 1 runner runner 16272648 Oct  6 06:18 edb7f2c044b64d5da40484495239fee3.glb
--rw-r--r-- 1 runner runner   165016 Oct  6 06:18 f93512f5abd64d95b475c4f66637165b.glb
+added 26 packages in 3s
+total 305488
+drwxr-xr-x 2 runner runner      4096 Oct  6 06:22 .
+drwxr-xr-x 4 runner runner      4096 Oct  6 06:21 ..
+-rw-r--r-- 1 runner runner    281240 Oct  6 06:21 19c8fe5702b544d0a1409d3dac1cf90e.glb
+-rw-r--r-- 1 runner runner   7255444 Oct  6 06:21 1c1d34d73fd94e6b9e8f82b1eb7194a0.glb
+-rw-r--r-- 1 runner runner   3958312 Oct  6 06:21 1f6f7318f9364456b8d58c1eaf71762b.glb
+-rw-r--r-- 1 runner runner 234491128 Oct  6 06:21 340b9e30d622464d8a27bd732ab8b75a.glb
+-rw-r--r-- 1 runner runner   5285820 Oct  6 06:21 38d07cea51d04e9fb419376d1fdaa77e.glb
+-rw-r--r-- 1 runner runner   2895760 Oct  6 06:21 3e5f382200c9449cb41120a2fc977372.glb
+-rw-r--r-- 1 runner runner    707904 Oct  6 06:22 45e786c1ad634bffa8348154ef9751cd.glb
+-rw-r--r-- 1 runner runner  10935304 Oct  6 06:21 5a21282b2e454d1696547148f617d3d0.glb
+-rw-r--r-- 1 runner runner    632096 Oct  6 06:21 5a75d007bcb64ad29a326669d67a30dc.glb
+-rw-r--r-- 1 runner runner   1598960 Oct  6 06:21 74c33d16b31346f1a46a55c3ec8e8a78.glb
+-rw-r--r-- 1 runner runner   8295120 Oct  6 06:21 794b730ae452424bb3a9ce3c6caaff7a.glb
+-rw-r--r-- 1 runner runner   2653424 Oct  6 06:21 919543b91c9448ac877fdf671fdcfee5.glb
+-rw-r--r-- 1 runner runner   1546656 Oct  6 06:21 99ab368be9eb474d9db3fa84ae68960e.glb
+-rw-r--r-- 1 runner runner   2331144 Oct  6 06:21 a1328e74b0f44b4284af05eb2aa5cfb6.glb
+-rw-r--r-- 1 runner runner   4119668 Oct  6 06:21 abb2916c07214d9d95cd70bd2dafa8fc.glb
+-rw-r--r-- 1 runner runner   2636768 Oct  6 06:21 d6b2561de39f423f9c7a2e7944485beb.glb
+-rw-r--r-- 1 runner runner    651536 Oct  6 06:21 dd7f1d2b5a8147719cef11a331176fdf.glb
+-rw-r--r-- 1 runner runner   3719256 Oct  6 06:21 e1ae456da04b4cbb9dff6accbc5ac965.glb
+-rw-r--r-- 1 runner runner    462748 Oct  6 06:21 e8457e91baf043cdae0ddaa9c054ca31.glb
+-rw-r--r-- 1 runner runner  16272648 Oct  6 06:21 edb7f2c044b64d5da40484495239fee3.glb
+-rw-r--r-- 1 runner runner   1873692 Oct  6 06:21 f6f27327fbaf423081ae9da8e5dc109e.glb
+-rw-r--r-- 1 runner runner    165016 Oct  6 06:21 f93512f5abd64d95b475c4f66637165b.glb
 tshirt pièces : 4
     123426  Object_4  FABRIC_1_FRONT_4193  [-7.61,41.5,-7.09]  [7.75,65.7,-0.319]
     120680  Object_6  FABRIC_1_FRONT_4193  [-11.5,41.6,-7.05]  [11.6,65.8,3.55]
     120164  Object_5  FABRIC_1_FRONT_4193  [-11.8,42.5,-7.1]  [11.9,66.2,3.55]
     9010  Object_7  FABRIC_1_FRONT_4193  [-6.94,41.5,-7.05]  [7.71,65.6,3.46]
 tshirt {"tris":373280,"after":44999,"ko":311}
-longsleeve pièces : 7
-    5516  Object_2  Back_FRONT_2239  [-196,979,-203]  [206,1650,-37.8]
-    5382  Object_4  Front_FRONT_2234  [-200,980,-78.4]  [206,1650,105]
-    2880  Object_8  Upper_Right_FRONT_2209  [-586,1110,-146]  [-185,1610,28]
-    2850  Object_7  Upper_Left_FRONT_2219  [198,1100,-142]  [592,1610,34.1]
-    70  Object_3  Collar_FRONT_2229  [-97.5,1590,-128]  [113,1650,9.74]
-    39  Object_5  Lower_Left_FRONT_2224  [526,1090,-53.5]  [595,1150,40.7]
-    39  Object_6  Lower_Right_FRONT_2214  [-590,1100,-54.9]  [-520,1160,32.4]
-longsleeve {"tris":16776,"after":16776,"ko":105}
+longsleeve pièces : 1
+    7727  defaultMaterial  Shirt  [-1,-0.524,-0.244]  [1,0.524,0.244]
+longsleeve {"tris":7727,"after":7727,"ko":143}
 tank pièces : 3
     8557  Object_3  Stylized_Rib_Knit_Wool_Copy_1_FRONT_2685  [-172,1020,-150]  [182,1610,27.2]
     8352  Object_4  Stylized_Rib_Knit_Wool_FRONT_2656  [-182,1020,-67.1]  [170,1610,132]
@@ -69,42 +62,80 @@ polo {"tris":49258,"after":49258,"ko":343}
 crewneck pièces : 1
     103558  Object_2  Cotton_14_Wale_Corduroy_FRONT_2730  [-26.4,94.7,-15.1]  [26.2,160,8.84]
 crewneck {"tris":103558,"after":40000,"ko":421}
-hoodie pièces : 13
-    16462  Object_8  Knite_promt1_FRONT_565491  [-0.0841,1.08,-0.276]  [0.183,1.74,0.0615]
-    15906  Object_14  Knite_promt1_FRONT_565491  [-0.222,0.956,-0.0944]  [0.222,1.64,0.0988]
-    15634  Object_15  Knite_promt1_FRONT_565491  [-0.315,0.95,-0.175]  [0.184,1.56,0.0988]
-    15520  Object_12  Knite_promt1_FRONT_565491  [-0.22,1.04,-0.199]  [0.221,1.64,-0.0449]
-    15211  Object_7  Knite_promt1_FRONT_565491  [-0.185,0.956,-0.175]  [0.324,1.57,0.0818]
-    14611  Object_6  Knite_promt1_FRONT_565491  [-0.145,0.955,-0.175]  [0.322,1.57,0.0828]
-    13741  Object_10  Knite_promt1_FRONT_565491  [-0.222,1.06,-0.275]  [0.222,1.66,0.0965]
-    12230  Object_13  Knite_promt1_FRONT_565491  [-0.22,0.942,-0.273]  [0.221,1.64,0.0136]
-    12163  Object_11  Knite_promt1_FRONT_565491  [-0.157,1.46,-0.275]  [0.0843,1.74,0.0609]
-    9172  Object_16  Knite_promt1_FRONT_565491  [-0.307,0.913,-0.175]  [0.323,1.56,-0.0000168]
-    8026  Object_9  Knite_promt1_FRONT_565491  [-0.00902,1.46,-0.276]  [0.157,1.67,0.0137]
-    2280  Object_17  Knite_promt1_Copy_1_FRONT_565504  [-0.0464,1.4,0.00727]  [0.0444,1.6,0.0667]
-    944  Object_5  Knite_promt1_Copy_2_FRONT_565511  [0.284,0.913,-0.0412]  [0.314,0.97,-0.00337]
-hoodie {"tris":151900,"after":50000,"ko":731}
-ziphoodie pièces : 3
-    36768  Hoodie_Material3748_0  Material3748  [-0.976,1.85,-0.238]  [0.979,3.6,0.229]
-    7614  Hoodie_Material3754_0  Material3754  [-1.03,1.76,-0.22]  [1.03,2.22,0.24]
-    5440  Hoodie_Material3758_0  Material3758  [-0.223,1.87,0.143]  [0.215,3.04,0.231]
-ziphoodie {"tris":49822,"after":49822,"ko":835}
+hoodie pièces : 61
+    52094  Object_26  Knit_Terry_FRONT_494551  [-0.233,0.929,-0.168]  [0.237,1.57,-0.0292]
+    52094  Object_27  Knit_Terry_FRONT_494551  [-0.23,0.931,-0.165]  [0.235,1.57,-0.03]
+    48412  Object_67  Material564690  [-0.188,0.961,-0.0294]  [-0.000488,1,0.0926]
+    48250  Object_63  Material564690  [-0.000503,0.961,-0.0302]  [0.188,1,0.0926]
+    47328  Object_79  Material564690  [-0.186,0.932,-0.139]  [-0.000746,0.967,-0.0298]
+    47105  Object_83  Material564690  [-0.000829,0.932,-0.14]  [0.184,0.967,-0.0306]
+    46809  Object_48  Material564690  [-0.304,1.03,0.0724]  [-0.226,1.08,0.135]
+    46806  Object_41  Material564690  [0.224,1.02,0.0722]  [0.297,1.09,0.131]
+    46678  Object_23  Knit_Terry_FRONT_494551  [-0.235,0.96,-0.0747]  [0.237,1.57,0.1]
+    46678  Object_24  Knit_Terry_FRONT_494551  [-0.233,0.961,-0.0752]  [0.234,1.57,0.0972]
+    28196  Object_55  Material564690  [0.000263,1.5,-0.0749]  [0.108,1.57,0.0187]
+    28186  Object_59  Material564690  [-0.11,1.5,-0.0738]  [0.000344,1.57,0.0185]
+    22502  Object_17  Knit_Terry_FRONT_494551  [-0.31,1.01,-0.107]  [-0.102,1.42,0.147]
+    22502  Object_18  Knit_Terry_FRONT_494551  [-0.307,1.01,-0.104]  [-0.104,1.42,0.145]
+    22464  Object_8  Knit_Terry_FRONT_494551  [0.105,1.01,-0.108]  [0.307,1.43,0.15]
+    22464  Object_9  Knit_Terry_FRONT_494551  [0.107,1.01,-0.105]  [0.304,1.43,0.148]
+    20748  Object_43  Material5329  [-0.00222,1.51,0.011]  [0.0888,1.84,0.0885]
+    20748  Object_44  Material5329  [-0.00216,1.51,0.00824]  [0.0853,1.84,0.0872]
+    20748  Object_50  Material5329  [-0.0794,1.5,0.0183]  [0.00519,1.84,0.0899]
+    20748  Object_51  Material5329  [-0.0759,1.51,0.0169]  [0.005,1.84,0.0887]
+    20748  Object_71  Material564690  [-0.11,1.56,-0.125]  [-0.00166,1.57,-0.0742]
+    20748  Object_85  Material5329  [-0.000335,1.51,0.013]  [0.0914,1.84,0.0869]
+    20748  Object_86  Material5329  [-0.00118,1.51,0.00998]  [0.0879,1.84,0.0873]
+    20748  Object_88  Material5329  [-0.0821,1.5,0.0198]  [0.00526,1.85,0.0883]
+    20748  Object_89  Material5329  [-0.0787,1.51,0.0186]  [0.00511,1.84,0.0884]
+    20718  Object_75  Material564690  [-0.0017,1.56,-0.125]  [0.107,1.57,-0.0752]
+    16786  Object_20  Knit_Terry_FRONT_494551  [-0.106,1.5,-0.169]  [0.0228,1.86,0.108]
+    16786  Object_21  Knit_Terry_FRONT_494551  [-0.103,1.51,-0.166]  [0.0233,1.86,0.11]
+    16590  Object_11  Knit_Terry_FRONT_494551  [-0.0225,1.51,-0.169]  [0.111,1.86,0.106]
+    16590  Object_12  Knit_Terry_FRONT_494551  [-0.0237,1.51,-0.166]  [0.109,1.86,0.109]
+    16556  Object_32  Knit_Terry_FRONT_494551  [-0.024,1.51,-0.171]  [0.114,1.87,0.109]
+    16556  Object_33  Knit_Terry_FRONT_494551  [-0.0221,1.51,-0.168]  [0.112,1.86,0.106]
+    16520  Object_35  Knit_Terry_FRONT_494551  [-0.108,1.5,-0.171]  [0.0242,1.87,0.11]
+    16520  Object_36  Knit_Terry_FRONT_494551  [-0.106,1.51,-0.168]  [0.0224,1.86,0.108]
+    14378  Object_61  Material564688  [-0.000521,0.964,-0.032]  [0.189,0.997,0.0932]
+    14378  Object_65  Material564688  [-0.19,0.963,-0.031]  [-0.000536,0.997,0.0933]
+    14014  Object_77  Material564688  [-0.188,0.931,-0.14]  [-0.000411,0.964,-0.0293]
+    14014  Object_81  Material564688  [-0.000404,0.931,-0.14]  [0.187,0.964,-0.0299]
+    13832  Object_39  Material564688  [0.229,1.03,0.0761]  [0.292,1.08,0.127]
+    13832  Object_46  Material564688  [-0.3,1.03,0.0762]  [-0.23,1.08,0.133]
+    12048  Object_25  Knit_Terry_FRONT_494551  [-0.234,0.959,-0.0762]  [0.236,1.57,0.0898]
+    11520  Object_28  Knit_Terry_FRONT_494551  [-0.233,0.929,-0.136]  [0.236,1.57,-0.0284]
+    10992  Object_31  Rib2_FRONT_494451  [-0.188,0.866,-0.137]  [0.187,0.997,0.102]
+    9834  Object_29  Rib2_FRONT_494451  [-0.189,0.867,-0.137]  [0.188,0.996,0.102]
+    9834  Object_30  Rib2_FRONT_494451  [-0.187,0.867,-0.135]  [0.186,0.995,0.1]
+    8372  Object_53  Material564688  [0.000101,1.5,-0.0745]  [0.106,1.57,0.0209]
+    8372  Object_57  Material564688  [-0.109,1.5,-0.0737]  [0.000106,1.57,0.0205]
+    7632  Object_10  Knit_Terry_FRONT_494551  [0.104,1.03,-0.103]  [0.291,1.43,0.124]
+    7632  Object_19  Knit_Terry_FRONT_494551  [-0.297,1.03,-0.102]  [-0.102,1.42,0.128]
+    7488  Object_13  Knit_Terry_FRONT_494551  [-0.0238,1.5,-0.169]  [0.104,1.86,0.109]
+    7488  Object_22  Knit_Terry_FRONT_494551  [-0.106,1.5,-0.169]  [0.024,1.86,0.11]
+    7488  Object_34  Knit_Terry_FRONT_494551  [-0.0238,1.5,-0.171]  [0.105,1.87,0.109]
+    7488  Object_37  Knit_Terry_FRONT_494551  [-0.108,1.5,-0.171]  [0.024,1.87,0.11]
+    6006  Object_69  Material564688  [-0.108,1.56,-0.127]  [-0.00158,1.57,-0.0729]
+    6006  Object_73  Material564688  [-0.00158,1.56,-0.127]  [0.106,1.57,-0.0742]
+    2904  Object_7  Rib2_FRONT_494451  [0.215,0.989,0.0758]  [0.291,1.08,0.165]
+    2904  Object_16  Rib2_FRONT_494451  [-0.297,0.987,0.0763]  [-0.215,1.08,0.169]
+    1691  Object_14  Rib2_FRONT_494451  [-0.297,0.988,0.0766]  [-0.215,1.08,0.168]
+    1691  Object_15  Rib2_FRONT_494451  [-0.295,0.989,0.078]  [-0.217,1.08,0.167]
+    1685  Object_5  Rib2_FRONT_494451  [0.216,0.99,0.0764]  [0.29,1.08,0.165]
+hoodie {"tris":1194130,"after":90251,"ko":1918}
 jacket pièces : 4
     7328  defaultMaterial  blinn1  [-2.74,4.41,-0.807]  [2.74,7.12,0.665]
     504  defaultMaterial  blinn1  [0.0547,4.33,0.588]  [0.13,4.44,0.609]
     136  defaultMaterial  blinn1  [0.0476,4.41,0.589]  [0.0805,4.46,0.605]
     98  defaultMaterial  blinn1  [0.0358,4.4,0.581]  [0.0927,4.46,0.603]
-jacket {"tris":8066,"after":8066,"ko":319}
+jacket {"tris":8066,"after":8066,"ko":214}
 vest pièces : 1
     4362  Object_4  high-vis-vest-color-1  [-0.226,0.928,-0.122]  [0.228,1.53,0.186]
 vest {"tris":4362,"after":4362,"ko":100}
-pants pièces : 5
-    101915  Object_5  Fabric_Black  [-0.179,0.079,-0.13]  [0.177,1.14,0.133]
-    101529  Object_4  Fabric_Black  [-0.178,0.0794,-0.131]  [0.179,1.14,0.133]
-    98702  Object_6  Fabric_Black  [-0.179,0.0793,-0.131]  [0.178,1.14,0.133]
-    61723  Object_7  Fabric_Black  [-0.179,0.0805,-0.131]  [0.179,1.14,0.133]
-    4637  Object_8  Fabric_White  [-0.0323,0.895,0.125]  [0.0385,1.11,0.139]
-pants {"tris":368506,"after":40680,"ko":338}
+pants pièces : 1
+    3514  SM_PantsLo1:Joggers_Lo_lambert1_0  lambert1  [-1.12,0.4,-0.739]  [1.12,4.71,0.595]
+pants {"tris":3514,"after":3514,"ko":282}
 cap pièces : 7
     28736  plastic  plastic  [-15.5,-16.1,-112]  [50.6,3.09,-92.8]
     22272  baseballCap  baseballCap  [-95.4,-15.8,-111]  [95.4,113,81.6]
@@ -187,5 +218,5 @@ rollup {"tris":111880,"after":32441,"ko":253}
 banner pièces : 1
     24824  simply_cloth__0  Scene_-_Root  [-0.138,0.264,-1.4]  [4.56e-7,3.08,1.4]
 banner {"tris":24824,"after":24824,"ko":125}
-terminé, 23 modèles, 0 échec(s)
+terminé, 22 modèles, 0 échec(s)
 code de sortie : 0
