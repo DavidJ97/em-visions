@@ -1,10 +1,9 @@
-# Tâche ponctuelle (branche de travail) : copie dans le dépôt l'image générée sur le compte Higgsfield
-# pour illustrer un service.
+# Tâche ponctuelle (branche de travail) : va chercher les logos officiels des fournisseurs sur leurs sites.
 name: Importer une image
 on:
   push:
     branches: ['modeles-travail']
-    paths: ['.github/workflows/importer-image.yml']
+    paths: ['.github/workflows/importer-image.yml','outils/logos/chercher.py']
 permissions:
   contents: write
 jobs:
@@ -13,9 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          set -euo pipefail
-          mkdir -p import
-          curl -fsSL -o import/applications.png https://d8j0ntlcm91z4.cloudfront.net/user_3FAHB64EMrDf6yqhpJnm67SRxS5/hf_20261006_172911_c3909f36-22ea-4ec8-afb4-06d199db9372.png
+          python3 outils/logos/chercher.py || true
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add import && git commit -m "Image du service Applications" && git push
+          git add import && git commit -m "Logos des fournisseurs (candidats)" && git push
