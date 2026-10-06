@@ -1,10 +1,8 @@
-# Tâche ponctuelle : télécharge les modèles 3D réalistes du modélisateur (modèles Sketchfab sous
-# licence CC BY, copie publique Objaverse), les allège avec outils/modeles/process.mjs et les
-# range dans site/models. Se relance si la liste ou le traitement changent.
+# Outil à lancer à la main (onglet Actions) quand la liste des modèles 3D change : télécharge les modèles
+# de outils/modeles/models.json (modèles Sketchfab sous licence CC BY, copie publique Objaverse), les allège
+# avec outils/modeles/process.mjs et les range dans site/models.
 name: Importer les modèles 3D
 on:
-  push:
-    paths: ['.github/workflows/importer-modeles.yml', 'outils/modeles/**']
   workflow_dispatch:
 permissions:
   contents: write
@@ -20,24 +18,19 @@ jobs:
       - name: Télécharger et préparer les modèles
         working-directory: outils/modeles
         run: |
-          set +e
-          {
-            node --version
-            npm install --no-audit --no-fund 2>&1 | tail -25
-            mkdir -p raw
-            node -e "const m=JSON.parse(require('fs').readFileSync('models.json','utf8'));for(const k in m)console.log(m[k].uid,m[k].path)" > liste.txt
-            while read uid path; do
-              curl -fsSL --retry 3 -o raw/$uid.glb https://huggingface.co/datasets/allenai/objaverse/resolve/main/$path || echo "téléchargement raté : $uid"
-            done < liste.txt
-            ls -la raw | head -40
-            node process.mjs
-            echo "code de sortie : $?"
-          } 2>&1 | tee rapport.txt
+          set -euo pipefail
+          npm install --no-audit --no-fund --silent
+          mkdir -p raw
+          node -e "const m=JSON.parse(require('fs').readFileSync('models.json','utf8'));for(const k in m)console.log(m[k].uid,m[k].path)" > liste.txt
+          while read uid path; do
+            curl -fsSL --retry 3 -o raw/$uid.glb https://huggingface.co/datasets/allenai/objaverse/resolve/main/$path
+          done < liste.txt
+          node process.mjs
       - name: Enregistrer dans le dépôt
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A site/models outils/modeles/rapport.txt
-          git diff --cached --quiet || git commit -m "Modèles 3D réalistes : import dans le dépôt"
+          git add -A site/models
+          git diff --cached --quiet || git commit -m "Modèles 3D mis à jour"
           git pull --rebase
           git push

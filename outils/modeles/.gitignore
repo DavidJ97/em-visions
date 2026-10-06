@@ -2,3 +2,5 @@ node_modules/
 raw/
 package-lock.json
 liste.txt
+rapport.txt
+candidats.json
