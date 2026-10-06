@@ -3,7 +3,7 @@ import numpy as np
 import json, os, sys, html as H
 from mobile import mobile_html, MCSS
 from i18n import EN, SLUG, TITLES
-import buttons, mobile as MOB
+import buttons, mobile as MOB, realisations as REA
 from config import SITE_URL, CONTACT_EMAIL, INSTAGRAM, HOURS, HOURS_FR, ABOUT_FR, fontface
 HH,SH=112,880
 LOGO_D=open('logo_path.txt').read()
@@ -102,6 +102,7 @@ def page_html(p):
     if p in ('accueil','realisations'):
         out.append(f'''<div class="car" data-page="{p}"><button class="hit round prev arrow" data-pg="{p}" aria-label="Image précédente" style="left:1257px;top:835px;width:47px;height:47px"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M20 12H4M11 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <button class="hit round next arrow" data-pg="{p}" aria-label="Image suivante" style="left:1443px;top:835px;width:47px;height:47px"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M4 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="bars" data-pg="{p}"></div>{PPBTN if p=='accueil' else ''}</div>''')
+    if p=='realisations': out.append('<button type="button" class="m3dpill galpill" data-gal style="left:77px;top:838px">Toutes les réalisations <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>')
     if p=='catalogue':
         arr='<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
         # deux actions sous la liste : essayer en 3D, ou demander les prix (jamais affichés : envoyés personnellement)
@@ -324,9 +325,36 @@ html[data-theme=light] .dsv{--alt:#0a0a0a;filter:drop-shadow(0 6px 10px #0005)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#0a3cff;color:#fff;font:500 15px Archivo,sans-serif;padding:12px 20px;border-radius:6px;opacity:0;transition:.3s;z-index:9;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%)}
-.lb{position:fixed;inset:0;background:#000d;display:grid;place-items:center;z-index:8}.lb[hidden]{display:none}
-.lb figure{max-width:90vw;max-height:90vh;text-align:center;color:#fff;font:900 extra-condensed 32px Archivo,sans-serif;word-spacing:.08em}.lb img{max-width:90vw;max-height:80vh;display:block;margin:0 auto 12px;border:8px solid #f4f4f2}
-.lb button{position:absolute;top:18px;right:22px;background:none;border:2px solid #fff;color:#fff;border-radius:50%;width:48px;height:48px;font-size:24px;cursor:pointer}
+html.galon{overflow:hidden}
+.gal{position:fixed;inset:0;z-index:40;overflow:auto;overscroll-behavior:contain;background:#070707 url(img/tex.webp) 0 0/256px;color:#f4f4f2;font-family:Archivo,sans-serif;--ln:#ffffff2e;-webkit-font-smoothing:antialiased}.gal[hidden]{display:none}
+html[data-theme=light] .gal{background:#e9e9e6 url(img/tex-light.webp) 0 0/256px;color:#141414;--ln:#14141433}
+.gal button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}.gal :focus-visible{outline:3px solid #6f8cff;outline-offset:3px}
+.galh{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px clamp(18px,4vw,56px);background:linear-gradient(#070707 70%,#07070700)}
+html[data-theme=light] .galh{background:linear-gradient(#e9e9e6 70%,#e9e9e600)}
+.galt{font:400 clamp(22px,3.4vw,40px)/1.1 Sekuya,Archivo,sans-serif;word-spacing:0;text-transform:uppercase;letter-spacing:.05em}.galt i{display:inline-block;width:.2em;height:.2em;margin-left:.09em;background:#0a3cff}
+.gal .galb{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 20px 0 14px;border-radius:23px;border:2px solid #0a3cff;background:#0a3cff22;font:600 15.5px/1 Archivo,sans-serif}.galb svg{transform:scaleX(-1)}.gal .galb:hover{background:#0a3cff;color:#fff}
+.gal .galx{flex:none;width:52px;height:52px;border-radius:50%;border:2px solid #0a3cff;font:300 30px/1 Archivo,sans-serif;display:grid;place-items:center;padding-bottom:3px}.gal .galx:hover{background:#0a3cff;color:#fff}
+.galg{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(42vw,230px),1fr));gap:38px 26px;padding:14px clamp(18px,4vw,56px) 80px;max-width:1500px;margin:0 auto}
+.galg button{display:block;width:100%;text-align:left}
+.galg .im{display:block;position:relative;aspect-ratio:4/5;transform:rotate(var(--r));transition:transform .35s cubic-bezier(.2,1.5,.4,1)}
+.galg .im::before{content:'';position:absolute;inset:0;background:#0a3cff;transform:translate(9px,9px) rotate(1.5deg);transition:transform .35s cubic-bezier(.2,1.5,.4,1)}
+.galg .im img{position:relative;display:block;width:100%;height:100%;object-fit:cover;border:5px solid #f4f4f2;background:#1a1a1a}
+.galg button:hover .im,.galg button:focus-visible .im{transform:rotate(0) translateY(-5px)}.galg button:hover .im::before{transform:translate(13px,13px) rotate(3deg)}
+.galg b{display:block;margin-top:20px;font:700 23px/1.05 Archivo,sans-serif;font-stretch:66%;word-spacing:.08em;text-transform:uppercase;letter-spacing:.02em}
+.galg small{display:block;margin-top:5px;font:400 13.5px/1.35 Archivo,sans-serif;opacity:.72}
+.galp{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:clamp(24px,4vw,64px);align-items:start;max-width:1320px;margin:0 auto;padding:8px clamp(18px,4vw,56px) 70px}
+.galf{position:relative;margin:0;display:grid;place-items:center}.galf img{display:block;max-width:100%;max-height:calc(100vh - 150px);width:auto;height:auto;border:7px solid #f4f4f2;background:#1a1a1a;box-shadow:12px 12px 0 #0a3cff}
+.gal .galf button{position:absolute;top:50%;width:46px;height:46px;margin-top:-23px;border-radius:50%;background:#070707cc;color:#fff;border:2px solid #fff;display:grid;place-items:center}.galf .pv{left:10px}.galf .pv svg{transform:scaleX(-1)}.galf .nx{right:10px}.gal .galf button:hover{background:#0a3cff;border-color:#0a3cff}
+.gali>small{font:700 14px/1 Archivo,sans-serif;letter-spacing:.14em;color:#4d74ff}html[data-theme=light] .gali>small{color:#0a3cff}
+.gali h2{margin:12px 0 0;font:900 extra-condensed clamp(44px,5.4vw,84px)/.92 Archivo,sans-serif;word-spacing:.08em;text-transform:uppercase}
+.gali p{margin:14px 0 0;padding-top:14px;border-top:2px solid #0a3cff;font:300 clamp(17px,1.5vw,21px)/1.4 Archivo,sans-serif;max-width:30ch}
+.galth{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.gal .galth button{width:66px;height:66px;border:3px solid transparent;opacity:.6;transition:opacity .2s}.galth img{display:block;width:100%;height:100%;object-fit:cover}
+.gal .galth button:hover{opacity:1}.gal .galth button[aria-current=true]{opacity:1;border-color:#0a3cff}
+.galq{display:inline-flex;align-items:center;gap:12px;margin-top:30px;min-height:54px;padding:10px 22px;border-radius:4px;background:#0a3cff;color:#fff;font:600 16.5px/1.2 Archivo,sans-serif;text-decoration:none}.galq:hover{background:#2a57ff}
+.galn{display:flex;justify-content:space-between;gap:14px;margin-top:34px;padding-top:18px;border-top:1px solid var(--ln)}.gal .galn button{display:inline-flex;align-items:center;gap:8px;font:600 14.5px/1 Archivo,sans-serif;padding:8px 0}.galn button:first-child svg{transform:scaleX(-1)}.gal .galn button:hover{color:#4d74ff}
+@media (max-width:820px){.galp{grid-template-columns:1fr;gap:26px}.galf img{max-height:66vh;border-width:5px;box-shadow:8px 8px 0 #0a3cff}.galg{gap:30px 18px}.galg b{font-size:20px}.galg .im::before{transform:translate(6px,6px) rotate(1.5deg)}.gal .galx{width:46px;height:46px}}
+@media (prefers-reduced-motion:reduce){.galg .im,.galg .im::before{transition:none}}
+.galpill{position:absolute;cursor:pointer}
 '''
 CALCSS='''body.cal .page{transition:none}body.cal *{visibility:hidden!important;animation:none!important}body.cal .t.show{visibility:visible!important;opacity:1!important}
 html:has(body.cal){background:var(--calbg,#000)!important}body.cal .ok,body.cal .err,body.cal .toast,body.cal #ld{display:none!important}'''
@@ -405,12 +433,7 @@ const SETS={accueil:[
  {n:'Buono Bites',a:'Lettrage de vitrine pour le pop-up shop Buono Bites',m:'img/src-buono.webp',t:'img/buono-thumb.webp',v:VIDS.buono},
  {n:'Elevate',a:'T-shirt imprimé El3vate Miami, palmiers et bandes dégradées',m:'img/elevate-main.webp',t:'img/elevate-thumb.webp',v:VIDS.elevate},
  {n:'Enseigne MA',a:'Enseigne ronde suspendue M/A',m:'img/ma-main.webp',t:'img/ma-main.webp',tp:'45% 50%',v:VIDS.ma}],
- realisations:[
- {n:'Ricova',a:'Manteau de travail haute visibilité au logo Ricova',m:'img/ricova-main-exact.webp',t:'img/ricova-thumb.webp',big:'img/ricova-main.webp',v:VIDS.ricova},
- {n:'Buono Bites',a:'Lettrage de vitrine pour le pop-up shop Buono Bites',m:'img/src-buono.webp',t:'img/buono-thumb-r.webp',v:VIDS.buono},
- {n:'Elevate',a:'T-shirt imprimé El3vate Miami, palmiers et bandes dégradées',m:'img/elevate-main.webp',t:'img/elevate-thumb.webp',v:VIDS.elevate},
- {n:'Enseigne MA',a:'Enseigne ronde suspendue M/A',m:'img/ma-main.webp',t:'img/ma-main.webp',tp:'45% 50%',v:VIDS.ma},
- {n:'Balloon Babe',a:'Impression Balloon Babe sur tissu rose',m:'img/src-balloon.webp',t:'img/src-balloon.webp',v:VIDS.balloon}]};
+ realisations:%REAL%.map(x=>(x.v=x.vk?VIDS[x.vk]:null,x))};
 const CARS={};
 function put(el,src,pos,instant,vid){const old=el.querySelector(':scope>:not(.out)');const key=vid||src;if(old&&old.dataset.k===key)return;const rc=el.getBoundingClientRect(),off=!(rc.width&&rc.bottom>-200&&rc.top<innerHeight+200);
  let im;if(vid){im=document.createElement('video');Object.assign(im,{muted:true,loop:true,autoplay:true,playsInline:true,poster:src});im.setAttribute('muted','');im.setAttribute('playsinline','');im.preload='auto';im.src=vid}else{im=new Image();if(off){im.loading='lazy';instant=true}im.src=src;im.alt=''}
@@ -440,7 +463,8 @@ try{const DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Date().toLo
 const NC=navigator.connection,LITE=!!(NC&&(NC.saveData||/2g|3g/.test(NC.effectiveType||''))),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;let READY=false;const VOK=()=>READY&&!RM&&!LITE;
 Object.keys(SETS).forEach(p=>{const items=SETS[p];let idx=0;
  const S=i=>[...document.querySelectorAll(`.slot[data-pg="${p}"][data-slot="${i}"]`)];
- document.querySelectorAll(`.bars[data-pg="${p}"]`).forEach(bars=>SEGS.forEach((s,i)=>{const b=document.createElement('button');b.style.left=(s[0]-1257)+'px';b.style.width=(s[1]-s[0])+'px';b.setAttribute('aria-label',(lang==='en'?'Go to image ':'Aller à l’image ')+(i+1));b.innerHTML='<i></i>';b.onclick=()=>go(i);bars.appendChild(b)}));
+ const SG=items.length===SEGS.length?SEGS:items.map((_,i)=>{const g=items.length>10?4:6,w=(233-g*(items.length-1))/items.length;return[1257+i*(w+g),1257+i*(w+g)+w]});
+ document.querySelectorAll(`.bars[data-pg="${p}"]`).forEach(bars=>SG.forEach((s,i)=>{const b=document.createElement('button');b.style.left=(s[0]-1257)+'px';b.style.width=(s[1]-s[0])+'px';b.setAttribute('aria-label',(lang==='en'?'Go to image ':'Aller à l’image ')+(i+1));b.innerHTML='<i></i>';b.onclick=()=>go(i);bars.appendChild(b)}));
  function render(instant){const n=items.length;S(0).forEach(el=>{put(el,items[idx].m,null,instant,VOK()&&curPage===p&&el.getClientRects().length?items[idx].v:null);el.setAttribute('role','img');el.setAttribute('aria-label',T(items[idx].a||items[idx].n))});
   S(1).forEach(el=>put(el,items[(idx+1)%n].t,items[(idx+1)%n].tp,instant));S(2).forEach(el=>put(el,items[(idx+2)%n].t,items[(idx+2)%n].tp,instant));
   document.querySelectorAll(`[data-count="${p}"]`).forEach(c=>c.textContent=String(idx+1).padStart(2,'0'));
@@ -458,10 +482,30 @@ Object.keys(SETS).forEach(p=>{const items=SETS[p];let idx=0;
 function vidsGo(){if(READY)return;READY=true;CARS.accueil.arm();setTimeout(allPlates,LITE?15000:1800);if(!VOK())return;Object.values(CARS).forEach(c=>c.render());
  const list=SETS.accueil.filter(x=>x.v).map(x=>x.v);let i=0;CARS.accueil.pre=[];(function next(){if(i>=list.length)return;const v=document.createElement('video');v.muted=true;v.preload='auto';let done=false;const go=()=>{if(done)return;done=true;next()};v.oncanplaythrough=go;v.onerror=go;setTimeout(go,4000);v.src=list[i++];CARS.accueil.pre.push(v)})()}
 if(document.readyState==='complete')setTimeout(vidsGo,0);else addEventListener('load',()=>setTimeout(vidsGo,300));
-const lb=document.createElement('div');lb.className='lb';lb.hidden=true;lb.setAttribute('role','dialog');lb.setAttribute('aria-modal','true');lb.innerHTML='<figure><img alt=""><figcaption></figcaption></figure><button aria-label="Fermer">×</button>';document.body.appendChild(lb);
-let lastF;function openLB(it){lastF=document.activeElement;lb.querySelector('img').src=it.big||it.m;lb.querySelector('img').alt=T(it.a||it.n);lb.querySelector('figcaption').textContent=it.n.toUpperCase();lb.hidden=false;lb.querySelector('button').focus()}
-function closeLB(){lb.hidden=true;lastF&&lastF.focus()}lb.onclick=e=>{if(e.target===lb||e.target.tagName==='BUTTON')closeLB()};addEventListener('keydown',e=>{if(e.key==='Escape'&&!lb.hidden)closeLB()});
+// Galerie des réalisations : la grille de tous les projets, puis la fiche d'un projet avec ses photos.
+const gal=document.createElement('div');gal.className='gal';gal.hidden=true;gal.setAttribute('role','dialog');gal.setAttribute('aria-modal','true');document.body.appendChild(gal);
+const RL=SETS.realisations,hx=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));let galF=null,gi=-1,gp=0;
+const AR='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const galHead=back=>'<header class="galh">'+(back?'<button type="button" class="galb" data-g="grid">'+AR+hx(T('Toutes les réalisations'))+'</button>':'<b class="galt">'+hx(T('Nos réalisations'))+'<i></i></b>')+'<button type="button" class="galx" data-g="close" aria-label="'+hx(T('Fermer'))+'">×</button></header>';
+function galGrid(){gi=-1;gal.setAttribute('aria-label',T('Nos réalisations'));gal.innerHTML=galHead(false)+'<ul class="galg">'+RL.map((p,i)=>'<li><button type="button" data-g="p'+i+'" style="--r:'+[-1.4,1,-.7,1.5][i%4]+'deg"><span class="im"><img src="'+p.ph[0].s+'" alt="'+hx(T(p.ph[0].a))+'" loading="lazy"></span><b>'+hx(T(p.n))+'</b><small>'+hx(T(p.k))+'</small></button></li>').join('')+'</ul>';gal.scrollTop=0}
+function galPhoto(j){const p=RL[gi],n=p.ph.length;gp=(j+n)%n;const im=gal.querySelector('.galf img');im.src=p.ph[gp].b;im.alt=T(p.ph[gp].a);gal.querySelectorAll('.galth button').forEach((b,k)=>b.setAttribute('aria-current',k===gp))}
+function galProj(i){gi=(i+RL.length)%RL.length;const p=RL[gi],n=p.ph.length,nn=String(gi+1).padStart(2,'0')+' / '+RL.length;gal.setAttribute('aria-label',T(p.n));
+ gal.innerHTML=galHead(true)+'<div class="galp"><figure class="galf"><img alt="">'+(n>1?'<button type="button" class="pv" data-g="pp" aria-label="'+hx(T('Photo précédente'))+'">'+AR+'</button><button type="button" class="nx" data-g="pn" aria-label="'+hx(T('Photo suivante'))+'">'+AR+'</button>':'')+'</figure>'
+  +'<div class="gali"><small>'+nn+'</small><h2>'+hx(T(p.n))+'</h2><p>'+hx(T(p.k))+'</p>'
+  +(n>1?'<div class="galth">'+p.ph.map((f,k)=>'<button type="button" data-g="t'+k+'" aria-label="'+hx(T('Voir la photo ')+(k+1))+'"><img src="'+f.s+'" alt="" loading="lazy"></button>').join('')+'</div>':'')
+  +'<a class="galq" href="#contact" data-g="quote">'+hx(T('Un projet semblable ? Demander un devis'))+AR+'</a>'
+  +'<div class="galn"><button type="button" data-g="prev">'+AR+hx(T('Projet précédent'))+'</button><button type="button" data-g="next">'+hx(T('Projet suivant'))+AR+'</button></div></div></div>';galPhoto(0);gal.scrollTop=0}
+function openGal(i){if(gal.hidden){galF=document.activeElement;gal.hidden=false;document.documentElement.classList.add('galon')}i==null||i<0?galGrid():galProj(i);gal.querySelector('.galx').focus({preventScroll:true})}
+function closeGal(){gal.hidden=true;gal.innerHTML='';document.documentElement.classList.remove('galon');galF&&galF.focus&&galF.focus({preventScroll:true})}
+gal.addEventListener('click',e=>{const t=e.target.closest('[data-g]');if(!t)return;const g=t.dataset.g;
+ if(g==='close')closeGal();else if(g==='grid')galGrid();else if(g==='prev')galProj(gi-1);else if(g==='next')galProj(gi+1);else if(g==='pp')galPhoto(gp-1);else if(g==='pn')galPhoto(gp+1);
+ else if(g[0]==='p')galProj(+g.slice(1));else if(g[0]==='t')galPhoto(+g.slice(1));
+ else if(g==='quote'){const s=T('Projet semblable à : ')+RL[gi].n;document.querySelectorAll('[name=projet]').forEach(pj=>{if(!pj.value.trim()){pj.value=s+'\n';pj.dispatchEvent(new Event('input',{bubbles:true}))}});closeGal()}});
+addEventListener('keydown',e=>{if(gal.hidden)return;if(e.key==='Escape'){e.preventDefault();closeGal()}else if(gi>=0&&(e.key==='ArrowRight'||e.key==='ArrowLeft')){e.stopImmediatePropagation();const d=e.key==='ArrowRight'?1:-1,n=RL[gi].ph.length;gp+d<0||gp+d>=n?galProj(gi+d):galPhoto(gp+d)}
+ else if(e.key==='Tab'){const f=[...gal.querySelectorAll('button,a[href]')].filter(x=>x.offsetParent);if(!f.length)return;const a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}},true);
+function openLB(it){openGal(RL.indexOf(it))}
 document.querySelectorAll('#realisations-voir-hit,[data-voir]').forEach(v=>v.addEventListener('click',e=>{e.preventDefault();openLB(CARS.realisations.cur())}));
+document.addEventListener('click',e=>{if(e.target.closest('[data-gal]')){e.preventDefault();openGal(-1)}});
 const band=document.getElementById('cat-band');if(band){const ROWS=%ROWS%;let act=0;const vfw=document.getElementById('cat-vf');const mv=r=>{band.style.transform=vfw.style.transform='translateY('+(ROWS[r]-ROWS[0])+'px)';document.querySelectorAll('[data-suprow]').forEach(t=>t.toggleAttribute('data-fixed',+t.dataset.suprow===r))};
  document.querySelectorAll('.sup').forEach(a=>{a.addEventListener('mouseenter',()=>mv(+a.dataset.row));a.addEventListener('focus',()=>mv(+a.dataset.row));
   a.addEventListener('click',e=>{act=+a.dataset.row;if(a.target)return;e.preventDefault();toast('Lien bientôt disponible.')})});
@@ -560,7 +604,7 @@ def head_seo(L):
 HEADJS='(function(){let t;try{t=localStorage.getItem("em-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t})()'
 import loader; HEADJS+=';'+loader.HEAD
 sections=''.join(f'<section class="page" id="p-{p}" aria-label="{TITLES["fr"][p]}" style="top:{HH+i*SH}px;height:{SH}px">\n{page_html(p)}\n</section>\n' for i,p in enumerate(ORDER))
-js=JS.replace('%VIDS%',json.dumps(VIDS)).replace('%LIGHT%',json.dumps({**{p:f'img/plate-{p}-light.webp' for p in ORDER},'mtop':'img/m-paper-top-light.webp','mbot':'img/m-paper-bot-light.webp','head':'img/head-light.webp'})).replace('%PAGES%',json.dumps(ORDER)).replace('%EN%',json.dumps(EN,ensure_ascii=False)).replace('%SLUG%',json.dumps(SLUG)).replace('%TITLES%',json.dumps(TITLES,ensure_ascii=False)).replace('%TOAST%',json.dumps(TOAST,ensure_ascii=False)).replace('%ROWS%',json.dumps(META['catalogue']['rows']))
+js=JS.replace('%VIDS%',json.dumps(VIDS)).replace('%REAL%',json.dumps(REA.REAL,ensure_ascii=False)).replace('%LIGHT%',json.dumps({**{p:f'img/plate-{p}-light.webp' for p in ORDER},'mtop':'img/m-paper-top-light.webp','mbot':'img/m-paper-bot-light.webp','head':'img/head-light.webp'})).replace('%PAGES%',json.dumps(ORDER)).replace('%EN%',json.dumps(EN,ensure_ascii=False)).replace('%SLUG%',json.dumps(SLUG)).replace('%TITLES%',json.dumps(TITLES,ensure_ascii=False)).replace('%TOAST%',json.dumps(TOAST,ensure_ascii=False)).replace('%ROWS%',json.dumps(META['catalogue']['rows']))
 doc=f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">{head_seo('fr')}<script>{HEADJS}</script>
 <style>{CSS}{MCSS}{CALCSS if CAL else ''}{loader.CSS}</style></head><body{' class="cal"' if CAL else ''}>
 {loader.html(LOGO_VB)}

@@ -1,0 +1,53 @@
+"""Les réalisations montrées dans le carrousel et dans la galerie (photos tirées du compte Instagram de la boutique).
+Chaque projet : nom du client, type de travail, image du carrousel, photos de la fiche."""
+def _p(name,alt): return {'b':f'img/rea-{name}.webp','s':f'img/rea-{name}-s.webp','a':alt}
+def _o(src,alt): return {'b':src,'s':src,'a':alt}
+REAL=[
+ {'n':'Ricova','k':'Vêtements de travail','a':'Manteau de travail haute visibilité au logo Ricova','m':'img/ricova-main-exact.webp','t':'img/ricova-thumb.webp','vk':'ricova',
+  'ph':[_o('img/ricova-main.webp','Manteau de travail haute visibilité au logo Ricova')]},
+ {'n':'Maverick Barbier','k':'Vitrine, t-shirts et tapis','ph':[_p('maverick-vitrine','Lettrage de vitrine du barbier Maverick'),_p('maverick-tee-blanc','T-shirt blanc Maverick imprimé au dos'),
+  _p('maverick-tee-vert','T-shirt vert Maverick imprimé au dos'),_p('maverick-detail','Détail de l’impression sur le t-shirt Maverick'),_p('maverick-tapis','Tapis au logo Maverick Barbier')]},
+ {'n':'Buono Bites','k':'Enseigne, vitrine, broderie et vêtements','a':'Lettrage de vitrine pour le pop-up shop Buono Bites','m':'img/src-buono.webp','t':'img/buono-thumb-r.webp','vk':'buono',
+  'ph':[_p('buono-facade','Devanture de Buono Bites, enseigne et lettrage de vitrine'),_p('buono-chandail','Chandail Buono Bites porté derrière le comptoir'),_p('buono-casquette','Casquette brodée Buono Bites'),
+  _p('buono-sac','Sac brodé Buono Bites'),_p('buono-pile','Chandails Buono Bites pliés sur une tablette'),_p('buono-presentoir','Présentoir Buono Bites au-dessus de bouchées de gâteau au fromage'),
+  _o('img/src-buono.webp','Lettrage de vitrine pour le pop-up shop Buono Bites')]},
+ {'n':'Maumy','k':'Enseigne, vitrine et cartes d’affaires','tp':'50% 40%','ph':[_p('maumy-vitrine','Lettrage de vitrine du salon Maumy'),_p('maumy-enseigne','Enseigne en relief Maumy'),
+  _p('maumy-facade','Devanture du salon Maumy, lettrage sur les deux vitrines'),_p('maumy-cartes','Cartes d’affaires Maumy')]},
+ {'n':'Alpha Athletika','k':'Design et impression de t-shirts','tp':'62% 50%','ph':[_p('alpha-vert','T-shirt vert Alpha Athletika, impression au dos'),_p('alpha-noir','T-shirt noir Alpha Athletika, impression au dos'),
+  _p('alpha-detail','Détail de l’impression Alpha Athletika')]},
+ {'n':'Max Gourgues Salon','k':'Lettrage mural en relief','ph':[_p('mg-enseigne','Lettrage mural en relief du salon Max Gourgues'),_p('mg-redken','Lettrage mural Redken au salon Max Gourgues'),
+  _p('mg-salon','Le salon Max Gourgues, lettrage Redken au mur')]},
+ {'n':'Groupe MPS','k':'Lettrage de camion et accroche-porte','tp':'40% 50%','ph':[_p('mps-camion','Lettrage MPS Transport sur une benne de camion'),_p('mps-porte','Accroche-porte Groupe MPS')]},
+ {'n':'Moon Pilates','k':'Enseigne murale en relief','tp':'42% 50%','ph':[_p('moon-enseigne','Enseigne murale en relief Moon, derrière le comptoir d’accueil'),_p('moon-accueil','Accueil du studio Moon, enseigne en relief au mur')]},
+ {'n':'Elevate','k':'T-shirts imprimés','a':'T-shirt imprimé El3vate Miami, palmiers et bandes dégradées','m':'img/elevate-main.webp','t':'img/elevate-thumb.webp','vk':'elevate',
+  'ph':[_o('img/elevate-main.webp','T-shirt imprimé El3vate Miami, palmiers et bandes dégradées')]},
+ {'n':'Foil','k':'Enseignes','ph':[_p('foil-metal','Enseigne en saillie Foil, lettres découpées dans le métal'),_p('foil-mur','Lettrage mural Foil vu à travers une arche')]},
+ {'n':'Balloon Babe','k':'T-shirts imprimés','a':'Impression Balloon Babe sur tissu rose','m':'img/src-balloon.webp','t':'img/src-balloon.webp','vk':'balloon',
+  'ph':[_p('balloon-tees','T-shirts roses Balloon Babe, impression au dos et au cœur'),_o('img/src-balloon.webp','Impression Balloon Babe sur tissu rose')]},
+ {'n':'Gossimo','k':'Façade et vitrines','ph':[_p('gossimo-facade','Façade du salon Gossimo, enseigne et habillage des vitrines')]},
+ {'n':'Chez Pasquale','k':'T-shirts imprimés','ph':[_p('pasquale-tee','T-shirt Pasquale’s Chop Shop imprimé')]},
+ {'n':'No Diploma','k':'Lettrage de vitrine','ph':[_p('nodiploma-vitrine','Lettrage de vitrine « Knowledge of Self », pop-up No Diploma')]},
+ {'n':'Enseigne MA','k':'Enseigne suspendue','a':'Enseigne ronde suspendue M/A','m':'img/ma-main.webp','t':'img/ma-main.webp','tp':'45% 50%','vk':'ma','ph':[_o('img/ma-main.webp','Enseigne ronde suspendue M/A')]},
+]
+for r in REAL:
+    r.setdefault('m',r['ph'][0]['b']); r.setdefault('t',r['ph'][0]['s']); r.setdefault('a',r['ph'][0]['a'])
+EN={'Vêtements de travail':'Workwear','Vitrine, t-shirts et tapis':'Window, t-shirts and mat','Enseigne, vitrine, broderie et vêtements':'Sign, window, embroidery and apparel',
+ 'Enseigne, vitrine et cartes d’affaires':'Sign, window and business cards','Design et impression de t-shirts':'T-shirt design and printing','Lettrage mural en relief':'Raised wall lettering',
+ 'Lettrage de camion et accroche-porte':'Truck lettering and door hanger','Enseigne murale en relief':'Raised wall sign','T-shirts imprimés':'Printed t-shirts','Enseignes':'Signs',
+ 'Façade et vitrines':'Storefront and windows','Lettrage de vitrine':'Window lettering','Enseigne suspendue':'Hanging sign',
+ 'Lettrage de vitrine du barbier Maverick':'Window lettering for Maverick barber shop','T-shirt blanc Maverick imprimé au dos':'White Maverick t-shirt, printed on the back',
+ 'T-shirt vert Maverick imprimé au dos':'Green Maverick t-shirt, printed on the back','Détail de l’impression sur le t-shirt Maverick':'Close-up of the print on the Maverick t-shirt',
+ 'Tapis au logo Maverick Barbier':'Mat with the Maverick Barbier logo','Devanture de Buono Bites, enseigne et lettrage de vitrine':'Buono Bites storefront, sign and window lettering',
+ 'Chandail Buono Bites porté derrière le comptoir':'Buono Bites sweatshirt worn behind the counter','Casquette brodée Buono Bites':'Embroidered Buono Bites cap','Sac brodé Buono Bites':'Embroidered Buono Bites bag',
+ 'Chandails Buono Bites pliés sur une tablette':'Buono Bites sweatshirts folded on a shelf','Présentoir Buono Bites au-dessus de bouchées de gâteau au fromage':'Buono Bites display topper above bite-size cheesecakes',
+ 'Lettrage de vitrine du salon Maumy':'Window lettering for Maumy salon','Enseigne en relief Maumy':'Raised Maumy sign','Devanture du salon Maumy, lettrage sur les deux vitrines':'Maumy salon storefront, lettering on both windows',
+ 'Cartes d’affaires Maumy':'Maumy business cards','T-shirt vert Alpha Athletika, impression au dos':'Green Alpha Athletika t-shirt, back print','T-shirt noir Alpha Athletika, impression au dos':'Black Alpha Athletika t-shirt, back print',
+ 'Détail de l’impression Alpha Athletika':'Close-up of the Alpha Athletika print','Lettrage mural en relief du salon Max Gourgues':'Raised wall lettering at Max Gourgues salon',
+ 'Lettrage mural Redken au salon Max Gourgues':'Redken wall lettering at Max Gourgues salon','Le salon Max Gourgues, lettrage Redken au mur':'Max Gourgues salon with Redken lettering on the wall',
+ 'Lettrage MPS Transport sur une benne de camion':'MPS Transport lettering on a dump truck','Accroche-porte Groupe MPS':'Groupe MPS door hanger',
+ 'Enseigne murale en relief Moon, derrière le comptoir d’accueil':'Raised Moon wall sign behind the front desk','Accueil du studio Moon, enseigne en relief au mur':'Moon studio reception with the raised sign on the wall',
+ 'Enseigne en saillie Foil, lettres découpées dans le métal':'Foil projecting sign, letters cut out of metal','Lettrage mural Foil vu à travers une arche':'Foil wall lettering seen through an arch',
+ 'T-shirts roses Balloon Babe, impression au dos et au cœur':'Pink Balloon Babe t-shirts, back and chest print','Façade du salon Gossimo, enseigne et habillage des vitrines':'Gossimo salon storefront, sign and window graphics',
+ 'T-shirt Pasquale’s Chop Shop imprimé':'Printed Pasquale’s Chop Shop t-shirt','Lettrage de vitrine « Knowledge of Self », pop-up No Diploma':'“Knowledge of Self” window lettering, No Diploma pop-up',
+ 'Toutes les réalisations':'All our work','Nos réalisations':'Our work','Un projet semblable ? Demander un devis':'Want something similar? Request a quote','Projet précédent':'Previous project','Projet suivant':'Next project',
+ 'Photo précédente':'Previous photo','Photo suivante':'Next photo','Projet semblable à : ':'Similar project to: ','Voir la photo ':'View photo ','Enseigne MA':'MA sign'}

@@ -1,4 +1,5 @@
 import html as H, re, random
+from realisations import REAL
 from config import CONTACT_EMAIL, INSTAGRAM, HOURS, HOURS_FR, ABOUT_FR, FORM_ENDPOINT, WEEK_FR
 def hours_grid(cls='',style=''):
     """Les heures d'ouverture en grille : une case par jour, le jour d'aujourd'hui s'allume en bleu (script de la page)."""
@@ -61,7 +62,7 @@ def sup_logo(i,cls='',extra=''):
 def carctl(p):
     pp=p=='accueil'
     return (f'<div class="mctl">'+('<i class="ppsp" aria-hidden="true"></i>' if pp else '')+f'<button class="arrow prev" data-pg="{p}" aria-label="Image précédente">{ARRL}</button>'
-            f'<span class="mcount"><b data-count="{p}">01</b> / 05</span>'
+            f'<span class="mcount"><b data-count="{p}">01</b> / {"%02d"%len(REAL) if p=="realisations" else "05"}</span>'
             f'<button class="arrow next" data-pg="{p}" aria-label="Image suivante">{ARR}</button>'+('<button class="arrow pp" data-pg="accueil" data-on="1" aria-label="Mettre le carrousel en pause"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5v13l10-6.5z" fill="currentColor"/></svg></button>' if pp else '')+f'</div><div class="mbars bars" data-pg="{p}"></div>')
 A_BUONO='Lettrage de vitrine pour le pop-up shop Buono Bites'
 def _torn(seed,inset):
@@ -91,7 +92,8 @@ def mobile_html(EL,META,span):
         +cta('services',EL,span,(78,870,486,966),'#contact','Parler de mon projet'))
     P['realisations']=(h1(['Le','travail','parle'],'h2')+'<i class="rule"></i><p class="msub">Des idées devenues réelles.</p>'
         +crop('realisations',405,95,1586,925,slots('realisations',META),'bleed comp')+carctl('realisations')
-        +'<a class="mcta" href="#" data-voir="1" aria-label="Voir le projet">'+crop('realisations',72,710,424,810,mspan(span([e for e in EL if e['page']=='realisations' and e['group']=='cta'][0])))+'</a>')
+        +'<a class="mcta" href="#" data-voir="1" aria-label="Voir le projet">'+crop('realisations',72,710,424,810,mspan(span([e for e in EL if e['page']=='realisations' and e['group']=='cta'][0])))+'</a>'
+        +'<button type="button" class="mm3d mgal" data-gal>Toutes les réalisations '+ARR+'</button>')
     sups=['S&S Activewear','Canada Sportswear','Fabrik','Eside','Just Like Hero','Projob']
     P['catalogue']=(h1(['Choisissez','votre support'],'h2')+'<i class="rule"></i><p class="msub">Des fournisseurs de confiance pour concrétiser vos idées.</p>'
         +'<ul class="msup">'+''.join(f'<li><a '+(f'href="{SUP_URL[i]}" target="_blank" rel="noopener"' if i in SUP_URL else 'href="#catalogue"')+f' class="{"on" if i==0 else ""}" data-supplier="{i}">{sup_logo(i,"m")}<b>{H.escape(s)}</b><span class="vf">Voir le fournisseur</span>{DIAG if i==0 else ARR}</a></li>' for i,s in enumerate(sups))+'</ul>'
@@ -249,7 +251,7 @@ MCSS='''
  @keyframes msg{to{background-position:200% 0}}@keyframes msh{0%,100%{box-shadow:0 0 0 #0a3cff00}50%{box-shadow:0 0 24px #0a3cffcc}}@keyframes mss{0%,55%{left:-90px}100%{left:calc(100% + 60px)}}
  .msubmit svg{animation:dva 1.6s ease-in-out infinite}
  @media (prefers-reduced-motion:reduce){.msubmit,.msubmit::after,.msubmit svg{animation:none}.msubmit::after{display:none}}
- .mm3d{display:inline-flex;align-items:center;gap:10px;margin:22px 0 4px;height:48px;padding:0 20px;border-radius:24px;border:2px solid #0a3cff;background:#0a3cff22;color:inherit;font:600 16px/1 Archivo,sans-serif;text-decoration:none}.mpills{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}.mpills .mm3d{margin:0}.mm3d.prix{background:#0a3cff;color:#fff}.mprix{margin:12px 0 6px;font-size:13.5px;line-height:1.4;opacity:.72;max-width:36ch}.mm3dl{display:inline-block;margin-top:8px;padding:6px 0;color:#0a3cff;font:500 14px Archivo,sans-serif;text-underline-offset:3px}
+ .mm3d{display:inline-flex;align-items:center;gap:10px;margin:22px 0 4px;height:48px;padding:0 20px;border-radius:24px;border:2px solid #0a3cff;background:#0a3cff22;color:inherit;font:600 16px/1 Archivo,sans-serif;text-decoration:none}.mm3d.mgal{margin:14px 0 4px;font:600 16px/1 Archivo,sans-serif;cursor:pointer}.mpills{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}.mpills .mm3d{margin:0}.mm3d.prix{background:#0a3cff;color:#fff}.mprix{margin:12px 0 6px;font-size:13.5px;line-height:1.4;opacity:.72;max-width:36ch}.mm3dl{display:inline-block;margin-top:8px;padding:6px 0;color:#0a3cff;font:500 14px Archivo,sans-serif;text-underline-offset:3px}
  .legal{font:400 12px/1.4 Archivo,sans-serif;color:#444;text-align:center;margin-top:12px}.legal a{color:#222;display:inline-block;margin-top:6px;padding:4px 0}
  .pbody .ok{position:static;width:auto;height:auto;padding:40px 0;background:none;border-radius:0}
  .mmap{position:relative}.mitin{position:absolute;z-index:4;left:74px;top:852px;width:174px;height:56px;border-radius:40px}

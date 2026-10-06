@@ -70,3 +70,5 @@ TITLES={'fr':{'accueil':'Accueil','services':'Services','realisations':'Réalisa
         'en':{'accueil':'Home','services':'Services','realisations':'Work','catalogue':'Catalog','a-propos':'About','contact':'Contact'}}
 EN.update({'Demander les prix':'Ask for prices','Demande de prix : ':'Price request: ',
  'Les prix ne sont pas affichés : on vous les envoie personnellement, selon votre projet.':'Prices aren’t listed: we send them to you personally, based on your project.'})
+from realisations import EN as _REA_EN
+EN.update(_REA_EN)
