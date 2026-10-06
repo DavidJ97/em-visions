@@ -460,10 +460,12 @@ def head_seo(L):
       f'<link rel="icon" href="{up}img/favicon.svg" type="image/svg+xml"><link rel="icon" href="{up}img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="{up}img/apple-touch-icon.png">'
       f'<script type="application/ld+json">{json.dumps(ld,ensure_ascii=False)}</script>')
 HEADJS='(function(){let t;try{t=localStorage.getItem("em-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t})()'
+import loader; HEADJS+=';'+loader.HEAD
 sections=''.join(f'<section class="page" id="p-{p}" aria-label="{TITLES["fr"][p]}" style="top:{HH+i*SH}px;height:{SH}px">\n{page_html(p)}\n</section>\n' for i,p in enumerate(ORDER))
 js=JS.replace('%VIDS%',json.dumps(VIDS)).replace('%LIGHT%',json.dumps({**{p:f'img/plate-{p}-light.webp' for p in ORDER},'mtop':'img/m-paper-top-light.webp','mbot':'img/m-paper-bot-light.webp','head':'img/head-light.webp'})).replace('%PAGES%',json.dumps(ORDER)).replace('%EN%',json.dumps(EN,ensure_ascii=False)).replace('%SLUG%',json.dumps(SLUG)).replace('%TITLES%',json.dumps(TITLES,ensure_ascii=False)).replace('%TOAST%',json.dumps(TOAST,ensure_ascii=False)).replace('%ROWS%',json.dumps(META['catalogue']['rows']))
 doc=f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">{head_seo('fr')}<script>{HEADJS}</script>
-<style>{CSS}{MCSS}{CALCSS if CAL else ''}</style></head><body{' class="cal"' if CAL else ''}>
+<style>{CSS}{MCSS}{CALCSS if CAL else ''}{loader.CSS}</style></head><body{' class="cal"' if CAL else ''}>
+{loader.html(LOGO_VB)}
 <a class="sr" href="#p-accueil">Aller au contenu</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="emlogo" viewBox="{LOGO_VB}"><path fill="currentColor" fill-rule="evenodd" d="{LOGO_D}"/></symbol>
 <filter id="fiber" x="-20%" y="-5%" width="140%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.09 0.6" numOctaves="2" seed="3" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="7"/></filter>
