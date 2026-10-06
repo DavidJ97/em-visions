@@ -68,3 +68,5 @@ EN.update(zip(HOURS_FR,HOURS_EN)); EN[ABOUT_FR]=ABOUT_EN; EN.update(WEEK_EN)
 SLUG={'accueil':'home','services':'services','realisations':'work','catalogue':'catalog','a-propos':'about','contact':'contact'}
 TITLES={'fr':{'accueil':'Accueil','services':'Services','realisations':'Réalisations','catalogue':'Catalogue','a-propos':'À propos','contact':'Contact'},
         'en':{'accueil':'Home','services':'Services','realisations':'Work','catalogue':'Catalog','a-propos':'About','contact':'Contact'}}
+EN.update({'Demander les prix':'Ask for prices','Demande de prix : ':'Price request: ',
+ 'Les prix ne sont pas affichés : on vous les envoie personnellement, selon votre projet.':'Prices aren’t listed: we send them to you personally, based on your project.'})
