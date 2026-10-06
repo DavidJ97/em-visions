@@ -97,7 +97,7 @@ def page_html(p):
     if p=='a-propos': out.append(f'<p class="about" style="left:1033px;top:736px;width:440px">{H.escape(ABOUT_FR)}</p>')
     if p=='contact':
         F=[('nom','text','name',(954,295,1495,338)),('courriel','email','email',(954,386,1495,430)),('projet','textarea','',(954,479,1495,588)),('qte','number','',(954,636,1495,680))]
-        if HOURS: out.append('<p class="hrs" style="left:264px;top:859px">'+MOB.CLOCK.format(s=20,c='#fff')+'<span>'+'</span><i aria-hidden="true">·</i><span>'.join(HOURS_FR)+'</span></p>')
+        if HOURS: out.append(MOB.hours_grid('dh',' style="left:262px;top:846px"'))
         out.append(f'<form id="devis" class="qform" novalidate{MOB.form_attrs()}>'+MOB.form_hidden())
         for name,typ,ac,b in F:
             ph=[e for e in els if e.get('ph')==name][0]
@@ -218,7 +218,13 @@ html,body{background:#050505;overflow-x:clip}a{color:inherit;text-decoration:non
 .grp,nav,address{font-style:normal;font-weight:inherit;font-size:inherit}
 .nl .t{pointer-events:auto;transition:opacity .2s}.nl .t::after{content:'';position:absolute;inset:-12px -10px}.nl:hover .t{opacity:.65}
 .hit{position:absolute;background:transparent;border:0;cursor:pointer;display:block}
-.hrs{position:absolute;display:flex;align-items:center;gap:9px;height:46px;padding:0 20px 0 15px;border-radius:23px;background:#0b0b0b;color:#fff;font:600 15.5px/1 'Kumbh Sans',sans-serif;white-space:nowrap;box-shadow:0 2px 10px #0006}.hrs i{font-style:normal;opacity:.6}
+.hgrid{list-style:none;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:0;padding:0}
+.hgrid li{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center}
+.hgrid b{font:700 11px/1 Oswald,sans-serif;text-transform:uppercase;letter-spacing:.08em}.hgrid span{font:400 17px/1 Anton,sans-serif;white-space:nowrap}
+.hgrid b:after{content:"";display:block;width:14px;height:2px;margin:5px auto 2px;background:#0a3cff}.hgrid li.now b:after,.hgrid li.off b:after{background:currentColor}
+.hgrid li.off{border:1.5px dashed currentColor}.hgrid li.off span{font:600 10.5px/1 'Kumbh Sans',sans-serif;text-transform:none;opacity:.85}
+.hgrid.dh{position:absolute;width:452px;height:64px;filter:drop-shadow(0 2px 8px #0007)}.hgrid.dh li{border-radius:6px;background:#0b0b0b;color:#fff}.hgrid.dh li.off{background:#0b0b0bcc;border-color:#ffffff88}
+.hgrid.dh li.now{background:#0a3cff}
 .about{position:absolute;color:var(--fg);font:300 17.5px/1.52 'Kumbh Sans',sans-serif;letter-spacing:.01em}
 .plink{position:absolute;text-align:center;font:400 11.5px/1.3 Inter,sans-serif;color:#3a3a3b;text-decoration:underline;text-underline-offset:2px}.plink:hover{color:#0a3cff}
 .hp{display:none!important}picture{display:contents}.m3d{position:absolute;text-align:right;font:500 13px/1.3 Inter,sans-serif;color:#0a3cff;text-decoration:underline;text-underline-offset:2px}.m3d:hover{color:#000}
@@ -342,6 +348,8 @@ function put(el,src,pos,instant,vid){const old=el.querySelector(':scope>:not(.ou
  if(instant){if(old)old.remove();if(vid)im.play().catch(()=>{});return}
  const show=()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{im.classList.remove('out');if(vid)im.play().catch(()=>{});if(old){old.classList.add('out');setTimeout(()=>old.remove(),900)}}));
  if(vid){im.readyState>=2?show():(im.onloadeddata=show,setTimeout(show,1500))}else im.complete?show():im.onload=show}
+// grille des heures : la case d'aujourd'hui (heure de Montréal) s'allume
+try{const DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Date().toLocaleDateString('en-US',{weekday:'short',timeZone:'America/Toronto'}));document.querySelectorAll('.hgrid li[data-d="'+DN+'"]').forEach(e=>e.classList.add('now'))}catch(e){}
 const NC=navigator.connection,LITE=!!(NC&&(NC.saveData||/2g|3g/.test(NC.effectiveType||''))),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;let READY=false;const VOK=()=>READY&&!RM&&!LITE;
 Object.keys(SETS).forEach(p=>{const items=SETS[p];let idx=0;
  const S=i=>[...document.querySelectorAll(`.slot[data-pg="${p}"][data-slot="${i}"]`)];

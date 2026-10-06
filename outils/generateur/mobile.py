@@ -1,5 +1,10 @@
 import html as H, re, random
-from config import CONTACT_EMAIL, INSTAGRAM, HOURS, HOURS_FR, ABOUT_FR, FORM_ENDPOINT
+from config import CONTACT_EMAIL, INSTAGRAM, HOURS, HOURS_FR, ABOUT_FR, FORM_ENDPOINT, WEEK_FR
+def hours_grid(cls='',style=''):
+    """Les heures d'ouverture en grille : une case par jour, le jour d'aujourd'hui s'allume en bleu (script de la page)."""
+    cell=lambda fr,n,s:(f'<li data-d="{n}"><b>{fr}</b><span>{s[0]}</span><span>{s[1]}</span></li>' if s else f'<li class="off" data-d="{n}"><b>{fr}</b><span>Fermé</span></li>')
+    return f'<ul class="hgrid {cls}" aria-label="Heures d’ouverture"{style}>'+''.join(cell(*w) for w in WEEK_FR)+'</ul>'
+
 def plate_img(cls,p):
     # Accueil : chargée tout de suite, en priorité, et directement dans le bon thème. Les autres : à l'approche de l'écran.
     if p=='accueil':
@@ -89,7 +94,7 @@ def mobile_html(EL,META,span):
         +f'<p class="msub mabout">{H.escape(ABOUT_FR)}</p>')
     P['contact']=(h1(['On en','parle ?'],'h2')+'<p class="msub">Un projet, une idée, une question ? On est là pour en discuter. Écrivez-nous et on vous répond rapidement.</p><i class="rule"></i>'
         +'<address class="maddr"><svg width="30" height="38" viewBox="0 0 24 30" aria-hidden="true"><path d="M12 1.5a9 9 0 0 0-9 9c0 6.8 9 17.5 9 17.5s9-10.7 9-17.5a9 9 0 0 0-9-9z" fill="none" stroke="#0a3cff" stroke-width="2.6"/><circle cx="12" cy="10.5" r="3.3" fill="#0a3cff"/></svg><span>5825, rue Jean-Talon Est<br>Saint-Léonard, QC H1S 1M4</span></address>'
-        +('<p class="maddr mhrs">'+CLOCK.format(s=30,c='#0a3cff')+'<span>'+'<br>'.join(HOURS_FR)+'</span></p>' if HOURS else '')
+        +(hours_grid('mh') if HOURS else '')
         +'<div class="mpaper"><img class="edge etop" data-plate="mtop" src="img/m-paper-top.webp" alt="" aria-hidden="true" loading="lazy"><div class="pbody">'
         +'<h2 class="mh2">Demande de devis<i class="sq" aria-hidden="true"></i></h2>'
         +f'<form class="qform" novalidate{form_attrs()}>'+form_hidden()
@@ -191,7 +196,11 @@ MCSS='''
  .mteam div{padding-right:14px}.mteam div+div{border-left:2px solid #f4f4f2;padding-left:14px}
  .mteam b{display:block;font:700 clamp(19px,5vw,26px)/1.1 Oswald;text-transform:uppercase}
  .mteam span{display:block;font:400 11px Jost;letter-spacing:.2em;text-transform:uppercase;margin-top:8px}
- .maddr{display:flex;gap:14px;align-items:center;font:600 18px/1.45 Figtree,sans-serif;font-style:normal}.mhrs{margin-top:14px}
+ .maddr{display:flex;gap:14px;align-items:center;font:600 18px/1.45 Figtree,sans-serif;font-style:normal}
+ .hgrid.mh{margin:20px 0 4px;gap:5px}.hgrid.mh li{min-height:86px;padding:9px 0 8px;border-radius:7px;background:#f4f4f2;color:#0a0a0a}.hgrid.mh b{font-size:13px}.hgrid.mh span{font-size:21px}
+ .hgrid.mh li.off{background:none;color:#f4f4f2}.hgrid.mh li.off span{font-size:11.5px}
+ html[data-theme=light] .hgrid.mh li{background:#0a0a0a;color:#f4f4f2}html[data-theme=light] .hgrid.mh li.off{background:none;color:#0a0a0a}
+ .hgrid.mh li.now,html[data-theme=light] .hgrid.mh li.now{background:#0a3cff;color:#fff}
  .mpaper{margin:30px -12px 0;filter:drop-shadow(0 6px 18px #000a)}
  .mpaper .edge{display:block;width:100%;height:auto}
  .pbody{background:linear-gradient(#efefef,#e5e5e5);padding:6px 22px 18px;color:#111}

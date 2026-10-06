@@ -12,6 +12,18 @@ INSTAGRAM='https://instagram.com/visionsem'
 HOURS=[(['Monday','Tuesday','Wednesday','Thursday','Friday'],'09:00','17:00'),(['Saturday'],'12:00','14:00')]
 HOURS_FR=['Lun–ven : 9 h à 17 h','Sam : 12 h à 14 h']
 HOURS_EN=['Mon–Fri: 9 am to 5 pm','Sat: 12 pm to 2 pm']
+# Grille de la semaine (lundi d'abord), tirée de HOURS : (jour FR, jour EN, numéro du jour JS, ouverture, fermeture) en FR et EN.
+def _h(t,en=False):
+    h,m=int(t[:2]),int(t[3:])
+    if en: return f"{(h-1)%12+1}{':%02d'%m if m else ''} {'am' if h<12 else 'pm'}"
+    return f"{h} h{' %02d'%m if m else ''}"
+_D=[('Monday','Lun','Mon',1),('Tuesday','Mar','Tue',2),('Wednesday','Mer','Wed',3),('Thursday','Jeu','Thu',4),('Friday','Ven','Fri',5),('Saturday','Sam','Sat',6),('Sunday','Dim','Sun',0)]
+def _slot(d):
+    for days,a,b in (HOURS or []):
+        if d in days: return (a,b)
+WEEK=[(fr,en,n,_slot(d)) for d,fr,en,n in _D]
+WEEK_FR=[(fr,n,(_h(s[0]),_h(s[1])) if s else None) for fr,en,n,s in WEEK]
+WEEK_EN={**{fr:en for fr,en,n,s in WEEK},**{_h(t):_h(t,True) for fr,en,n,s in WEEK if s for t in s},'Fermé':'Closed','Heures d’ouverture':'Opening hours'}
 # Texte de présentation de la section À propos (remplace le bouton « Découvrir notre équipe »).
 ABOUT_FR='Ouvert depuis la pandémie, EM Visions est un atelier de Saint-Léonard qui s’occupe de design graphique, d’impression et de vêtements personnalisés. Vous arrivez avec une idée, on la mène jusqu’au produit fini. Passez nous voir, rue Jean-Talon Est.'
 ABOUT_EN='Open since the pandemic, EM Visions is a Saint-Léonard workshop handling graphic design, printing and custom apparel. You come in with an idea, we take it all the way to the finished product. Come see us on Jean-Talon Street East.'

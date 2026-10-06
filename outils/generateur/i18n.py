@@ -63,8 +63,8 @@ EN={
 'Notre atelier':'Our workshop','Enseigne MA':'MA sign',
 '5825, rue Jean-Talon Est, Saint-Léonard':'5825 Jean-Talon St. East, Saint-Léonard',
 }
-from config import HOURS_FR, HOURS_EN, ABOUT_FR, ABOUT_EN
-EN.update(zip(HOURS_FR,HOURS_EN)); EN[ABOUT_FR]=ABOUT_EN
+from config import HOURS_FR, HOURS_EN, ABOUT_FR, ABOUT_EN, WEEK_EN
+EN.update(zip(HOURS_FR,HOURS_EN)); EN[ABOUT_FR]=ABOUT_EN; EN.update(WEEK_EN)
 SLUG={'accueil':'home','services':'services','realisations':'work','catalogue':'catalog','a-propos':'about','contact':'contact'}
 TITLES={'fr':{'accueil':'Accueil','services':'Services','realisations':'Réalisations','catalogue':'Catalogue','a-propos':'À propos','contact':'Contact'},
         'en':{'accueil':'Home','services':'Services','realisations':'Work','catalogue':'Catalog','a-propos':'About','contact':'Contact'}}
