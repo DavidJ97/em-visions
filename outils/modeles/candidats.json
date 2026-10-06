@@ -1,0 +1,386 @@
+{
+ "ballpoint-pen-1": {
+  "uid": "ca69fdd81e634048b77932b4851115bc",
+  "path": "glbs/000-101/ca69fdd81e634048b77932b4851115bc.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Faber Castell Ballpoint Pen",
+   "chemicalX",
+   "chemicalX3D"
+  ],
+  "lic": "by",
+  "faces": 8790,
+  "likes": 56
+ },
+ "ballpoint-pen-2": {
+  "uid": "255ba21a6789455bbd780e5912367be3",
+  "path": "glbs/000-076/255ba21a6789455bbd780e5912367be3.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "BIC Cristal Ballpoint Pens",
+   "Wittybacon",
+   "wittybacon"
+  ],
+  "lic": "by",
+  "faces": 95556,
+  "likes": 43
+ },
+ "ballpoint-pen-3": {
+  "uid": "76d3050b6c2646278feaa28007d180cb",
+  "path": "glbs/000-035/76d3050b6c2646278feaa28007d180cb.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Pen",
+   "Chad",
+   "cpenfold"
+  ],
+  "lic": "by",
+  "faces": 1598,
+  "likes": 36
+ },
+ "ballpoint-pen-4": {
+  "uid": "ca13bdd67bb14e0a9f9579ae3152d1d3",
+  "path": "glbs/000-140/ca13bdd67bb14e0a9f9579ae3152d1d3.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Ballpoint pen",
+   "Tr0n",
+   "tronlives"
+  ],
+  "lic": "by",
+  "faces": 404,
+  "likes": 29
+ },
+ "ballpoint-pen-5": {
+  "uid": "392270b6df534e7f84669a1dfaab459d",
+  "path": "glbs/000-002/392270b6df534e7f84669a1dfaab459d.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Diplomat Ballpoint Pen and Fountain Pen",
+   "chemicalX",
+   "chemicalX3D"
+  ],
+  "lic": "by",
+  "faces": 76286,
+  "likes": 24
+ },
+ "ballpoint-pen-6": {
+  "uid": "202a0bed656f4ad291d58e936e3161a0",
+  "path": "glbs/000-049/202a0bed656f4ad291d58e936e3161a0.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Ballpoint Pen",
+   "spendoge",
+   "spendoge"
+  ],
+  "lic": "by",
+  "faces": 1184,
+  "likes": 20
+ },
+ "ballpoint-pen-7": {
+  "uid": "80c7b553985347adafe784cd6166b3c5",
+  "path": "glbs/000-072/80c7b553985347adafe784cd6166b3c5.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Retractable ballpoint pen(click pen)",
+   "Yu Cao",
+   "yucao"
+  ],
+  "lic": "by",
+  "faces": 237720,
+  "likes": 16
+ },
+ "ballpoint-pen-8": {
+  "uid": "5727def143fd4e28bd885b49ee6e929e",
+  "path": "glbs/000-078/5727def143fd4e28bd885b49ee6e929e.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Kaweco Copper Pens",
+   "chemicalX",
+   "chemicalX3D"
+  ],
+  "lic": "by",
+  "faces": 17530,
+  "likes": 14
+ },
+ "pen-1": {
+  "uid": "43976803a2b141c6b467408bda6f2ef7",
+  "path": "glbs/000-021/43976803a2b141c6b467408bda6f2ef7.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Tablet folder",
+   "Arte Hexe",
+   "illusive_skarwing"
+  ],
+  "lic": "by",
+  "faces": 360,
+  "likes": 515
+ },
+ "pen-2": {
+  "uid": "b062a52fad60406a9d70320fa92dd8a8",
+  "path": "glbs/000-067/b062a52fad60406a9d70320fa92dd8a8.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Cyber Skull",
+   "Vorsutus",
+   "Crimson42"
+  ],
+  "lic": "by",
+  "faces": 159017,
+  "likes": 454
+ },
+ "pen-3": {
+  "uid": "da1b584886b94a7fb9c98dd642a319b3",
+  "path": "glbs/000-064/da1b584886b94a7fb9c98dd642a319b3.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Gothic Pendant Necklace",
+   "cedeon",
+   "cedeon"
+  ],
+  "lic": "by",
+  "faces": 46992,
+  "likes": 433
+ },
+ "pen-4": {
+  "uid": "8905e50d59b949d68b3bd831c01bc5e5",
+  "path": "glbs/000-051/8905e50d59b949d68b3bd831c01bc5e5.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Low Poly Pencils",
+   "BlackCube",
+   "blackcube4"
+  ],
+  "lic": "by",
+  "faces": 10036,
+  "likes": 419
+ },
+ "pen-5": {
+  "uid": "a2d73560b1a841b59875cf2581ffd8cf",
+  "path": "glbs/000-040/a2d73560b1a841b59875cf2581ffd8cf.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Vintage Camera ~ Asahi Pentax H2",
+   "Robin Vandenberghe",
+   "RobinVandenberghe"
+  ],
+  "lic": "by",
+  "faces": 23206,
+  "likes": 372
+ },
+ "pen-6": {
+  "uid": "e530c55db10348a3a547ef92149bdd10",
+  "path": "glbs/000-154/e530c55db10348a3a547ef92149bdd10.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Fence (Wood)",
+   "trentspi",
+   "trentspice"
+  ],
+  "lic": "by",
+  "faces": 88,
+  "likes": 336
+ },
+ "pen-7": {
+  "uid": "33afc2b450dd4c188b307c82f3b2cbc3",
+  "path": "glbs/000-070/33afc2b450dd4c188b307c82f3b2cbc3.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Weathered penguin-bot",
+   "epilogueronin",
+   "epilogueronin"
+  ],
+  "lic": "by",
+  "faces": 21378,
+  "likes": 323
+ },
+ "pen-8": {
+  "uid": "dfc5beb8a75046e384b49e180ee1de1b",
+  "path": "glbs/000-131/dfc5beb8a75046e384b49e180ee1de1b.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Office Supplies Pack",
+   "FrodoUndead",
+   "FrodoUndead"
+  ],
+  "lic": "by",
+  "faces": 1974,
+  "likes": 279
+ },
+ "pencil-1": {
+  "uid": "72a51d9519c74369914822593f399c41",
+  "path": "glbs/000-076/72a51d9519c74369914822593f399c41.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Simple Things [XYZ School DAILY CHALLENGE]",
+   "Andy Zarn",
+   "andyzarn"
+  ],
+  "lic": "by",
+  "faces": 4484,
+  "likes": 1055
+ },
+ "pencil-2": {
+  "uid": "35762c5a787e40c8b1daae410c1429de",
+  "path": "glbs/000-141/35762c5a787e40c8b1daae410c1429de.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "LowPoly Stylized Classroom",
+   "Mumladze28",
+   "Mumladze28"
+  ],
+  "lic": "by",
+  "faces": 121536,
+  "likes": 925
+ },
+ "pencil-3": {
+  "uid": "8905e50d59b949d68b3bd831c01bc5e5",
+  "path": "glbs/000-051/8905e50d59b949d68b3bd831c01bc5e5.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Low Poly Pencils",
+   "BlackCube",
+   "blackcube4"
+  ],
+  "lic": "by",
+  "faces": 10036,
+  "likes": 419
+ },
+ "pencil-4": {
+  "uid": "02fa50fae031447c98e56d1710e9fbe2",
+  "path": "glbs/000-144/02fa50fae031447c98e56d1710e9fbe2.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Blue Velociraptor",
+   "Cenker Turhan",
+   "cenkerturhan1"
+  ],
+  "lic": "by",
+  "faces": 44920,
+  "likes": 394
+ },
+ "pencil-5": {
+  "uid": "0c51ccb7d7c34db8a0c63adfd8fe3092",
+  "path": "glbs/000-031/0c51ccb7d7c34db8a0c63adfd8fe3092.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Storage Box-Freepoly.org",
+   "Freepoly.org",
+   "blackrray"
+  ],
+  "lic": "by",
+  "faces": 5631,
+  "likes": 317
+ },
+ "pencil-6": {
+  "uid": "548c9a0575b14deaae1f12ca9a6c31ca",
+  "path": "glbs/000-028/548c9a0575b14deaae1f12ca9a6c31ca.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "CARNOTAURUS DİNOSAUR",
+   "Cenker Turhan",
+   "cenkerturhan1"
+  ],
+  "lic": "by",
+  "faces": 119809,
+  "likes": 294
+ },
+ "pencil-7": {
+  "uid": "dfc5beb8a75046e384b49e180ee1de1b",
+  "path": "glbs/000-131/dfc5beb8a75046e384b49e180ee1de1b.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "Office Supplies Pack",
+   "FrodoUndead",
+   "FrodoUndead"
+  ],
+  "lic": "by",
+  "faces": 1974,
+  "likes": 279
+ },
+ "pencil-8": {
+  "uid": "05deb408a89c49488ab2b776f3616cbc",
+  "path": "glbs/000-098/05deb408a89c49488ab2b776f3616cbc.glb",
+  "tris": 40000,
+  "solid": [
+   ".*"
+  ],
+  "credit": [
+   "HW#10 Simple asset; DP:3; My sketchbook",
+   "Choopa",
+   "Choopa"
+  ],
+  "lic": "by",
+  "faces": 501,
+  "likes": 247
+ }
+}
