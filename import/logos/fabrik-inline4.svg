@@ -1,0 +1,17 @@
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60.1 (88133) - https://sketch.com -->
+    <desc>Created with Sketch.</desc>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g transform="translate(-1169.000000, -9.000000)" stroke="#FFFFFF">
+            <g>
+                <g id="icons-/-profil" transform="translate(1170.000000, 10.000000)">
+                    <g>
+                        <path d="M22,11 C22,4.92525 17.0754375,0 11,0 C4.9245625,0 0,4.92525 0,11 C0,17.0754375 4.9245625,22 11,22 C17.0754375,22 22,17.0754375 22,11 Z" stroke-width="2"></path>
+                        <path d="M14.8074438,8.038525 C14.8074438,5.9354625 13.1031313,4.2304625 11.0000688,4.2304625 C8.89700625,4.2304625 7.19269375,5.9354625 7.19269375,8.038525 C7.19269375,10.1415875 8.89700625,11.8459 11.0000688,11.8459 C13.1031313,11.8459 14.8074438,10.1415875 14.8074438,8.038525 Z" stroke-width="2"></path>
+                        <path d="M18.73575,18.9096187 C17.4191875,16.2434937 14.45125,14.3844938 11,14.3844938 C7.52125,14.3844938 4.533375,16.2737437 3.232625,18.9742437" stroke-width="2"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
