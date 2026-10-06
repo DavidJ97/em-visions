@@ -50,15 +50,14 @@ DIAG='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d
 # Sites des fournisseurs, dans l'ordre de la page Catalogue (à faire valider par EM).
 # Eside = distributeur canadien des casquettes Flexfit ; Projob = vêtements de travail, distribués au Canada par Texet.
 SUP_URL={0:'https://fr-ca.ssactivewear.com/',1:'https://canadasportswear.com/',2:'https://fabrik.ca/',3:'https://eside.ca/fr/',4:'https://www.justlikehero.com/',5:'https://texet.ca/pages/projob'}
-# Logos officiels des fournisseurs (pris sur leurs propres sites), dans l'ordre de la liste : fichier, hauteur affichée, pastille sombre ou non.
-# S&S Activewear : logo pas encore fourni, son nom est écrit sur la pastille en attendant.
-SUP_LOGO={1:('sup-canada.webp',391,150,38,''),2:('sup-fabrik.svg',147,46,32,''),3:('sup-eside.webp',340,110,25,''),4:('sup-jlh.webp',275,200,46,''),5:('sup-projob.webp',493,110,29,' dk')}
-def sup_chip(i,name,cls='',style=''):
-    """Pastille de papier portant le logo du fournisseur (décorative : le lien porte déjà son nom)."""
-    if i in SUP_LOGO:
-        f,w,h,dh,dk=SUP_LOGO[i]
-        return f'<span class="schip{dk} {cls}"{style}><img src="img/{f}" alt="" width="{round(w*dh/h)}" height="{dh}" loading="lazy"></span>'
-    return f'<span class="schip tx {cls}"{style} aria-hidden="true">{H.escape(name)}</span>'
+# Logos officiels des fournisseurs, dans l'ordre de la liste : (largeur, hauteur) affichées.
+# Ils sont ramenés à une seule couleur (img/sup-*.webp = silhouette) pour suivre les couleurs du site :
+# blanc en thème sombre et sur la bande bleue, noir en thème clair.
+SUP_LOGO={0:('ss',184,26),1:('canada',114,44),2:('fabrik',116,36),3:('eside',93,30),4:('jlh',71,52),5:('projob',152,34)}
+def sup_logo(i,cls='',extra=''):
+    """Logo du fournisseur, décoratif : le lien porte déjà son nom."""
+    k,w,h=SUP_LOGO[i]
+    return f'<i class="slogo {cls}" aria-hidden="true"{extra} style="--m:url(img/sup-{k}.webp);width:{w}px;height:{h}px"></i>'
 def carctl(p):
     pp=p=='accueil'
     return (f'<div class="mctl">'+('<i class="ppsp" aria-hidden="true"></i>' if pp else '')+f'<button class="arrow prev" data-pg="{p}" aria-label="Image précédente">{ARRL}</button>'
@@ -95,7 +94,7 @@ def mobile_html(EL,META,span):
         +'<a class="mcta" href="#" data-voir="1" aria-label="Voir le projet">'+crop('realisations',72,710,424,810,mspan(span([e for e in EL if e['page']=='realisations' and e['group']=='cta'][0])))+'</a>')
     sups=['S&S Activewear','Canada Sportswear','Fabrik','Eside','Just Like Hero','Projob']
     P['catalogue']=(h1(['Choisissez','votre support'],'h2')+'<i class="rule"></i><p class="msub">Des fournisseurs de confiance pour concrétiser vos idées.</p>'
-        +'<ul class="msup">'+''.join(f'<li><a '+(f'href="{SUP_URL[i]}" target="_blank" rel="noopener"' if i in SUP_URL else 'href="#catalogue"')+f' class="{"on" if i==0 else ""}" data-supplier="{i}">{sup_chip(i,s,"m")}<b>{H.escape(s)}</b><span class="vf">Voir le fournisseur</span>{DIAG if i==0 else ARR}</a></li>' for i,s in enumerate(sups))+'</ul>'
+        +'<ul class="msup">'+''.join(f'<li><a '+(f'href="{SUP_URL[i]}" target="_blank" rel="noopener"' if i in SUP_URL else 'href="#catalogue"')+f' class="{"on" if i==0 else ""}" data-supplier="{i}">{sup_logo(i,"m")}<b>{H.escape(s)}</b><span class="vf">Voir le fournisseur</span>{DIAG if i==0 else ARR}</a></li>' for i,s in enumerate(sups))+'</ul>'
         +'<a class="mm3d" data-m3d href="maquette/">Essayer sur un produit en 3D '+ARR+'</a>'
         +crop('catalogue',630,95,1586,930,'','bleed comp'))
     P['a-propos']=(crop('a-propos',0,105,1015,935,'','bleed comp top')+h1(['Les gens','derrière','l’impression'],'h2')+'<i class="rule"></i>'
@@ -197,7 +196,7 @@ MCSS='''
  .msvc div span{display:block;font-weight:300;font-size:17px;line-height:1.3;margin-top:4px;color:#e8e8e8}
  .msup{list-style:none;margin:26px 0 0}
  .msup a{display:flex;align-items:center;gap:12px;min-height:62px;padding:0 14px 0 20px;border-left:2px solid #d8d8d8;border-bottom:1px solid #5a5a5a;transition:background .2s}
- .msup b{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.msup a{position:relative}.msup .schip{margin-right:auto}
+ .msup b{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.msup a{position:relative}.msup .slogo{margin-right:auto;zoom:1.12;max-width:50%}.msup a.on .slogo{color:#fff}.msup a.on .vf{margin-right:16px}
  .msup .vf{display:none;font:600 14px Jost;white-space:nowrap;padding-left:12px;border-left:2px solid #fff}
  .msup a.on{background:url(img/cat-band.webp) center/100% 100% no-repeat;border-color:transparent;margin:0 -8px;padding-left:28px;min-height:70px}
  .msup a.on b,.msup a.on .vf,.msup a.on svg{color:#fff}@media (max-width:420px){.msup .vf{font-size:12px;padding-left:8px}.msup a.on{padding-right:12px}.msup a.on svg{display:none!important}}.msup b{white-space:nowrap}.msup a.on .vf{display:block}.msup a.on svg{display:block}

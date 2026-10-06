@@ -80,7 +80,7 @@ def page_html(p):
             out.append(f'<div class="vfwrap" id="cat-vf">{span(L[0])}'+''.join(buttons.svg(v) for v in d0)+'</div>')
         elif g=='sup':
             e=L[0]; r=e['row']; y=M['rows'][r]
-            su=MOB.SUP_URL.get(r); out.append(f'<a class="sup" '+(f'href="{su}" target="_blank" rel="noopener"' if su else 'href="#catalogue"')+f' data-row="{r}" aria-label="{H.escape(e["text"])} — voir le fournisseur" style="left:70px;top:{y-32}px;width:590px;height:64px"></a>'+span(e).replace('class="t"','class="t" data-suprow="%d"%s'%(r,' data-fixed' if r==0 else ''),1)+MOB.sup_chip(r,e['text'],'d',f' style="left:98px;top:{y-25}px"'))
+            su=MOB.SUP_URL.get(r); out.append(f'<a class="sup" '+(f'href="{su}" target="_blank" rel="noopener"' if su else 'href="#catalogue"')+f' data-row="{r}" aria-label="{H.escape(e["text"])} — voir le fournisseur" style="left:70px;top:{y-32}px;width:590px;height:64px"></a>'+span(e).replace('class="t"','class="t" data-suprow="%d"%s'%(r,' data-fixed' if r==0 else ''),1)+MOB.sup_logo(r,'d',' data-suprow="%d"%s'%(r,' data-fixed' if r==0 else '')).replace('style="','style="left:104px;top:%dpx;'%(y-MOB.SUP_LOGO[r][2]//2),1))
         else:
             tag=e0.get('tag') or 'div'
             if p!='accueil' and tag=='h1': tag='h2'
@@ -218,10 +218,9 @@ html,body{background:#050505;overflow-x:clip}a{color:inherit;text-decoration:non
 .grp,nav,address{font-style:normal;font-weight:inherit;font-size:inherit}
 .nl .t{pointer-events:auto;transition:opacity .2s}.nl .t::after{content:'';position:absolute;inset:-12px -10px}.nl:hover .t{opacity:.65}
 .hit{position:absolute;background:transparent;border:0;cursor:pointer;display:block}
-.schip{display:inline-flex;align-items:center;height:50px;padding:0 14px;background:#fff;border-radius:5px;box-shadow:0 2px 8px #0005;pointer-events:none;flex:none}
-.schip img{display:block;width:auto}.schip.dk{background:#0d0d0d;box-shadow:0 0 0 1px #666,0 2px 8px #0005}
-.schip.tx{font:400 27px/1 Anton,sans-serif;color:#0a0a0a;text-transform:uppercase;letter-spacing:.01em;white-space:nowrap}
-.schip.d{position:absolute}[data-suprow]{opacity:0!important}
+.slogo{display:block;flex:none;background:currentColor;-webkit-mask:var(--m) left center/contain no-repeat;mask:var(--m) left center/contain no-repeat}
+.slogo.d{position:absolute;color:#f4f4f2;pointer-events:none;transform-origin:0 50%;transform:scale(1.18)}html[data-theme=light] .slogo.d:not([data-fixed]){color:#141414}
+.t[data-suprow]{opacity:0!important}
 .hgrid{list-style:none;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:0;padding:0}
 .hgrid li{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center}
 .hgrid b{font:700 11px/1 Oswald,sans-serif;text-transform:uppercase;letter-spacing:.08em}.hgrid span{font:400 17px/1 Anton,sans-serif;white-space:nowrap}
