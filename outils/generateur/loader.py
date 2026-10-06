@@ -23,7 +23,15 @@ html.ld-out #ld{transform:translateY(calc(-100% - 3.2vh));transition:transform .
 '''
 def html(vb):
     lay=lambda n:f'<div class="ld-p ld-{n}"><span><svg viewBox="{vb}"><use href="#emlogo"/></svg></span><i></i></div>'
+    # Petit tintement métallique très fin au passage de la première raclette. Il est fabriqué par le navigateur (aucun fichier).
+    # Les navigateurs bloquent le son tant que le visiteur n'a pas touché la page : s'il est bloqué, on ne joue rien.
+    ting=("function ting(){try{var A=window.AudioContext||window.webkitAudioContext;if(!A)return;var c=new A();if(c.state!=='running'){c.close&&c.close();return}"
+          "var t=c.currentTime+.02,m=c.createGain();m.gain.value=.05;m.connect(c.destination);"
+          "[[3140,.9,1],[4770,.6,.55],[6390,.42,.34],[8960,.26,.2],[11800,.16,.1]].forEach(function(p){var o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=p[0];"
+          "g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(p[2],t+.004);g.gain.exponentialRampToValueAtTime(.0001,t+p[1]);o.connect(g);g.connect(m);o.start(t);o.stop(t+p[1]+.05)});"
+          "setTimeout(function(){c.close&&c.close()},1400)}catch(e){}}")
     js=("(function(){var d=document.documentElement,el=document.getElementById('ld');if(!el||!d.classList.contains('ld'))return;var t0=Date.now(),go=0;"
+        +ting+"setTimeout(ting,160);"
         "function out(){if(go)return;go=1;setTimeout(function(){d.classList.add('ld-out');setTimeout(function(){el.remove();d.classList.remove('ld','ld-out')},800)},Math.max(0,1550-(Date.now()-t0)))}"
         "if(document.readyState==='complete')out();else addEventListener('load',out);setTimeout(out,3600)})()")
     return f'<div id="ld" aria-hidden="true"><div class="ld-s">{lay(1)}{lay(2)}</div></div><script>{js}</script>'
