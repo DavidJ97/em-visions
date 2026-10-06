@@ -20,14 +20,14 @@ let cur=null,dirty=true,seq=0;
 // ---------- scène ----------
 const cv=$('#view');
 const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,preserveDrawingBuffer:false});
-R.setPixelRatio(Math.min(devicePixelRatio||1,2));R.toneMapping=THREE.NeutralToneMapping;R.toneMappingExposure=1;
+R.setPixelRatio(Math.min(devicePixelRatio||1,2));R.toneMapping=THREE.NeutralToneMapping;R.toneMappingExposure=.95;
 R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
 const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(26,1,.1,50);
-scene.environment=new THREE.PMREMGenerator(R).fromScene(new RoomEnvironment(),.04).texture;scene.environmentIntensity=.5;
-const key=new THREE.DirectionalLight(0xfff6ea,1.7);key.position.set(1.8,3.2,3.6);key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.bias=-.0004;key.shadow.normalBias=.012;key.shadow.radius=5;
+scene.environment=new THREE.PMREMGenerator(R).fromScene(new RoomEnvironment(),.04).texture;scene.environmentIntensity=.3;
+const key=new THREE.DirectionalLight(0xfff6ea,2.2);key.position.set(1.8,3.2,3.6);key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.bias=-.0004;key.shadow.normalBias=.012;key.shadow.radius=5;
 Object.assign(key.shadow.camera,{left:-1.3,right:1.3,top:1.3,bottom:-1.3,near:.5,far:12});scene.add(key);
-const rim=new THREE.DirectionalLight(0xbfd0ff,1);rim.position.set(-3,1.6,-3);scene.add(rim);
-const fill=new THREE.DirectionalLight(0xffffff,.3);fill.position.set(-2.5,.6,2.5);scene.add(fill);
+const rim=new THREE.DirectionalLight(0xbfd0ff,1.2);rim.position.set(-3,1.6,-3);scene.add(rim);
+const fill=new THREE.DirectionalLight(0xffffff,.15);fill.position.set(-2.5,.6,2.5);scene.add(fill);
 const pivot=new THREE.Group();scene.add(pivot);
 const shadow=(()=>{const c=mk(256,256),x=c.getContext('2d'),g=x.createRadialGradient(128,128,8,128,128,126);g.addColorStop(0,'rgba(0,0,0,.55)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,256,256);
  const m=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false,opacity:.6}));m.rotation.x=-Math.PI/2;scene.add(m);return m})();
@@ -62,14 +62,18 @@ function guideTex(ar){const k=Math.round(ar*20);if(guides[k])return guides[k];co
 
 // ---------- chargement et préparation d'un produit ----------
 const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);
-const cache={},V=()=>new THREE.Vector3();
+const cache={},V=()=>new THREE.Vector3(),WHITE=new THREE.Color(1,1,1);
 function build(p){return new Promise((ok,ko)=>loader.load(new URL('../models/'+p.id+'.glb',import.meta.url).href,g=>{try{ok(prepare(p,g.scene))}catch(e){ko(e)}},undefined,ko))}
 function prepare(p,src){const g=new THREE.Group(),inner=new THREE.Group();if(p.upv)src.quaternion.setFromUnitVectors(new THREE.Vector3(...p.upv).normalize(),new THREE.Vector3(0,1,0));if(p.rot)src.quaternion.premultiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(p.rot[0],p.rot[1],p.rot[2])));inner.add(src);g.add(inner);g.updateMatrixWorld(true);
  const b=new THREE.Box3().setFromObject(src),sz=b.getSize(V()),k=1.3/Math.max(sz.x,sz.y,sz.z);inner.scale.setScalar(k);inner.position.copy(b.getCenter(V())).multiplyScalar(-k);g.updateMatrixWorld(true);
  const size=sz.multiplyScalar(k),set=new Set();
  src.traverse(m=>{if(!m.isMesh)return;m.castShadow=m.receiveShadow=true;if(!m.geometry.attributes.normal)m.geometry.computeVertexNormals();[].concat(m.material).forEach(x=>set.add(x))});
+ // tissus : matière avec un léger duvet (reflet rasant des fibres), sinon les couleurs vives paraissent plates
+ if(p.fabric){const sw=new Map();for(const m of set)if(m.userData.tint){const n=new THREE.MeshPhysicalMaterial({name:m.name,color:m.color,map:m.map,normalMap:m.normalMap,aoMap:m.aoMap,side:m.side,roughness:.9,metalness:0,sheen:p.sheen===undefined?.65:p.sheen,sheenRoughness:.6});
+   n.normalScale.copy(m.normalScale);n.userData=m.userData;sw.set(m,n)}
+  src.traverse(m=>{if(m.isMesh)m.material=Array.isArray(m.material)?m.material.map(x=>sw.get(x)||x):sw.get(m.material)||m.material});for(const[a,b]of sw){set.delete(a);set.add(b);a.dispose()}}
  const mats=[...set],tinted=mats.filter(m=>m.userData.tint),on=p.on?mats.filter(m=>new RegExp(p.on).test(m.name)):tinted.length?tinted:mats;
- for(const m of mats){if(m.userData.tint&&p.fabric){m.roughnessMap=m.metalnessMap=null;m.roughness=.9;m.metalness=0;}if(p.mat&&m.userData.tint)Object.assign(m,p.mat);if(m.normalMap&&p.bump)m.normalScale.setScalar(p.bump)}
+ for(const m of mats){if(p.mat&&m.userData.tint)Object.assign(m,p.mat);if(m.normalMap&&p.bump)m.normalScale.setScalar(p.bump)}
  const U={uPM:{value:[new THREE.Matrix4(),new THREE.Matrix4()]},uUV:{value:[new THREE.Matrix3(),new THREE.Matrix3()]},uCfg:{value:[new THREE.Vector4(),new THREE.Vector4()]},uArt0:{value:null},uArt1:{value:null}};
  on.forEach(m=>hook(m,U));
  // repères d'impression : à plat (devant, dos, ou direction donnée) ou enroulé autour d'un axe vertical
@@ -85,7 +89,7 @@ function prepare(p,src){const g=new THREE.Group(),inner=new THREE.Group();if(p.u
  return{p,group:g,size,tinted,frames,U,sync(){gi.copy(g.matrixWorld).invert();SIDES.forEach((s,i)=>{if(frames[s])U.uPM.value[i].multiplyMatrices(frames[s].inv,gi)})}}}
 function colorOf(p){return p.colors[S.ci[p.id]||0]}
 // applique la couleur choisie et place les images (ou le repère « Votre image »)
-function apply(guide=S.guide){if(!cur)return;const p=cur.p,col=colorOf(p)[2];for(const m of cur.tinted)m.color.set(col);
+function apply(guide=S.guide){if(!cur)return;const p=cur.p,col=colorOf(p)[2];for(const m of cur.tinted){m.color.set(col);if(m.sheen)m.sheenColor.set(col).lerp(WHITE,.5)}
  SIDES.forEach((s,i)=>{const f=cur.frames[s],a=S.art[s],cfg=cur.U.uCfg.value[i];let tex=null,dw,dh,ox=0,oy=0,r=0;
   if(f&&a){tex=a.tex;if(a.ar>f.w/f.h){dw=f.w;dh=f.w/a.ar}else{dh=f.h;dw=f.h*a.ar}dw*=a.size;dh*=a.size;ox=a.cx*f.w/2;oy=-a.cy*f.h/2;r=-a.rot*Math.PI/180}
   else if(f&&guide&&S.side===s){tex=guideTex(f.w/f.h);dw=f.w;dh=f.h}
