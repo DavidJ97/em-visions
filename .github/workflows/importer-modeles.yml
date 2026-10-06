@@ -30,7 +30,7 @@ jobs:
               curl -fsSL --retry 3 -o raw/$uid.glb https://huggingface.co/datasets/allenai/objaverse/resolve/main/$path || echo "téléchargement raté : $uid"
             done < liste.txt
             ls -la raw | head -40
-            node process.mjs
+            LISTE=1 node process.mjs
             echo "code de sortie : $?"
           } 2>&1 | tee rapport.txt
       - name: Enregistrer dans le dépôt
