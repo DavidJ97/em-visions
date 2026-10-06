@@ -1,18 +1,18 @@
 """Page du modélisateur 3D : site/maquette/ (français) et site/en/mockup/ (anglais)."""
-import html as H, os, shutil
+import html as H, os, shutil, json, re
 from config import SITE_URL
 T={'fr':{'path':'/maquette/','up':'../','app':'app.js','title':'Maquette 3D','h1':'Créez votre maquette','back':'Retour au site','other':('EN','../en/mockup/'),'home':'../','to':'../#contact',
-  'desc':'Choisissez un produit parmi vingt, posez votre image, faites-le pivoter en 3D et joignez la maquette à votre demande de devis.',
+  'desc':'Choisissez parmi une vingtaine de produits, posez votre image, faites-le pivoter en 3D et joignez la maquette à votre demande de devis.',
   'lead':'Choisissez un produit, posez votre image, faites-le pivoter, puis joignez la maquette à votre demande de devis.',
   's1':'Produit','s2':'Couleur','s3':'Votre image','pick':'Choisir une image','fmt':'PNG, JPG ou SVG, 12 Mo max.','size':'Taille','x':'Horizontal','y':'Vertical','rot':'Rotation','rm':'Retirer l’image',
   'send':'Joindre à ma demande de devis','note':'Aperçu indicatif : les couleurs, les formats et l’emplacement exacts sont confirmés avec le devis. Votre image reste sur votre appareil tant que vous n’envoyez pas la demande.',
-  'hint':'Glissez pour faire pivoter','view':'Aperçu 3D du produit'},
+  'load':'Chargement du modèle…','cr':'Crédits des modèles 3D','crp':'Modèles 3D sous licence Creative Commons Attribution (CC BY 4.0), allégés et recolorés pour cet outil.','by':'par','hint':'Glissez pour faire pivoter','view':'Aperçu 3D du produit'},
  'en':{'path':'/en/mockup/','up':'../../','app':'../../maquette/app.js','title':'3D mockup','h1':'Build your mockup','back':'Back to the site','other':('FR','../../maquette/'),'home':'../','to':'../#contact',
-  'desc':'Pick one of twenty products, place your image, rotate it in 3D and attach the mockup to your quote request.',
+  'desc':'Pick from about twenty products, place your image, rotate it in 3D and attach the mockup to your quote request.',
   'lead':'Pick a product, place your image, rotate it, then attach the mockup to your quote request.',
   's1':'Product','s2':'Colour','s3':'Your image','pick':'Choose an image','fmt':'PNG, JPG or SVG, 12 MB max.','size':'Size','x':'Horizontal','y':'Vertical','rot':'Rotation','rm':'Remove image',
   'send':'Attach to my quote request','note':'Indicative preview: exact colours, sizes and placement are confirmed with the quote. Your image stays on your device until you send the request.',
-  'hint':'Drag to rotate','view':'3D preview of the product'}}
+  'load':'Loading the model…','cr':'3D model credits','crp':'3D models under the Creative Commons Attribution licence (CC BY 4.0), lightened and recoloured for this tool.','by':'by','hint':'Drag to rotate','view':'3D preview of the product'}}
 CSS='''*{box-sizing:border-box;margin:0;padding:0}:root{--bg:#0a0a0a;--fg:#f4f4f2;--mut:#a9a9a6;--line:#2a2a2c;--card:#1c1d21;--blue:#0a3cff;--stage1:#3b3f4a;--stage2:#0e0f12}
 html[data-theme=light]{--bg:#efefec;--fg:#141414;--mut:#555;--line:#cfcfcb;--card:#e4e4e0;--stage1:#fbfbf9;--stage2:#d9d9d4}
 html,body{height:100%}body{background:var(--bg);color:var(--fg);font:400 16px/1.5 'Kumbh Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -23,6 +23,7 @@ nav{display:flex;gap:22px;align-items:center;font-weight:600;font-size:15px}
 .wrap{display:grid;grid-template-columns:minmax(0,1fr) 452px;height:calc(100vh - 76px);min-height:560px}
 .stagebox{position:relative;background:radial-gradient(120% 90% at 50% 38%,var(--stage1),var(--stage2));overflow:hidden;border-top:1px solid var(--line)}
 #view{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y;outline-offset:-4px}#view.grab{cursor:grabbing}
+.ld{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--card);color:var(--fg);padding:10px 18px;border-radius:999px;font-size:14.5px;z-index:1}.ld[hidden]{display:none}
 .cap{position:absolute;left:24px;bottom:20px;right:24px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;pointer-events:none}
 .cap b{font:700 clamp(20px,2.4vw,30px)/1.05 Oswald,sans-serif;text-transform:uppercase;letter-spacing:.02em}.cap b small{display:block;font:400 14px/1.4 'Kumbh Sans';text-transform:none;color:var(--mut);letter-spacing:0;margin-top:4px}
 .cap i{font-style:normal;font-size:13px;color:var(--mut);display:flex;gap:8px;align-items:center;white-space:nowrap}
@@ -42,12 +43,20 @@ h2{display:flex;align-items:center;gap:12px;font:700 17px/1 Oswald,sans-serif;te
 .rm{justify-self:start;background:none;border:0;text-decoration:underline;text-underline-offset:3px;color:var(--mut);font-size:14px;padding:6px 0}
 .cta{margin-top:30px;width:100%;background:var(--blue);color:#fff;border:0;border-radius:6px;padding:17px 18px;font:600 17px 'Kumbh Sans',sans-serif;display:flex;justify-content:center;gap:12px;align-items:center}.cta:hover{background:#2a55ff}.cta:disabled{opacity:.6}
 .note{color:var(--mut);font-size:13px;margin-top:14px}
+.credits{margin-top:18px;color:var(--mut);font-size:12.5px}.credits summary{cursor:pointer;padding:6px 0;text-decoration:underline;text-underline-offset:3px}.credits ul{list-style:none;margin-top:8px;display:grid;gap:4px}.credits a{color:inherit}.credits p{margin-top:6px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--blue);color:#fff;font:500 15px 'Kumbh Sans',sans-serif;padding:12px 20px;border-radius:6px;opacity:0;transition:.3s;z-index:9;pointer-events:none;max-width:90vw;text-align:center}.toast.on{opacity:1;transform:translateX(-50%)}
 @media (max-width:900px){html,body{height:auto}header{padding:8px 16px;height:64px}.logo{width:104px;height:48px}.wrap{display:block;height:auto}
  .stagebox{position:sticky;top:0;height:44vh;min-height:280px;z-index:2;border-bottom:1px solid var(--line)}.cap{left:16px;right:16px;bottom:12px}.cap i{display:none}
  .panel{border-left:0;border-top:0;padding:22px 16px 48px;overflow:visible}.prods{grid-template-columns:repeat(4,1fr);gap:6px}}'''
 HEADJS='(function(){let t;try{t=localStorage.getItem("em-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t})()'
 FONTS=(('Sekuya',400,'sekuya-latin-400'),('Kumbh Sans',400,'kumbh-sans-latin-400'),('Kumbh Sans',600,'kumbh-sans-latin-600'),('Oswald',700,'oswald-latin-700'))
+def credits(L):
+    """Mention exigée par la licence CC BY : titre, auteur, lien vers l'original, pour chaque modèle utilisé."""
+    t=T[L]; e=H.escape
+    M=json.load(open('models.json' if os.path.exists('models.json') else '../modeles/models.json'))
+    names={m[0]:(m[1],m[2]) for m in re.findall(r"\{id:'(\w+)',n:\['([^']*)','([^']*)'\]",open('maquette_produits.js').read())}
+    li=''.join(f'<li>{e(names[k][L=="en"])} : <a href="https://sketchfab.com/models/{v["uid"]}" rel="noopener nofollow" target="_blank">{e(v["credit"][0])}</a> {t["by"]} {e(v["credit"][1])}</li>' for k,v in M.items() if k in names)
+    return f'<details class="credits"><summary>{e(t["cr"])}</summary><p>{e(t["crp"])} <a href="https://creativecommons.org/licenses/by/4.0/deed.{L}" rel="noopener license" target="_blank">CC BY 4.0</a></p><ul>{li}</ul></details>'
 def page(L,logo_vb,logo_d):
     t=T[L]; e=H.escape; up=t['up']
     ff=''.join(f"@font-face{{font-family:'{n}';font-weight:{w};font-display:swap;src:url({up}fonts/{f}-normal.woff2) format('woff2')}}" for n,w,f in FONTS)
@@ -61,7 +70,7 @@ def page(L,logo_vb,logo_d):
       f'<header><a class="logo" href="{t["home"]}" aria-label="EM Visions"><svg viewBox="{logo_vb}" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="{logo_d}"/></svg></a>'
       f'<nav><a href="{t["home"]}">← {e(t["back"])}</a><a href="{t["other"][1]}" hreflang="{t["other"][0].lower()}" lang="{t["other"][0].lower()}">{t["other"][0]}</a></nav></header>'
       f'<main class="wrap"><section class="stagebox"><canvas id="view" tabindex="0" role="img" aria-label="{e(t["view"])}"></canvas>'
-      f'<p class="cap"><b><span id="pname"></span><small id="colname"></small></b><i><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 4 0 1 0 8-4M9 5l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>{e(t["hint"])}</i></p></section>'
+      f'<p class="ld" id="ld" hidden>{e(t["load"])}</p><p class="cap"><b><span id="pname"></span><small id="colname"></small></b><i><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 4 0 1 0 8-4M9 5l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>{e(t["hint"])}</i></p></section>'
       f'<aside class="panel"><h1>{e(t["h1"])}</h1><p class="lead">{e(t["lead"])}</p>'
       f'<h2><b>1</b>{e(t["s1"])}</h2><div class="prods" id="prods"></div>'
       f'<h2><b>2</b>{e(t["s2"])}</h2><div class="cols" id="cols"></div>'
