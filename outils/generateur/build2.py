@@ -51,6 +51,16 @@ def span(e):
     return f'<span class="t" id="{e["id"]}"{dc} data-cls="{e["cls"]}" style="{st}">{H.escape(e["text"])}</span>'
 def box(b,extra=''): x0,y0,x1,y1=b; return f'style="left:{x0}px;top:{y0}px;width:{x1-x0}px;height:{y1-y0}px;{extra}"'
 TOAST={'en':'La version anglaise sera ajoutée après validation du français.','theme':'Le thème clair n’est pas encore maquetté.'}
+# Services, version ordinateur : les six illustrations descendent en escalier, de gauche à droite, sur une
+# feuille posée par-dessus les anciennes photos du décor. (x, y, largeur) de chaque marche dans la scène de 1586 px.
+SVC_STEPS=[(496, 124, 312), (662, 224, 222), (828, 367, 246), (994, 489, 312), (1160, 588, 222), (1326, 732, 246)]
+def svc_desktop():
+    o=['<i class="dsvfix" aria-hidden="true"></i><div class="dsvbg" aria-hidden="true"><i></i></div>']
+    for i,((n,t,d,al,sz,w,rot,bk,bx,by),(x,y,tw)) in enumerate(zip(MOB.SVC,SVC_STEPS)):
+        th=round(tw*sz[1]/sz[0])
+        o.append(f'<figure class="dsv" style="left:{x}px;top:{y}px;width:{tw}px;height:{th}px;--rot:{rot};--bk:{bk};--bx:{bx};--by:{by};--t:{MOB.TORN[i][0]};--u:{MOB.TORN[i][1]}">'
+                 f'<img src="img/svc-{i+1}.webp" alt="{H.escape(al)}" width="{sz[0]}" height="{sz[1]}" loading="lazy"><b aria-hidden="true">{n}</b></figure>')
+    return ''.join(o)
 def page_html(p):
     els=[e for e in EL if e['page']==p]; M=META[p]; out=[]
     for i,s in enumerate(M['slots']): out.append(f'<div class="slot" data-pg="{p}" data-slot="{i}" {box(s)}></div>')
@@ -59,6 +69,7 @@ def page_html(p):
         b=M['band']; out.append(f'<img class="band" id="cat-band" src="img/cat-band.webp" alt="" aria-hidden="true" loading="lazy" {box(b)}>')
     out.append(vclips(p))
     out.append('<div class="ui">')
+    if p=='services': out.append(svc_desktop())
     for q in M.get('sq',[]):
         k=SEK.get(q['line'])
         if k:
@@ -130,7 +141,7 @@ VIDS={'buono':'vid/buono.mp4','ma':'vid/ma.mp4','caps':'vid/caps.mp4','balloon':
 A_={'Notre atelier': 'Devanture de l’atelier EM Custom Design, rue Jean-Talon Est', 'Ricova': 'Manteau de travail haute visibilité au logo Ricova', 'Buono Bites': 'Lettrage de vitrine pour le pop-up shop Buono Bites', 'Elevate': 'T-shirt imprimé El3vate Miami, palmiers et bandes dégradées', 'Enseigne MA': 'Enseigne ronde suspendue M/A', 'Balloon Babe': 'Impression Balloon Babe sur tissu rose'}
 PPBTN='<button class="hit round arrow pp" data-pg="accueil" data-on="1" aria-label="Mettre le carrousel en pause" style="left:1198px;top:840px;width:37px;height:37px"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5v13l10-6.5z" fill="currentColor"/></svg></button>'
 VALT={'ma':A_['Enseigne MA'],'caps':'Casquettes bleues et blanches au logo EM','atelier':A_['Notre atelier']}
-VCLIP={'services':[(1,'ma','img/ma-main.webp','50% 50%',None)],'catalogue':[(0,'caps','img/src-emcap.webp','50% 45%',1)],
+VCLIP={'catalogue':[(0,'caps','img/src-emcap.webp','50% 45%',1)],
        # contact: the storefront video is placed with the similarity transform that lines it up with the photo printed in the plate
        'contact':[(0,'atelier','img/atelier-poster.webp','50% 50%',None,{'ti':0,'size':(800,1088),'mat':(0.637387,0.008368,-0.008368,0.637387,-69.753,-176.879),'mask':'img/atelier-mask.png'})]}
 def _shift(d,dx,dy):
@@ -218,6 +229,14 @@ html,body{background:#050505;overflow-x:clip}a{color:inherit;text-decoration:non
 .grp,nav,address{font-style:normal;font-weight:inherit;font-size:inherit}
 .nl .t{pointer-events:auto;transition:opacity .2s}.nl .t::after{content:'';position:absolute;inset:-12px -10px}.nl:hover .t{opacity:.65}
 .hit{position:absolute;background:transparent;border:0;cursor:pointer;display:block}
+.dsvfix{position:absolute;left:356px;top:138px;width:84px;height:70px;background:radial-gradient(closest-side,#070707 62%,#07070700)}html[data-theme=light] .dsvfix{background:radial-gradient(closest-side,#ebebe8 62%,#ebebe800)}
+.dsvbg{position:absolute;left:472px;top:0;width:1114px;height:992px;filter:drop-shadow(-8px 0 14px #000a)}
+.dsvbg i{position:absolute;inset:0;background:#070707 url(img/tex.webp) repeat;background-size:256px;clip-path:polygon(1.2% 0,100% 0,100% 100%,.6% 100%,1.5% 96%,.3% 91%,1.6% 86%,.8% 80%,2% 74%,.5% 69%,1.4% 63%,.2% 57%,1.7% 51%,.7% 45%,1.9% 39%,.4% 33%,1.5% 27%,.6% 21%,1.8% 15%,.3% 9%,1.3% 4%)}
+html[data-theme=light] .dsvbg{filter:drop-shadow(-6px 0 10px #0004)}html[data-theme=light] .dsvbg i{background:#e9e9e6 url(img/tex-light.webp) repeat;background-size:256px}
+.dsv{--alt:#f4f4f2;position:absolute;margin:0;transform:rotate(var(--rot));filter:drop-shadow(0 8px 12px #0009)}html[data-theme=light] .dsv{--alt:#0a0a0a;filter:drop-shadow(0 6px 10px #0005)}
+.dsv:before{content:"";position:absolute;inset:0;background:var(--bk);clip-path:var(--t);transform:translate(var(--bx),var(--by))}
+.dsv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;clip-path:var(--u)}
+.dsv b{position:absolute;left:-12px;top:-14px;padding:3px 9px 4px;background:#0a3cff;color:#fff;font:400 24px/1 Anton,sans-serif;transform:rotate(-4deg)}
 .slogo{display:block;flex:none;background:currentColor;-webkit-mask:var(--m) left center/contain no-repeat;mask:var(--m) left center/contain no-repeat}
 .slogo.d{position:absolute;color:#f4f4f2;pointer-events:none;transform-origin:0 50%;transform:scale(1.18)}html[data-theme=light] .slogo.d:not([data-fixed]){color:#141414}
 .t[data-suprow]{opacity:0!important}

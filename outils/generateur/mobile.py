@@ -73,21 +73,21 @@ def _torn(seed,inset):
     for k in range(94,5,-7): pts.append((j(), k+(r.random()-.5)*3))
     return 'polygon('+','.join(f'{min(100,max(0,x)):.1f}% {min(100,max(0,y)):.1f}%' for x,y in pts)+')'
 TORN=[(_torn(11+i,0),_torn(71+i,1.4)) for i in range(6)]
+# chaque service a son illustration (img/svc-N.webp), posée en escalier : une à gauche, une à droite, en descendant.
+# Chaque cadre est différent : format, largeur, inclinaison, déchirure et couleur du papier glissé dessous.
+SVC=[('01','Design graphique','Des visuels qui marquent votre identité.','Illustration : une main trace au marqueur une orbite et une étoile bleues',(900,600),'88%','-1.4deg','#0a3cff','7px','8px'),
+     ('02','Impression','Des supports de qualité pour vos projets.','Illustration : deux mains tirent une raclette d’encre bleue sur un cadre de sérigraphie',(720,900),'64%','1.2deg','var(--alt)','-8px','7px'),
+     ('03','Vêtements personnalisés','Des textiles uniques à votre image.','Illustration : un t-shirt, une casquette et un chandail à capuchon imprimés en bleu',(800,800),'76%','-.8deg','#0a3cff','8px','-7px'),
+     ('04','Impression 3D','Des idées qui prennent forme.','Illustration : la buse d’une imprimante 3D construit une pièce bleue couche par couche',(900,600),'88%','1deg','var(--alt)','-7px','-8px'),
+     ('05','Sites Web','Des plateformes sur mesure pour propulser votre marque.','Illustration : une page Web en papier déchiré, un curseur clique sur un bouton bleu',(720,900),'64%','-1.6deg','#0a3cff','-8px','8px'),
+     ('06','Applications','Des outils performants pour vos besoins spécifiques.','Illustration : une main tient un téléphone d’où s’échappent des icônes en papier',(800,800),'76%','1.3deg','var(--alt)','8px','8px')]
 def mobile_html(EL,META,span):
     P={}
     P['accueil']=(h1(['Faites','bonne','impression'])+'<i class="rule"></i><p class="msub">Vêtements et objets personnalisés pour donner forme à vos idées.</p>'
         +cta('accueil',EL,span,(72,710,432,810),'#contact','Demander un devis')
         +crop('accueil',405,95,1586,925,slots('accueil',META),'bleed comp')+carctl('accueil'))
-    # chaque service a son illustration (img/svc-N.webp), posée en escalier : une à gauche, une à droite, en descendant.
-    # Chaque cadre est différent : format, largeur, inclinaison, déchirure et couleur du papier glissé dessous.
-    svc=[('01','Design graphique','Des visuels qui marquent votre identité.','Illustration : une main trace au marqueur une orbite et une étoile bleues',(900,600),'88%','-1.4deg','#0a3cff','7px','8px'),
-         ('02','Impression','Des supports de qualité pour vos projets.','Illustration : deux mains tirent une raclette d’encre bleue sur un cadre de sérigraphie',(720,900),'64%','1.2deg','var(--alt)','-8px','7px'),
-         ('03','Vêtements personnalisés','Des textiles uniques à votre image.','Illustration : un t-shirt, une casquette et un chandail à capuchon imprimés en bleu',(800,800),'76%','-.8deg','#0a3cff','8px','-7px'),
-         ('04','Impression 3D','Des idées qui prennent forme.','Illustration : la buse d’une imprimante 3D construit une pièce bleue couche par couche',(900,600),'88%','1deg','var(--alt)','-7px','-8px'),
-         ('05','Sites Web','Des plateformes sur mesure pour propulser votre marque.','Illustration : une page Web en papier déchiré, un curseur clique sur un bouton bleu',(720,900),'64%','-1.6deg','#0a3cff','-8px','8px'),
-         ('06','Applications','Des outils performants pour vos besoins spécifiques.','Illustration : une main tient un téléphone d’où s’échappent des icônes en papier',(800,800),'76%','1.3deg','var(--alt)','8px','8px')]
     P['services']=(h1(['De l’idée','à la','matière'],'h2')+'<i class="rule"></i>'
-        +'<ol class="msvc">'+''.join(f'<li class="{"r" if i%2 else "l"}"><div class="ph" style="--w:{w};--ar:{sz[0]}/{sz[1]};--rot:{rot};--bk:{bk};--bx:{bx};--by:{by};--t:{TORN[i][0]};--u:{TORN[i][1]}"><img src="img/svc-{i+1}.webp" alt="{H.escape(al)}" width="{sz[0]}" height="{sz[1]}" loading="lazy"></div><span class="n">{n}</span><div><b>{H.escape(t)}</b><span>{H.escape(d)}</span></div></li>' for i,(n,t,d,al,sz,w,rot,bk,bx,by) in enumerate(svc))+'</ol>'
+        +'<ol class="msvc">'+''.join(f'<li class="{"r" if i%2 else "l"}"><div class="ph" style="--w:{w};--ar:{sz[0]}/{sz[1]};--rot:{rot};--bk:{bk};--bx:{bx};--by:{by};--t:{TORN[i][0]};--u:{TORN[i][1]}"><img src="img/svc-{i+1}.webp" alt="{H.escape(al)}" width="{sz[0]}" height="{sz[1]}" loading="lazy"></div><span class="n">{n}</span><div><b>{H.escape(t)}</b><span>{H.escape(d)}</span></div></li>' for i,(n,t,d,al,sz,w,rot,bk,bx,by) in enumerate(SVC))+'</ol>'
         +cta('services',EL,span,(78,870,486,966),'#contact','Parler de mon projet'))
     P['realisations']=(h1(['Le','travail','parle'],'h2')+'<i class="rule"></i><p class="msub">Des idées devenues réelles.</p>'
         +crop('realisations',405,95,1586,925,slots('realisations',META),'bleed comp')+carctl('realisations')
