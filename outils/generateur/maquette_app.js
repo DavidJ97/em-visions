@@ -70,7 +70,7 @@ function build(p){return new Promise((ok,ko)=>loader.load(new URL('../models/'+p
 function prepare(p,src){const g=new THREE.Group(),inner=new THREE.Group();if(p.upv)src.quaternion.setFromUnitVectors(new THREE.Vector3(...p.upv).normalize(),new THREE.Vector3(0,1,0));if(p.rot)src.quaternion.premultiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(p.rot[0],p.rot[1],p.rot[2])));inner.add(src);g.add(inner);g.updateMatrixWorld(true);
  const b=new THREE.Box3().setFromObject(src),sz=b.getSize(V()),k=1.3/Math.max(sz.x,sz.y,sz.z);inner.scale.setScalar(k);inner.position.copy(b.getCenter(V())).multiplyScalar(-k);g.updateMatrixWorld(true);
  const size=sz.multiplyScalar(k),set=new Set();
- src.traverse(m=>{if(!m.isMesh)return;m.castShadow=m.receiveShadow=true;if(!m.geometry.attributes.normal)m.geometry.computeVertexNormals();[].concat(m.material).forEach(x=>set.add(x))});
+ const hide=p.hide&&new RegExp(p.hide);src.traverse(m=>{if(!m.isMesh)return;if(hide&&hide.test(m.material.name||'')){m.visible=false;return}m.castShadow=m.receiveShadow=true;if(!m.geometry.attributes.normal)m.geometry.computeVertexNormals();[].concat(m.material).forEach(x=>set.add(x))});
  // tissus : matière avec un léger duvet (reflet rasant des fibres), sinon les couleurs vives paraissent plates
  if(p.fabric){const sw=new Map();for(const m of set)if(m.userData.tint){const n=new THREE.MeshPhysicalMaterial({name:m.name,color:m.color,map:m.map,normalMap:m.normalMap,aoMap:m.aoMap,side:m.side,roughness:.9,metalness:0,sheen:p.sheen===undefined?.65:p.sheen,sheenRoughness:.6});
    n.normalScale.copy(m.normalScale);n.userData=m.userData;sw.set(m,n)}
@@ -84,7 +84,7 @@ function prepare(p,src){const g=new THREE.Group(),inner=new THREE.Group();if(p.u
  for(const s of sidesOf(p)){const d=p.print[s],f={};let X,Y,N,o;
   if(d.cyl){const a=d.a||0;N=new THREE.Vector3(Math.sin(a),0,Math.cos(a));Y=new THREE.Vector3(0,1,0);X=V().crossVectors(Y,N);o=new THREE.Vector3((d.axis?d.axis[0]:0)*size.x/2,d.c[1]*size.y/2,(d.axis?d.axis[1]:0)*size.z/2);
    ray.set(o.clone().addScaledVector(N,3),N.clone().negate());const h=ray.intersectObject(g,true)[0];f.R=h?3-h.distance:Math.min(size.x,size.z)/2;f.zmin=f.R-(d.depth||.03);f.w=d.w*f.R}
-  else{N=new THREE.Vector3(...(d.n||(s==='back'?[0,0,-1]:[0,0,1]))).normalize();X=V().crossVectors(new THREE.Vector3(...(d.up||[0,1,0])),N).normalize();Y=V().crossVectors(N,X);
+  else{N=new THREE.Vector3(...(d.n||(s==='back'?[0,0,-1]:[0,0,1]))).normalize();X=V().crossVectors(new THREE.Vector3(...(d.up||[0,1,0])),N).normalize();Y=V().crossVectors(N,X);if(d.tilt){const c=Math.cos(d.tilt),n=Math.sin(d.tilt),x=X.clone();X.multiplyScalar(c).addScaledVector(Y,n);Y.multiplyScalar(c).addScaledVector(x,-n)}
    o=V().addScaledVector(X,d.c[0]*ext(X)).addScaledVector(Y,d.c[1]*ext(Y));ray.set(o.clone().addScaledVector(N,3),N.clone().negate());const h=ray.intersectObject(g,true)[0];
    f.R=0;f.zmin=h?3-h.distance-(d.depth||.12):-9;f.w=d.w*2*ext(X)}
   f.h=f.w*d.ar;f.nt=d.nt===undefined?.05:d.nt;f.inv=new THREE.Matrix4().makeBasis(X,Y,N).setPosition(o).invert();frames[s]=f}
