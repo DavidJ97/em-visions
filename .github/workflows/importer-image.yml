@@ -1,5 +1,5 @@
 # Tâche ponctuelle (branche de travail) : copie dans le dépôt l'image générée sur le compte Higgsfield
-# pour illustrer le service « Impression 3D ».
+# pour illustrer un service.
 name: Importer une image
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
       - run: |
           set -euo pipefail
           mkdir -p import
-          curl -fsSL -o import/impression-3d.png https://d8j0ntlcm91z4.cloudfront.net/user_3FAHB64EMrDf6yqhpJnm67SRxS5/hf_20261006_164356_07f955fd-35c5-4060-a00e-ff7c0d3b80c6.png
+          curl -fsSL -o import/applications.png https://d8j0ntlcm91z4.cloudfront.net/user_3FAHB64EMrDf6yqhpJnm67SRxS5/hf_20261006_172911_c3909f36-22ea-4ec8-afb4-06d199db9372.png
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add import && git commit -m "Image du service Impression 3D" && git push
+          git add import && git commit -m "Image du service Applications" && git push
