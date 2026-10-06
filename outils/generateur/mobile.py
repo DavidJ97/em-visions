@@ -67,6 +67,7 @@ def mobile_html(EL,META,span):
     sups=['S&S Activewear','Canada Sportswear','Fabrik','Eside','Just Like Hero','Projob']
     P['catalogue']=(h1(['Choisissez','votre support'],'h2')+'<i class="rule"></i><p class="msub">Des fournisseurs de confiance pour concrétiser vos idées.</p>'
         +'<ul class="msup">'+''.join(f'<li><a '+(f'href="{SUP_URL[i]}" target="_blank" rel="noopener"' if i in SUP_URL else 'href="#catalogue"')+f' class="{"on" if i==0 else ""}" data-supplier="{i}"><b>{H.escape(s)}</b><span class="vf">Voir le fournisseur</span>{DIAG if i==0 else ARR}</a></li>' for i,s in enumerate(sups))+'</ul>'
+        +'<a class="mm3d" data-m3d href="maquette/">Essayer sur un produit en 3D '+ARR+'</a>'
         +crop('catalogue',630,95,1586,930,'','bleed comp'))
     P['a-propos']=(crop('a-propos',0,105,1015,935,'','bleed comp top')+h1(['Les gens','derrière','l’impression'],'h2')+'<i class="rule"></i>'
         +'<div class="mteam"><div><b>Eduardo Mazzonna</b><span>Design graphique</span></div><div><b>Vince Mariani</b><span>Gestion de projets</span></div></div>'
@@ -84,7 +85,7 @@ def mobile_html(EL,META,span):
             ('qte','Quantité approximative','<input name="qte" type="number" min="1" inputmode="numeric" placeholder="Ex. : 50, 100, 500, etc.">')])
         +'<div class="mf"><span class="flab">Joindre un visuel</span><label class="mfile"><input type="file" name="fichier" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf">'
         +'<svg width="22" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 6.5l-8 8a2.5 2.5 0 0 0 3.5 3.5l8.5-8.5a4.5 4.5 0 0 0-6.4-6.4L5.6 11.6a6.5 6.5 0 0 0 9.2 9.2L20 15.5" fill="none" stroke="#222" stroke-width="1.6" stroke-linecap="round"/></svg>'
-        +'<span><b data-fl>Choisir un fichier</b><small data-fh>JPG, PNG, PDF (max 10 Mo)</small></span></label><em class="err" data-err="fichier"></em></div>'
+        +'<span><b data-fl>Choisir un fichier</b><small data-fh>JPG, PNG, PDF (max 10 Mo)</small></span></label><em class="err" data-err="fichier"></em><a class="mm3dl" data-m3d href="maquette/">ou créer une maquette 3D</a></div>'
         +'<button type="submit" class="msubmit">Demander un devis '+ARR+'</button>'
         +'<p class="legal">En soumettant ce formulaire, vous nous permettez de vous contacter concernant votre demande.<br><a data-privacy href="confidentialite/">Politique de confidentialité</a></p></form>'
         +'<div class="ok" hidden role="status" tabindex="-1"><b>MERCI.</b><p>Votre demande est bien envoyée.</p><p class="note">Nous vous répondrons par courriel.</p><p class="note ref"></p><button type="button" class="again">Nouvelle demande</button></div>'+ko_html()+''
@@ -180,6 +181,7 @@ MCSS='''
  .mfile{display:flex;gap:16px;align-items:center;border:1.5px dashed #8d8d8d;border-radius:4px;padding:14px 16px;cursor:pointer;position:relative;background:#f4f4f280}
  .mfile input{position:absolute;inset:0;opacity:0;cursor:pointer}.mfile b{display:block;font:500 16px Inter}.mfile small{display:block;font:400 14px Inter;color:#777;margin-top:2px}
  .msubmit{width:100%;height:56px;border:0;border-radius:4px;background:#0a3cff;color:#fff;font:600 18px Inter;display:flex;justify-content:center;align-items:center;gap:10px;cursor:pointer;margin-top:4px}
+ .mm3d{display:inline-flex;align-items:center;gap:10px;margin:22px 0 4px;height:48px;padding:0 20px;border-radius:24px;border:2px solid #0a3cff;background:#0a3cff22;color:inherit;font:600 16px/1 'Kumbh Sans',sans-serif;text-decoration:none}.mm3dl{display:inline-block;margin-top:8px;padding:6px 0;color:#0a3cff;font:500 14px Figtree,sans-serif;text-underline-offset:3px}
  .legal{font:400 12px/1.4 Figtree;color:#444;text-align:center;margin-top:12px}.legal a{color:#222;display:inline-block;margin-top:6px;padding:4px 0}
  .pbody .ok{position:static;width:auto;height:auto;padding:40px 0;background:none;border-radius:0}
  .mmap{position:relative}.mitin{position:absolute;z-index:4;left:74px;top:852px;width:174px;height:56px;border-radius:40px}

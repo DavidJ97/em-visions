@@ -93,6 +93,7 @@ def page_html(p):
     if p in ('accueil','realisations'):
         out.append(f'''<div class="car" data-page="{p}"><button class="hit round prev arrow" data-pg="{p}" aria-label="Image précédente" style="left:1257px;top:835px;width:47px;height:47px"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M20 12H4M11 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <button class="hit round next arrow" data-pg="{p}" aria-label="Image suivante" style="left:1443px;top:835px;width:47px;height:47px"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M4 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="bars" data-pg="{p}"></div>{PPBTN if p=='accueil' else ''}</div>''')
+    if p=='catalogue': out.append('<a class="m3dpill" data-m3d href="maquette/" style="left:77px;top:910px">Essayer sur un produit en 3D <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>')
     if p=='a-propos': out.append(f'<p class="about" style="left:1033px;top:736px;width:440px">{H.escape(ABOUT_FR)}</p>')
     if p=='contact':
         F=[('nom','text','name',(954,295,1495,338)),('courriel','email','email',(954,386,1495,430)),('projet','textarea','',(954,479,1495,588)),('qte','number','',(954,636,1495,680))]
@@ -109,6 +110,7 @@ def page_html(p):
         out.append('<label class="file" style="left:954px;top:728px;width:541px;height:76px"><input type="file" id="f-fichier" name="fichier" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf"><span class="sr">Joindre un visuel</span></label>')
         out.append('<em class="err" id="e-fichier" data-err="fichier" style="left:958px;top:806px"></em>')
         out.append('<button type="submit" class="hit submit" style="left:954px;top:814px;width:541px;height:57px"><span class="sr">Demander un devis</span></button>')
+        out.append('<a class="m3d" data-m3d href="maquette/" style="left:1195px;top:698px;width:300px">ou créer une maquette 3D →</a>')
         out.append('<a class="plink" data-privacy href="confidentialite/" style="left:1074px;top:920px;width:300px">Politique de confidentialité</a>')
         out.append('</form><div class="ok" id="ok" hidden role="status" tabindex="-1"><b>MERCI.</b><p>Votre demande est bien envoyée.</p><p class="note">Nous vous répondrons par courriel.</p><p class="note ref"></p><button type="button" class="again">Nouvelle demande</button></div>'+MOB.ko_html()+'')
     out.append('</div>')
@@ -219,7 +221,9 @@ html,body{background:#050505;overflow-x:clip}a{color:inherit;text-decoration:non
 .hrs{position:absolute;display:flex;align-items:center;gap:9px;height:46px;padding:0 20px 0 15px;border-radius:23px;background:#0b0b0b;color:#fff;font:600 15.5px/1 'Kumbh Sans',sans-serif;white-space:nowrap;box-shadow:0 2px 10px #0006}.hrs i{font-style:normal;opacity:.6}
 .about{position:absolute;color:var(--fg);font:300 17.5px/1.52 'Kumbh Sans',sans-serif;letter-spacing:.01em}
 .plink{position:absolute;text-align:center;font:400 11.5px/1.3 Inter,sans-serif;color:#3a3a3b;text-decoration:underline;text-underline-offset:2px}.plink:hover{color:#0a3cff}
-.hp{display:none!important}picture{display:contents}.round{border-radius:50%}.pp svg+svg,.pp[data-on="0"] svg{display:none}.pp[data-on="0"] svg+svg{display:block}.pp[hidden]{display:none!important}.arrow{color:var(--fg);border:2px solid var(--fg);display:grid;place-items:center;transition:background .2s,border-color .2s}.arrow:hover{background:var(--blue)!important;border-color:var(--blue)}.round:hover{background:#0a3cff55}
+.hp{display:none!important}picture{display:contents}.m3d{position:absolute;text-align:right;font:500 13px/1.3 Inter,sans-serif;color:#0a3cff;text-decoration:underline;text-underline-offset:2px}.m3d:hover{color:#000}
+.m3dpill{position:absolute;display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 20px;border-radius:23px;border:2px solid #0a3cff;color:var(--fg);font:600 15.5px/1 'Kumbh Sans',sans-serif;text-decoration:none;white-space:nowrap;background:#0a3cff22}.m3dpill:hover{background:#0a3cff;color:#fff}
+.round{border-radius:50%}.pp svg+svg,.pp[data-on="0"] svg{display:none}.pp[data-on="0"] svg+svg{display:block}.pp[hidden]{display:none!important}.arrow{color:var(--fg);border:2px solid var(--fg);display:grid;place-items:center;transition:background .2s,border-color .2s}.arrow:hover{background:var(--blue)!important;border-color:var(--blue)}.round:hover{background:#0a3cff55}
 .pill{border-radius:44px}.pill:hover{backdrop-filter:brightness(1.12) contrast(1.05)}
 .hit:focus-visible,.sup:focus-visible,.nl:focus-visible .t,.fld :focus-visible{outline:3px solid #6f8cff;outline-offset:3px}
 .bars{position:absolute;left:1257px;top:898px;width:233px;height:16px}
@@ -395,6 +399,12 @@ function initForm(form,fname,fhint,ok){const ko=ok.nextElementSibling;const MSG=
  ko.querySelector('.retry').onclick=()=>{form.hidden=false;ko.hidden=true;form.querySelector('[type=submit]').focus()}}
 const dform=document.getElementById('devis');if(dform)initForm(dform,document.getElementById('contact-filelabel'),document.getElementById('contact-filehint'),document.getElementById('ok'));
 document.querySelectorAll('.mobile .qform').forEach(f=>{const pb=f.closest('.pbody');initForm(f,f.querySelector('[data-fl]'),f.querySelector('[data-fh]'),pb.querySelector('.ok'))});
+(async()=>{try{if(!('indexedDB' in window))return;const db=await new Promise((ok,ko)=>{const r=indexedDB.open('em-visions',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>ok(r.result);r.onerror=()=>ko()});
+ const rec=await new Promise(ok=>{const q=db.transaction('kv').objectStore('kv').get('maquette');q.onsuccess=()=>ok(q.result);q.onerror=()=>ok(null)});if(!rec||Date.now()-rec.at>36e5)return;
+ document.querySelectorAll('form.qform').forEach(f=>{const fl=f.querySelector('[name=fichier]'),dt=new DataTransfer();dt.items.add(new File([rec.snap],rec.snapName,{type:'image/jpeg'}));fl.files=dt.files;fl.dispatchEvent(new Event('change',{bubbles:true}));
+  (rec.orig||[]).slice(0,2).forEach((o,i)=>{const nm='visuel_original'+(i?'_2':'');let h=f.querySelector('[name='+nm+']');if(!h){h=document.createElement('input');h.type='file';h.name=nm;h.hidden=true;f.appendChild(h)}const d2=new DataTransfer();d2.items.add(new File([o.blob],o.name,{type:o.type}));h.files=d2.files});
+  const pj=f.querySelector('[name=projet]');if(!pj.value.includes(rec.summary))pj.value=(pj.value?pj.value+'\n':'')+rec.summary+'\n';pj.dispatchEvent(new Event('input',{bubbles:true}))});
+ db.transaction('kv','readwrite').objectStore('kv').delete('maquette');toast('Maquette 3D ajoutée à votre demande.')}catch(_){}})();
 function fitCrops(){document.querySelectorAll('.crop').forEach(c=>{if(!c.offsetWidth)return;const k=c.offsetWidth/+c.dataset.w;c.firstElementChild.style.transform=`scale(${k}) translate(${-c.dataset.x0}px,${-c.dataset.y0}px)`})}
 addEventListener('resize',()=>{fitCrops();setActive(curPage,true);if(CARS[curPage]&&CARS[curPage].render)CARS[curPage].render()});fitCrops();document.fonts.ready.then(()=>{collect();route(false)});
 const LIGHT=%LIGHT%;
@@ -475,9 +485,10 @@ if not CAL:
     en=re.sub(r'''(?<=["'(=])(img|fonts|vid)/''',r'../\1/',en)
     os.makedirs('out/en',exist_ok=True); open('out/en/index.html','w').write(en)
     import pages_extra; pages_extra.write(LOGO_VB,LOGO_D)
+    import maquette_page; maquette_page.write(LOGO_VB,LOGO_D)
     open('out/robots.txt','w').write(f'User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n')
     alt=''.join(f'<xhtml:link rel="alternate" hreflang="{h}" href="{SITE_URL}{p}"/>' for h,p in (('fr-CA','/'),('en-CA','/en/'),('x-default','/')))
     alt2=''.join(f'<xhtml:link rel="alternate" hreflang="{h}" href="{SITE_URL}{p}"/>' for h,p in (('fr-CA','/confidentialite/'),('en-CA','/en/privacy/')))
     open('out/sitemap.xml','w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
-        +''.join(f'<url><loc>{SITE_URL}{p}</loc>{alt}</url>\n' for p in ('/','/en/'))+''.join(f'<url><loc>{SITE_URL}{p}</loc>{alt2}</url>\n' for p in ('/confidentialite/','/en/privacy/'))+'</urlset>\n')
+        +''.join(f'<url><loc>{SITE_URL}{p}</loc>{alt}</url>\n' for p in ('/','/en/'))+''.join(f'<url><loc>{SITE_URL}{p}</loc>{alt2}</url>\n' for p in ('/confidentialite/','/en/privacy/'))+''.join(f'<url><loc>{SITE_URL}{p}</loc></url>\n' for p in ('/maquette/','/en/mockup/'))+'</urlset>\n')
 print('built',len(doc))
