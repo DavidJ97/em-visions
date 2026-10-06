@@ -4,7 +4,7 @@
 name: Importer les modèles 3D
 on:
   push:
-    paths: ['.github/workflows/importer-modeles.yml', 'outils/modeles/**']
+    paths: ['.github/workflows/importer-modeles.yml', 'outils/modeles/models.json', 'outils/modeles/process.mjs']
   workflow_dispatch:
 permissions:
   contents: write

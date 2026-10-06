@@ -1,0 +1,35 @@
+# Outil de recherche : télécharge des modèles candidats et les range dans candidats/ sur la branche de travail,
+# pour les comparer avant d'en retenir un. Ne touche jamais à la branche principale.
+name: Chercher des modèles 3D
+on:
+  push:
+    branches: ['modeles-travail']
+    paths: ['outils/modeles/recherche.txt']
+permissions:
+  contents: write
+jobs:
+  chercher:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Chercher, télécharger, préparer
+        working-directory: outils/modeles
+        run: |
+          set +e
+          {
+            npm install --no-audit --no-fund 2>&1 | tail -3
+            mapfile -t Q < recherche.txt
+            node chercher.mjs "${Q[@]}"
+            rm -rf ../../candidats && MODELS=candidats.json OUT=../../candidats node process.mjs
+          } 2>&1 | tee recherche-rapport.txt
+      - name: Enregistrer sur la branche de travail
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A candidats outils/modeles/candidats.json outils/modeles/recherche-rapport.txt
+          git diff --cached --quiet || git commit -m "Candidats de modèles 3D"
+          git pull --rebase
+          git push

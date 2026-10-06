@@ -6,7 +6,7 @@ import {dedup,flatten,join,weld,simplify,prune,textureCompress,meshopt,metalRoug
 import {MeshoptSimplifier,MeshoptEncoder,MeshoptDecoder} from 'meshoptimizer';import sharp from 'sharp';import fs from 'fs';
 await MeshoptSimplifier.ready;await MeshoptEncoder.ready;await MeshoptDecoder.ready;
 const io=new NodeIO().registerExtensions(ALL_EXTENSIONS).registerDependencies({'meshopt.decoder':MeshoptDecoder,'meshopt.encoder':MeshoptEncoder});
-const M=JSON.parse(fs.readFileSync('models.json','utf8')),OUT=process.env.OUT||'../../site/models';fs.mkdirSync(OUT,{recursive:true});
+const M=JSON.parse(fs.readFileSync(process.env.MODELS||'models.json','utf8')),OUT=process.env.OUT||'../../site/models';fs.mkdirSync(OUT,{recursive:true});
 const only=process.argv.slice(2),rep={};let fail=0;
 const count=root=>{let t=0;for(const mesh of root.listMeshes())for(const p of mesh.listPrimitives()){const i=p.getIndices();t+=(i?i.getCount():p.getAttribute('POSITION').getCount())/3}return Math.round(t)};
 for(const [id,c] of Object.entries(M)){if(only.length&&!only.includes(id))continue;try{
