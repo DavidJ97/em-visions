@@ -1,6 +1,6 @@
 (function(){
 const D=document,H=D.documentElement,$=(s,r)=>(r||D).querySelector(s),$$=(s,r)=>[...(r||D).querySelectorAll(s)];
-const T=%TR%,RL=%RL%,WEEK=%WEEK%;
+const T=%TR%,RL=%RL%,WEEK=%WEEK%,PD=%PD%;
 const RM=matchMedia('(prefers-reduced-motion:reduce)').matches,NC=navigator.connection,LITE=!!(NC&&(NC.saveData||/2g|3g/.test(NC.effectiveType||'')));
 const hx=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const AR='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -36,9 +36,17 @@ try{const DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Date().toLo
 // réalisations : le reste de la liste
 const more=$('#more');if(more)more.onclick=()=>{const hid=$$('.works li[hidden]');hid.forEach(li=>li.hidden=false);more.remove();if(hid[0])hid[0].querySelector('button').focus()};
 
-// catalogue : filtre par catégorie
-$$('.cat-nav button').forEach(b=>b.onclick=()=>{const c=b.dataset.cat;$$('.cat-nav button').forEach(x=>x.setAttribute('aria-pressed',x===b));
- $$('.prods li').forEach(li=>li.hidden=c!=='all'&&li.dataset.cat!==c);if(matchMedia('(max-width:900px)').matches)$('.prods').scrollIntoView({block:'nearest'})});
+// catalogue : la catégorie choisie montre ses produits ; le produit choisi remplit le grand panneau
+const catB=$$('.cat-nav button[data-cat]'),prodB=$$('.prods button');
+function pick(id,scroll){const p=PD[id];if(!p)return;prodB.forEach(b=>b.setAttribute('aria-pressed',b.dataset.p===id));
+ $('#pan-img').src=T.img+id+'.webp';$('#pan-img').alt=p.n;$('#pan-cat').textContent=p.c;$('#pan-name').textContent=p.n;$('#pan-col').textContent=p.col;$('#pan-side').textContent=p.side;
+ $('#pan-try').href=T.tool+'?p='+id;$('#pan-sw').innerHTML=p.sw.map(c=>'<li><i style="background:'+c[1]+'"></i>'+hx(c[0])+'</li>').join('');
+ if(scroll){const r=$('#pan').getBoundingClientRect();if(r.top<70||r.top>innerHeight*.45)scrollTo({top:r.top+scrollY-96,behavior:RM?'auto':'smooth'})}}
+function setCat(c,keep){catB.forEach(b=>b.setAttribute('aria-pressed',b.dataset.cat===c));let first=null;
+ $$('.prods li').forEach(li=>{const on=c==='all'||li.dataset.cat===c;li.hidden=!on;if(on&&!first)first=li.querySelector('button').dataset.p});if(!keep&&first)pick(first)}
+catB.forEach(b=>b.onclick=()=>setCat(b.dataset.cat));prodB.forEach(b=>b.onclick=()=>pick(b.dataset.p,true));
+const allp=$('#allp');if(allp)allp.onclick=()=>{setCat('all',true);allp.hidden=true};
+if(prodB[0])pick(prodB[0].dataset.p);
 
 // fiche d'un projet
 let gi=-1,gp=0,galF=null,media=[];
@@ -69,14 +77,14 @@ const form=$('#devis'),ok=$('#ok'),ko=$('#ko');
 const F=n=>form.querySelector('[name="'+n+'"]'),ERR=n=>form.querySelector('[data-err="'+n+'"]');
 function prefill(s){const pj=F('projet');if(!pj.value.trim()){pj.value=s;pj.dispatchEvent(new Event('input',{bubbles:true}))}
  setTimeout(()=>{pj.focus({preventScroll:true});try{pj.setSelectionRange(pj.value.length,pj.value.length)}catch(_){}},700)}
-D.addEventListener('click',e=>{if(e.target.closest('[data-prix]'))prefill(T.priceReq)});
+D.addEventListener('click',e=>{if(e.target.closest('[data-prix]')){const n=$('#pan-name');prefill(T.priceReq+(n&&e.target.closest('.pan')?n.textContent:''))}const sv=e.target.closest('[data-svc]');if(sv)prefill(T.service+sv.dataset.svc+'\n')});
 const steps=$$('.steps li');function step(k){steps.forEach((li,i)=>li.classList.toggle('on',i===k))}
 form.addEventListener('focusin',e=>{const n=e.target.name;if(n)step(['qte','echeance','fichier'].includes(n)?1:0)});
 const SENT=new URLSearchParams(location.search).has('envoye');if(SENT)history.replaceState(null,'',location.pathname+location.hash);
 addEventListener('pageshow',e=>{if(e.persisted)$('[type=submit]',form).disabled=false});
-const MSG={nom:T.eName,courriel:T.eMail,projet:T.eProj,qte:T.eQty},N=['nom','courriel','projet','qte'];
+const MSG={nom:T.eName,courriel:T.eMail,projet:T.eProj},N=['nom','courriel','projet'];
 function chk(n,showIt){const el=F(n),v=el.value.trim();let bad=false;
- if(n==='nom')bad=!v;if(n==='courriel')bad=!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);if(n==='projet')bad=!v;if(n==='qte')bad=v!==''&&!(/^\d+$/.test(v)&&+v>=1);
+ if(n==='nom')bad=!v;if(n==='courriel')bad=!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);if(n==='projet')bad=!v;
  if(showIt){el.closest('.f').classList.toggle('bad',bad);ERR(n).textContent=bad?MSG[n]:'';el.setAttribute('aria-invalid',bad)}return !bad}
 N.forEach(n=>{const el=F(n);el.addEventListener('blur',()=>{if(el.value)chk(n,true)});el.addEventListener('input',()=>{if(el.closest('.f').classList.contains('bad'))chk(n,true)})});
 const fl=F('fichier'),fname=$('[data-fl]',form),fhint=$('[data-fh]',form),ft=[fname.textContent,fhint.textContent];

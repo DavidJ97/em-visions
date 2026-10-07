@@ -10,6 +10,7 @@ Le site est produit par `build.py`. On ne modifie pas `site/` à la main : on ch
 | `realisations.py` | La liste des projets montrés, avec leurs photos et leurs textes FR/EN |
 | `i18n.py` | Traductions anglaises communes ; les textes propres à la version 2 sont dans `build.py` (`EN2`) |
 | `loader.py` | L'écran de chargement |
+| `produits.json` | Couleurs et zones d'impression de chaque produit du catalogue, tirées de `maquette_produits.js` |
 | `maquette_page.py`, `maquette_app.js`, `maquette_produits.js` | Le modélisateur 3D |
 | `pages_extra.py` | La politique de confidentialité |
 
