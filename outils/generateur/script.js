@@ -1,6 +1,6 @@
 (function(){
 const D=document,H=D.documentElement,$=(s,r)=>(r||D).querySelector(s),$$=(s,r)=>[...(r||D).querySelectorAll(s)];
-const T=%TR%,RL=%RL%,WEEK=%WEEK%,PD=%PD%;
+const T=%TR%,RL=%RL%;
 const RM=matchMedia('(prefers-reduced-motion:reduce)').matches,NC=navigator.connection,LITE=!!(NC&&(NC.saveData||/2g|3g/.test(NC.effectiveType||'')));
 const hx=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const AR='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -24,29 +24,19 @@ function current(id,alt){$$('.nav a,.menu nav a').forEach(a=>{a.getAttribute('hr
  $$('a[data-other]').forEach(a=>a.setAttribute('href',a.dataset.other+'#'+alt))}
 if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)current(e.target.id,e.target.dataset.alt)}),{rootMargin:'-42% 0px -54% 0px'});secs.forEach(s=>io.observe(s))}
 
-// vidéo de l'accueil : jouée seulement si l'appareil et la connexion s'y prêtent, avec un bouton pause
-const hv=$('.hero-m video'),pp=$('.hero-m .pp');
-if(hv&&!RM&&!LITE){hv.src=hv.dataset.src;hv.play().catch(()=>{});pp.hidden=false;
- pp.onclick=()=>{const p=!hv.paused;p?hv.pause():hv.play().catch(()=>{});pp.setAttribute('aria-pressed',p);pp.setAttribute('aria-label',p?T.play:T.pause)}}
+// vidéos de l'accueil : jouées seulement si l'appareil et la connexion s'y prêtent, avec un bouton pause
+const hv=$$('.strip video').filter(v=>v.offsetParent),pp=$('.pp');
+if(hv.length&&!RM&&!LITE){hv.forEach(v=>{v.src=v.dataset.src;v.play().catch(()=>{})});pp.hidden=false;
+ pp.onclick=()=>{const p=!hv[0].paused;hv.forEach(v=>p?v.pause():v.play().catch(()=>{}));pp.setAttribute('aria-pressed',p);pp.textContent=p?T.play:T.pause}}
 
-// heures : la case d'aujourd'hui (heure de Montréal)
-try{const DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Date().toLocaleDateString('en-US',{weekday:'short',timeZone:'America/Toronto'}));
- $$('.hgrid li[data-d="'+DN+'"]').forEach(e=>e.classList.add('now'));const w=WEEK[DN],td=$('#today');if(td)td.textContent=w?T.today+w[0]+T.to+w[1]:T.todayClosed}catch(e){}
+// heures : la ligne d'aujourd'hui (heure de Montréal)
+try{const DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Date().toLocaleDateString('en-US',{weekday:'short',timeZone:'America/Toronto'}));$$('.hours li[data-d="'+DN+'"]').forEach(e=>e.classList.add('now'))}catch(e){}
 
 // réalisations : le reste de la liste
 const more=$('#more');if(more)more.onclick=()=>{const hid=$$('.works li[hidden]');hid.forEach(li=>li.hidden=false);more.remove();if(hid[0])hid[0].querySelector('button').focus()};
 
-// catalogue : la catégorie choisie montre ses produits ; le produit choisi remplit le grand panneau
-const catB=$$('.cat-nav button[data-cat]'),prodB=$$('.prods button');
-function pick(id,scroll){const p=PD[id];if(!p)return;prodB.forEach(b=>b.setAttribute('aria-pressed',b.dataset.p===id));
- $('#pan-img').src=T.img+id+'.webp';$('#pan-img').alt=p.n;$('#pan-cat').textContent=p.c;$('#pan-name').textContent=p.n;$('#pan-col').textContent=p.col;$('#pan-side').textContent=p.side;
- $('#pan-try').href=T.tool+'?p='+id;$('#pan-sw').innerHTML=p.sw.map(c=>'<li><i style="background:'+c[1]+'"></i>'+hx(c[0])+'</li>').join('');
- if(scroll){const r=$('#pan').getBoundingClientRect();if(r.top<70||r.top>innerHeight*.45)scrollTo({top:r.top+scrollY-96,behavior:RM?'auto':'smooth'})}}
-function setCat(c,keep){catB.forEach(b=>b.setAttribute('aria-pressed',b.dataset.cat===c));let first=null;
- $$('.prods li').forEach(li=>{const on=c==='all'||li.dataset.cat===c;li.hidden=!on;if(on&&!first)first=li.querySelector('button').dataset.p});if(!keep&&first)pick(first)}
-catB.forEach(b=>b.onclick=()=>setCat(b.dataset.cat));prodB.forEach(b=>b.onclick=()=>pick(b.dataset.p,true));
-const allp=$('#allp');if(allp)allp.onclick=()=>{setCat('all',true);allp.hidden=true};
-if(prodB[0])pick(prodB[0].dataset.p);
+// catalogue : filtre par catégorie
+const catB=$$('.filt button');catB.forEach(b=>b.onclick=()=>{const c=b.dataset.cat;catB.forEach(x=>x.setAttribute('aria-pressed',x===b));$$('.prods li').forEach(li=>li.hidden=c!=='all'&&li.dataset.cat!==c)});
 
 // fiche d'un projet
 let gi=-1,gp=0,galF=null,media=[];
@@ -58,8 +48,8 @@ function project(i){gi=(i+RL.length)%RL.length;const p=RL[gi];media=(p.v&&!LITE?
  $('.gal-b',gal).innerHTML='<figure class="gal-m"><div class="mm"></div>'+(n>1?'<button type="button" class="pv" data-g="pp" aria-label="'+hx(T.prevPhoto)+'">'+AR+'</button><button type="button" class="nx" data-g="pn" aria-label="'+hx(T.nextPhoto)+'">'+AR+'</button>':'')+'</figure>'
   +'<div class="gal-i"><small>'+String(gi+1).padStart(2,'0')+' / '+RL.length+'</small><h2>'+hx(p.n)+'</h2><p>'+hx(p.k)+'</p>'
   +(n>1?'<div class="gal-t">'+media.map((f,k)=>'<button type="button" data-g="t'+k+'"'+(f.v?' class="vd"':'')+' aria-label="'+hx((f.v?T.video:T.photo)+(k+1))+'"><img src="'+f.s+'" alt="" loading="lazy"></button>').join('')+'</div>':'')
-  +'<a class="btn" href="#contact" data-g="quote">'+hx(T.similarBtn)+AR+'</a>'
-  +'<div class="gal-n"><button type="button" data-g="prev">'+AR+hx(T.prevProject)+'</button><button type="button" data-g="next">'+hx(T.nextProject)+AR+'</button></div></div>';
+  +'<a class="btn" href="#contact" data-g="quote">'+hx(T.similarBtn)+'</a>'
+  +'<div class="gal-n"><button type="button" class="cap" data-g="prev">← '+hx(T.prevProject)+'</button><button type="button" class="cap" data-g="next">'+hx(T.nextProject)+' →</button></div></div>';
  show(0);gal.scrollTop=0}
 function openGal(i){if(gal.hidden){galF=D.activeElement;gal.hidden=false;lock()}project(i);$('.gal-x',gal).focus({preventScroll:true})}
 function closeGal(){gal.hidden=true;$('.gal-b',gal).innerHTML='';lock();galF&&galF.focus&&galF.focus({preventScroll:true})}
@@ -77,9 +67,9 @@ const form=$('#devis'),ok=$('#ok'),ko=$('#ko');
 const F=n=>form.querySelector('[name="'+n+'"]'),ERR=n=>form.querySelector('[data-err="'+n+'"]');
 function prefill(s){const pj=F('projet');if(!pj.value.trim()){pj.value=s;pj.dispatchEvent(new Event('input',{bubbles:true}))}
  setTimeout(()=>{pj.focus({preventScroll:true});try{pj.setSelectionRange(pj.value.length,pj.value.length)}catch(_){}},700)}
-D.addEventListener('click',e=>{if(e.target.closest('[data-prix]')){const n=$('#pan-name');prefill(T.priceReq+(n&&e.target.closest('.pan')?n.textContent:''))}const sv=e.target.closest('[data-svc]');if(sv)prefill(T.service+sv.dataset.svc+'\n')});
-const steps=$$('.steps li');function step(k){steps.forEach((li,i)=>li.classList.toggle('on',i===k))}
-form.addEventListener('focusin',e=>{const n=e.target.name;if(n)step(['qte','echeance','fichier'].includes(n)?1:0)});
+D.addEventListener('click',e=>{if(e.target.closest('[data-prix]'))prefill(T.priceReq)});
+const step=()=>{};
+
 const SENT=new URLSearchParams(location.search).has('envoye');if(SENT)history.replaceState(null,'',location.pathname+location.hash);
 addEventListener('pageshow',e=>{if(e.persisted)$('[type=submit]',form).disabled=false});
 const MSG={nom:T.eName,courriel:T.eMail,projet:T.eProj},N=['nom','courriel','projet'];
