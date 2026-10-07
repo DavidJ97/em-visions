@@ -70,7 +70,7 @@ h1:after{content:"";display:block;width:72px;height:5px;background:#0a3cff;margi
 .date{color:var(--mut);font-size:14.5px;margin-top:22px}.lead{font-size:19px;line-height:1.55;margin-top:14px}
 h2{font:700 20px/1.3 Archivo,sans-serif;margin-top:40px;padding-top:22px;border-top:1px solid var(--line)}
 p{margin-top:12px;max-width:66ch}'''
-HEADJS='(function(){let t;try{t=localStorage.getItem("em-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t})()'
+HEADJS='(function(){let t;try{t=localStorage.getItem("em-theme")}catch(e){}if(t!=="light"&&t!=="dark")t="light";document.documentElement.dataset.theme=t})()'
 def page(L,logo_vb,logo_d):
     t=T[L]; e=H.escape; up=t['up']
     ff=fontface(up)

@@ -48,7 +48,7 @@ h2{display:flex;align-items:center;gap:12px;font:700 20px/1 Archivo,sans-serif;f
 @media (max-width:900px){html,body{height:auto}header{padding:8px 16px;height:64px}.logo{width:104px;height:48px}.wrap{display:block;height:auto}
  .stagebox{position:sticky;top:0;height:44vh;min-height:280px;z-index:2;border-bottom:1px solid var(--line)}.cap{left:16px;right:16px;bottom:12px}.cap i{display:none}
  .panel{border-left:0;border-top:0;padding:22px 16px 48px;overflow:visible}.prods{grid-template-columns:repeat(4,1fr);gap:6px}}'''
-HEADJS='(function(){let t;try{t=localStorage.getItem("em-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t})()'
+HEADJS='(function(){let t;try{t=localStorage.getItem("em-theme")}catch(e){}if(t!=="light"&&t!=="dark")t="light";document.documentElement.dataset.theme=t})()'
 def credits(L):
     """Mention exigée par la licence CC BY : titre, auteur, lien vers l'original, pour chaque modèle utilisé."""
     t=T[L]; e=H.escape

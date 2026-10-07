@@ -1,13 +1,13 @@
-"""Les réalisations montrées dans le carrousel et dans la galerie (photos tirées du compte Instagram de la boutique).
+"""Les réalisations montrées dans la grille et dans la fiche de chaque projet (photos tirées du compte Instagram de la boutique).
 Chaque projet : nom du client, type de travail, image du carrousel, photos de la fiche."""
 def _p(name,alt): return {'b':f'img/rea-{name}.webp','s':f'img/rea-{name}-s.webp','a':alt}
 def _o(src,alt): return {'b':src,'s':src,'a':alt}
 REAL=[
- {'n':'Ricova','k':'Vêtements de travail','a':'Manteau de travail haute visibilité au logo Ricova','m':'img/ricova-main-exact.webp','t':'img/ricova-thumb.webp','vk':'ricova',
-  'ph':[_o('img/ricova-main.webp','Manteau de travail haute visibilité au logo Ricova')]},
+ {'n':'Ricova','k':'Vêtements de travail','a':'Manteau de travail haute visibilité au logo Ricova','m':'img/rea-ricova.webp','vk':'ricova',
+  'ph':[_o('img/rea-ricova.webp','Manteau de travail haute visibilité au logo Ricova')]},
  {'n':'Maverick Barbier','k':'Vitrine, t-shirts et tapis','ph':[_p('maverick-vitrine','Lettrage de vitrine du barbier Maverick'),_p('maverick-tee-blanc','T-shirt blanc Maverick imprimé au dos'),
   _p('maverick-tee-vert','T-shirt vert Maverick imprimé au dos'),_p('maverick-detail','Détail de l’impression sur le t-shirt Maverick'),_p('maverick-tapis','Tapis au logo Maverick Barbier')]},
- {'n':'Buono Bites','k':'Enseigne, vitrine, broderie et vêtements','a':'Lettrage de vitrine pour le pop-up shop Buono Bites','m':'img/src-buono.webp','t':'img/buono-thumb-r.webp','vk':'buono',
+ {'n':'Buono Bites','k':'Enseigne, vitrine, broderie et vêtements','a':'Lettrage de vitrine pour le pop-up shop Buono Bites','m':'img/src-buono.webp','vk':'buono',
   'ph':[_p('buono-facade','Devanture de Buono Bites, enseigne et lettrage de vitrine'),_p('buono-chandail','Chandail Buono Bites porté derrière le comptoir'),_p('buono-casquette','Casquette brodée Buono Bites'),
   _p('buono-sac','Sac brodé Buono Bites'),_p('buono-pile','Chandails Buono Bites pliés sur une tablette'),_p('buono-presentoir','Présentoir Buono Bites au-dessus de bouchées de gâteau au fromage'),
   _o('img/src-buono.webp','Lettrage de vitrine pour le pop-up shop Buono Bites')]},
@@ -19,15 +19,15 @@ REAL=[
   _p('mg-salon','Le salon Max Gourgues, lettrage Redken au mur')]},
  {'n':'Groupe MPS','k':'Lettrage de camion et accroche-porte','tp':'40% 50%','ph':[_p('mps-camion','Lettrage MPS Transport sur une benne de camion'),_p('mps-porte','Accroche-porte Groupe MPS')]},
  {'n':'Moon Pilates','k':'Enseigne murale en relief','tp':'42% 50%','ph':[_p('moon-enseigne','Enseigne murale en relief Moon, derrière le comptoir d’accueil'),_p('moon-accueil','Accueil du studio Moon, enseigne en relief au mur')]},
- {'n':'Elevate','k':'T-shirts imprimés','a':'T-shirt imprimé El3vate Miami, palmiers et bandes dégradées','m':'img/elevate-main.webp','t':'img/elevate-thumb.webp','vk':'elevate',
-  'ph':[_o('img/elevate-main.webp','T-shirt imprimé El3vate Miami, palmiers et bandes dégradées')]},
+ {'n':'Elevate','k':'T-shirts imprimés','a':'T-shirt imprimé El3vate Miami, palmiers et bandes dégradées','m':'img/rea-elevate.webp','vk':'elevate',
+  'ph':[_o('img/rea-elevate.webp','T-shirt imprimé El3vate Miami, palmiers et bandes dégradées')]},
  {'n':'Foil','k':'Enseignes','ph':[_p('foil-metal','Enseigne en saillie Foil, lettres découpées dans le métal'),_p('foil-mur','Lettrage mural Foil vu à travers une arche')]},
- {'n':'Balloon Babe','k':'T-shirts imprimés','a':'Impression Balloon Babe sur tissu rose','m':'img/src-balloon.webp','t':'img/src-balloon.webp','vk':'balloon',
+ {'n':'Balloon Babe','k':'T-shirts imprimés','a':'Impression Balloon Babe sur tissu rose','m':'img/src-balloon.webp','vk':'balloon',
   'ph':[_p('balloon-tees','T-shirts roses Balloon Babe, impression au dos et au cœur'),_o('img/src-balloon.webp','Impression Balloon Babe sur tissu rose')]},
  {'n':'Gossimo','k':'Façade et vitrines','ph':[_p('gossimo-facade','Façade du salon Gossimo, enseigne et habillage des vitrines')]},
  {'n':'Chez Pasquale','k':'T-shirts imprimés','ph':[_p('pasquale-tee','T-shirt Pasquale’s Chop Shop imprimé')]},
  {'n':'No Diploma','k':'Lettrage de vitrine','ph':[_p('nodiploma-vitrine','Lettrage de vitrine « Knowledge of Self », pop-up No Diploma')]},
- {'n':'Enseigne MA','k':'Enseigne suspendue','a':'Enseigne ronde suspendue M/A','m':'img/ma-main.webp','t':'img/ma-main.webp','tp':'45% 50%','vk':'ma','ph':[_o('img/ma-main.webp','Enseigne ronde suspendue M/A')]},
+ {'n':'Enseigne MA','k':'Enseigne suspendue','a':'Enseigne ronde suspendue M/A','m':'img/ma-main.webp','vk':'ma','ph':[_o('img/ma-main.webp','Enseigne ronde suspendue M/A')]},
 ]
 for r in REAL:
     r.setdefault('m',r['ph'][0]['b']); r.setdefault('t',r['ph'][0]['s']); r.setdefault('a',r['ph'][0]['a'])

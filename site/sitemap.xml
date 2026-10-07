@@ -4,6 +4,6 @@
 <url><loc>https://davidj97.github.io/em-visions/site/en/</loc><xhtml:link rel="alternate" hreflang="fr-CA" href="https://davidj97.github.io/em-visions/site/"/><xhtml:link rel="alternate" hreflang="en-CA" href="https://davidj97.github.io/em-visions/site/en/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://davidj97.github.io/em-visions/site/"/></url>
 <url><loc>https://davidj97.github.io/em-visions/site/confidentialite/</loc><xhtml:link rel="alternate" hreflang="fr-CA" href="https://davidj97.github.io/em-visions/site/confidentialite/"/><xhtml:link rel="alternate" hreflang="en-CA" href="https://davidj97.github.io/em-visions/site/en/privacy/"/></url>
 <url><loc>https://davidj97.github.io/em-visions/site/en/privacy/</loc><xhtml:link rel="alternate" hreflang="fr-CA" href="https://davidj97.github.io/em-visions/site/confidentialite/"/><xhtml:link rel="alternate" hreflang="en-CA" href="https://davidj97.github.io/em-visions/site/en/privacy/"/></url>
-<url><loc>https://davidj97.github.io/em-visions/site/maquette/</loc></url>
-<url><loc>https://davidj97.github.io/em-visions/site/en/mockup/</loc></url>
+<url><loc>https://davidj97.github.io/em-visions/site/maquette/</loc><xhtml:link rel="alternate" hreflang="fr-CA" href="https://davidj97.github.io/em-visions/site/maquette/"/><xhtml:link rel="alternate" hreflang="en-CA" href="https://davidj97.github.io/em-visions/site/en/mockup/"/></url>
+<url><loc>https://davidj97.github.io/em-visions/site/en/mockup/</loc><xhtml:link rel="alternate" hreflang="fr-CA" href="https://davidj97.github.io/em-visions/site/maquette/"/><xhtml:link rel="alternate" hreflang="en-CA" href="https://davidj97.github.io/em-visions/site/en/mockup/"/></url>
 </urlset>
