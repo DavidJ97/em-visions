@@ -101,7 +101,8 @@ try{const DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Date().toLo
 const more=$('#more');if(more)more.onclick=()=>{const hid=$$('.works li[hidden]');hid.forEach(li=>li.hidden=false);more.remove();if(hid[0])hid[0].querySelector('button').focus()};
 
 // catalogue : filtre par catégorie
-const catB=$$('.filt button');catB.forEach(b=>b.onclick=()=>{const c=b.dataset.cat;catB.forEach(x=>x.setAttribute('aria-pressed',x===b));$$('.prods li').forEach(li=>li.hidden=c!=='all'&&li.dataset.cat!==c)});
+const catB=$$('.filt button');catB.forEach(b=>b.onclick=()=>{const c=b.dataset.cat;catB.forEach(x=>x.setAttribute('aria-pressed',x===b));$$('.prods li').forEach(li=>li.hidden=c!=='all'&&li.dataset.cat!==c);
+ const n=$$('.prods li').filter(li=>!li.hidden).length,w=$('.count [data-one]');$('#pc').textContent=n;w.textContent=n===1?w.dataset.one:w.dataset.many});
 
 // fiche d'un projet
 let gi=-1,gp=0,galF=null,media=[];

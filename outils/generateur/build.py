@@ -65,10 +65,15 @@ EN2={'Faites bonne impression.':'Make a good impression.','Vêtements et objets 
  'Instagram':'Instagram','Fournisseur : ':'Supplier: ','Navigation principale':'Main navigation','Voir le projet : ':'View the project: ','Langue':'Language'}
 
 PJ={p['id']:p for p in json.load(open('produits.json'))}       # couleurs et zones d'impression, tirées du modélisateur (produits.json)
-def ff(up): return f"@font-face{{font-family:'Archivo';font-weight:100 900;font-stretch:62% 125%;src:url({up}fonts/archivo-latin-wdth-normal.woff2) format('woff2')}}"
+def ff(up): return (f"@font-face{{font-family:'Archivo';font-weight:100 900;font-stretch:62% 125%;src:url({up}fonts/archivo-latin-wdth-normal.woff2) format('woff2')}}"
+                    f"@font-face{{font-family:'Instrument Serif';font-weight:400;font-display:swap;src:url({up}fonts/instrument-serif-latin-400-normal.woff2) format('woff2')}}")
+EN2.update({'Maquette 3D':'3D mockup','Besoin d’aide':'Need help','Suivez-nous':'Follow us','Les choses sérieuses':'Serious stuff','produits':'products','produit':'product',
+ 'Vêtements et objets personnalisés, impression et design.':'Custom apparel and objects, printing and design.','Un atelier à Saint-Léonard, rue Jean-Talon Est':'A workshop in Saint-Léonard, on Jean-Talon Street East',
+ 'Autres liens':'More links'})
 HERO=[('atelier','atelier-poster','L’atelier','Devanture de l’atelier EM Custom Design, rue Jean-Talon Est'),('ricova','rea-ricova','Ricova','Manteau de travail haute visibilité au logo Ricova'),
       ('buono','src-buono','Buono Bites','Lettrage de vitrine pour le pop-up shop Buono Bites'),('ma','ma-main','Enseigne MA','Enseigne ronde suspendue M/A')]
 
+import datetime; YEAR=datetime.date.today().year
 def build(L):
     en=L=='en'; up='../' if en else ''; e=H.escape
     def t(s):
@@ -98,9 +103,12 @@ def build(L):
     head=(f'<header class="hd"><div class="hd-in"><a class="logo" href="#{sid("accueil")}" aria-label="EM Visions — {e(NAV["accueil"][en].lower())}">{logo}</a>'
           f'<nav class="nav cap" aria-label="{e(t("Navigation principale"))}">{links}</nav>{lang()}{tog}{quote()}'
           f'<button type="button" class="burger cap" aria-expanded="false" aria-controls="menu">{e(t("Menu"))}</button></div></header>'
-          f'<div class="menu" id="menu" hidden><div class="menu-top"><a class="logo" href="#{sid("accueil")}" aria-label="EM Visions">{logo}</a>'
-          f'<button type="button" class="burger cap menu-x" style="display:block">{e(t("Fermer"))}</button></div>'
-          f'<nav aria-label="{e(t("Menu"))}">{links}</nav>{quote()}<div class="menu-foot">{lang()}{tog}</div></div>')
+          f'<div class="menu" id="menu" hidden><div class="menu-top"><button type="button" class="cap menu-x">{e(t("Fermer"))}</button>'
+          f'<a class="logo" href="#{sid("accueil")}" aria-label="EM Visions">{logo}</a><a class="cap" href="#contact">{e(t("Devis"))}</a></div>'
+          f'<div class="menu-l"><nav aria-label="{e(t("Menu"))}">{links}</nav><ul><li><a href="#contact">{e(t("Demander un devis"))}</a></li><li><a href="{tool}">{e(t("Maquette 3D"))}</a></li></ul></div>'
+          f'<div class="menu-foot"><div class="menu-lg"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.800 0 18M12 3c-3 3.2-3 14.800 0 18"/></g></svg>{lang()}{tog}</div>'
+          f'<ul class="menu-s cap" aria-label="{e(t("Autres liens"))}"><li><a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.google.com/maps/dir/?api=1&destination=5825+rue+Jean-Talon+Est%2C+Saint-L%C3%A9onard%2C+QC+H1S+1M4" target="_blank" rel="noopener">{e(t("Itinéraire"))}</a></li>'
+          f'<li><a href="{priv}">{e(t("Politique de confidentialité"))}</a></li></ul></div></div>')
 
     # ---------- accueil
     tiles=''.join(f'<figure><img src="{up}img/{im}.webp" alt="{e(t(a))}" width="600" height="800"'+(' fetchpriority="high"' if i==0 else ' loading="lazy"')
@@ -110,7 +118,7 @@ def build(L):
           f'<svg class="glass" viewBox="{LOGO_VB}" aria-hidden="true"><use href="#emlogo"/></svg><canvas class="gl" data-m="{up}img/logo-verre.webp" aria-hidden="true"></canvas>'
           f'<button type="button" class="pp" hidden aria-pressed="false" aria-label="{e(t("Mettre la vidéo en pause"))}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="i-pa" d="M7 5h3.4v14H7zM13.6 5H17v14h-3.4z" fill="currentColor"/><path class="i-pl" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>'
           f'<div class="hero-b"><h1>{e(t("Faites bonne impression."))}</h1>{quote()}</div></section>'
-          f'<div class="wrap intro"><p>{e(t("Vêtements et objets personnalisés, impression et design. Un atelier à Saint-Léonard, rue Jean-Talon Est."))}</p>'
+          f'<div class="wrap intro"><p class="big">{e(t("Vêtements et objets personnalisés, impression et design."))}</p><p class="cap">{e(t("Un atelier à Saint-Léonard, rue Jean-Talon Est"))}</p>'
           f'<a class="btn ghost" href="#{sid("catalogue")}">{e(t("Voir les produits"))}</a></div>')
 
     # ---------- services
@@ -132,7 +140,7 @@ def build(L):
                   for c,nf,ne,ids in CATS for i in ids)
     sups=''.join(f'<li><a href="{u}" target="_blank" rel="noopener" aria-label="{e(t("Fournisseur : ")+n)}"><i class="slogo" style="--m:url({up}img/logo-{k}.webp);width:{int(w*.72)}px;aspect-ratio:{w}/{h}"></i></a></li>' for n,k,w,h,u in SUPS)
     cat=row('catalogue','Touchez un produit pour l’essayer en 3D avec votre image.',
-            f'<div class="filt cap" role="group" aria-label="{e(t("Catégorie"))}">{filt}</div><ul class="grid prods">{prods}</ul>'
+            f'<div class="filt cap" role="group" aria-label="{e(t("Catégorie"))}">{filt}</div><p class="count" aria-live="polite"><span id="pc">{sum(len(c[3]) for c in CATS)}</span> <span data-one="{e(t("produit"))}" data-many="{e(t("produits"))}">{e(t("produits"))}</span></p><ul class="grid prods">{prods}</ul>'
             f'<p class="note"><span>{e(t("Prix sur demande : on vous les envoie personnellement, selon votre projet."))}</span><a class="u cap" data-prix href="#contact">{e(t("Demander les prix"))}</a></p>'
             f'<ul class="sups" aria-label="{e(t("Nos fournisseurs"))}">{sups}</ul>')
 
@@ -171,8 +179,13 @@ def build(L):
                 f'<div class="contact"><div class="info"><address>EM Custom Design<br>5825, rue Jean-Talon Est<br>Saint-Léonard, QC H1S 1M4</address>'
                 f'<a class="u cap" href="https://www.google.com/maps/dir/?api=1&destination=5825+rue+Jean-Talon+Est%2C+Saint-L%C3%A9onard%2C+QC+H1S+1M4" target="_blank" rel="noopener" aria-label="{e(t("Itinéraire (Google Maps)"))}">{e(t("Itinéraire"))}</a>{hours}</div>{form}</div>')
 
-    foot=(f'<footer class="ft"><div class="wrap ft-in"><p>© EM Custom Design, 5825, rue Jean-Talon Est, Saint-Léonard</p>'
-          f'<ul>'+(f'<li><a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a></li>' if CONTACT_EMAIL else '')+f'<li><a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a></li><li><a href="{priv}">{e(t("Politique de confidentialité"))}</a></li></ul></div></footer>')
+    frow=lambda h,items:f'<div class="ft-r"><h2 class="cap">{e(t(h))}</h2><ul>'+''.join(f'<li>{x}</li>' for x in items if x)+'</ul></div>'
+    foot=(f'<footer class="ft"><div class="wrap">'
+          +frow('Besoin d’aide',[f'<a href="#contact">{e(NAV["contact"][en])}</a>',f'<a href="https://www.google.com/maps/dir/?api=1&destination=5825+rue+Jean-Talon+Est%2C+Saint-L%C3%A9onard%2C+QC+H1S+1M4" target="_blank" rel="noopener">{e(t("Itinéraire"))}</a>',
+                                 f'<a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>' if CONTACT_EMAIL else ''])
+          +frow('Suivez-nous',[f'<a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a>'])
+          +frow('Les choses sérieuses',[f'<a href="{priv}">{e(t("Politique de confidentialité"))}</a>'])
+          +f'<div class="ft-b"><p>© EM Custom Design {YEAR}. {e(t("Tous droits réservés."))}<br>5825, rue Jean-Talon Est, Saint-Léonard</p><a class="logo" href="#{sid("accueil")}" aria-label="EM Visions">{logo}</a></div></div></footer>')
     gal=(f'<div class="gal" id="gal" hidden role="dialog" aria-modal="true"><div class="gal-h"><div><button type="button" class="cap u gal-x" data-g="close">← {e(t("Retour aux réalisations"))}</button>'
          f'<button type="button" class="cap" data-g="close">{e(t("Fermer"))}</button></div></div><div class="gal-b"></div></div>')
 
