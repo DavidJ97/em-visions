@@ -104,11 +104,14 @@ def build(L):
 
     # ---------- accueil
     tiles=''.join(f'<figure><img src="{up}img/{im}.webp" alt="{e(t(a))}" width="600" height="800"'+(' fetchpriority="high"' if i==0 else ' loading="lazy"')
-                  +f'><video data-src="{up}vid/{v}.mp4" muted loop playsinline preload="none" aria-hidden="true"></video><figcaption>{e(tn(n))}</figcaption></figure>' for i,(v,im,n,a) in enumerate(HERO))
-    hero=(f'<section id="{sid("accueil")}" data-alt="{alt("accueil")}" aria-label="{e(NAV["accueil"][en])}"><div class="strip">{tiles}'
-          f'<button type="button" class="pp" hidden aria-pressed="false">{e(t("Pause"))}</button></div>'
-          f'<div class="wrap intro"><div><h1>{e(t("Faites bonne impression."))}</h1><p>{e(t("Vêtements et objets personnalisés, impression et design. Un atelier à Saint-Léonard, rue Jean-Talon Est."))}</p></div>'
-          f'<div class="intro-a">{quote()}<a class="btn ghost" href="#{sid("catalogue")}">{e(t("Voir les produits"))}</a></div></div></section>')
+                  +f'><video data-src="{up}vid/{v}.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></figure>' for i,(v,im,n,a) in enumerate(HERO[:3]))
+    # image plein écran, logo de verre par-dessus (canvas ; le logo blanc en dessous sert de repli), titre et bouton en bas
+    hero=(f'<section class="hero" id="{sid("accueil")}" data-alt="{alt("accueil")}" aria-label="{e(NAV["accueil"][en])}"><div class="strip">{tiles}</div>'
+          f'<svg class="glass" viewBox="{LOGO_VB}" aria-hidden="true"><use href="#emlogo"/></svg><canvas class="gl" data-m="{up}img/logo-verre.webp" aria-hidden="true"></canvas>'
+          f'<button type="button" class="pp" hidden aria-pressed="false" aria-label="{e(t("Mettre la vidéo en pause"))}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="i-pa" d="M7 5h3.4v14H7zM13.6 5H17v14h-3.4z" fill="currentColor"/><path class="i-pl" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>'
+          f'<div class="hero-b"><h1>{e(t("Faites bonne impression."))}</h1>{quote()}</div></section>'
+          f'<div class="wrap intro"><p>{e(t("Vêtements et objets personnalisés, impression et design. Un atelier à Saint-Léonard, rue Jean-Talon Est."))}</p>'
+          f'<a class="btn ghost" href="#{sid("catalogue")}">{e(t("Voir les produits"))}</a></div>')
 
     # ---------- services
     svc=''.join(f'<li><img src="{up}img/svc-{i+1}.webp" alt="{e(t(a))}" loading="lazy" width="800" height="600"><h3><span aria-hidden="true">{i+1:02d}</span>{e(t(n))}</h3><p>{e(t(d))}</p></li>' for i,(n,d,a) in enumerate(SVC))
@@ -176,7 +179,7 @@ def build(L):
     # ---------- données du script
     RL=[{'n':tn(r['n']),'k':t(r['k']),'a':t(r['a']),'m':up+r['m'],'t':up+r['m'],'v':(up+'vid/'+r['vk']+'.mp4') if r.get('vk') else None,
          'ph':[{'b':up+p['b'],'s':up+p['s'],'a':t(p['a'])} for p in r['ph']]} for r in R]
-    TR={'dark':t('Passer au thème sombre'),'light':t('Passer au thème clair'),'pause':t('Pause'),'play':t('Lecture'),
+    TR={'dark':t('Passer au thème sombre'),'light':t('Passer au thème clair'),'pause':t('Mettre la vidéo en pause'),'play':t('Relancer la vidéo'),
         'prevPhoto':t('Photo précédente'),'nextPhoto':t('Photo suivante'),'prevProject':t('Projet précédent'),'nextProject':t('Projet suivant'),'photo':t('Photo '),'video':t('Vidéo '),
         'similarBtn':t('Demander un devis semblable'),'similar':t('Projet semblable à : '),'priceReq':t('Demande de prix : '),
         'eName':t('Indiquez votre nom'),'eMail':t('Courriel invalide'),'eProj':t('Décrivez votre projet'),'eFmt':t('Format non accepté : JPG, PNG ou PDF'),'eSize':t('Fichier trop lourd (max 10 Mo)'),
