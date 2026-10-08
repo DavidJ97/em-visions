@@ -47,16 +47,18 @@ button,input,textarea,select{font:inherit;color:inherit}button{background:none;b
 .menu-lg{display:flex;align-items:center;gap:6px;padding-bottom:10px;border-bottom:1px solid var(--line)}.menu-lg .tog{margin-left:auto}
 .menu-s{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px;padding-top:8px;max-width:900px}.menu-s a{display:inline-block;padding:9px 0}.menu-s a:hover{text-decoration:underline;text-underline-offset:4px}
 
-/* accueil : image plein écran (une, deux ou trois vidéos côte à côte selon la largeur), le logo en verre au centre,
-   le titre en bas à gauche et le bouton en bas à droite */
-.hero{position:relative;height:100vh;height:100svh;min-height:520px;overflow:hidden;background:#000;color:#fff}
-.strip{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
-.strip figure{position:relative;overflow:hidden}
+/* accueil à la Palace : la scène reste fixe pendant qu'on fait défiler (environ 80 % d'écran par vidéo) ;
+   les vidéos se relaient derrière le logo de verre, le titre est en bas à gauche et le bouton en bas à droite */
+.hero{position:relative;height:calc(100vh + (var(--n) - 1)*80vh);height:calc(100svh + (var(--n) - 1)*80svh);background:#000;color:#fff}
+.stage{position:sticky;top:0;height:100vh;height:100svh;min-height:520px;overflow:hidden}
+.strip{position:absolute;inset:0}
+.strip figure{position:absolute;inset:0;opacity:0;transition:opacity .6s}.strip figure.cur{opacity:1}
 .strip img,.strip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .glass{position:absolute;left:50%;top:44%;width:min(80vw,96vh,900px);transform:translate(-50%,-50%);color:#fff;opacity:.9;filter:drop-shadow(0 2px 14px #0008)}
 .gl{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s}
-.hero.on .gl{opacity:1}.hero.on .glass{visibility:hidden}
-.hero::after{content:"";position:absolute;inset:auto 0 0;height:48%;background:linear-gradient(#0000,#000000b8);pointer-events:none}
+.hero.on .gl{opacity:1}.hero.on .glass{visibility:hidden}.hero.on .strip figure{opacity:1;transition:none}
+.stage::after{content:"";position:absolute;inset:auto 0 0;height:48%;background:linear-gradient(#0000,#000000b8);pointer-events:none}
+.hero-k{margin-bottom:10px}.hero-k span{opacity:.7;margin-right:6px}
 .hero-b{position:absolute;z-index:2;left:var(--pad);right:var(--pad);bottom:clamp(18px,3vw,38px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 20px}
 .hero h1{font-weight:800;font-stretch:62%;font-size:clamp(46px,7.4vw,118px);line-height:.86;text-transform:uppercase;max-width:6.4em}
 .hero .btn{min-height:58px}
@@ -165,7 +167,6 @@ html.dlg{overflow:hidden}
 @media (max-width:1240px){
  .nav,.hd .lang,.hd .tog,.hd .btn{display:none}.burger{display:block}.hd-in{min-height:54px;padding:4px 4px 4px 20px}
 }
-@media (max-width:1100px){.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.strip figure:nth-child(n+3){display:none}}
 @media (max-width:1040px){
  .works{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
@@ -175,8 +176,7 @@ html.dlg{overflow:hidden}
 }
 @media (max-width:560px){
  .works,.prods{grid-template-columns:repeat(2,minmax(0,1fr))}.svc{grid-template-columns:minmax(0,1fr);gap:26px}
- .strip{grid-template-columns:minmax(0,1fr)}.strip figure:nth-child(n+2){display:none}
- .hero h1{font-size:clamp(30px,9.6vw,58px)}.hero .btn{max-width:8.6em;padding-inline:12px;font-size:14px;line-height:1.15}.hero-b{gap:12px}.hero h1{flex:1 1 0;min-width:5.2em}.glass{top:31%;width:92vw}
+ .hero h1{font-size:clamp(30px,9.6vw,58px)}.hero .btn{max-width:8.6em;padding-inline:12px;font-size:14px;line-height:1.15}.hero-b{gap:12px}.hero-b>div{flex:1 1 0;min-width:5.2em;font-size:clamp(30px,9.6vw,58px)}.hero-b>div h1{font-size:1em}.glass{top:31%;width:92vw}
  .intro .btn,.end .btn{width:100%}.f2{grid-template-columns:1fr}.grid{gap:24px 2px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

@@ -71,7 +71,7 @@ EN2.update({'Maquette 3D':'3D mockup','Besoin d’aide':'Need help','Suivez-nous
  'Vêtements et objets personnalisés, impression et design.':'Custom apparel and objects, printing and design.','Un atelier à Saint-Léonard, rue Jean-Talon Est':'A workshop in Saint-Léonard, on Jean-Talon Street East',
  'Autres liens':'More links'})
 HERO=[('atelier','atelier-poster','L’atelier','Devanture de l’atelier EM Custom Design, rue Jean-Talon Est'),('ricova','rea-ricova','Ricova','Manteau de travail haute visibilité au logo Ricova'),
-      ('buono','src-buono','Buono Bites','Lettrage de vitrine pour le pop-up shop Buono Bites'),('ma','ma-main','Enseigne MA','Enseigne ronde suspendue M/A')]
+      ('buono','hero-buono','Buono Bites','Lettrage de vitrine pour le pop-up shop Buono Bites'),('ma','hero-ma','Enseigne MA','Enseigne ronde suspendue M/A')]
 
 import datetime; YEAR=datetime.date.today().year
 def build(L):
@@ -111,13 +111,14 @@ def build(L):
           f'<li><a href="{priv}">{e(t("Politique de confidentialité"))}</a></li></ul></div></div>')
 
     # ---------- accueil
-    tiles=''.join(f'<figure><img src="{up}img/{im}.webp" alt="{e(t(a))}" width="600" height="800"'+(' fetchpriority="high"' if i==0 else ' loading="lazy"')
-                  +f'><video data-src="{up}vid/{v}.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></figure>' for i,(v,im,n,a) in enumerate(HERO[:3]))
-    # image plein écran, logo de verre par-dessus (canvas ; le logo blanc en dessous sert de repli), titre et bouton en bas
-    hero=(f'<section class="hero" id="{sid("accueil")}" data-alt="{alt("accueil")}" aria-label="{e(NAV["accueil"][en])}"><div class="strip">{tiles}</div>'
+    # accueil à la Palace : la scène reste en place pendant qu'on fait défiler ; les vidéos se relaient derrière le logo de verre,
+    # qui tourne avec le défilement et suit le doigt ou la souris
+    tiles=''.join('<figure'+(' class="cur"' if i==0 else '')+f' data-n="{e(tn(n))}"><img src="{up}img/{im}.webp" alt="{e(t(a))}" width="600" height="800"'+(' fetchpriority="high"' if i==0 else ' loading="lazy"')
+                  +f'><video data-src="{up}vid/{v}.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></figure>' for i,(v,im,n,a) in enumerate(HERO))
+    hero=(f'<section class="hero" id="{sid("accueil")}" data-alt="{alt("accueil")}" aria-label="{e(NAV["accueil"][en])}" style="--n:{len(HERO)}"><div class="stage"><div class="strip">{tiles}</div>'
           f'<svg class="glass" viewBox="{LOGO_VB}" aria-hidden="true"><use href="#emlogo"/></svg><canvas class="gl" data-m="{up}img/logo-verre.webp" aria-hidden="true"></canvas>'
           f'<button type="button" class="pp" hidden aria-pressed="false" aria-label="{e(t("Mettre la vidéo en pause"))}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="i-pa" d="M7 5h3.4v14H7zM13.6 5H17v14h-3.4z" fill="currentColor"/><path class="i-pl" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>'
-          f'<div class="hero-b"><h1>{e(t("Faites bonne impression."))}</h1>{quote()}</div></section>'
+          f'<div class="hero-b"><div><p class="cap hero-k" aria-hidden="true"><span>01</span> <b>{e(tn(HERO[0][2]))}</b></p><h1>{e(t("Faites bonne impression."))}</h1></div>{quote()}</div></div></section>'
           f'<div class="wrap intro"><p class="big">{e(t("Vêtements et objets personnalisés, impression et design."))}</p><p class="cap">{e(t("Un atelier à Saint-Léonard, rue Jean-Talon Est"))}</p>'
           f'<a class="btn ghost" href="#{sid("catalogue")}">{e(t("Voir les produits"))}</a></div>')
 
