@@ -47,10 +47,10 @@ button,input,textarea,select{font:inherit;color:inherit}button{background:none;b
 .menu-lg{display:flex;align-items:center;gap:6px;padding-bottom:10px;border-bottom:1px solid var(--line)}.menu-lg .tog{margin-left:auto}
 .menu-s{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px;padding-top:8px;max-width:900px}.menu-s a{display:inline-block;padding:9px 0}.menu-s a:hover{text-decoration:underline;text-underline-offset:4px}
 
-/* accueil à la Palace : la scène reste fixe pendant qu'on fait défiler (environ 80 % d'écran par vidéo) ;
-   les vidéos se relaient derrière le logo de verre, le titre est en bas à gauche et le bouton en bas à droite */
-.hero{position:relative;height:calc(100vh + (var(--n) - 1)*80vh);height:calc(100svh + (var(--n) - 1)*80svh);background:#000;color:#fff}
-.stage{position:sticky;top:0;height:100vh;height:100svh;min-height:520px;overflow:hidden}
+/* accueil à la Palace : un écran, le logo de verre qui tourne sur lui-même, les vidéos qui changent à chaque tour ;
+   le titre est en bas à gauche et le bouton en bas à droite */
+.hero{position:relative;background:#000;color:#fff}
+.stage{position:relative;height:100vh;height:100svh;min-height:520px;overflow:hidden}
 .strip{position:absolute;inset:0}
 .strip figure{position:absolute;inset:0;opacity:0;transition:opacity .6s}.strip figure.cur{opacity:1}
 .strip img,.strip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}

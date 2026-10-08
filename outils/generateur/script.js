@@ -24,21 +24,21 @@ function current(id,alt){$$('.nav a,.menu nav a').forEach(a=>{a.getAttribute('hr
  $$('a[data-other]').forEach(a=>a.setAttribute('href',a.dataset.other+'#'+alt))}
 if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)current(e.target.id,e.target.dataset.alt)}),{rootMargin:'-42% 0px -54% 0px'});secs.forEach(s=>io.observe(s))}
 
-// accueil à la Palace : la scène reste en place pendant qu'on fait défiler ; les vidéos se relaient derrière le logo de verre,
-// qui fait un tour par vidéo et suit le doigt ou la souris. Les vidéos ne jouent que si l'appareil et la connexion s'y prêtent ;
-// le bouton pause arrête les vidéos et le mouvement automatique.
-const hero=$('.hero'),stage=$('.stage'),figs=$$('.strip figure'),pp=$('.pp'),kNum=$('.hero-k span'),kName=$('.hero-k b'),NS=figs.length;
-let stopped=false,inView=true,scene=0,next=0,mixK=0,turn=0,redraw=()=>{};
+// accueil : le logo de verre tourne sur lui-même ; à chaque tour, la vidéo de fond change (en fondu).
+// Les vidéos ne jouent que si l'appareil et la connexion s'y prêtent ; le bouton pause arrête tout.
+const hero=$('.hero'),stage=$('.stage'),figs=$$('.strip figure'),pp=$('.pp'),kNum=$('.hero-k span'),kName=$('.hero-k b'),NS=figs.length,TOUR=9;
+let stopped=false,inView=true,scene=0,next=NS>1?1:0,mixK=0,clock=0,redraw=()=>{},glOn=false;
 const vid=j=>$('video',figs[j]),pad=j=>String(j+1).padStart(2,'0'),ease=x=>{x=Math.min(1,Math.max(0,x));return x*x*(3-2*x)};
-function scenes(){const r=hero.getBoundingClientRect(),run=r.height-innerHeight,p=run>0?Math.min(1,Math.max(0,-r.top/run)):0,s=p*(NS-1),i=Math.min(NS-1,Math.floor(s)),f=s-i;
- scene=i;next=Math.min(NS-1,i+1);mixK=next>i?ease((f-.42)/.3):0;turn=i+ease((f-.12)/.8);
+function scenes(){const c=clock/TOUR,f=c-Math.floor(c),i=Math.floor(c)%NS;scene=i;next=(i+1)%NS;mixK=NS>1?ease((f-.4)/.2):0;
  const k=mixK>.5?next:scene;if(kNum.textContent!==pad(k)){kNum.textContent=pad(k);kName.textContent=figs[k].dataset.n;figs.forEach((g,j)=>g.classList.toggle('cur',j===k))}
  videos()}
 function videos(){if(RM||LITE)return;pp.hidden=false;figs.forEach((g,j)=>{const v=vid(j),want=inView&&(j===scene||j===next);
  if(want&&!v.src)v.src=v.dataset.src;if(want&&!stopped){if(v.paused)v.play().catch(()=>{})}else if(v.src&&!v.paused)v.pause()})}
-scenes();addEventListener('scroll',scenes,{passive:true});
+scenes();
 if('IntersectionObserver' in window)new IntersectionObserver(es=>{inView=es[0].isIntersecting;videos();redraw()}).observe(hero);
 pp.onclick=()=>{stopped=!stopped;videos();pp.setAttribute('aria-pressed',stopped);pp.setAttribute('aria-label',stopped?T.play:T.pause);redraw()};
+// sans WebGL : les vidéos changent quand même à chaque « tour »
+if(!RM)setInterval(()=>{if(!glOn&&!stopped&&inView&&!D.hidden){clock=(Math.floor(clock/TOUR)+1)*TOUR;scenes()}},TOUR*1000);
 
 // le logo de verre : l'image de fond est redessinée dans un canvas et déformée à travers un logo épais, en vrai 3D.
 // Sans WebGL, le logo blanc posé sur l'image reste en place.
@@ -91,7 +91,7 @@ void main(){
   gl.texParameteri(G,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(G,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texImage2D(G,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0,255]))}
  [0,1,3].forEach(tex);gl.uniform1i(U('uM'),3);gl.uniform1i(U('uT0'),0);gl.uniform1i(U('uT1'),1);
  const uS=[U('uS0'),U('uS1')],uR=U('uR'),uC=U('uC'),uL=U('uL'),uA=U('uA'),uB=U('uB'),uK=U('uK'),cur=[null,null];
- let W=0,Hh=0,tall=false,base=1,maskOk=false,lost=false,time=0,last=0,raf=0,mx=0,my=0,tx=0,ty=0,key='';
+ let W=0,Hh=0,tall=false,base=1,maskOk=false,lost=false,last=0,raf=0,mx=0,my=0,tx=0,ty=0,key='';
  const mk=new Image();mk.onload=()=>{gl.activeTexture(gl.TEXTURE3);gl.texImage2D(G,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,mk);gl.generateMipmap(G);gl.texParameteri(G,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);maskOk=true;redraw()};mk.src=cv.dataset.m;
  function size(){const w=stage.clientWidth,h=stage.clientHeight,r=Math.min(devicePixelRatio||1,2,Math.sqrt(2.4e6/(w*h)));W=Math.round(w*r);Hh=Math.round(h*r);tall=w<h*.8;
   if(cv.width!==W||cv.height!==Hh){cv.width=W;cv.height=Hh;gl.viewport(0,0,W,Hh)}gl.uniform2f(uR,W,Hh);base=tall?W*1.05:Math.min(W*.9,Hh*1.08,1020*r);key=''}
@@ -101,21 +101,21 @@ void main(){
  function draw(){if(lost||!maskOk)return;
   const live=!RM,s0=upload(0,scene),s1=next!==scene?upload(1,next):1;if(!s0)return;
   mx+=(tx-mx)*.08;my+=(ty-my)*.08;
-  const wob=live&&!stopped?.07*Math.sin(time*.8):0,A=live?turn*Math.PI*2+mx*.9:0,B=live?wob-my*.55+.04:.06;
+  const A=live?clock/TOUR*Math.PI*2+mx*.9:0,B=live?.06-my*.55:.06;
   const k=[A.toFixed(4),B.toFixed(4),mixK.toFixed(3),mx.toFixed(3),my.toFixed(3),W,Hh].join();if(k===key&&s0!==2&&s1!==2)return;key=k;
   gl.uniform1f(uA,A);gl.uniform1f(uB,B);gl.uniform1f(uK,next!==scene?mixK:0);
   gl.uniform2f(uC,.5+(live?mx*.08:0),(tall?.31:.44)+(live?my*.06:0));gl.uniform1f(uL,base);
-  gl.drawArrays(gl.TRIANGLES,0,3);hero.classList.add('on')}
- function loop(t){raf=0;if(last&&!stopped)time+=Math.min(.05,(t-last)/1000);last=t;draw();play()}
+  gl.drawArrays(gl.TRIANGLES,0,3);hero.classList.add('on');glOn=true}
+ function loop(t){raf=0;if(last&&!stopped&&!RM){clock+=Math.min(.05,(t-last)/1000);scenes()}last=t;draw();play()}
  function play(){if(!raf&&inView&&!D.hidden)raf=requestAnimationFrame(loop);else if(!raf)last=0}
  redraw=()=>{size();draw();play()};
  figs.forEach(f=>{$('img',f).addEventListener('load',redraw);$('video',f).addEventListener('loadeddata',redraw)});
- addEventListener('resize',redraw);D.addEventListener('visibilitychange',redraw);addEventListener('scroll',play,{passive:true});
+ addEventListener('resize',redraw);D.addEventListener('visibilitychange',redraw);
  if(!RM){const at=(x,y)=>{tx=x/innerWidth-.5;ty=y/innerHeight-.5;play()},home=()=>{tx=ty=0;play()};
   stage.addEventListener('pointermove',e=>{if(e.pointerType==='mouse')at(e.clientX,e.clientY)});stage.addEventListener('pointerleave',home);
   stage.addEventListener('touchstart',e=>at(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
   stage.addEventListener('touchmove',e=>at(e.touches[0].clientX,e.touches[0].clientY),{passive:true});stage.addEventListener('touchend',home)}
- cv.addEventListener('webglcontextlost',e=>{e.preventDefault();lost=true;hero.classList.remove('on')});
+ cv.addEventListener('webglcontextlost',e=>{e.preventDefault();lost=true;glOn=false;hero.classList.remove('on')});
  redraw();
 })();
 
