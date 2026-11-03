@@ -24,7 +24,7 @@ function current(id,alt){$$('.nav a,.menu nav a').forEach(a=>{a.getAttribute('hr
  $$('a[data-other]').forEach(a=>a.setAttribute('href',a.dataset.other+'#'+alt))}
 if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)current(e.target.id,e.target.dataset.alt)}),{rootMargin:'-42% 0px -54% 0px'});secs.forEach(s=>io.observe(s))}
 
-// accueil : le logo de verre tourne sur lui-même ; à chaque tour, la vidéo de fond change (en fondu).
+// accueil : le logo chromé tourne sur lui-même ; à chaque tour, la vidéo de fond change (en fondu).
 // Les vidéos ne jouent que si l'appareil et la connexion s'y prêtent ; le bouton pause arrête tout.
 const hero=$('.hero'),stage=$('.stage'),figs=$$('.strip figure'),pp=$('.pp'),kNum=$('.hero-k span'),kName=$('.hero-k b'),NS=figs.length,TOUR=9;
 let stopped=false,inView=true,scene=0,next=NS>1?1:0,mixK=0,clock=0,redraw=()=>{},glOn=false;
@@ -40,7 +40,7 @@ pp.onclick=()=>{stopped=!stopped;videos();pp.setAttribute('aria-pressed',stopped
 // sans WebGL : les vidéos changent quand même à chaque « tour »
 if(!RM)setInterval(()=>{if(!glOn&&!stopped&&inView&&!D.hidden){clock=(Math.floor(clock/TOUR)+1)*TOUR;scenes()}},TOUR*1000);
 
-// le logo de verre : l'image de fond est redessinée dans un canvas et déformée à travers un logo épais, en vrai 3D.
+// le logo chromé : un logo épais en vrai 3D, en métal poli, dessiné dans un canvas par-dessus l'image de fond.
 // Sans WebGL, le logo blanc posé sur l'image reste en place.
 (function(){
  const cv=$('.gl');let gl;try{gl=cv.getContext('webgl',{alpha:false,antialias:false,powerPreference:'low-power'})}catch(e){}
@@ -62,23 +62,29 @@ void main(){
  vec3 ol=vec3(dot(o,X),dot(o,Y),dot(o,Z)),dl=vec3(dot(d,X),dot(d,Y),dot(d,Z));
  if(abs(dl.x)<1e-4)dl.x=1e-4;if(abs(dl.y)<1e-4)dl.y=1e-4;if(abs(dl.z)<1e-4)dl.z=1e-4;
  float sh=mk((ol-dl*ol.z/dl.z).xy).b;
- vec3 base=pic(v)*(1.-.4*sh);
+ vec3 base=pic(v)*(1.-.5*sh);
  vec3 t0=(vec3(-.5,-.25,-TH*.5)-ol)/dl,t1=(vec3(.5,.25,TH*.5)-ol)/dl,tl=min(t0,t1),th=max(t0,t1);
  float tn=max(max(tl.x,tl.y),tl.z),tf=min(min(th.x,th.y),th.z);
  if(tn>=tf){gl_FragColor=vec4(base,1.);return;}
  vec3 hp=ol+dl*tl.z;float af=mk(hp.xy).r,as=0.;vec3 sp=hp;
- if(af<.5){for(int i=0;i<16;i++){vec3 p=ol+dl*mix(max(tn,tl.z),tf,(float(i)+.5)/16.);float m=mk(p.xy).r;if(m>as){as=m;sp=p;}if(m>.5)break;}}
+ if(af<.5){float t0s=max(tn,tl.z),tp=t0s;for(int i=0;i<24;i++){float t=mix(t0s,tf,(float(i)+.5)/24.);vec3 p=ol+dl*t;float m=mk(p.xy).r;if(m>as){as=m;sp=p;}
+  if(m>.5){float lo=tp,hi=t;for(int j=0;j<5;j++){float md=(lo+hi)*.5;if(mk((ol+dl*md).xy).r>.5)hi=md;else lo=md;}sp=ol+dl*hi;break;}tp=t;}}
  bool face=af>=as;if(!face)hp=sp;
  float e=1.6/1024.;vec3 mh=mk(hp.xy),nl;float rim;
  if(face){vec2 g=vec2(mk(hp.xy+vec2(e,0.)).g-mk(hp.xy-vec2(e,0.)).g,mk(hp.xy+vec2(0.,e)).g-mk(hp.xy-vec2(0.,e)).g);
   nl=normalize(vec3(-g*2.6,-sign(dl.z)));rim=clamp(length(g)*1.9,0.,1.);}
  else{vec2 g=vec2(mk(hp.xy+vec2(e*4.,0.)).b-mk(hp.xy-vec2(e*4.,0.)).b,mk(hp.xy+vec2(0.,e*4.)).b-mk(hp.xy-vec2(0.,e*4.)).b);
   nl=normalize(vec3(-g+vec2(1e-5),0.));rim=.75;}
- vec3 n=normalize(X*nl.x+Y*nl.y+Z*nl.z);
- vec2 off=(n.xy*(face?.085:.2)-px*.16*mh.g-vec2(0.,.012))*uL/uR;
- vec3 c=vec3(pic(v+off*.92).r,pic(v+off).g,pic(v+off*1.08).b);
- float spc=pow(max(dot(n,normalize(vec3(-.45,-.62,.64))),0.),26.);
- c=face?c*1.14+.1+rim*.3+spc*.8*rim+vec3(.02,.04,.09)*mh.g:c*.82+.16+spc*.9+vec3(.03,.05,.1);
+ vec3 n=normalize(X*nl.x+Y*nl.y+Z*nl.z),r=reflect(d,n);
+ // chrome : un studio photo se reflète dans le métal (haut clair, bande sombre à l'horizon, bas gris, une boîte à lumière)
+ float up=-r.y;
+ vec3 env=vec3(.15)+vec3(.85)*smoothstep(-.2,.45,up)-.32*exp(-pow((up-.03)/.08,2.))+.4*exp(-pow((r.x+.35)/.2,2.))*step(0.,up);
+ env=clamp(env,0.,1.);
+ float spc=pow(max(dot(n,normalize(vec3(-.45,-.62,.64))),0.),30.);
+ vec3 c;
+ if(face){float fl=1.-rim;vec3 fc=mix(vec3(.98),vec3(.74),smoothstep(-.2,.25,hp.y))*(.88+.12*env.r);c=mix(env,fc,fl*fl)+spc*.5;}
+ else c=env*.8+spc*.3;
+ c*=vec3(.98,.99,1.03);
  float a=face?af:smoothstep(.35,.65,as);
  gl_FragColor=vec4(mix(base,c,a),1.);}`;
  const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return gl.getShaderParameter(o,gl.COMPILE_STATUS)?o:null};
@@ -94,7 +100,7 @@ void main(){
  let W=0,Hh=0,tall=false,base=1,maskOk=false,lost=false,last=0,raf=0,mx=0,my=0,tx=0,ty=0,key='';
  const mk=new Image();mk.onload=()=>{gl.activeTexture(gl.TEXTURE3);gl.texImage2D(G,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,mk);gl.generateMipmap(G);gl.texParameteri(G,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);maskOk=true;redraw()};mk.src=cv.dataset.m;
  function size(){const w=stage.clientWidth,h=stage.clientHeight,r=Math.min(devicePixelRatio||1,2,Math.sqrt(2.4e6/(w*h)));W=Math.round(w*r);Hh=Math.round(h*r);tall=w<h*.8;
-  if(cv.width!==W||cv.height!==Hh){cv.width=W;cv.height=Hh;gl.viewport(0,0,W,Hh)}gl.uniform2f(uR,W,Hh);base=tall?W*1.05:Math.min(W*.9,Hh*1.08,1020*r);key=''}
+  if(cv.width!==W||cv.height!==Hh){cv.width=W;cv.height=Hh;gl.viewport(0,0,W,Hh)}gl.uniform2f(uR,W,Hh);base=tall?W*.96:Math.min(W*.9,Hh*1.08,1020*r);key=''}
  const media=j=>{const g=figs[j],v=$('video',g),im=$('img',g);return v.readyState>=2&&v.videoWidth?v:im.complete&&im.naturalWidth?im:null};
  function upload(u,j){const s=media(j);if(!s)return!!cur[u];const v=s.tagName==='VIDEO';
   if(s!==cur[u]||(v&&!s.paused)){gl.activeTexture(gl.TEXTURE0+u);try{gl.texImage2D(G,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,s)}catch(e){return!!cur[u]}cur[u]=s;gl.uniform2f(uS[u],s.videoWidth||s.naturalWidth,s.videoHeight||s.naturalHeight);return 2}return 1}

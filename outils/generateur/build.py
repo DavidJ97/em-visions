@@ -66,7 +66,7 @@ EN2={'Faites bonne impression.':'Make a good impression.','Vêtements et objets 
 
 PJ={p['id']:p for p in json.load(open('produits.json'))}       # couleurs et zones d'impression, tirées du modélisateur (produits.json)
 def ff(up): return (f"@font-face{{font-family:'Archivo';font-weight:100 900;font-stretch:62% 125%;src:url({up}fonts/archivo-latin-wdth-normal.woff2) format('woff2')}}"
-                    f"@font-face{{font-family:'Instrument Serif';font-weight:400;font-display:swap;src:url({up}fonts/instrument-serif-latin-400-normal.woff2) format('woff2')}}")
+                    f"@font-face{{font-family:'Archivo';font-style:italic;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url({up}fonts/archivo-latin-wdth-italic.woff2) format('woff2')}}")
 EN2.update({'Maquette 3D':'3D mockup','Besoin d’aide':'Need help','Suivez-nous':'Follow us','Les choses sérieuses':'Serious stuff','produits':'products','produit':'product',
  'Vêtements et objets personnalisés, impression et design.':'Custom apparel and objects, printing and design.','Un atelier à Saint-Léonard, rue Jean-Talon Est':'A workshop in Saint-Léonard, on Jean-Talon Street East',
  'Autres liens':'More links'})

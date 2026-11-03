@@ -1,11 +1,11 @@
 /* EM Visions — version 2, d'après les références d'Eduardo (Palace, No Diploma, Dime, Yeezy, Just Like Hero) :
    une seule page, fond blanc, texte noir, une seule police sans décor, produits détourés dans une grille serrée.
    L'accueil reprend Palace : image plein écran, logo de verre par-dessus, menu flottant dans une pastille noire.
-   Le reste reprend Dime : grands titres en serif fin, liens en lettres ordinaires, petites étiquettes en capitales,
+   Le reste reprend Dime : grands intertitres (en capitales larges et penchées, comme le lettrage de la boutique), liens en lettres ordinaires, petites étiquettes en capitales,
    menu sur deux colonnes, pied de page en rangées, coins légèrement arrondis.
    Le bleu du site sert uniquement aux actions. Texte gardé assez gros pour une clientèle peu à l'aise avec Internet. */
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#fff;--ink:#000;--mut:#5f5f5f;--line:#000;--hair:#d9d9d9;--tile:#f3f3f3;--blue:#0a3cff;--link:#0a3cff;--err:#c4001f;--w:1480px;--serif:'Instrument Serif','Times New Roman',serif;--r:6px;--pad:clamp(16px,2.6vw,36px)}
+:root{--bg:#fff;--ink:#000;--mut:#5f5f5f;--line:#000;--hair:#d9d9d9;--tile:#f3f3f3;--blue:#0a3cff;--link:#0a3cff;--err:#c4001f;--w:1480px;--r:6px;--pad:clamp(16px,2.6vw,36px)}
 html[data-theme=dark]{--bg:#000;--ink:#fff;--mut:#a8a8a8;--line:#fff;--hair:#333;--tile:#141414;--link:#8aa1ff;--err:#ff7a8c}
 html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--ink);font:400 17px/1.45 Archivo,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
@@ -18,7 +18,8 @@ button,input,textarea,select{font:inherit;color:inherit}button{background:none;b
 .wrap{max-width:var(--w);margin:0 auto;padding-inline:var(--pad)}
 .ic{width:20px;height:20px;flex:none}
 .cap{font-weight:500;font-size:14.5px;letter-spacing:.03em;text-transform:uppercase}
-.big,.row h2,.fcard h3,.ok>b,.gal-i h2{font-family:var(--serif);font-weight:400;letter-spacing:-.012em;text-transform:none}
+/* intertitres : capitales larges, très grasses et penchées, comme le lettrage « EM CUSTOMDESIGN » de la boutique */
+.big,.row h2,.fcard h3,.ok>b,.gal-i h2{font-family:Archivo,Helvetica,Arial,sans-serif;font-style:italic;font-weight:900;font-stretch:115%;letter-spacing:-.02em;text-transform:uppercase;overflow-wrap:anywhere}
 .u{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}.u:hover{color:var(--link)}
 
 /* boutons */
@@ -65,12 +66,12 @@ button,input,textarea,select{font:inherit;color:inherit}button{background:none;b
 .pp{position:absolute;z-index:2;top:19px;right:var(--pad);width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:#000000a6;color:#fff;border:1px solid #ffffff38}
 .pp[hidden]{display:none}.pp .i-pl,.pp[aria-pressed=true] .i-pa{display:none}.pp[aria-pressed=true] .i-pl{display:block}
 .intro{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding-block:clamp(54px,8vw,110px)}
-.intro .big{font-size:clamp(38px,5.4vw,76px);line-height:1;max-width:15em}.intro .btn{margin-top:14px}
+.intro .big{font-size:clamp(24px,3.4vw,48px);line-height:1.05;max-width:20em}.intro .btn{margin-top:14px}
 
-/* chaque section : un grand titre en serif à gauche, une phrase, puis le contenu */
+/* chaque section : un grand intertitre à gauche, une phrase, puis le contenu */
 .row{padding-block:clamp(40px,5.5vw,84px) clamp(44px,6vw,88px);border-top:1px solid var(--hair)}
 .row>header{margin-bottom:clamp(22px,3vw,40px)}.row>header p{margin-top:12px;color:var(--mut);max-width:34em}
-.row h2{font-size:clamp(50px,7.6vw,108px);line-height:.95}
+.row h2{font-size:clamp(30px,7vw,92px);line-height:.95}
 .end{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center}
 
 /* services */
@@ -111,7 +112,7 @@ button,input,textarea,select{font:inherit;color:inherit}button{background:none;b
 .hours{margin-top:24px;border-top:1px solid var(--line)}
 .hours li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--hair)}
 .hours li.off{color:var(--mut)}.hours li.now{font-weight:600}.hours li.now span::before{content:"● ";color:var(--blue)}
-.fcard h3{font-size:clamp(34px,3.6vw,48px);line-height:1;margin-bottom:22px}
+.fcard h3{font-size:clamp(24px,2.6vw,34px);line-height:1;margin-bottom:22px}
 .f{display:block;margin-bottom:18px}.f2{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
 .f>span,.flab{display:block;font-weight:500;font-size:14.5px;letter-spacing:.03em;text-transform:uppercase;margin-bottom:6px}
 .f input,.f textarea,.f select{width:100%;min-height:54px;padding:13px 14px;border:1px solid #8f8f8f;border-radius:var(--r);background:var(--tile);font-size:17px}
@@ -128,7 +129,7 @@ button,input,textarea,select{font:inherit;color:inherit}button{background:none;b
 .send{width:100%;min-height:62px;font-size:16.5px;margin-top:8px}.send[disabled]{opacity:.6}
 .legal{margin-top:14px;font-size:14.5px;color:var(--mut)}.legal a{text-decoration:underline;text-underline-offset:3px}
 .ok[hidden],form[hidden]{display:none}
-.ok>b{display:block;font-size:clamp(54px,7vw,92px);line-height:1}.ok p{margin-top:12px;font-size:19px}.ok .nt{font-size:16.5px;color:var(--mut)}
+.ok>b{display:block;font-size:clamp(40px,5.6vw,76px);line-height:1}.ok p{margin-top:12px;font-size:19px}.ok .nt{font-size:16.5px;color:var(--mut)}
 .okb{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin-top:24px}
 
 /* pied de page : une rangée par sujet (étiquette à gauche, liens à droite), puis la mention légale et le logo */
@@ -150,7 +151,7 @@ html.dlg{overflow:hidden}
 .gal-m button{position:absolute;top:50%;margin-top:-24px;width:48px;height:48px;background:var(--bg);color:var(--ink);display:grid;place-items:center}
 .gal-m .pv{left:0}.gal-m .pv svg{transform:scaleX(-1)}.gal-m .nx{right:0}.gal-m button:hover{background:var(--blue);color:#fff}
 .gal-i>small{color:var(--mut);font-size:15px}
-.gal-i h2{margin-top:6px;font-size:clamp(40px,4.6vw,64px);line-height:.98}
+.gal-i h2{margin-top:6px;font-size:clamp(26px,3vw,42px);line-height:1}
 .gal-i>p{margin-top:12px;font-size:18px}
 .gal-t{display:flex;flex-wrap:wrap;gap:2px;margin-top:20px}
 .gal-t button{position:relative;width:72px;height:72px;overflow:hidden;opacity:.55}
