@@ -227,7 +227,7 @@ def head_seo(L,up):
       f'<meta property="og:url" content="{SITE_URL}{m["path"]}"><meta property="og:locale" content="{m["locale"]}"><meta property="og:locale:alternate" content="{o["locale"]}">'
       f'<meta property="og:image" content="{SITE_URL}/img/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{e(m["alt"])}">'
       f'<meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f6f6f3">'
-      f'<link rel="icon" href="{up}img/favicon.svg" type="image/svg+xml"><link rel="icon" href="{up}img/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="{up}img/apple-touch-icon.png">'
+      f'<link rel="icon" href="{up}img/favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="{up}img/favicon-64.png" sizes="64x64" type="image/png"><link rel="apple-touch-icon" href="{up}img/apple-touch-icon.png">'
       f'<script type="application/ld+json">{json.dumps(ld,ensure_ascii=False)}</script>')
 
 if __name__=='__main__':

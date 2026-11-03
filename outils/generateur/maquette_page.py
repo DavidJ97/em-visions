@@ -65,7 +65,7 @@ def page(L,logo_vb,logo_d):
       f'<meta name="description" content="{e(t["desc"])}"><link rel="canonical" href="{SITE_URL}{t["path"]}">'
       f'<link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/maquette/"><link rel="alternate" hreflang="en-CA" href="{SITE_URL}/en/mockup/">'
       f'<meta property="og:title" content="{e(t["title"])} — EM Visions"><meta property="og:description" content="{e(t["desc"])}"><meta property="og:image" content="{SITE_URL}/img/og.jpg">'
-      f'<link rel="icon" href="{up}img/favicon.svg" type="image/svg+xml"><link rel="icon" href="{up}img/favicon-32.png" sizes="32x32" type="image/png"><meta name="theme-color" content="#0a0a0a">'
+      f'<link rel="icon" href="{up}img/favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="{up}img/favicon-64.png" sizes="64x64" type="image/png"><meta name="theme-color" content="#0a0a0a">'
       f'<link rel="modulepreload" href="{up}vendor/three.module.min.js"><script>{HEADJS}</script><style>{ff}{CSS}</style></head><body>'
       f'<header><a class="logo" href="{t["home"]}" aria-label="EM Visions"><svg viewBox="{logo_vb}" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="{logo_d}"/></svg></a>'
       f'<nav><a href="{t["home"]}">← {e(t["back"])}</a><a href="{t["other"][1]}" hreflang="{t["other"][0].lower()}" lang="{t["other"][0].lower()}">{t["other"][0]}</a></nav></header>'

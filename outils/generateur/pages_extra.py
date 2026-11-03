@@ -92,7 +92,7 @@ def page(L,logo_vb,logo_d):
     return (f'<!doctype html><html lang="{L}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(t["title"])} — EM Visions</title>'
       f'<meta name="description" content="{e(t["desc"])}"><link rel="canonical" href="{SITE_URL}{t["path"]}">'
       f'<link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/confidentialite/"><link rel="alternate" hreflang="en-CA" href="{SITE_URL}/en/privacy/">'
-      f'<link rel="icon" href="{up}img/favicon.svg" type="image/svg+xml"><link rel="icon" href="{up}img/favicon-32.png" sizes="32x32" type="image/png"><meta name="theme-color" content="#ffffff">'
+      f'<link rel="icon" href="{up}img/favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="{up}img/favicon-64.png" sizes="64x64" type="image/png"><meta name="theme-color" content="#ffffff">'
       f'<script>{HEADJS}</script><style>{ff}{CSS}</style></head><body>'
       f'<header><a class="logo" href="{t["home"]}" aria-label="EM Visions"><svg viewBox="{logo_vb}" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="{logo_d}"/></svg></a>'
       f'<nav><a href="{t["home"]}">← {e(t["back"])}</a><a href="{t["other"][1]}" hreflang="{t["other"][0].lower()}" lang="{t["other"][0].lower()}">{t["other"][0]}</a></nav></header>'

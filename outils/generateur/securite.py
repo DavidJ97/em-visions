@@ -77,7 +77,7 @@ def write_404(logo_vb,logo_d,fontface,out='out'):
          'a{display:inline-flex;align-items:center;min-height:52px;padding:0 24px;border:1px solid #0a3cff;border-radius:6px;background:#0a3cff;color:#fff;text-decoration:none;font-weight:500;font-size:15px;letter-spacing:.04em;text-transform:uppercase}'
          'a.g{background:none;color:#000;border-color:#000}a:focus-visible{outline:3px solid #0a3cff;outline-offset:2px}')
     page=(f'<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">'
-          f'<title>Page introuvable — EM Visions</title><link rel="icon" href="/img/favicon.svg" type="image/svg+xml"><style>{fontface("/")}{css}</style></head><body><main>'
+          f'<title>Page introuvable — EM Visions</title><link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png"><style>{fontface("/")}{css}</style></head><body><main>'
           f'<svg viewBox="{logo_vb}" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="{logo_d}"/></svg>'
           f'<h1>Page introuvable</h1><p>Cette page n’existe pas ou a changé d’adresse.</p><p lang="en">This page does not exist or has moved.</p>'
           f'<div class="b"><a href="/">Retour à l’accueil</a><a class="g" href="/en/" lang="en">English</a></div></main></body></html>')
