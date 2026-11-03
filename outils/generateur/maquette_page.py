@@ -1,6 +1,7 @@
 """Page du modélisateur 3D : site/maquette/ (français) et site/en/mockup/ (anglais)."""
 import html as H, os, shutil, json, re
 from config import SITE_URL, fontface
+import securite
 T={'fr':{'path':'/maquette/','up':'../','app':'app.js','title':'Maquette 3D','h1':'Créez votre maquette','back':'Retour au site','other':('EN','../en/mockup/'),'home':'../','to':'../#contact',
   'desc':'Choisissez parmi une vingtaine de produits, posez votre image, faites-le pivoter en 3D et joignez la maquette à votre demande de devis.',
   'lead':'Choisissez un produit, posez votre image, faites-le pivoter, puis joignez la maquette à votre demande de devis.',
@@ -78,7 +79,7 @@ def page(L,logo_vb,logo_d):
       f'<div id="adj" hidden>{sl("size",t["size"],.15,1.8,.01,.9)}{sl("cx",t["x"],-1.2,1.2,.01,0)}{sl("cy",t["y"],-1.2,1.2,.01,0)}{sl("rot",t["rot"],-180,180,1,0)}<button type="button" class="rm" id="rm">{e(t["rm"])}</button></div>'
       f'<button type="button" class="cta" id="send" data-to="{t["to"]}">{e(t["send"])}<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
       f'<p class="prix">{e(t["prix"])}</p><p class="note">{e(t["note"])}</p>{credits(L)}</aside></main><div class="toast" id="toast" role="status"></div>'
-      f'<script type="module" src="{t["app"]}"></script></body></html>')
+      f'<script type="module" src="{t["app"]}"></script>{securite.banner(L,up,"../confidentialite/" if L=="fr" else "../privacy/")}</body></html>')
 def write(logo_vb,logo_d):
     for L,d in (('fr','out/maquette'),('en','out/en/mockup')):
         os.makedirs(d,exist_ok=True); open(d+'/index.html','w').write(page(L,logo_vb,logo_d))

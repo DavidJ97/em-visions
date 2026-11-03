@@ -7,6 +7,7 @@ Le site est produit par `build.py`. On ne modifie pas `site/` à la main : on ch
 | `build.py` | Construit la page principale en français (`site/`) et en anglais (`site/en/`), le plan du site et `robots.txt` |
 | `style.css`, `script.js` | La mise en page et les comportements de la page principale (insérés dans la page) |
 | `verre.py` | Prépare l'image du logo pour l'effet de verre de l'accueil (`img/logo-verre.webp`) ; à relancer seulement si le logo change |
+| `securite.py` | Bannière de témoins et Google Analytics (si `GA_ID` est rempli), en-têtes de sécurité `_headers` (CSP calculée sur les scripts des pages) et page 404 |
 | `config.py` | Tout ce qui risque de changer : courriel, heures, texte À propos, adresse du site |
 | `realisations.py` | La liste des projets montrés, avec leurs photos et leurs textes FR/EN |
 | `i18n.py` | Traductions anglaises communes ; les textes propres à la version 2 sont dans `build.py` (`EN2`) |

@@ -2,7 +2,8 @@
 Une seule page claire, en français (racine) et en anglais (/en/), plus le modélisateur 3D et la politique de confidentialité.
 Usage : python3 build.py   →   écrit le site dans out/"""
 import html as H, json, os, re
-from config import (SITE_URL, CONTACT_EMAIL, INSTAGRAM, HOURS, WEEK, ABOUT_FR, ABOUT_EN, FORM_ENDPOINT, fontface, _h)
+from config import (SITE_URL, CONTACT_EMAIL, INSTAGRAM, HOURS, WEEK, ABOUT_FR, ABOUT_EN, FORM_NAME, FILE_MAX_MB, fontface, _h)
+import securite
 from i18n import EN as EN1, SLUG
 import realisations as REA, loader
 
@@ -67,7 +68,7 @@ EN2={'Faites bonne impression.':'Make a good impression.','Vêtements et objets 
 PJ={p['id']:p for p in json.load(open('produits.json'))}       # couleurs et zones d'impression, tirées du modélisateur (produits.json)
 def ff(up): return (f"@font-face{{font-family:'Archivo';font-weight:100 900;font-stretch:62% 125%;src:url({up}fonts/archivo-latin-wdth-normal.woff2) format('woff2')}}"
                     f"@font-face{{font-family:'Archivo';font-style:italic;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url({up}fonts/archivo-latin-wdth-italic.woff2) format('woff2')}}")
-EN2.update({'Maquette 3D':'3D mockup','Besoin d’aide':'Need help','Suivez-nous':'Follow us','Les choses sérieuses':'Serious stuff','produits':'products','produit':'product',
+EN2.update({'JPG, PNG, PDF (max {n} Mo)':'JPG, PNG, PDF (max {n} MB)','Fichier trop lourd (max {n} Mo)':'File too large (max {n} MB)','Maquette 3D':'3D mockup','Besoin d’aide':'Need help','Suivez-nous':'Follow us','Les choses sérieuses':'Serious stuff','produits':'products','produit':'product',
  'Vêtements et objets personnalisés, impression et design.':'Custom apparel and objects, printing and design.','Un atelier à Saint-Léonard, rue Jean-Talon Est':'A workshop in Saint-Léonard, on Jean-Talon Street East',
  'Autres liens':'More links'})
 HERO=[('atelier','atelier-poster','L’atelier','Devanture de l’atelier EM Custom Design, rue Jean-Talon Est'),('ricova','rea-ricova','Ricova','Manteau de travail haute visibilité au logo Ricova'),
@@ -149,9 +150,11 @@ def build(L):
               f'<p>{e(ABOUT_EN if en else ABOUT_FR)}</p><ul class="team"><li><b>Eduardo Mazzonna</b><span>{e(t("Design graphique"))}</span></li><li><b>Vince Mariani</b><span>{e(t("Gestion de projets"))}</span></li></ul></div></div>')
 
     # ---------- contact
-    fattr=f' action="{FORM_ENDPOINT}" method="post" enctype="multipart/form-data" data-send="1"' if FORM_ENDPOINT else ''
-    fhid=('<input type="hidden" name="_subject" value="Demande de devis — site EM Visions"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false">'
-          '<input type="hidden" name="_next" value=""><input type="hidden" name="_replyto" value=""><input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">') if FORM_ENDPOINT else ''
+    # Netlify Forms : Netlify repère ce formulaire au déploiement (data-netlify) ; le champ « bot-field » piège les robots
+    fattr=f' name="{FORM_NAME}" method="post" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" data-send="netlify"'
+    fhid=(f'<input type="hidden" name="form-name" value="{FORM_NAME}"><input type="hidden" name="langue" value="{L}">'
+          '<input type="hidden" name="subject" value="Demande de devis — site EM Visions (%{submissionId})">'
+          '<p class="hp" aria-hidden="true"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>')
     def fld(n,lab,ctl): return f'<label class="f"><span>{e(t(lab))}</span>{ctl}<em class="err" data-err="{n}" aria-live="polite"></em></label>'
     if CONTACT_EMAIL:
         konote=t('Vos réponses sont conservées. Vous pouvez réessayer ou nous écrire directement par courriel.'); koalt=f'<a class="u cap bymail" data-mail="{CONTACT_EMAIL}" href="mailto:{CONTACT_EMAIL}">{e(t("Écrire par courriel"))}</a>'
@@ -160,12 +163,12 @@ def build(L):
     qopt=''.join(f'<option>{e(t(o))}</option>' for o in ('1 à 10','11 à 50','51 à 100','101 à 500','Plus de 500','Je ne sais pas encore'))
     form=(f'<div class="fcard"><h3>{e(t("Demande de devis"))}</h3><form id="devis" novalidate{fattr}>{fhid}'
           +'<div class="f2">'+fld('nom','Nom *',f'<input name="nom" type="text" autocomplete="name" maxlength="150" required>')
-          +fld('courriel','Courriel *',f'<input name="courriel" type="email" autocomplete="email" inputmode="email" required>')+'</div>'
+          +fld('email','Courriel *',f'<input name="email" type="email" autocomplete="email" inputmode="email" required>')+'</div>'
           +fld('projet','Votre projet *',f'<textarea name="projet" rows="4" maxlength="5000" placeholder="{e(t("Ex. : 50 t-shirts avec notre logo, cartes d’affaires, enseigne…"))}" required></textarea>')
           +'<div class="f2">'+fld('qte','Quantité approximative',f'<select name="qte"><option value="">{e(t("Sélectionnez une option"))}</option>{qopt}</select>')
           +fld('echeance','Échéance','<input name="echeance" type="date">')+'</div>'
           +f'<div class="f"><span class="flab" id="fl-lab">{e(t("Joindre un visuel"))}</span><label class="drop"><input type="file" name="fichier" aria-labelledby="fl-lab" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf">'
-          f'<b data-fl>{e(t("Choisir un fichier"))}</b><small data-fh>{e(t("JPG, PNG, PDF (max 10 Mo)"))}</small></label><em class="err" data-err="fichier" aria-live="polite"></em>'
+          f'<b data-fl>{e(t("Choisir un fichier"))}</b><small data-fh>{e(t("JPG, PNG, PDF (max {n} Mo)").replace("{n}",str(FILE_MAX_MB)))}</small></label><em class="err" data-err="fichier" aria-live="polite"></em>'
           f'<p class="fnote"><a class="u" href="{tool}">{e(t("ou créer une maquette 3D"))}</a></p></div>'
           f'<button type="submit" class="btn send">{e(t("Envoyer ma demande"))}</button>'
           f'<p class="legal">{e(t("En soumettant ce formulaire, vous nous permettez de vous contacter concernant votre demande."))} <a href="{priv}">{e(t("Politique de confidentialité"))}</a></p></form>'
@@ -184,7 +187,7 @@ def build(L):
           +frow('Besoin d’aide',[f'<a href="#contact">{e(NAV["contact"][en])}</a>',f'<a href="https://www.google.com/maps/dir/?api=1&destination=5825+rue+Jean-Talon+Est%2C+Saint-L%C3%A9onard%2C+QC+H1S+1M4" target="_blank" rel="noopener">{e(t("Itinéraire"))}</a>',
                                  f'<a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>' if CONTACT_EMAIL else ''])
           +frow('Suivez-nous',[f'<a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a>'])
-          +frow('Les choses sérieuses',[f'<a href="{priv}">{e(t("Politique de confidentialité"))}</a>'])
+          +frow('Les choses sérieuses',[f'<a href="{priv}">{e(t("Politique de confidentialité"))}</a>',securite.link(L)])
           +f'<div class="ft-b"><p>© EM Custom Design {YEAR}. {e(t("Tous droits réservés."))}<br>5825, rue Jean-Talon Est, Saint-Léonard</p><a class="logo" href="#{sid("accueil")}" aria-label="EM Visions">{logo}</a></div></div></footer>')
     gal=(f'<div class="gal" id="gal" hidden role="dialog" aria-modal="true"><div class="gal-h"><div><button type="button" class="cap u gal-x" data-g="close">← {e(t("Retour aux réalisations"))}</button>'
          f'<button type="button" class="cap" data-g="close">{e(t("Fermer"))}</button></div></div><div class="gal-b"></div></div>')
@@ -195,7 +198,7 @@ def build(L):
     TR={'dark':t('Passer au thème sombre'),'light':t('Passer au thème clair'),'pause':t('Mettre la vidéo en pause'),'play':t('Relancer la vidéo'),
         'prevPhoto':t('Photo précédente'),'nextPhoto':t('Photo suivante'),'prevProject':t('Projet précédent'),'nextProject':t('Projet suivant'),'photo':t('Photo '),'video':t('Vidéo '),
         'similarBtn':t('Demander un devis semblable'),'similar':t('Projet semblable à : '),'priceReq':t('Demande de prix : '),
-        'eName':t('Indiquez votre nom'),'eMail':t('Courriel invalide'),'eProj':t('Décrivez votre projet'),'eFmt':t('Format non accepté : JPG, PNG ou PDF'),'eSize':t('Fichier trop lourd (max 10 Mo)'),
+        'eName':t('Indiquez votre nom'),'eMail':t('Courriel invalide'),'eProj':t('Décrivez votre projet'),'eFmt':t('Format non accepté : JPG, PNG ou PDF'),'eSize':t('Fichier trop lourd (max {n} Mo)').replace('{n}',str(FILE_MAX_MB)),'fmax':FILE_MAX_MB*1000000,
         'mbChange':t(' Mo — toucher pour changer'),'dec':'.' if en else ',','sending':t('Envoi en cours…'),'ref':t('Référence : '),'name':t('Nom'),'mail':t('Courriel'),'qty':t('Quantité approximative'),'due':t('Échéance'),
         'subject':t('Demande de devis'),'mockAdded':t('Maquette 3D ajoutée à votre demande.')}
     js=open('script.js').read().replace('%TR%',json.dumps(TR,ensure_ascii=False)).replace('%RL%',json.dumps(RL,ensure_ascii=False))
@@ -204,7 +207,7 @@ def build(L):
     return (f'<!doctype html><html lang="{L}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">{head_seo(L,up)}<script>{headjs}</script>'
             f'<style>{ff(up)}{css}{loader.CSS}</style></head><body>{loader.html(LOGO_VB)}<a class="sr skip" href="#{sid("services")}">{e(t("Aller au contenu"))}</a>'
             f'<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="emlogo" viewBox="{LOGO_VB}"><path fill="currentColor" fill-rule="evenodd" d="{LOGO_D}"/></symbol></defs></svg>'
-            f'{head}<main>{hero}{services}{real}{cat}{about}{contact}</main>{foot}{gal}<div class="toast" id="toast" role="status"></div><script>{js}</script></body></html>')
+            f'{head}<main>{hero}{services}{real}{cat}{about}{contact}</main>{foot}{gal}<div class="toast" id="toast" role="status"></div><script>{js}</script>{securite.banner(L,up,priv)}</body></html>')
 
 SEO={'fr':{'path':'/','locale':'fr_CA','title':'EM Visions — Vêtements et objets personnalisés à Saint-Léonard, Montréal',
            'desc':'Atelier à Saint-Léonard (Montréal) : vêtements et objets personnalisés, impression, design graphique, impression 3D et sites web. Demandez un devis.',
@@ -238,4 +241,6 @@ if __name__=='__main__':
        (('/maquette/','/en/mockup/'),X((('fr-CA','/maquette/'),('en-CA','/en/mockup/'))))]
     open('out/sitemap.xml','w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
         +''.join(f'<url><loc>{SITE_URL}{p}</loc>{a}</url>\n' for ps,a in G for p in ps)+'</urlset>\n')
+    securite.write_consent(); securite.write_404(LOGO_VB,LOGO_D,fontface)
+    securite.write_headers()      # en dernier : la CSP reprend les scripts de toutes les pages écrites
     print('site écrit :',len(fr)//1024,'Ko par page')

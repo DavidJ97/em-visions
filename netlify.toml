@@ -1,0 +1,5 @@
+# Hébergement Netlify du site EM Visions (version 2).
+# Le site est déjà construit dans site/ par outils/generateur/build.py : Netlify le publie tel quel.
+# Les en-têtes de sécurité sont dans site/_headers (générés par securite.py).
+[build]
+  publish = "site"

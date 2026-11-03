@@ -169,26 +169,25 @@ const step=()=>{};
 
 const SENT=new URLSearchParams(location.search).has('envoye');if(SENT)history.replaceState(null,'',location.pathname+location.hash);
 addEventListener('pageshow',e=>{if(e.persisted)$('[type=submit]',form).disabled=false});
-const MSG={nom:T.eName,courriel:T.eMail,projet:T.eProj},N=['nom','courriel','projet'];
+const MSG={nom:T.eName,email:T.eMail,projet:T.eProj},N=['nom','email','projet'];
 function chk(n,showIt){const el=F(n),v=el.value.trim();let bad=false;
- if(n==='nom')bad=!v;if(n==='courriel')bad=!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);if(n==='projet')bad=!v;
+ if(n==='nom')bad=!v;if(n==='email')bad=!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);if(n==='projet')bad=!v;
  if(showIt){el.closest('.f').classList.toggle('bad',bad);ERR(n).textContent=bad?MSG[n]:'';el.setAttribute('aria-invalid',bad)}return !bad}
 N.forEach(n=>{const el=F(n);el.addEventListener('blur',()=>{if(el.value)chk(n,true)});el.addEventListener('input',()=>{if(el.closest('.f').classList.contains('bad'))chk(n,true)})});
 const fl=F('fichier'),fname=$('[data-fl]',form),fhint=$('[data-fh]',form),ft=[fname.textContent,fhint.textContent];
 function chkFile(){const e=ERR('fichier'),f=fl.files[0];e.textContent='';if(!f){fname.textContent=ft[0];fhint.textContent=ft[1];return true}
  if(!/\.(jpe?g|png|pdf)$/i.test(f.name)){fl.value='';chkFile();e.textContent=T.eFmt;return false}
- if(f.size>10000000){fl.value='';chkFile();e.textContent=T.eSize;return false}
+ if(f.size>T.fmax){fl.value='';chkFile();e.textContent=T.eSize;return false}
  fname.textContent=f.name.length>40?f.name.slice(0,37)+'…':f.name;fhint.textContent=(f.size/1e6).toFixed(1).replace('.',T.dec)+T.mbChange;return true}
 fl.addEventListener('change',chkFile);
 const reveal=el=>{el.hidden=false;el.focus({preventScroll:true});$('.fcard').scrollIntoView({block:'start'})};
 form.addEventListener('submit',async e=>{e.preventDefault();const r=N.map(n=>chk(n,true));if(r.includes(false)){F(N[r.indexOf(false)]).focus();return}
  const btn=$('[type=submit]',form);btn.disabled=true;toast(T.sending);
- if(form.dataset.send){F('_next').value=location.origin+location.pathname+'?envoye=1#contact';F('_replyto').value=F('courriel').value.trim();form.submit();return}
- let sent=false;try{const ac=new AbortController(),to=setTimeout(()=>ac.abort(),20000);const res=await fetch('/api/demandes',{method:'POST',body:new FormData(form),signal:ac.signal});clearTimeout(to);if(!res.ok)throw 0;sent=true;
-  let ref='';try{ref=(await res.json()).reference||''}catch(_){}$('.ref',ok).textContent=ref?T.ref+ref:''}catch(_){}
+ // Netlify Forms reçoit la demande (avec le fichier) à l'adresse du site ; pas d'en-tête Content-Type : le navigateur le met lui-même
+ let sent=false;try{const ac=new AbortController(),to=setTimeout(()=>ac.abort(),30000);const res=await fetch('/',{method:'POST',body:new FormData(form),signal:ac.signal});clearTimeout(to);if(!res.ok)throw 0;sent=true}catch(_){}
  btn.disabled=false;form.hidden=true;toastEl.classList.remove('on');
  if(sent){step(2);reveal(ok)}else{const v=n=>F(n).value.trim();
-  const body=[T.name+' : '+v('nom'),T.mail+' : '+v('courriel'),T.qty+' : '+(v('qte')||'—'),T.due+' : '+(v('echeance')||'—'),'',v('projet')].join('\n');
+  const body=[T.name+' : '+v('nom'),T.mail+' : '+v('email'),T.qty+' : '+(v('qte')||'—'),T.due+' : '+(v('echeance')||'—'),'',v('projet')].join('\n');
   const bm=$('.bymail',ko);if(bm&&bm.dataset.mail)bm.href='mailto:'+bm.dataset.mail+'?subject='+encodeURIComponent(T.subject+' — '+v('nom'))+'&body='+encodeURIComponent(body);reveal(ko)}});
 if(SENT){form.hidden=true;ok.hidden=false;step(2)}
 $('.again',ok).onclick=()=>{form.reset();chkFile();form.hidden=false;ok.hidden=true;step(0);F('nom').focus()};

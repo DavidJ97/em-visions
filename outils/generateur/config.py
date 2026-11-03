@@ -1,10 +1,11 @@
 """Réglages du site EM Visions. Tout ce qui risque de changer est ici."""
 import os
-# Adresse du site : à remplacer par le vrai domaine au lancement.
-SITE_URL=os.environ.get('SITE_URL','https://davidj97.github.io/em-visions/site').rstrip('/')
+# Adresse du site (le domaine de la boutique).
+SITE_URL=os.environ.get('SITE_URL','https://emvisions.ca').rstrip('/')
 # Courriel qui reçoit les demandes de devis. None tant que la nouvelle adresse n'existe pas
 # (info@emvisions.ca rebondit). Dès qu'il est rempli : il apparaît dans le pied de page et la
-# politique de confidentialité, et le formulaire envoie les demandes à cette adresse.
+# politique de confidentialité. Les demandes elles-mêmes passent par Netlify Forms (voir plus bas) :
+# l'adresse qui les reçoit se règle dans Netlify (Forms > Form notifications), pas ici.
 CONTACT_EMAIL=os.environ.get('CONTACT_EMAIL') or None
 INSTAGRAM='https://instagram.com/visionsem'
 # Heures d'ouverture — À CONFIRMER avec EM (sûr à 90 %). Le samedi est soit midi–14 h, soit
@@ -30,16 +31,21 @@ ABOUT_EN='Open since the pandemic, EM Visions is a Saint-Léonard workshop handl
 # Politique de confidentialité (Loi 25). Par défaut, la loi désigne la personne qui dirige l'entreprise.
 PRIVACY_OFFICER='Eduardo Mazzonna'
 RETENTION_YEARS=2          # durée de conservation des demandes sans suite
-POLICY_DATE=('5 octobre 2026','October 5, 2026')
-FORM_SERVICE='FormSubmit'  # service qui achemine le formulaire vers le courriel
-# Envoi du formulaire de devis. Avec CONTACT_EMAIL rempli, les demandes partent par FormSubmit
-# (formsubmit.co) vers cette adresse. À la première demande, FormSubmit envoie un courriel de
-# confirmation à cliquer une fois ; il fournit alors un code à coller ici à la place de l'adresse
-# pour ne pas l'exposer dans le code de la page : FORM_ENDPOINT='https://formsubmit.co/<code>'.
-FORM_ENDPOINT=os.environ.get('FORM_ENDPOINT') or (f'https://formsubmit.co/{CONTACT_EMAIL}' if CONTACT_EMAIL else None)
+POLICY_DATE=('3 novembre 2026','November 3, 2026')
+# Formulaire de devis : Netlify Forms (le site est hébergé chez Netlify). Netlify repère le formulaire
+# au déploiement, garde les demandes (avec la pièce jointe), filtre le pourriel (Akismet) et les envoie
+# par courriel. Limite de Netlify : 8 Mo par envoi, d'où le fichier limité à 7 Mo.
+FORM_NAME='devis'
+FILE_MAX_MB=7
+# Mesure d'audience : identifiant Google Analytics 4 (« G-XXXXXXXXXX »). Vide = aucune mesure, aucun
+# témoin, pas de bannière. Rempli = bannière de consentement (Loi 25) : Google Analytics ne se charge
+# qu'après « Accepter », et le choix peut être changé en tout temps (lien « Témoins » du pied de page).
+GA_ID=os.environ.get('GA_ID') or None
+CONSENT_MONTHS=12          # le choix est redemandé après ce délai
 
 # Deux polices pour tout le site : Sekuya (titres) et Archivo (tout le reste, en largeur normale ou étroite).
 def fontface(up='',swap=True):
     d='font-display:swap;' if swap else ''
     return (f"@font-face{{font-family:'Sekuya';font-weight:400;{d}src:url({up}fonts/sekuya-latin-400-normal.woff2) format('woff2')}}"
-            f"@font-face{{font-family:'Archivo';font-weight:100 900;font-stretch:62% 125%;{d}src:url({up}fonts/archivo-latin-wdth-normal.woff2) format('woff2')}}")
+            f"@font-face{{font-family:'Archivo';font-weight:100 900;font-stretch:62% 125%;{d}src:url({up}fonts/archivo-latin-wdth-normal.woff2) format('woff2')}}"
+            f"@font-face{{font-family:'Archivo';font-style:italic;font-weight:100 900;font-stretch:62% 125%;{d}src:url({up}fonts/archivo-latin-wdth-italic.woff2) format('woff2')}}")
