@@ -1,7 +1,7 @@
 /* EM Visions — version 2, d'après les références d'Eduardo (Palace, No Diploma, Dime, Yeezy, Just Like Hero) :
    une seule page, fond blanc, texte noir, une seule police sans décor, produits détourés dans une grille serrée.
    L'accueil reprend Palace : image plein écran, logo de verre par-dessus, menu flottant dans une pastille noire.
-   Le reste reprend Dime : grands intertitres (en capitales larges et penchées, comme le lettrage de la boutique), liens en lettres ordinaires, petites étiquettes en capitales,
+   Le reste reprend Dime : grands intertitres (en capitales larges et très grasses, comme le lettrage de la boutique), liens en lettres ordinaires, petites étiquettes en capitales,
    menu sur deux colonnes, pied de page en rangées, coins légèrement arrondis.
    Le bleu du site sert uniquement aux actions. Texte gardé assez gros pour une clientèle peu à l'aise avec Internet. */
 *{box-sizing:border-box;margin:0;padding:0}
@@ -18,8 +18,8 @@ button,input,textarea,select{font:inherit;color:inherit}button{background:none;b
 .wrap{max-width:var(--w);margin:0 auto;padding-inline:var(--pad)}
 .ic{width:20px;height:20px;flex:none}
 .cap{font-weight:500;font-size:14.5px;letter-spacing:.03em;text-transform:uppercase}
-/* intertitres : capitales larges, très grasses et penchées, comme le lettrage « EM CUSTOMDESIGN » de la boutique */
-.big,.row h2,.fcard h3,.ok>b,.gal-i h2{font-family:Archivo,Helvetica,Arial,sans-serif;font-style:italic;font-weight:900;font-stretch:115%;letter-spacing:-.02em;text-transform:uppercase;overflow-wrap:anywhere}
+/* intertitres : capitales larges et très grasses, comme le lettrage « EM CUSTOMDESIGN » de la boutique (droites, sans italique) */
+.big,.row h2,.fcard h3,.ok>b,.gal-i h2{font-family:Archivo,Helvetica,Arial,sans-serif;font-weight:900;font-stretch:115%;letter-spacing:-.02em;text-transform:uppercase;overflow-wrap:anywhere}
 .u{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}.u:hover{color:var(--link)}
 
 /* boutons */

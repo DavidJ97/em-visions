@@ -5,7 +5,7 @@ import html as H, json, os, re
 from config import (SITE_URL, CONTACT_EMAIL, INSTAGRAM, HOURS, WEEK, ABOUT_FR, ABOUT_EN, FORM_NAME, FILE_MAX_MB, fontface, _h)
 import securite
 from i18n import EN as EN1, SLUG
-import realisations as REA, loader
+import realisations as REA
 
 LOGO_VB=open('logo_vb.txt').read().strip(); LOGO_D=open('logo_path.txt').read().strip()
 ORDER=['accueil','services','realisations','catalogue','a-propos','contact']
@@ -203,9 +203,9 @@ def build(L):
         'subject':t('Demande de devis'),'mockAdded':t('Maquette 3D ajoutée à votre demande.')}
     js=open('script.js').read().replace('%TR%',json.dumps(TR,ensure_ascii=False)).replace('%RL%',json.dumps(RL,ensure_ascii=False))
     css=open('style.css').read()
-    headjs='(function(){var t;try{t=localStorage.getItem("em-theme")}catch(e){}document.documentElement.dataset.theme=t==="dark"?"dark":"light"})();'+loader.HEAD
+    headjs='(function(){var t;try{t=localStorage.getItem("em-theme")}catch(e){}document.documentElement.dataset.theme=t==="dark"?"dark":"light"})();'
     return (f'<!doctype html><html lang="{L}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">{head_seo(L,up)}<script>{headjs}</script>'
-            f'<style>{ff(up)}{css}{loader.CSS}</style></head><body>{loader.html(LOGO_VB)}<a class="sr skip" href="#{sid("services")}">{e(t("Aller au contenu"))}</a>'
+            f'<style>{ff(up)}{css}</style></head><body><a class="sr skip" href="#{sid("services")}">{e(t("Aller au contenu"))}</a>'
             f'<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="emlogo" viewBox="{LOGO_VB}"><path fill="currentColor" fill-rule="evenodd" d="{LOGO_D}"/></symbol></defs></svg>'
             f'{head}<main>{hero}{services}{real}{cat}{about}{contact}</main>{foot}{gal}<div class="toast" id="toast" role="status"></div><script>{js}</script>{securite.banner(L,up,priv)}</body></html>')
 

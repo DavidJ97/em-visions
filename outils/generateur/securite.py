@@ -14,7 +14,7 @@ TXT={'fr':{'t':'Témoins (cookies)','p':'Nous aimerions compter les visites du s
            'y':'Accept','n':'Decline','more':'Learn more','link':'Cookies'}}
 CSS=('.consent{position:fixed;left:12px;right:12px;bottom:12px;z-index:70;max-width:560px;margin:0 auto;background:#fff;color:#000;border:1px solid #000;border-radius:6px;'
      'padding:18px 18px 16px;box-shadow:0 10px 40px #0004;font:400 16px/1.45 Archivo,Helvetica,Arial,sans-serif}.consent[hidden]{display:none}'
-     '.consent h2{font:italic 900 17px/1.1 Archivo,Helvetica,Arial,sans-serif;font-stretch:115%;text-transform:uppercase;letter-spacing:-.01em;margin:0 0 8px;padding:0;border:0}'
+     '.consent h2{font:900 17px/1.1 Archivo,Helvetica,Arial,sans-serif;font-stretch:115%;text-transform:uppercase;letter-spacing:-.01em;margin:0 0 8px;padding:0;border:0}'
      '.consent p{margin:0;max-width:none}.consent a{color:#000;text-decoration:underline;text-underline-offset:3px}'
      '.consent-b{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}'
      '.consent-b button{min-height:50px;border:1px solid #000;border-radius:6px;background:#000;color:#fff;font:500 15px Archivo,Helvetica,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}'
@@ -72,7 +72,7 @@ def write_404(logo_vb,logo_d,fontface,out='out'):
     e=H.escape
     css=('*{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;display:grid;place-items:center;background:#fff;color:#000;font:400 17px/1.45 Archivo,Helvetica,Arial,sans-serif;padding:24px}'
          'main{max-width:640px;text-align:center}svg{width:180px;height:auto;display:block;margin:0 auto 34px}'
-         'h1{font:italic 900 clamp(34px,8vw,64px)/1 Archivo,Helvetica,Arial,sans-serif;font-stretch:115%;letter-spacing:-.02em;text-transform:uppercase}'
+         'h1{font:900 clamp(34px,8vw,64px)/1 Archivo,Helvetica,Arial,sans-serif;font-stretch:115%;letter-spacing:-.02em;text-transform:uppercase}'
          'p{margin-top:14px;color:#5f5f5f}.b{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:28px}'
          'a{display:inline-flex;align-items:center;min-height:52px;padding:0 24px;border:1px solid #0a3cff;border-radius:6px;background:#0a3cff;color:#fff;text-decoration:none;font-weight:500;font-size:15px;letter-spacing:.04em;text-transform:uppercase}'
          'a.g{background:none;color:#000;border-color:#000}a:focus-visible{outline:3px solid #0a3cff;outline-offset:2px}')

@@ -80,7 +80,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:16px;ma
 .logo{display:block;width:130px;height:62px;color:var(--fg)}.logo svg{width:100%;height:100%;display:block}
 nav{display:flex;gap:22px;align-items:center;font-weight:500;font-size:14.5px;letter-spacing:.03em;text-transform:uppercase}nav a{color:var(--fg);text-decoration:none}nav a:hover{text-decoration:underline}
 main{max-width:760px;margin:0 auto;padding:34px 20px 90px}
-h1,h2{font-style:italic;font-weight:900;font-stretch:115%;letter-spacing:-.02em;text-transform:uppercase;text-wrap:balance}
+h1,h2{font-weight:900;font-stretch:115%;letter-spacing:-.02em;text-transform:uppercase;text-wrap:balance}
 h1{font-size:clamp(30px,6.4vw,52px);line-height:1}
 .date{color:var(--mut);font-size:14.5px;margin-top:22px}.lead{font-size:19px;line-height:1.55;margin-top:14px}
 h2{font-size:20px;line-height:1.2;margin-top:40px;padding-top:22px;border-top:1px solid var(--line)}
