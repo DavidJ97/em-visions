@@ -47,5 +47,4 @@ CONSENT_MONTHS=12          # le choix est redemandé après ce délai
 def fontface(up='',swap=True):
     d='font-display:swap;' if swap else ''
     return (f"@font-face{{font-family:'Sekuya';font-weight:400;{d}src:url({up}fonts/sekuya-latin-400-normal.woff2) format('woff2')}}"
-            f"@font-face{{font-family:'Archivo';font-weight:100 900;font-stretch:62% 125%;{d}src:url({up}fonts/archivo-latin-wdth-normal.woff2) format('woff2')}}"
-            f"@font-face{{font-family:'Archivo';font-style:italic;font-weight:100 900;font-stretch:62% 125%;{d}src:url({up}fonts/archivo-latin-wdth-italic.woff2) format('woff2')}}")
+            f"@font-face{{font-family:'Archivo';font-weight:100 900;font-stretch:62% 125%;{d}src:url({up}fonts/archivo-latin-wdth-normal.woff2) format('woff2')}}")
