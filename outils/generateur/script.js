@@ -27,14 +27,16 @@ if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.fo
 // accueil : le logo chromé tourne sur lui-même ; à chaque tour, la vidéo de fond change (en fondu).
 // Les vidéos ne jouent que si l'appareil et la connexion s'y prêtent ; le bouton pause arrête tout.
 const hero=$('.hero'),stage=$('.stage'),figs=$$('.strip figure'),pp=$('.pp'),kNum=$('.hero-k span'),kName=$('.hero-k b'),NS=figs.length,TOUR=9;
-let stopped=false,inView=true,scene=0,next=NS>1?1:0,mixK=0,clock=0,redraw=()=>{},glOn=false;
+// les vidéos et l'animation du logo attendent que la page soit affichée et chargée, pour ne pas la ralentir
+let ready=false,stopped=false,inView=true,scene=0,next=NS>1?1:0,mixK=0,clock=0,redraw=()=>{},glOn=false;
 const vid=j=>$('video',figs[j]),pad=j=>String(j+1).padStart(2,'0'),ease=x=>{x=Math.min(1,Math.max(0,x));return x*x*(3-2*x)};
 function scenes(){const c=clock/TOUR,f=c-Math.floor(c),i=Math.floor(c)%NS;scene=i;next=(i+1)%NS;mixK=NS>1?ease((f-.4)/.2):0;
  const k=mixK>.5?next:scene;if(kNum.textContent!==pad(k)){kNum.textContent=pad(k);kName.textContent=figs[k].dataset.n;figs.forEach((g,j)=>g.classList.toggle('cur',j===k))}
  videos()}
-function videos(){if(RM||LITE)return;pp.hidden=false;figs.forEach((g,j)=>{const v=vid(j),want=inView&&(j===scene||j===next);
+function videos(){if(RM||LITE||!ready)return;pp.hidden=false;figs.forEach((g,j)=>{const v=vid(j),want=inView&&(j===scene||j===next);
  if(want&&!v.src)v.src=v.dataset.src;if(want&&!stopped){if(v.paused)v.play().catch(()=>{})}else if(v.src&&!v.paused)v.pause()})}
 scenes();
+const go=()=>setTimeout(()=>{ready=true;videos();redraw()},600);D.readyState==='complete'?go():addEventListener('load',go,{once:true});
 if('IntersectionObserver' in window)new IntersectionObserver(es=>{inView=es[0].isIntersecting;videos();redraw()}).observe(hero);
 pp.onclick=()=>{stopped=!stopped;videos();pp.setAttribute('aria-pressed',stopped);pp.setAttribute('aria-label',stopped?T.play:T.pause);redraw()};
 // sans WebGL : les vidéos changent quand même à chaque « tour »
@@ -99,7 +101,7 @@ void main(){
  const uS=[U('uS0'),U('uS1')],uR=U('uR'),uC=U('uC'),uL=U('uL'),uA=U('uA'),uB=U('uB'),uK=U('uK'),cur=[null,null];
  let W=0,Hh=0,tall=false,base=1,maskOk=false,lost=false,last=0,raf=0,mx=0,my=0,tx=0,ty=0,key='';
  const mk=new Image();mk.onload=()=>{gl.activeTexture(gl.TEXTURE3);gl.texImage2D(G,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,mk);gl.generateMipmap(G);gl.texParameteri(G,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);maskOk=true;redraw()};mk.src=cv.dataset.m;
- function size(){const w=stage.clientWidth,h=stage.clientHeight,r=Math.min(devicePixelRatio||1,2,Math.sqrt(2.4e6/(w*h)));W=Math.round(w*r);Hh=Math.round(h*r);tall=w<h*.8;
+ function size(){const w=stage.clientWidth,h=stage.clientHeight,r=Math.min(devicePixelRatio||1,1.5,Math.sqrt(1.8e6/(w*h)));W=Math.round(w*r);Hh=Math.round(h*r);tall=w<h*.8;
   if(cv.width!==W||cv.height!==Hh){cv.width=W;cv.height=Hh;gl.viewport(0,0,W,Hh)}gl.uniform2f(uR,W,Hh);base=tall?W*.96:Math.min(W*.9,Hh*1.08,1020*r);key=''}
  const media=j=>{const g=figs[j],v=$('video',g),im=$('img',g);return v.readyState>=2&&v.videoWidth?v:im.complete&&im.naturalWidth?im:null};
  function upload(u,j){const s=media(j);if(!s)return!!cur[u];const v=s.tagName==='VIDEO';
@@ -113,7 +115,7 @@ void main(){
   gl.uniform2f(uC,.5+(live?mx*.08:0),(tall?.31:.44)+(live?my*.06:0));gl.uniform1f(uL,base);
   gl.drawArrays(gl.TRIANGLES,0,3);hero.classList.add('on');glOn=true}
  function loop(t){raf=0;if(last&&!stopped&&!RM){clock+=Math.min(.05,(t-last)/1000);scenes()}last=t;draw();play()}
- function play(){if(!raf&&inView&&!D.hidden)raf=requestAnimationFrame(loop);else if(!raf)last=0}
+ function play(){if(!raf&&ready&&inView&&!D.hidden)raf=requestAnimationFrame(loop);else if(!raf)last=0}
  redraw=()=>{size();draw();play()};
  figs.forEach(f=>{$('img',f).addEventListener('load',redraw);$('video',f).addEventListener('loadeddata',redraw)});
  addEventListener('resize',redraw);D.addEventListener('visibilitychange',redraw);

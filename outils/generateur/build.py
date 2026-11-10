@@ -66,7 +66,7 @@ EN2={'Faites bonne impression.':'Make a good impression.','Vêtements et objets 
  'Instagram':'Instagram','Fournisseur : ':'Supplier: ','Navigation principale':'Main navigation','Voir le projet : ':'View the project: ','Langue':'Language'}
 
 PJ={p['id']:p for p in json.load(open('produits.json'))}       # couleurs et zones d'impression, tirées du modélisateur (produits.json)
-def ff(up): return (f"@font-face{{font-family:'Archivo';font-weight:100 900;font-stretch:62% 125%;src:url({up}fonts/archivo-latin-wdth-normal.woff2) format('woff2')}}")
+def ff(up): return (f"@font-face{{font-family:'Archivo';font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url({up}fonts/archivo-latin-wdth-normal.woff2) format('woff2')}}")
 EN2.update({'JPG, PNG, PDF (max {n} Mo)':'JPG, PNG, PDF (max {n} MB)','Fichier trop lourd (max {n} Mo)':'File too large (max {n} MB)','Maquette 3D':'3D mockup','Besoin d’aide':'Need help','Suivez-nous':'Follow us','Les choses sérieuses':'Serious stuff','produits':'products','produit':'product',
  'Vêtements et objets personnalisés, impression et design.':'Custom apparel and objects, printing and design.','Un atelier à Saint-Léonard, rue Jean-Talon Est':'A workshop in Saint-Léonard, on Jean-Talon Street East',
  'Autres liens':'More links'})
@@ -122,12 +122,12 @@ def build(L):
           f'<a class="btn ghost" href="#{sid("catalogue")}">{e(t("Voir les produits"))}</a></div>')
 
     # ---------- services
-    svc=''.join(f'<li><img src="{up}img/svc-{i+1}.webp" alt="{e(t(a))}" loading="lazy" width="800" height="600"><h3><span aria-hidden="true">{i+1:02d}</span>{e(t(n))}</h3><p>{e(t(d))}</p></li>' for i,(n,d,a) in enumerate(SVC))
+    svc=''.join(f'<li><img src="{up}img/svc-{i+1}-640.webp" srcset="{up}img/svc-{i+1}-640.webp 640w, {up}img/svc-{i+1}.webp 900w" sizes="(max-width:560px) 100vw, (max-width:1040px) 50vw, 33vw" alt="{e(t(a))}" loading="lazy" decoding="async" width="800" height="600"><h3><span aria-hidden="true">{i+1:02d}</span>{e(t(n))}</h3><p>{e(t(d))}</p></li>' for i,(n,d,a) in enumerate(SVC))
     services=row('services','Six services sous un même toit.',f'<ul class="svc">{svc}</ul>')
 
     # ---------- réalisations
     R=REA.REAL
-    works=''.join(f'<li{" hidden" if i>=SHOWN else ""}><button type="button" data-i="{i}" aria-label="{e(t("Voir le projet : ")+tn(r["n"]))}"><span class="im"><img src="{up}{r["ph"][0]["s"]}" alt="{e(t(r["ph"][0]["a"]))}" loading="lazy" width="540" height="540"></span>'
+    works=''.join(f'<li{" hidden" if i>=SHOWN else ""}><button type="button" data-i="{i}"><span class="sr">{e(t("Voir le projet : "))}</span><span class="im"><img src="{up}{r["ph"][0]["s"]}" alt="" loading="lazy" width="540" height="540"></span>'
                   f'<b>{e(tn(r["n"]))}</b><small>{e(t(r["k"]))}</small></button></li>' for i,r in enumerate(R))
     real=row('realisations','Touchez un projet pour voir ses photos.',f'<ul class="grid works">{works}</ul>'
              +(f'<div class="end"><button type="button" class="btn ghost" id="more">{e(t("Voir les {n} réalisations").replace("{n}",str(len(R))))}</button></div>' if len(R)>SHOWN else ''))
@@ -203,7 +203,7 @@ def build(L):
     js=open('script.js').read().replace('%TR%',json.dumps(TR,ensure_ascii=False)).replace('%RL%',json.dumps(RL,ensure_ascii=False))
     css=open('style.css').read()
     headjs='(function(){var t;try{t=localStorage.getItem("em-theme")}catch(e){}document.documentElement.dataset.theme=t==="dark"?"dark":"light"})();'
-    return (f'<!doctype html><html lang="{L}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">{head_seo(L,up)}<script>{headjs}</script>'
+    return (f'<!doctype html><html lang="{L}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="preload" href="{up}fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>{head_seo(L,up)}<script>{headjs}</script>'
             f'<style>{ff(up)}{css}</style></head><body><a class="sr skip" href="#{sid("services")}">{e(t("Aller au contenu"))}</a>'
             f'<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="emlogo" viewBox="{LOGO_VB}"><path fill="currentColor" fill-rule="evenodd" d="{LOGO_D}"/></symbol></defs></svg>'
             f'{head}<main>{hero}{services}{real}{cat}{about}{contact}</main>{foot}{gal}<div class="toast" id="toast" role="status"></div><script>{js}</script>{securite.banner(L,up,priv)}</body></html>')
