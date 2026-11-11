@@ -55,7 +55,9 @@ button,input,textarea,select{font:inherit;color:inherit}button{background:none;b
 .strip{position:absolute;inset:0}
 .strip figure{position:absolute;inset:0;opacity:0;transition:opacity .6s}.strip figure.cur{opacity:1}
 .strip img,.strip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.glass{position:absolute;left:50%;top:44%;width:min(80vw,96vh,900px);transform:translate(-50%,-50%);color:#fff;opacity:.9;filter:drop-shadow(0 2px 14px #0008)}
+/* le logo chromé en image fixe : affiché au départ, pendant les pauses et sans WebGL ; même place et même taille que le logo 3D */
+.glass{position:absolute;left:50%;top:44%;width:min(90%,108vh,1020px);height:auto;transform:translate(-50%,-50%);pointer-events:none}
+@media (max-aspect-ratio:4/5){.glass{top:31%;width:96%}}
 .gl{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s}
 .hero.on .gl{opacity:1}.hero.on .glass{visibility:hidden}.hero.on .strip figure{opacity:1;transition:none}
 .stage::after{content:"";position:absolute;inset:auto 0 0;height:48%;background:linear-gradient(#0000,#000000b8);pointer-events:none}
@@ -177,7 +179,7 @@ html.dlg{overflow:hidden}
 }
 @media (max-width:560px){
  .works,.prods{grid-template-columns:repeat(2,minmax(0,1fr))}.svc{grid-template-columns:minmax(0,1fr);gap:26px}
- .hero h1{font-size:clamp(30px,9.6vw,58px)}.hero .btn{max-width:8.6em;padding-inline:12px;font-size:14px;line-height:1.15}.hero-b{gap:12px}.hero-b>div{flex:1 1 0;min-width:5.2em;font-size:clamp(30px,9.6vw,58px)}.hero-b>div h1{font-size:1em}.glass{top:31%;width:92vw}
+ .hero h1{font-size:clamp(30px,9.6vw,58px)}.hero .btn{max-width:8.6em;padding-inline:12px;font-size:14px;line-height:1.15}.hero-b{gap:12px}.hero-b>div{flex:1 1 0;min-width:5.2em;font-size:clamp(30px,9.6vw,58px)}.hero-b>div h1{font-size:1em}
  .intro .btn,.end .btn{width:100%}.f2{grid-template-columns:1fr}.grid{gap:24px 2px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

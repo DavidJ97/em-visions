@@ -1,6 +1,6 @@
 # En-têtes envoyés par Netlify (généré par securite.py, ne pas modifier à la main)
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-KwCL5s2wEWNpjElUAobjTNRBKGLcWZfsjLNVAtV/XOc=' 'sha256-MdLLUjdcVRguES6J1WywgJ4Izjo+cCeF0RL/FrgM3To=' 'sha256-msPD6bRc4y28DUjwhqbidC3cEqIC3sr1fH6kR7/AdU8=' 'sha256-zm4rxwpuIgSBIrJ99ltNVIPR9K+4gXYtHsdFifpdzyI='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-MdLLUjdcVRguES6J1WywgJ4Izjo+cCeF0RL/FrgM3To=' 'sha256-N6pZtmKaKFDEokWnLuje391CfMKSRnNuBPuyg3FDneE=' 'sha256-biGy5lJoyshrLLI+3IO8aGWzg6tD6rOVycRFMJfzRV8=' 'sha256-msPD6bRc4y28DUjwhqbidC3cEqIC3sr1fH6kR7/AdU8='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()

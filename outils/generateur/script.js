@@ -36,7 +36,10 @@ function scenes(){const c=clock/TOUR,f=c-Math.floor(c),i=Math.floor(c)%NS;scene=
 function videos(){if(RM||LITE||!ready)return;pp.hidden=false;figs.forEach((g,j)=>{const v=vid(j),want=inView&&(j===scene||j===next);
  if(want&&!v.src)v.src=v.dataset.src;if(want&&!stopped){if(v.paused)v.play().catch(()=>{})}else if(v.src&&!v.paused)v.pause()})}
 scenes();
-const go=()=>setTimeout(()=>{ready=true;videos();redraw()},600);D.readyState==='complete'?go():addEventListener('load',go,{once:true});
+// le logo 3D ne démarre que 8 s après le chargement : la page est entièrement prête avant (le logo fixe, identique, est affiché d'ici là)
+const glass=$('.glass'),place=()=>{const w=stage.clientWidth,h=stage.clientHeight,tall=w<h*.8;glass.style.width=(tall?w*.96:Math.min(w*.9,h*1.08,1020))+'px';glass.style.top=(tall?31:44)+'%'};
+place();addEventListener('resize',place);
+const go=()=>{setTimeout(()=>{ready=true;videos();redraw()},600);if(!RM)setTimeout(startGL,8000)};D.readyState==='complete'?go():addEventListener('load',go,{once:true});
 if('IntersectionObserver' in window)new IntersectionObserver(es=>{inView=es[0].isIntersecting;videos();redraw()}).observe(hero);
 pp.onclick=()=>{stopped=!stopped;videos();pp.setAttribute('aria-pressed',stopped);pp.setAttribute('aria-label',stopped?T.play:T.pause);redraw()};
 // sans WebGL : les vidéos changent quand même à chaque « tour »
@@ -44,7 +47,7 @@ if(!RM)setInterval(()=>{if(!glOn&&!stopped&&inView&&!D.hidden){clock=(Math.floor
 
 // le logo chromé : un logo épais en vrai 3D, en métal poli, dessiné dans un canvas par-dessus l'image de fond.
 // Sans WebGL, le logo blanc posé sur l'image reste en place.
-(function(){
+function startGL(){(function(){
  const cv=$('.gl');let gl;try{gl=cv.getContext('webgl',{alpha:false,antialias:false,powerPreference:'low-power'})}catch(e){}
  if(!gl)return;
  const VS='attribute vec2 p;varying vec2 v;void main(){v=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}';
@@ -99,35 +102,39 @@ void main(){
   gl.texParameteri(G,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(G,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texImage2D(G,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0,255]))}
  [0,1,3].forEach(tex);gl.uniform1i(U('uM'),3);gl.uniform1i(U('uT0'),0);gl.uniform1i(U('uT1'),1);
  const uS=[U('uS0'),U('uS1')],uR=U('uR'),uC=U('uC'),uL=U('uL'),uA=U('uA'),uB=U('uB'),uK=U('uK'),cur=[null,null];
- let W=0,Hh=0,tall=false,base=1,maskOk=false,lost=false,last=0,raf=0,mx=0,my=0,tx=0,ty=0,key='';
+ let W=0,Hh=0,tall=false,base=1,maskOk=false,lost=false,last=0,raf=0,spinT=0,resting=false,mx=0,my=0,tx=0,ty=0,key='';
  const mk=new Image();mk.onload=()=>{gl.activeTexture(gl.TEXTURE3);gl.texImage2D(G,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,mk);gl.generateMipmap(G);gl.texParameteri(G,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);maskOk=true;redraw()};mk.src=cv.dataset.m;
  function size(){const w=stage.clientWidth,h=stage.clientHeight,r=Math.min(devicePixelRatio||1,1.5,Math.sqrt(1.8e6/(w*h)));W=Math.round(w*r);Hh=Math.round(h*r);tall=w<h*.8;
   if(cv.width!==W||cv.height!==Hh){cv.width=W;cv.height=Hh;gl.viewport(0,0,W,Hh)}gl.uniform2f(uR,W,Hh);base=tall?W*.96:Math.min(W*.9,Hh*1.08,1020*r);key=''}
  const media=j=>{const g=figs[j],v=$('video',g),im=$('img',g);return v.readyState>=2&&v.videoWidth?v:im.complete&&im.naturalWidth?im:null};
  function upload(u,j){const s=media(j);if(!s)return!!cur[u];const v=s.tagName==='VIDEO';
   if(s!==cur[u]||(v&&!s.paused)){gl.activeTexture(gl.TEXTURE0+u);try{gl.texImage2D(G,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,s)}catch(e){return!!cur[u]}cur[u]=s;gl.uniform2f(uS[u],s.videoWidth||s.naturalWidth,s.videoHeight||s.naturalHeight);return 2}return 1}
- function draw(){if(lost||!maskOk)return;
+ function draw(){if(lost||!maskOk||resting)return;
   const live=!RM,s0=upload(0,scene),s1=next!==scene?upload(1,next):1;if(!s0)return;
   mx+=(tx-mx)*.08;my+=(ty-my)*.08;
   // le logo tourne pendant 30 s (3 tours, départ et arrêt en douceur), reste de face 2 minutes, puis recommence ; les vidéos de fond changent toutes les 9 s
-  const ph=clock%(SPIN+PAUSE),A=live?(ph<SPIN?ease(ph/SPIN)*Math.PI*2*TOURS:0)+mx*.9:0,B=live?.06-my*.55:.06;
+  const A=live?(spinT<SPIN?ease(spinT/SPIN)*Math.PI*2*TOURS:0)+mx*.9:0,B=live?.06-my*.55:.06;
   const k=[A.toFixed(4),B.toFixed(4),mixK.toFixed(3),mx.toFixed(3),my.toFixed(3),W,Hh].join();if(k===key&&s0!==2&&s1!==2)return;key=k;
   gl.uniform1f(uA,A);gl.uniform1f(uB,B);gl.uniform1f(uK,next!==scene?mixK:0);
   gl.uniform2f(uC,.5+(live?mx*.08:0),(tall?.31:.44)+(live?my*.06:0));gl.uniform1f(uL,base);
   gl.drawArrays(gl.TRIANGLES,0,3);hero.classList.add('on');glOn=true}
  // 30 images par seconde suffisent pour un logo qui tourne lentement : deux fois moins de travail pour le téléphone
- function loop(t){raf=0;if(last&&t-last<31){play();return}if(last&&!stopped&&!RM){clock+=Math.min(.1,(t-last)/1000);scenes()}last=t;draw();play()}
- function play(){if(!raf&&ready&&inView&&!D.hidden)raf=requestAnimationFrame(loop);else if(!raf)last=0}
+ function loop(t){raf=0;if(last&&t-last<31){play();return}if(last&&!stopped&&!RM){const dt=Math.min(.1,(t-last)/1000);clock+=dt;spinT+=dt;scenes()}last=t;
+  if(spinT>=SPIN){tx=ty=0;if(spinT>=SPIN+1.2)return rest()}draw();play()}
+ // pause de 2 minutes : on retire le canvas (le logo fixe, identique, reste visible) et le téléphone ne fait plus de 3D ; puis nouveau tour
+ function rest(){resting=true;glOn=false;hero.classList.remove('on');last=0;setTimeout(wake,PAUSE*1000)}
+ function wake(){if(stopped||D.hidden||!inView){setTimeout(wake,5000);return}resting=false;spinT=0;key='';last=0;draw();play()}
+ function play(){if(!raf&&ready&&!resting&&inView&&!D.hidden)raf=requestAnimationFrame(loop);else if(!raf)last=0}
  redraw=()=>{size();draw();play()};
  figs.forEach(f=>{$('img',f).addEventListener('load',redraw);$('video',f).addEventListener('loadeddata',redraw)});
  addEventListener('resize',redraw);D.addEventListener('visibilitychange',redraw);
- if(!RM){const at=(x,y)=>{tx=x/innerWidth-.5;ty=y/innerHeight-.5;play()},home=()=>{tx=ty=0;play()};
+ if(!RM){const at=(x,y)=>{if(spinT>=SPIN)return;tx=x/innerWidth-.5;ty=y/innerHeight-.5;play()},home=()=>{tx=ty=0;play()};
   stage.addEventListener('pointermove',e=>{if(e.pointerType==='mouse')at(e.clientX,e.clientY)});stage.addEventListener('pointerleave',home);
   stage.addEventListener('touchstart',e=>at(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
   stage.addEventListener('touchmove',e=>at(e.touches[0].clientX,e.touches[0].clientY),{passive:true});stage.addEventListener('touchend',home)}
  cv.addEventListener('webglcontextlost',e=>{e.preventDefault();lost=true;glOn=false;hero.classList.remove('on')});
  redraw();
-})();
+})()}
 
 // heures : la ligne d'aujourd'hui (heure de Montréal)
 try{const DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Date().toLocaleDateString('en-US',{weekday:'short',timeZone:'America/Toronto'}));$$('.hours li[data-d="'+DN+'"]').forEach(e=>e.classList.add('now'))}catch(e){}
