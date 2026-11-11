@@ -297,7 +297,8 @@ void main(){
   gl.uniform1f(uA,A);gl.uniform1f(uB,B);gl.uniform1f(uK,next!==scene?mixK:0);
   gl.uniform2f(uC,.5+(live?mx*.08:0),(tall?.31:.44)+(live?my*.06:0));gl.uniform1f(uL,base);
   gl.drawArrays(gl.TRIANGLES,0,3);hero.classList.add('on');glOn=true}
- function loop(t){raf=0;if(last&&!stopped&&!RM){clock+=Math.min(.05,(t-last)/1000);scenes()}last=t;draw();play()}
+ // 30 images par seconde suffisent pour un logo qui tourne lentement : deux fois moins de travail pour le téléphone
+ function loop(t){raf=0;if(last&&t-last<31){play();return}if(last&&!stopped&&!RM){clock+=Math.min(.1,(t-last)/1000);scenes()}last=t;draw();play()}
  function play(){if(!raf&&ready&&inView&&!D.hidden)raf=requestAnimationFrame(loop);else if(!raf)last=0}
  redraw=()=>{size();draw();play()};
  figs.forEach(f=>{$('img',f).addEventListener('load',redraw);$('video',f).addEventListener('loadeddata',redraw)});
