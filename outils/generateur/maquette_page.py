@@ -28,7 +28,7 @@ nav{display:flex;gap:22px;align-items:center;font-weight:500;font-size:14.5px;le
 .ld{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--bg);color:var(--fg);padding:10px 18px;border-radius:6px;border:1px solid var(--line);font-size:14.5px;z-index:1}.ld[hidden]{display:none}
 .cap{position:absolute;left:24px;bottom:20px;right:24px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;pointer-events:none}
 .cap b{font:900 clamp(20px,2.3vw,30px)/1.05 Archivo,sans-serif;font-stretch:115%;text-transform:uppercase;letter-spacing:-.02em}.cap b small{display:block;font:400 14px/1.4 Archivo,sans-serif;text-transform:none;color:var(--mut);letter-spacing:0;margin-top:4px}
-.cap i{font-style:normal;font-size:13px;color:var(--mut);display:flex;gap:8px;align-items:center;white-space:nowrap}
+.cap i{font-style:normal;font-size:14px;color:var(--fg);background:var(--bg);padding:5px 12px;border-radius:999px;display:flex;gap:8px;align-items:center;white-space:nowrap}
 .panel{overflow:auto;padding:28px 26px 40px;border-left:1px solid var(--line)}
 h1{font:900 clamp(24px,2.4vw,32px)/1 Archivo,sans-serif;font-stretch:115%;text-transform:uppercase;letter-spacing:-.02em}
 .lead{color:var(--mut);margin-top:12px;font-size:16px}
@@ -46,10 +46,11 @@ h2{display:flex;align-items:center;gap:12px;font:500 14.5px/1 Archivo,sans-serif
 .cta{margin-top:30px;width:100%;background:var(--blue);color:#fff;border:0;border-radius:6px;padding:18px;min-height:56px;font:500 15px Archivo,sans-serif;letter-spacing:.04em;text-transform:uppercase;display:flex;justify-content:center;gap:12px;align-items:center}.cta:hover{background:#000}html[data-theme=dark] .cta:hover{background:#fff;color:#000}.cta:disabled{opacity:.6}
 .prix{font-size:14.5px;font-weight:500;margin-top:14px}.note{color:var(--mut);font-size:13px;margin-top:14px}
 .credits{margin-top:18px;color:var(--mut);font-size:12.5px}.credits summary{cursor:pointer;padding:6px 0;text-decoration:underline;text-underline-offset:3px}.credits ul{list-style:none;margin-top:8px;display:grid;gap:4px}.credits a{color:inherit}.credits p{margin-top:6px}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--blue);color:#fff;font:500 15px Archivo,sans-serif;padding:12px 20px;border-radius:6px;opacity:0;transition:.3s;z-index:9;pointer-events:none;max-width:90vw;text-align:center}.toast.on{opacity:1;transform:translateX(-50%)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--blue);color:#fff;font:500 15px Archivo,sans-serif;padding:12px 20px;border-radius:6px;opacity:0;transition:opacity .3s,transform .3s;z-index:9;pointer-events:none;max-width:90vw;text-align:center}.toast.on{opacity:1;transform:translateX(-50%)}
 @media (max-width:900px){html,body{height:auto}header{padding:8px 16px;height:64px}.logo{width:104px;height:48px}.wrap{display:block;height:auto}
  .stagebox{position:sticky;top:0;height:44vh;min-height:280px;z-index:2;border-bottom:1px solid var(--line)}.panel{border-left:0}.cap{left:16px;right:16px;bottom:12px}.cap i{display:none}
- .panel{border-left:0;border-top:0;padding:22px 16px 48px;overflow:visible}.prods{grid-template-columns:repeat(4,1fr);gap:6px}}'''
+ .panel{border-left:0;border-top:0;padding:22px 16px 48px;overflow:visible}.prods{grid-template-columns:repeat(4,1fr);gap:6px}}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}'''
 HEADJS='(function(){let t;try{t=localStorage.getItem("em-theme")}catch(e){}if(t!=="light"&&t!=="dark")t="light";document.documentElement.dataset.theme=t})()'
 def credits(L):
     """Mention exigée par la licence CC BY : titre, auteur, lien vers l'original, pour chaque modèle utilisé."""
@@ -64,8 +65,9 @@ def page(L,logo_vb,logo_d):
     sl=lambda k,lab,mn,mx,st,v:f'<label class="sl"><span>{e(lab)}</span><input type="range" id="s-{k}" min="{mn}" max="{mx}" step="{st}" value="{v}"></label>'
     return (f'<!doctype html><html lang="{L}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(t["title"])} — EM Visions</title>'
       f'<meta name="description" content="{e(t["desc"])}"><link rel="canonical" href="{SITE_URL}{t["path"]}">'
-      f'<link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/maquette/"><link rel="alternate" hreflang="en-CA" href="{SITE_URL}/en/mockup/">'
-      f'<meta property="og:title" content="{e(t["title"])} — EM Visions"><meta property="og:description" content="{e(t["desc"])}"><meta property="og:image" content="{SITE_URL}/img/og.jpg">'
+      f'<link rel="alternate" hreflang="fr-CA" href="{SITE_URL}/maquette/"><link rel="alternate" hreflang="en-CA" href="{SITE_URL}/en/mockup/"><link rel="alternate" hreflang="x-default" href="{SITE_URL}/maquette/">'
+      f'<meta property="og:type" content="website"><meta property="og:site_name" content="EM Visions"><meta property="og:url" content="{SITE_URL}{t["path"]}"><meta property="og:locale" content="{"fr_CA" if L=="fr" else "en_CA"}"><meta property="og:locale:alternate" content="{"en_CA" if L=="fr" else "fr_CA"}">'
+      f'<meta property="og:title" content="{e(t["title"])} — EM Visions"><meta property="og:description" content="{e(t["desc"])}"><meta property="og:image" content="{SITE_URL}/img/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="EM Visions"><meta name="twitter:card" content="summary_large_image">'
       f'<link rel="icon" href="{up}img/favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="{up}img/favicon-64.png" sizes="64x64" type="image/png"><meta name="theme-color" content="#ffffff">'
       f'<link rel="modulepreload" href="{up}vendor/three.module.min.js"><script>{HEADJS}</script><style>{ff}{CSS}</style></head><body>'
       f'<header><a class="logo" href="{t["home"]}" aria-label="EM Visions"><svg viewBox="{logo_vb}" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="{logo_d}"/></svg></a>'

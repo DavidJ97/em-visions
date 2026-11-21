@@ -8,7 +8,7 @@ const toastEl=$('#toast');let tt;function toast(m){toastEl.textContent=m;toastEl
 
 // thème clair ou sombre (clair par défaut)
 function setTheme(t,save){H.dataset.theme=t;$$('.tog').forEach(b=>b.setAttribute('aria-label',t==='dark'?T.light:T.dark));
- const m=$('meta[name=theme-color]');if(m)m.content=t==='dark'?'#0a0a0a':'#f6f6f3';if(save){try{localStorage.setItem('em-theme',t)}catch(e){}}}
+ const m=$('meta[name=theme-color]');if(m)m.content=t==='dark'?'#000000':'#ffffff';if(save){try{localStorage.setItem('em-theme',t)}catch(e){}}}
 setTheme(H.dataset.theme==='dark'?'dark':'light');$$('.tog').forEach(b=>b.onclick=()=>setTheme(H.dataset.theme==='dark'?'light':'dark',true));
 
 // menu du cellulaire

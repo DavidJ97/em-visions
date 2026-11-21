@@ -7,7 +7,9 @@ SITE_URL=os.environ.get('SITE_URL','https://emvisions.ca').rstrip('/')
 # politique de confidentialité. Les demandes elles-mêmes passent par Netlify Forms (voir plus bas) :
 # l'adresse qui les reçoit se règle dans Netlify (Forms > Form notifications), pas ici.
 CONTACT_EMAIL=os.environ.get('CONTACT_EMAIL') or None
-INSTAGRAM='https://instagram.com/visionsem'
+INSTAGRAM='https://www.instagram.com/visionsem/'
+# date de la dernière modification du contenu (plan du site, <lastmod>) : à changer quand le contenu change
+CONTENT_DATE='2026-11-21'
 # Heures d'ouverture — À CONFIRMER avec EM (sûr à 90 %). Le samedi est soit midi–14 h, soit
 # 10 h–14 h : on affiche midi–14 h, la plage commune aux deux. Mettre HOURS=None pour les masquer.
 HOURS=[(['Monday','Tuesday','Wednesday','Thursday','Friday'],'09:00','17:00'),(['Saturday'],'12:00','14:00')]
