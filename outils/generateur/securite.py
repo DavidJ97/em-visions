@@ -109,10 +109,11 @@ def csp(out='out'):
 
 PERMS='accelerometer=(), camera=(), cross-origin-isolated=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(self), usb=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(), hid=(), idle-detection=(), serial=(), unload=(), browsing-topics=()'
 
-# Politique de sécurité de /admin (Decap CMS) : parle à GitHub (contenu, photos) et à Netlify (connexion GitHub).
-ADMIN_CSP="; ".join(["default-src 'self'","script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval'","style-src 'self' 'unsafe-inline'",   # unsafe-eval : exigé par Decap (validation de la configuration), seulement sur /admin
-    "img-src 'self' data: blob: https://avatars.githubusercontent.com https://raw.githubusercontent.com","font-src 'self' data:",
-    "connect-src 'self' blob: data: https://api.github.com https://api.netlify.com"+(" http://localhost:8081" if os.environ.get('ADMIN_LOCAL')=='1' else ""),"worker-src 'self' blob:","frame-src 'self' blob:",
+# Politique de sécurité de /admin (Sveltia CMS) : parle à GitHub (contenu, photos) et à Netlify (connexion GitHub) ;
+# icônes de l'interface (police Material Symbols, cdn.jsdelivr.net) et traduction française (unpkg.com), dossiers précis seulement.
+ADMIN_CSP="; ".join(["default-src 'self'","script-src 'self' 'wasm-unsafe-eval'","style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: blob: https://avatars.githubusercontent.com https://raw.githubusercontent.com","font-src 'self' data: https://cdn.jsdelivr.net/fontsource/fonts/",
+    "connect-src 'self' blob: data: https://api.github.com https://api.netlify.com https://unpkg.com/@sveltia/cms@0.262.1/locales/ https://www.githubstatus.com/api/v2/status.json","worker-src 'self' blob:","frame-src 'self' blob:",
     "object-src 'none'","base-uri 'none'","form-action 'none'","frame-ancestors 'none'","upgrade-insecure-requests"])
 # Pages du site (pas /admin) : Netlify additionne les règles qui visent une même adresse, donc la politique des pages
 # n'est pas mise sur /* (elle s'ajouterait à celle de /admin et la bloquerait).

@@ -12,579 +12,595 @@
    "deleteMedia": "Contenu : photo {{path}} retirée (admin)"
   }
  },
- "locale": "fr",
+ "app_title": "EM Visions — Administration",
+ "logo": {
+  "src": "/img/icon-512.png"
+ },
  "site_url": "https://emvisions.ca",
  "display_url": "https://emvisions.ca",
- "logo_url": "/img/icon-512.png",
  "show_preview_links": false,
+ "editor": {
+  "preview": false
+ },
  "media_folder": "contenu/images",
  "public_folder": "/img/contenu",
- "slug": {
-  "encoding": "ascii",
-  "clean_accents": true
+ "media_libraries": {
+  "default": {
+   "config": {
+    "max_file_size": 30000000,
+    "transformations": {
+     "raster_image": {
+      "format": "webp",
+      "quality": 85,
+      "width": 2400,
+      "height": 2400
+     }
+    }
+   }
+  },
+  "stock_assets": {
+   "providers": []
+  }
  },
- "collections": [
+ "singletons": [
   {
-   "name": "site",
-   "label": "Site",
-   "editor": {
-    "preview": false
-   },
-   "delete": false,
-   "files": [
+   "name": "coordonnees",
+   "icon": "call",
+   "label": "Coordonnées",
+   "file": "contenu/coordonnees.json",
+   "fields": [
     {
-     "name": "coordonnees",
-     "label": "Coordonnées",
-     "file": "contenu/coordonnees.json",
-     "fields": [
-      {
-       "name": "telephone",
-       "label": "Téléphone",
-       "widget": "string",
-       "required": false,
-       "hint": "Ex. : (514) 244-9810. Laissé vide : aucun numéro sur le site."
-      },
-      {
-       "name": "courriel",
-       "label": "Courriel public",
-       "widget": "string",
-       "required": false,
-       "pattern": [
-        "^$|^[^@\\s]+@[^@\\s]+\\.[a-zA-Z]{2,}$",
-        "Adresse courriel invalide"
-       ],
-       "hint": "Affiché dans le pied de page et la politique de confidentialité. Laissé vide : aucun courriel affiché."
-      },
-      {
-       "name": "instagram",
-       "label": "Lien Instagram",
-       "widget": "string",
-       "required": true,
-       "pattern": [
-        "^https://(www\\.)?instagram\\.com/[A-Za-z0-9._/-]+$",
-        "Doit commencer par https://www.instagram.com/"
-       ],
-       "hint": "Adresse complète, ex. : https://www.instagram.com/visionsem/"
-      }
-     ]
+     "name": "telephone",
+     "label": "Téléphone",
+     "widget": "string",
+     "required": false,
+     "hint": "Ex. : (514) 244-9810. Laissé vide : aucun numéro sur le site."
     },
     {
-     "name": "heures",
-     "label": "Heures d’ouverture",
-     "file": "contenu/heures.json",
+     "name": "courriel",
+     "label": "Courriel public",
+     "widget": "string",
+     "required": false,
+     "pattern": [
+      "^$|^[^@\\s]+@[^@\\s]+\\.[a-zA-Z]{2,}$",
+      "Adresse courriel invalide"
+     ],
+     "hint": "Affiché dans le pied de page et la politique de confidentialité. Laissé vide : aucun courriel affiché."
+    },
+    {
+     "name": "instagram",
+     "label": "Lien Instagram",
+     "widget": "string",
+     "required": true,
+     "pattern": [
+      "^https://(www\\.)?instagram\\.com/[A-Za-z0-9._/-]+$",
+      "Doit commencer par https://www.instagram.com/"
+     ],
+     "hint": "Adresse complète, ex. : https://www.instagram.com/visionsem/"
+    }
+   ]
+  },
+  {
+   "name": "heures",
+   "icon": "schedule",
+   "label": "Heures d’ouverture",
+   "file": "contenu/heures.json",
+   "fields": [
+    {
+     "name": "afficher",
+     "label": "Afficher les heures sur le site",
+     "widget": "boolean",
+     "default": true,
+     "required": false
+    },
+    {
+     "name": "lundi",
+     "label": "Lundi",
+     "widget": "object",
+     "collapsed": false,
+     "summary": "{{fields.de}} – {{fields.a}}",
      "fields": [
       {
-       "name": "afficher",
-       "label": "Afficher les heures sur le site",
+       "name": "ouvert",
+       "label": "Ouvert",
        "widget": "boolean",
-       "default": true,
+       "default": false,
        "required": false
       },
       {
-       "name": "lundi",
-       "label": "Lundi",
-       "widget": "object",
-       "collapsed": false,
-       "fields": [
-        {
-         "name": "ouvert",
-         "label": "Ouvert",
-         "widget": "boolean",
-         "default": false,
-         "required": false
-        },
-        {
-         "name": "de",
-         "label": "Ouverture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 09:00"
-        },
-        {
-         "name": "a",
-         "label": "Fermeture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 17:00"
-        }
-       ]
+       "name": "de",
+       "label": "Ouverture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 09:00"
       },
       {
-       "name": "mardi",
-       "label": "Mardi",
-       "widget": "object",
-       "collapsed": false,
-       "fields": [
-        {
-         "name": "ouvert",
-         "label": "Ouvert",
-         "widget": "boolean",
-         "default": false,
-         "required": false
-        },
-        {
-         "name": "de",
-         "label": "Ouverture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 09:00"
-        },
-        {
-         "name": "a",
-         "label": "Fermeture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 17:00"
-        }
-       ]
-      },
-      {
-       "name": "mercredi",
-       "label": "Mercredi",
-       "widget": "object",
-       "collapsed": false,
-       "fields": [
-        {
-         "name": "ouvert",
-         "label": "Ouvert",
-         "widget": "boolean",
-         "default": false,
-         "required": false
-        },
-        {
-         "name": "de",
-         "label": "Ouverture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 09:00"
-        },
-        {
-         "name": "a",
-         "label": "Fermeture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 17:00"
-        }
-       ]
-      },
-      {
-       "name": "jeudi",
-       "label": "Jeudi",
-       "widget": "object",
-       "collapsed": false,
-       "fields": [
-        {
-         "name": "ouvert",
-         "label": "Ouvert",
-         "widget": "boolean",
-         "default": false,
-         "required": false
-        },
-        {
-         "name": "de",
-         "label": "Ouverture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 09:00"
-        },
-        {
-         "name": "a",
-         "label": "Fermeture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 17:00"
-        }
-       ]
-      },
-      {
-       "name": "vendredi",
-       "label": "Vendredi",
-       "widget": "object",
-       "collapsed": false,
-       "fields": [
-        {
-         "name": "ouvert",
-         "label": "Ouvert",
-         "widget": "boolean",
-         "default": false,
-         "required": false
-        },
-        {
-         "name": "de",
-         "label": "Ouverture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 09:00"
-        },
-        {
-         "name": "a",
-         "label": "Fermeture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 17:00"
-        }
-       ]
-      },
-      {
-       "name": "samedi",
-       "label": "Samedi",
-       "widget": "object",
-       "collapsed": false,
-       "fields": [
-        {
-         "name": "ouvert",
-         "label": "Ouvert",
-         "widget": "boolean",
-         "default": false,
-         "required": false
-        },
-        {
-         "name": "de",
-         "label": "Ouverture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 09:00"
-        },
-        {
-         "name": "a",
-         "label": "Fermeture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 17:00"
-        }
-       ]
-      },
-      {
-       "name": "dimanche",
-       "label": "Dimanche",
-       "widget": "object",
-       "collapsed": false,
-       "fields": [
-        {
-         "name": "ouvert",
-         "label": "Ouvert",
-         "widget": "boolean",
-         "default": false,
-         "required": false
-        },
-        {
-         "name": "de",
-         "label": "Ouverture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 09:00"
-        },
-        {
-         "name": "a",
-         "label": "Fermeture",
-         "widget": "string",
-         "required": false,
-         "pattern": [
-          "^([01][0-9]|2[0-3]):[0-5][0-9]$",
-          "Format 24 h, par exemple 09:00 ou 17:30"
-         ],
-         "hint": "Ex. : 17:00"
-        }
-       ]
+       "name": "a",
+       "label": "Fermeture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 17:00"
       }
      ]
     },
     {
-     "name": "accueil",
-     "label": "Accueil",
-     "file": "contenu/accueil.json",
+     "name": "mardi",
+     "label": "Mardi",
+     "widget": "object",
+     "collapsed": false,
+     "summary": "{{fields.de}} – {{fields.a}}",
+     "fields": [
+      {
+       "name": "ouvert",
+       "label": "Ouvert",
+       "widget": "boolean",
+       "default": false,
+       "required": false
+      },
+      {
+       "name": "de",
+       "label": "Ouverture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 09:00"
+      },
+      {
+       "name": "a",
+       "label": "Fermeture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 17:00"
+      }
+     ]
+    },
+    {
+     "name": "mercredi",
+     "label": "Mercredi",
+     "widget": "object",
+     "collapsed": false,
+     "summary": "{{fields.de}} – {{fields.a}}",
+     "fields": [
+      {
+       "name": "ouvert",
+       "label": "Ouvert",
+       "widget": "boolean",
+       "default": false,
+       "required": false
+      },
+      {
+       "name": "de",
+       "label": "Ouverture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 09:00"
+      },
+      {
+       "name": "a",
+       "label": "Fermeture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 17:00"
+      }
+     ]
+    },
+    {
+     "name": "jeudi",
+     "label": "Jeudi",
+     "widget": "object",
+     "collapsed": false,
+     "summary": "{{fields.de}} – {{fields.a}}",
+     "fields": [
+      {
+       "name": "ouvert",
+       "label": "Ouvert",
+       "widget": "boolean",
+       "default": false,
+       "required": false
+      },
+      {
+       "name": "de",
+       "label": "Ouverture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 09:00"
+      },
+      {
+       "name": "a",
+       "label": "Fermeture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 17:00"
+      }
+     ]
+    },
+    {
+     "name": "vendredi",
+     "label": "Vendredi",
+     "widget": "object",
+     "collapsed": false,
+     "summary": "{{fields.de}} – {{fields.a}}",
+     "fields": [
+      {
+       "name": "ouvert",
+       "label": "Ouvert",
+       "widget": "boolean",
+       "default": false,
+       "required": false
+      },
+      {
+       "name": "de",
+       "label": "Ouverture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 09:00"
+      },
+      {
+       "name": "a",
+       "label": "Fermeture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 17:00"
+      }
+     ]
+    },
+    {
+     "name": "samedi",
+     "label": "Samedi",
+     "widget": "object",
+     "collapsed": false,
+     "summary": "{{fields.de}} – {{fields.a}}",
+     "fields": [
+      {
+       "name": "ouvert",
+       "label": "Ouvert",
+       "widget": "boolean",
+       "default": false,
+       "required": false
+      },
+      {
+       "name": "de",
+       "label": "Ouverture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 09:00"
+      },
+      {
+       "name": "a",
+       "label": "Fermeture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 17:00"
+      }
+     ]
+    },
+    {
+     "name": "dimanche",
+     "label": "Dimanche",
+     "widget": "object",
+     "collapsed": false,
+     "summary": "{{fields.de}} – {{fields.a}}",
+     "fields": [
+      {
+       "name": "ouvert",
+       "label": "Ouvert",
+       "widget": "boolean",
+       "default": false,
+       "required": false
+      },
+      {
+       "name": "de",
+       "label": "Ouverture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 09:00"
+      },
+      {
+       "name": "a",
+       "label": "Fermeture",
+       "widget": "string",
+       "required": false,
+       "pattern": [
+        "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+        "Format 24 h, par exemple 09:00 ou 17:30"
+       ],
+       "hint": "Ex. : 17:00"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "accueil",
+   "icon": "home",
+   "label": "Accueil",
+   "file": "contenu/accueil.json",
+   "fields": [
+    {
+     "name": "titre_fr",
+     "label": "Grand titre (français)",
+     "widget": "string",
+     "required": true
+    },
+    {
+     "name": "titre_en",
+     "label": "Grand titre (anglais)",
+     "widget": "string",
+     "required": false,
+     "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
+    },
+    {
+     "name": "texte_fr",
+     "label": "Phrase sous le logo (français)",
+     "widget": "string",
+     "required": true
+    },
+    {
+     "name": "texte_en",
+     "label": "Phrase sous le logo (anglais)",
+     "widget": "string",
+     "required": false,
+     "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
+    },
+    {
+     "name": "lieu_fr",
+     "label": "Petite ligne (lieu) (français)",
+     "widget": "string",
+     "required": true
+    },
+    {
+     "name": "lieu_en",
+     "label": "Petite ligne (lieu) (anglais)",
+     "widget": "string",
+     "required": false,
+     "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
+    }
+   ]
+  },
+  {
+   "name": "a-propos",
+   "icon": "groups",
+   "label": "À propos",
+   "file": "contenu/a-propos.json",
+   "fields": [
+    {
+     "name": "texte_fr",
+     "label": "Présentation (français)",
+     "widget": "text",
+     "required": true
+    },
+    {
+     "name": "texte_en",
+     "label": "Présentation (anglais)",
+     "widget": "text",
+     "required": false,
+     "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
+    },
+    {
+     "name": "equipe",
+     "label": "Équipe",
+     "label_singular": "personne",
+     "widget": "list",
+     "required": false,
+     "max": 6,
+     "summary": "{{fields.nom}}",
+     "fields": [
+      {
+       "name": "nom",
+       "label": "Nom",
+       "widget": "string",
+       "required": true
+      },
+      {
+       "name": "role_fr",
+       "label": "Rôle (français)",
+       "widget": "string",
+       "required": true
+      },
+      {
+       "name": "role_en",
+       "label": "Rôle (anglais)",
+       "widget": "string",
+       "required": false,
+       "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "services",
+   "icon": "design_services",
+   "label": "Services",
+   "file": "contenu/services.json",
+   "fields": [
+    {
+     "name": "services",
+     "label": "Les six services",
+     "label_singular": "service",
+     "widget": "list",
+     "min": 6,
+     "max": 6,
+     "allow_add": false,
+     "allow_remove": false,
+     "allow_reorder": false,
+     "hint": "Chaque service garde son illustration : seuls les textes changent.",
+     "summary": "{{fields.titre_fr}}",
      "fields": [
       {
        "name": "titre_fr",
-       "label": "Grand titre (français)",
+       "label": "Titre (français)",
        "widget": "string",
        "required": true
       },
       {
        "name": "titre_en",
-       "label": "Grand titre (anglais)",
+       "label": "Titre (anglais)",
        "widget": "string",
        "required": false,
        "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
       },
       {
        "name": "texte_fr",
-       "label": "Phrase sous le logo (français)",
+       "label": "Description (français)",
        "widget": "string",
        "required": true
       },
       {
        "name": "texte_en",
-       "label": "Phrase sous le logo (anglais)",
+       "label": "Description (anglais)",
        "widget": "string",
        "required": false,
        "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
       },
       {
-       "name": "lieu_fr",
-       "label": "Petite ligne (lieu) (français)",
-       "widget": "string",
-       "required": true
+       "name": "image_fr",
+       "label": "image_fr",
+       "widget": "hidden"
       },
       {
-       "name": "lieu_en",
-       "label": "Petite ligne (lieu) (anglais)",
-       "widget": "string",
-       "required": false,
-       "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
+       "name": "image_en",
+       "label": "image_en",
+       "widget": "hidden"
       }
      ]
-    },
-    {
-     "name": "a-propos",
-     "label": "À propos",
-     "file": "contenu/a-propos.json",
-     "fields": [
-      {
-       "name": "texte_fr",
-       "label": "Présentation (français)",
-       "widget": "text",
-       "required": true
-      },
-      {
-       "name": "texte_en",
-       "label": "Présentation (anglais)",
-       "widget": "text",
-       "required": false,
-       "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
-      },
-      {
-       "name": "equipe",
-       "label": "Équipe",
-       "label_singular": "personne",
-       "widget": "list",
-       "required": false,
-       "max": 6,
-       "summary": "{{fields.nom}}",
-       "fields": [
-        {
-         "name": "nom",
-         "label": "Nom",
-         "widget": "string",
-         "required": true
-        },
-        {
-         "name": "role_fr",
-         "label": "Rôle (français)",
-         "widget": "string",
-         "required": true
-        },
-        {
-         "name": "role_en",
-         "label": "Rôle (anglais)",
-         "widget": "string",
-         "required": false,
-         "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
-        }
-       ]
-      }
-     ]
-    },
-    {
-     "name": "services",
-     "label": "Services",
-     "file": "contenu/services.json",
-     "fields": [
-      {
-       "name": "services",
-       "label": "Les six services",
-       "label_singular": "service",
-       "widget": "list",
-       "min": 6,
-       "max": 6,
-       "allow_add": false,
-       "allow_remove": false,
-       "allow_reorder": false,
-       "hint": "Chaque service garde son illustration : seuls les textes changent.",
-       "summary": "{{fields.titre_fr}}",
-       "fields": [
-        {
-         "name": "titre_fr",
-         "label": "Titre (français)",
-         "widget": "string",
-         "required": true
-        },
-        {
-         "name": "titre_en",
-         "label": "Titre (anglais)",
-         "widget": "string",
-         "required": false,
-         "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
-        },
-        {
-         "name": "texte_fr",
-         "label": "Description (français)",
-         "widget": "string",
-         "required": true
-        },
-        {
-         "name": "texte_en",
-         "label": "Description (anglais)",
-         "widget": "string",
-         "required": false,
-         "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
-        },
-        {
-         "name": "image_fr",
-         "label": "image_fr",
-         "widget": "hidden",
-         "required": false
-        },
-        {
-         "name": "image_en",
-         "label": "image_en",
-         "widget": "hidden",
-         "required": false
-        }
-       ]
-      }
-     ]
-    },
+    }
+   ]
+  },
+  {
+   "name": "realisations",
+   "icon": "photo_library",
+   "label": "Réalisations",
+   "file": "contenu/realisations.json",
+   "fields": [
     {
      "name": "realisations",
-     "label": "Réalisations",
-     "file": "contenu/realisations.json",
+     "label": "Projets",
+     "label_singular": "projet",
+     "widget": "list",
+     "collapsed": true,
+     "add_to_top": true,
+     "summary": "{{fields.client}} — {{fields.type_fr}}",
+     "hint": "Le premier projet de la liste est le premier affiché sur le site ; un nouveau projet s’ajoute en haut. Glissez les projets pour changer l’ordre.",
      "fields": [
       {
-       "name": "realisations",
-       "label": "Projets",
-       "label_singular": "projet",
+       "name": "client",
+       "label": "Client",
+       "widget": "string",
+       "required": true
+      },
+      {
+       "name": "client_en",
+       "label": "Nom en anglais",
+       "widget": "string",
+       "required": false,
+       "hint": "Seulement si le nom change en anglais."
+      },
+      {
+       "name": "type_fr",
+       "label": "Type de travail (français)",
+       "widget": "string",
+       "required": true,
+       "hint": "Ex. : T-shirts imprimés, Enseigne, Lettrage de vitrine"
+      },
+      {
+       "name": "type_en",
+       "label": "Type de travail (anglais)",
+       "widget": "string",
+       "required": false,
+       "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
+      },
+      {
+       "name": "photos",
+       "label": "Photos",
+       "label_singular": "photo",
        "widget": "list",
-       "summary": "{{fields.client}} — {{fields.type_fr}}",
-       "hint": "Le premier projet de la liste est le premier affiché. Glissez les projets pour changer l’ordre.",
+       "min": 1,
+       "collapsed": true,
+       "summary": "{{fields.fr}}",
+       "hint": "La première photo sert de vignette dans la grille. JPG, PNG ou HEIC (iPhone) ; elle est réduite et convertie automatiquement.",
        "fields": [
         {
-         "name": "client",
-         "label": "Client",
-         "widget": "string",
-         "required": true
+         "name": "image",
+         "label": "Image",
+         "widget": "image",
+         "choose_url": false
         },
         {
-         "name": "client_en",
-         "label": "Nom en anglais",
-         "widget": "string",
-         "required": false,
-         "hint": "Seulement si le nom change en anglais."
-        },
-        {
-         "name": "type_fr",
-         "label": "Type de travail (français)",
+         "name": "fr",
+         "label": "Description de la photo (français)",
          "widget": "string",
          "required": true,
-         "hint": "Ex. : T-shirts imprimés, Enseigne, Lettrage de vitrine"
+         "hint": "Ce qu’on voit sur la photo, pour les personnes non voyantes et Google."
         },
         {
-         "name": "type_en",
-         "label": "Type de travail (anglais)",
+         "name": "en",
+         "label": "Description de la photo (anglais)",
          "widget": "string",
-         "required": false,
-         "hint": "Laissé vide : le texte français est affiché sur la page anglaise."
-        },
-        {
-         "name": "photos",
-         "label": "Photos",
-         "label_singular": "photo",
-         "widget": "list",
-         "min": 1,
-         "summary": "{{fields.fr}}",
-         "hint": "La première photo sert de vignette dans la grille. JPG ou PNG ; elle est réduite et convertie automatiquement.",
-         "fields": [
-          {
-           "name": "image",
-           "label": "Image",
-           "widget": "image",
-           "choose_url": false,
-           "media_library": {
-            "config": {
-             "multiple": false
-            }
-           }
-          },
-          {
-           "name": "fr",
-           "label": "Description de la photo (français)",
-           "widget": "string",
-           "required": true,
-           "hint": "Ce qu’on voit sur la photo, pour les personnes non voyantes et Google."
-          },
-          {
-           "name": "en",
-           "label": "Description de la photo (anglais)",
-           "widget": "string",
-           "required": false
-          },
-          {
-           "name": "miniature",
-           "label": "miniature",
-           "widget": "hidden",
-           "required": false
-          }
-         ]
-        },
-        {
-         "name": "video",
-         "label": "Vidéo",
-         "widget": "hidden",
          "required": false
+        },
+        {
+         "name": "miniature",
+         "label": "miniature",
+         "widget": "hidden"
         }
        ]
+      },
+      {
+       "name": "video",
+       "label": "Vidéo",
+       "widget": "hidden"
       }
      ]
     }

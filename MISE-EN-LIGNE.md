@@ -12,7 +12,7 @@ Le site est prêt à être hébergé chez **Netlify** sous **emvisions.ca**. Ce 
 - **Témoins (cookies) et Loi 25** : sans Google Analytics, le site ne dépose aucun témoin, il n'y a donc pas de bannière. Dès que l'identifiant Google Analytics est ajouté, une bannière apparaît : Google ne se charge qu'après « Accepter », « Refuser » est aussi visible qu'« Accepter », le choix est gardé 12 mois et peut être changé en tout temps (lien « Témoins (cookies) » du pied de page).
 - **Politique de confidentialité** (FR et EN) à jour : hébergement Netlify, filtrage Akismet, témoins, Google Analytics, conservation, droits, personne responsable (Eduardo Mazzonna).
 - **Référencement** : adresse canonique emvisions.ca, plan du site, robots.txt, données d'entreprise locale (schema.org), page 404.
-- **Interface d'administration** : `emvisions.ca/admin/` (Decap CMS, logiciel libre). On y modifie les coordonnées, les heures, les textes de l'accueil, de l'À propos et des services, et les réalisations (avec photos). Chaque « Publier » enregistre la modification dans le dossier `contenu/` du dépôt GitHub ; Netlify reconstruit alors le site en une minute environ. Les photos sont réduites et converties en WebP automatiquement. Le contrôle de qualité GitHub reconstruit et vérifie aussi le site à chaque modification. Une valeur invalide ne casse jamais le site : elle est ignorée et la valeur d'origine est gardée.
+- **Interface d'administration** : `emvisions.ca/admin/`, aux couleurs du site (Sveltia CMS, logiciel libre, successeur de Netlify/Decap CMS ; fonctionne aussi sur téléphone). On y modifie les coordonnées, les heures, les textes de l'accueil, de l'À propos et des services, et les réalisations (avec photos). Chaque « Enregistrer » enregistre la modification dans le dossier `contenu/` du dépôt GitHub ; Netlify reconstruit alors le site en une minute environ. Les photos (JPG, PNG, HEIC d'iPhone) sont réduites et converties en WebP dans le navigateur avant l'envoi, puis déclinées en miniature à la construction. Le contrôle de qualité GitHub reconstruit et vérifie aussi le site à chaque modification. Une valeur invalide ne casse jamais le site : elle est ignorée et la valeur d'origine est gardée.
 
 ## À régler pour la mise en ligne
 
@@ -25,6 +25,7 @@ Le site est prêt à être hébergé chez **Netlify** sous **emvisions.ca**. Ce 
    - Netlify > Project configuration > Access & security > OAuth > *Install provider* > GitHub : coller l'ID et le secret.
    - Eduardo se crée un compte GitHub ; dans le dépôt, Settings > Collaborators > *Add people*, avec le droit d'écriture.
    - Se connecter sur `https://emvisions.ca/admin/` avec *Se connecter avec GitHub*.
+   - Solution de rechange, sans l'étape OAuth : *Se connecter avec un jeton d'accès* (GitHub > Settings > Developer settings > Personal access tokens > *Fine-grained*, accès au seul dépôt `em-visions`, permission *Contents: Read and write*).
 6. **Google Analytics** : créer une propriété GA4, copier l'identifiant `G-XXXXXXXXXX` dans `GA_ID` (`config.py`) et reconstruire. La bannière et la mise à jour de la politique se font toutes seules.
 
 ## Utiliser /admin
@@ -32,8 +33,8 @@ Le site est prêt à être hébergé chez **Netlify** sous **emvisions.ca**. Ce 
 - **Coordonnées** : téléphone, courriel public, lien Instagram. Un champ vide n'apparaît pas sur le site.
 - **Heures d'ouverture** : pour chaque jour, *Ouvert* puis l'heure d'ouverture et de fermeture (format 24 h, ex. `09:00`). Décocher *Afficher les heures sur le site* pour les masquer partout.
 - **Accueil**, **À propos**, **Services** : texte en français et en anglais. Si l'anglais est laissé vide, le français s'affiche sur la page anglaise.
-- **Réalisations** : *Ajouter projet*, le nom du client, le type de travail, puis une ou plusieurs photos (JPG ou PNG) avec une courte description de ce qu'on voit. La première photo sert de vignette. Glisser les projets pour changer l'ordre.
-- Cliquer **Publier** > *Publier maintenant*. Le site est à jour environ une minute plus tard.
+- **Réalisations** : *Ajouter projet* (il s'ajoute en haut), le nom du client, le type de travail, puis *Ajouter photo* > *Parcourir* > *Téléverser* (JPG, PNG ou HEIC) avec une courte description de ce qu'on voit. La première photo sert de vignette. Les flèches changent l'ordre des projets.
+- Cliquer **Enregistrer**. Le site est à jour environ une minute plus tard.
 
 ## Loi 25 : à garder en tête
 

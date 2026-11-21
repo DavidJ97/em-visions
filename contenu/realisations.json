@@ -8,16 +8,16 @@
       "photos": [
         {
           "image": "/img/rea-ricova.webp",
-          "miniature": "",
           "fr": "Manteau de travail haute visibilité au logo Ricova",
-          "en": "High-visibility work jacket with the Ricova logo"
+          "en": "High-visibility work jacket with the Ricova logo",
+          "miniature": ""
         }
       ],
       "video": {
-        "fichier": "ricova",
         "affiche": "/img/rea-ricova.webp",
-        "fr": "Manteau de travail haute visibilité au logo Ricova",
-        "en": "High-visibility work jacket with the Ricova logo"
+        "en": "High-visibility work jacket with the Ricova logo",
+        "fichier": "ricova",
+        "fr": "Manteau de travail haute visibilité au logo Ricova"
       }
     },
     {
@@ -28,33 +28,33 @@
       "photos": [
         {
           "image": "/img/rea-maverick-vitrine.webp",
-          "miniature": "/img/rea-maverick-vitrine-s.webp",
           "fr": "Lettrage de vitrine du barbier Maverick",
-          "en": "Window lettering for Maverick barber shop"
+          "en": "Window lettering for Maverick barber shop",
+          "miniature": "/img/rea-maverick-vitrine-s.webp"
         },
         {
           "image": "/img/rea-maverick-tee-blanc.webp",
-          "miniature": "/img/rea-maverick-tee-blanc-s.webp",
           "fr": "T-shirt blanc Maverick imprimé au dos",
-          "en": "White Maverick t-shirt, printed on the back"
+          "en": "White Maverick t-shirt, printed on the back",
+          "miniature": "/img/rea-maverick-tee-blanc-s.webp"
         },
         {
           "image": "/img/rea-maverick-tee-vert.webp",
-          "miniature": "/img/rea-maverick-tee-vert-s.webp",
           "fr": "T-shirt vert Maverick imprimé au dos",
-          "en": "Green Maverick t-shirt, printed on the back"
+          "en": "Green Maverick t-shirt, printed on the back",
+          "miniature": "/img/rea-maverick-tee-vert-s.webp"
         },
         {
           "image": "/img/rea-maverick-detail.webp",
-          "miniature": "/img/rea-maverick-detail-s.webp",
           "fr": "Détail de l’impression sur le t-shirt Maverick",
-          "en": "Close-up of the print on the Maverick t-shirt"
+          "en": "Close-up of the print on the Maverick t-shirt",
+          "miniature": "/img/rea-maverick-detail-s.webp"
         },
         {
           "image": "/img/rea-maverick-tapis.webp",
-          "miniature": "/img/rea-maverick-tapis-s.webp",
           "fr": "Tapis au logo Maverick Barbier",
-          "en": "Mat with the Maverick Barbier logo"
+          "en": "Mat with the Maverick Barbier logo",
+          "miniature": "/img/rea-maverick-tapis-s.webp"
         }
       ]
     },
@@ -66,52 +66,52 @@
       "photos": [
         {
           "image": "/img/rea-buono-facade.webp",
-          "miniature": "/img/rea-buono-facade-s.webp",
           "fr": "Devanture de Buono Bites, enseigne et lettrage de vitrine",
-          "en": "Buono Bites storefront, sign and window lettering"
+          "en": "Buono Bites storefront, sign and window lettering",
+          "miniature": "/img/rea-buono-facade-s.webp"
         },
         {
           "image": "/img/rea-buono-chandail.webp",
-          "miniature": "/img/rea-buono-chandail-s.webp",
           "fr": "Chandail Buono Bites porté derrière le comptoir",
-          "en": "Buono Bites sweatshirt worn behind the counter"
+          "en": "Buono Bites sweatshirt worn behind the counter",
+          "miniature": "/img/rea-buono-chandail-s.webp"
         },
         {
           "image": "/img/rea-buono-casquette.webp",
-          "miniature": "/img/rea-buono-casquette-s.webp",
           "fr": "Casquette brodée Buono Bites",
-          "en": "Embroidered Buono Bites cap"
+          "en": "Embroidered Buono Bites cap",
+          "miniature": "/img/rea-buono-casquette-s.webp"
         },
         {
           "image": "/img/rea-buono-sac.webp",
-          "miniature": "/img/rea-buono-sac-s.webp",
           "fr": "Sac brodé Buono Bites",
-          "en": "Embroidered Buono Bites bag"
+          "en": "Embroidered Buono Bites bag",
+          "miniature": "/img/rea-buono-sac-s.webp"
         },
         {
           "image": "/img/rea-buono-pile.webp",
-          "miniature": "/img/rea-buono-pile-s.webp",
           "fr": "Chandails Buono Bites pliés sur une tablette",
-          "en": "Buono Bites sweatshirts folded on a shelf"
+          "en": "Buono Bites sweatshirts folded on a shelf",
+          "miniature": "/img/rea-buono-pile-s.webp"
         },
         {
           "image": "/img/rea-buono-presentoir.webp",
-          "miniature": "/img/rea-buono-presentoir-s.webp",
           "fr": "Présentoir Buono Bites au-dessus de bouchées de gâteau au fromage",
-          "en": "Buono Bites display topper above bite-size cheesecakes"
+          "en": "Buono Bites display topper above bite-size cheesecakes",
+          "miniature": "/img/rea-buono-presentoir-s.webp"
         },
         {
           "image": "/img/src-buono.webp",
-          "miniature": "",
           "fr": "Lettrage de vitrine pour le pop-up shop Buono Bites",
-          "en": "Window lettering for the Buono Bites pop-up shop"
+          "en": "Window lettering for the Buono Bites pop-up shop",
+          "miniature": ""
         }
       ],
       "video": {
-        "fichier": "buono",
         "affiche": "/img/src-buono.webp",
-        "fr": "Lettrage de vitrine pour le pop-up shop Buono Bites",
-        "en": "Window lettering for the Buono Bites pop-up shop"
+        "en": "Window lettering for the Buono Bites pop-up shop",
+        "fichier": "buono",
+        "fr": "Lettrage de vitrine pour le pop-up shop Buono Bites"
       }
     },
     {
@@ -122,27 +122,27 @@
       "photos": [
         {
           "image": "/img/rea-maumy-vitrine.webp",
-          "miniature": "/img/rea-maumy-vitrine-s.webp",
           "fr": "Lettrage de vitrine du salon Maumy",
-          "en": "Window lettering for Maumy salon"
+          "en": "Window lettering for Maumy salon",
+          "miniature": "/img/rea-maumy-vitrine-s.webp"
         },
         {
           "image": "/img/rea-maumy-enseigne.webp",
-          "miniature": "/img/rea-maumy-enseigne-s.webp",
           "fr": "Enseigne en relief Maumy",
-          "en": "Raised Maumy sign"
+          "en": "Raised Maumy sign",
+          "miniature": "/img/rea-maumy-enseigne-s.webp"
         },
         {
           "image": "/img/rea-maumy-facade.webp",
-          "miniature": "/img/rea-maumy-facade-s.webp",
           "fr": "Devanture du salon Maumy, lettrage sur les deux vitrines",
-          "en": "Maumy salon storefront, lettering on both windows"
+          "en": "Maumy salon storefront, lettering on both windows",
+          "miniature": "/img/rea-maumy-facade-s.webp"
         },
         {
           "image": "/img/rea-maumy-cartes.webp",
-          "miniature": "/img/rea-maumy-cartes-s.webp",
           "fr": "Cartes d’affaires Maumy",
-          "en": "Maumy business cards"
+          "en": "Maumy business cards",
+          "miniature": "/img/rea-maumy-cartes-s.webp"
         }
       ]
     },
@@ -154,21 +154,21 @@
       "photos": [
         {
           "image": "/img/rea-alpha-vert.webp",
-          "miniature": "/img/rea-alpha-vert-s.webp",
           "fr": "T-shirt vert Alpha Athletika, impression au dos",
-          "en": "Green Alpha Athletika t-shirt, back print"
+          "en": "Green Alpha Athletika t-shirt, back print",
+          "miniature": "/img/rea-alpha-vert-s.webp"
         },
         {
           "image": "/img/rea-alpha-noir.webp",
-          "miniature": "/img/rea-alpha-noir-s.webp",
           "fr": "T-shirt noir Alpha Athletika, impression au dos",
-          "en": "Black Alpha Athletika t-shirt, back print"
+          "en": "Black Alpha Athletika t-shirt, back print",
+          "miniature": "/img/rea-alpha-noir-s.webp"
         },
         {
           "image": "/img/rea-alpha-detail.webp",
-          "miniature": "/img/rea-alpha-detail-s.webp",
           "fr": "Détail de l’impression Alpha Athletika",
-          "en": "Close-up of the Alpha Athletika print"
+          "en": "Close-up of the Alpha Athletika print",
+          "miniature": "/img/rea-alpha-detail-s.webp"
         }
       ]
     },
@@ -180,21 +180,21 @@
       "photos": [
         {
           "image": "/img/rea-mg-enseigne.webp",
-          "miniature": "/img/rea-mg-enseigne-s.webp",
           "fr": "Lettrage mural en relief du salon Max Gourgues",
-          "en": "Raised wall lettering at Max Gourgues salon"
+          "en": "Raised wall lettering at Max Gourgues salon",
+          "miniature": "/img/rea-mg-enseigne-s.webp"
         },
         {
           "image": "/img/rea-mg-redken.webp",
-          "miniature": "/img/rea-mg-redken-s.webp",
           "fr": "Lettrage mural Redken au salon Max Gourgues",
-          "en": "Redken wall lettering at Max Gourgues salon"
+          "en": "Redken wall lettering at Max Gourgues salon",
+          "miniature": "/img/rea-mg-redken-s.webp"
         },
         {
           "image": "/img/rea-mg-salon.webp",
-          "miniature": "/img/rea-mg-salon-s.webp",
           "fr": "Le salon Max Gourgues, lettrage Redken au mur",
-          "en": "Max Gourgues salon with Redken lettering on the wall"
+          "en": "Max Gourgues salon with Redken lettering on the wall",
+          "miniature": "/img/rea-mg-salon-s.webp"
         }
       ]
     },
@@ -206,15 +206,15 @@
       "photos": [
         {
           "image": "/img/rea-mps-camion.webp",
-          "miniature": "/img/rea-mps-camion-s.webp",
           "fr": "Lettrage MPS Transport sur une benne de camion",
-          "en": "MPS Transport lettering on a dump truck"
+          "en": "MPS Transport lettering on a dump truck",
+          "miniature": "/img/rea-mps-camion-s.webp"
         },
         {
           "image": "/img/rea-mps-porte.webp",
-          "miniature": "/img/rea-mps-porte-s.webp",
           "fr": "Accroche-porte Groupe MPS",
-          "en": "Groupe MPS door hanger"
+          "en": "Groupe MPS door hanger",
+          "miniature": "/img/rea-mps-porte-s.webp"
         }
       ]
     },
@@ -226,15 +226,15 @@
       "photos": [
         {
           "image": "/img/rea-moon-enseigne.webp",
-          "miniature": "/img/rea-moon-enseigne-s.webp",
           "fr": "Enseigne murale en relief Moon, derrière le comptoir d’accueil",
-          "en": "Raised Moon wall sign behind the front desk"
+          "en": "Raised Moon wall sign behind the front desk",
+          "miniature": "/img/rea-moon-enseigne-s.webp"
         },
         {
           "image": "/img/rea-moon-accueil.webp",
-          "miniature": "/img/rea-moon-accueil-s.webp",
           "fr": "Accueil du studio Moon, enseigne en relief au mur",
-          "en": "Moon studio reception with the raised sign on the wall"
+          "en": "Moon studio reception with the raised sign on the wall",
+          "miniature": "/img/rea-moon-accueil-s.webp"
         }
       ]
     },
@@ -246,16 +246,16 @@
       "photos": [
         {
           "image": "/img/rea-elevate.webp",
-          "miniature": "",
           "fr": "T-shirt imprimé El3vate Miami, palmiers et bandes dégradées",
-          "en": "Printed El3vate Miami t-shirt with palm trees and gradient stripes"
+          "en": "Printed El3vate Miami t-shirt with palm trees and gradient stripes",
+          "miniature": ""
         }
       ],
       "video": {
-        "fichier": "elevate",
         "affiche": "/img/rea-elevate.webp",
-        "fr": "T-shirt imprimé El3vate Miami, palmiers et bandes dégradées",
-        "en": "Printed El3vate Miami t-shirt with palm trees and gradient stripes"
+        "en": "Printed El3vate Miami t-shirt with palm trees and gradient stripes",
+        "fichier": "elevate",
+        "fr": "T-shirt imprimé El3vate Miami, palmiers et bandes dégradées"
       }
     },
     {
@@ -266,15 +266,15 @@
       "photos": [
         {
           "image": "/img/rea-foil-metal.webp",
-          "miniature": "/img/rea-foil-metal-s.webp",
           "fr": "Enseigne en saillie Foil, lettres découpées dans le métal",
-          "en": "Foil projecting sign, letters cut out of metal"
+          "en": "Foil projecting sign, letters cut out of metal",
+          "miniature": "/img/rea-foil-metal-s.webp"
         },
         {
           "image": "/img/rea-foil-mur.webp",
-          "miniature": "/img/rea-foil-mur-s.webp",
           "fr": "Lettrage mural Foil vu à travers une arche",
-          "en": "Foil wall lettering seen through an arch"
+          "en": "Foil wall lettering seen through an arch",
+          "miniature": "/img/rea-foil-mur-s.webp"
         }
       ]
     },
@@ -286,22 +286,22 @@
       "photos": [
         {
           "image": "/img/rea-balloon-tees.webp",
-          "miniature": "/img/rea-balloon-tees-s.webp",
           "fr": "T-shirts roses Balloon Babe, impression au dos et au cœur",
-          "en": "Pink Balloon Babe t-shirts, back and chest print"
+          "en": "Pink Balloon Babe t-shirts, back and chest print",
+          "miniature": "/img/rea-balloon-tees-s.webp"
         },
         {
           "image": "/img/src-balloon.webp",
-          "miniature": "",
           "fr": "Impression Balloon Babe sur tissu rose",
-          "en": "Balloon Babe print on pink fabric"
+          "en": "Balloon Babe print on pink fabric",
+          "miniature": ""
         }
       ],
       "video": {
-        "fichier": "balloon",
         "affiche": "/img/src-balloon.webp",
-        "fr": "Impression Balloon Babe sur tissu rose",
-        "en": "Balloon Babe print on pink fabric"
+        "en": "Balloon Babe print on pink fabric",
+        "fichier": "balloon",
+        "fr": "Impression Balloon Babe sur tissu rose"
       }
     },
     {
@@ -312,9 +312,9 @@
       "photos": [
         {
           "image": "/img/rea-gossimo-facade.webp",
-          "miniature": "/img/rea-gossimo-facade-s.webp",
           "fr": "Façade du salon Gossimo, enseigne et habillage des vitrines",
-          "en": "Gossimo salon storefront, sign and window graphics"
+          "en": "Gossimo salon storefront, sign and window graphics",
+          "miniature": "/img/rea-gossimo-facade-s.webp"
         }
       ]
     },
@@ -326,9 +326,9 @@
       "photos": [
         {
           "image": "/img/rea-pasquale-tee.webp",
-          "miniature": "/img/rea-pasquale-tee-s.webp",
           "fr": "T-shirt Pasquale’s Chop Shop imprimé",
-          "en": "Printed Pasquale’s Chop Shop t-shirt"
+          "en": "Printed Pasquale’s Chop Shop t-shirt",
+          "miniature": "/img/rea-pasquale-tee-s.webp"
         }
       ]
     },
@@ -340,9 +340,9 @@
       "photos": [
         {
           "image": "/img/rea-nodiploma-vitrine.webp",
-          "miniature": "/img/rea-nodiploma-vitrine-s.webp",
           "fr": "Lettrage de vitrine « Knowledge of Self », pop-up No Diploma",
-          "en": "“Knowledge of Self” window lettering, No Diploma pop-up"
+          "en": "“Knowledge of Self” window lettering, No Diploma pop-up",
+          "miniature": "/img/rea-nodiploma-vitrine-s.webp"
         }
       ]
     },
@@ -354,16 +354,16 @@
       "photos": [
         {
           "image": "/img/ma-main.webp",
-          "miniature": "",
           "fr": "Enseigne ronde suspendue M/A",
-          "en": "Round hanging M/A sign"
+          "en": "Round hanging M/A sign",
+          "miniature": ""
         }
       ],
       "video": {
-        "fichier": "ma",
         "affiche": "/img/ma-main.webp",
-        "fr": "Enseigne ronde suspendue M/A",
-        "en": "Round hanging M/A sign"
+        "en": "Round hanging M/A sign",
+        "fichier": "ma",
+        "fr": "Enseigne ronde suspendue M/A"
       }
     }
   ]
