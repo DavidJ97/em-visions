@@ -1,5 +1,10 @@
 # Hébergement Netlify du site EM Visions (version 2).
-# Le site est déjà construit dans site/ par outils/generateur/build.py : Netlify le publie tel quel.
+# À chaque envoi sur GitHub (y compris une modification faite dans /admin), Netlify reconstruit les pages
+# à partir du dossier contenu/ avec outils/generateur/build.py, puis publie site/.
 # Les en-têtes de sécurité sont dans site/_headers (générés par securite.py).
 [build]
   publish = "site"
+  command = "bash outils/generateur/construire.sh"
+
+[build.environment]
+  PYTHON_VERSION = "3.13"

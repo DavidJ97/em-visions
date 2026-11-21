@@ -1,20 +1,43 @@
 """Réglages du site EM Visions. Tout ce qui risque de changer est ici."""
-import os
+import os, re
 # Adresse du site (le domaine de la boutique).
 SITE_URL=os.environ.get('SITE_URL','https://emvisions.ca').rstrip('/')
-# Courriel qui reçoit les demandes de devis. None tant que la nouvelle adresse n'existe pas
-# (info@emvisions.ca rebondit). Dès qu'il est rempli : il apparaît dans le pied de page et la
-# politique de confidentialité. Les demandes elles-mêmes passent par Netlify Forms (voir plus bas) :
-# l'adresse qui les reçoit se règle dans Netlify (Forms > Form notifications), pas ici.
-CONTACT_EMAIL=os.environ.get('CONTACT_EMAIL') or None
-INSTAGRAM='https://www.instagram.com/visionsem/'
-# date de la dernière modification du contenu (plan du site, <lastmod>) : à changer quand le contenu change
-CONTENT_DATE='2026-11-21'
-# Heures d'ouverture — À CONFIRMER avec EM (sûr à 90 %). Le samedi est soit midi–14 h, soit
-# 10 h–14 h : on affiche midi–14 h, la plage commune aux deux. Mettre HOURS=None pour les masquer.
-HOURS=[(['Monday','Tuesday','Wednesday','Thursday','Friday'],'09:00','17:00'),(['Saturday'],'12:00','14:00')]
-HOURS_FR=['Lun–ven : 9 h à 17 h','Sam : 12 h à 14 h']
-HOURS_EN=['Mon–Fri: 9 am to 5 pm','Sat: 12 pm to 2 pm']
+# Contenu modifiable depuis l'interface /admin : dossier contenu/ (coordonnées, heures, textes, services,
+# réalisations). Ce fichier n'est qu'une lecture prudente : une valeur vide ou invalide retombe sur un repli sûr.
+import json, datetime
+def _contenu():
+    """Un fichier par section de /admin : contenu/coordonnees.json, heures.json, accueil.json, a-propos.json, services.json, realisations.json"""
+    for d in (os.environ.get('CONTENU'),'contenu','../../contenu'):
+        if d and os.path.isfile(os.path.join(d,'accueil.json')):
+            C={}
+            for k,f in (('coordonnees','coordonnees'),('heures','heures'),('accueil','accueil'),('a_propos','a-propos'),('services','services'),('realisations','realisations')):
+                try: o=json.load(open(os.path.join(d,f+'.json'),encoding='utf-8'))
+                except (OSError,ValueError) as x: print('contenu illisible, valeurs d’origine gardées :',f,x); o={}
+                C[k]=o.get(k,[]) if k in ('services','realisations') else o
+            return C,os.path.abspath(d)
+    raise SystemExit('dossier contenu/ introuvable')
+CONTENU,CONTENU_DIR=_contenu()
+def txt(d,k,repli=''):
+    v=d.get(k) if isinstance(d,dict) else None
+    return v.strip() if isinstance(v,str) and v.strip() else repli
+_c=CONTENU.get('coordonnees') or {}
+# Courriel public (pied de page, politique de confidentialité). Vide tant que la nouvelle adresse n'existe pas.
+# Les demandes de devis passent par Netlify Forms : l'adresse qui les reçoit se règle dans Netlify, pas ici.
+_m=os.environ.get('CONTACT_EMAIL') or txt(_c,'courriel')
+CONTACT_EMAIL=_m if re.fullmatch(r'[^@\s"<>]+@[^@\s"<>]+\.[a-zA-Z]{2,}',_m or '') else None
+_t=re.sub(r'[^0-9+]','',txt(_c,'telephone'))
+TELEPHONE=(txt(_c,'telephone'),_t) if len(_t)>=10 else None
+_i=txt(_c,'instagram')
+INSTAGRAM=_i if re.fullmatch(r'https://(www\.)?instagram\.com/[A-Za-z0-9._/-]+',_i) else 'https://www.instagram.com/visionsem/'
+# date de la dernière modification (plan du site, <lastmod>) : celle de la construction
+CONTENT_DATE=datetime.date.today().isoformat()
+# Heures d'ouverture, jour par jour. « afficher » décoché = heures masquées partout.
+_hr=CONTENU.get('heures') or {}
+_J=[('lundi','Monday'),('mardi','Tuesday'),('mercredi','Wednesday'),('jeudi','Thursday'),('vendredi','Friday'),('samedi','Saturday'),('dimanche','Sunday')]
+def _ok(h): return isinstance(h,str) and re.fullmatch(r'([01]\d|2[0-3]):[0-5]\d',h)
+HOURS=[([D],j['de'],j['a']) for k,D in _J for j in [_hr.get(k) or {}] if j.get('ouvert') and _ok(j.get('de')) and _ok(j.get('a')) and j['de']<j['a']] if _hr.get('afficher',True) else []
+HOURS=HOURS or None
+HOURS_FR=[];HOURS_EN=[]
 # Grille de la semaine (lundi d'abord), tirée de HOURS : (jour FR, jour EN, numéro du jour JS, ouverture, fermeture) en FR et EN.
 def _h(t,en=False):
     h,m=int(t[:2]),int(t[3:])
@@ -27,9 +50,9 @@ def _slot(d):
 WEEK=[(fr,en,n,_slot(d)) for d,fr,en,n in _D]
 WEEK_FR=[(fr,n,(_h(s[0]),_h(s[1])) if s else None) for fr,en,n,s in WEEK]
 WEEK_EN={**{fr:en for fr,en,n,s in WEEK},**{_h(t):_h(t,True) for fr,en,n,s in WEEK if s for t in s},'Fermé':'Closed','Heures d’ouverture':'Opening hours'}
-# Texte de présentation de la section À propos (remplace le bouton « Découvrir notre équipe »).
-ABOUT_FR='Ouvert depuis la pandémie, EM Visions est un atelier de Saint-Léonard qui s’occupe de design graphique, d’impression et de vêtements personnalisés. Vous arrivez avec une idée, on la mène jusqu’au produit fini. Passez nous voir, rue Jean-Talon Est.'
-ABOUT_EN='Open since the pandemic, EM Visions is a Saint-Léonard workshop handling graphic design, printing and custom apparel. You come in with an idea, we take it all the way to the finished product. Come see us on Jean-Talon Street East.'
+# Section À propos
+_ap=CONTENU.get('a_propos') or {}
+ABOUT_FR=txt(_ap,'texte_fr','EM Visions est un atelier de Saint-Léonard.');ABOUT_EN=txt(_ap,'texte_en',ABOUT_FR)
 # Politique de confidentialité (Loi 25). Par défaut, la loi désigne la personne qui dirige l'entreprise.
 PRIVACY_OFFICER='Eduardo Mazzonna'
 RETENTION_YEARS=2          # durée de conservation des demandes sans suite

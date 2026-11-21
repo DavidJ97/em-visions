@@ -1,14 +1,34 @@
 # En-têtes envoyés par Netlify (généré par securite.py, ne pas modifier à la main)
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-IfIu0KO5s6SsFQqIU3YTUUIEYObbBTge4Ckc0J0S/rY=' 'sha256-MdLLUjdcVRguES6J1WywgJ4Izjo+cCeF0RL/FrgM3To=' 'sha256-msPD6bRc4y28DUjwhqbidC3cEqIC3sr1fH6kR7/AdU8=' 'sha256-w0d44qoUx9IKhTCpFXr7LIp+sQqRE0PVi0W0SCuOWlw='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: accelerometer=(), camera=(), cross-origin-isolated=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(self), usb=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(), hid=(), idle-detection=(), serial=(), unload=(), browsing-topics=()
   X-DNS-Prefetch-Control: off
   X-Permitted-Cross-Domain-Policies: none
   X-Frame-Options: DENY
-  Cross-Origin-Opener-Policy: same-origin
   Strict-Transport-Security: max-age=63072000
+/
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-IfIu0KO5s6SsFQqIU3YTUUIEYObbBTge4Ckc0J0S/rY=' 'sha256-MdLLUjdcVRguES6J1WywgJ4Izjo+cCeF0RL/FrgM3To=' 'sha256-msPD6bRc4y28DUjwhqbidC3cEqIC3sr1fH6kR7/AdU8=' 'sha256-w0d44qoUx9IKhTCpFXr7LIp+sQqRE0PVi0W0SCuOWlw='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Cross-Origin-Opener-Policy: same-origin
+/index.html
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-IfIu0KO5s6SsFQqIU3YTUUIEYObbBTge4Ckc0J0S/rY=' 'sha256-MdLLUjdcVRguES6J1WywgJ4Izjo+cCeF0RL/FrgM3To=' 'sha256-msPD6bRc4y28DUjwhqbidC3cEqIC3sr1fH6kR7/AdU8=' 'sha256-w0d44qoUx9IKhTCpFXr7LIp+sQqRE0PVi0W0SCuOWlw='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Cross-Origin-Opener-Policy: same-origin
+/en/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-IfIu0KO5s6SsFQqIU3YTUUIEYObbBTge4Ckc0J0S/rY=' 'sha256-MdLLUjdcVRguES6J1WywgJ4Izjo+cCeF0RL/FrgM3To=' 'sha256-msPD6bRc4y28DUjwhqbidC3cEqIC3sr1fH6kR7/AdU8=' 'sha256-w0d44qoUx9IKhTCpFXr7LIp+sQqRE0PVi0W0SCuOWlw='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Cross-Origin-Opener-Policy: same-origin
+/confidentialite/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-IfIu0KO5s6SsFQqIU3YTUUIEYObbBTge4Ckc0J0S/rY=' 'sha256-MdLLUjdcVRguES6J1WywgJ4Izjo+cCeF0RL/FrgM3To=' 'sha256-msPD6bRc4y28DUjwhqbidC3cEqIC3sr1fH6kR7/AdU8=' 'sha256-w0d44qoUx9IKhTCpFXr7LIp+sQqRE0PVi0W0SCuOWlw='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Cross-Origin-Opener-Policy: same-origin
+/maquette/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-IfIu0KO5s6SsFQqIU3YTUUIEYObbBTge4Ckc0J0S/rY=' 'sha256-MdLLUjdcVRguES6J1WywgJ4Izjo+cCeF0RL/FrgM3To=' 'sha256-msPD6bRc4y28DUjwhqbidC3cEqIC3sr1fH6kR7/AdU8=' 'sha256-w0d44qoUx9IKhTCpFXr7LIp+sQqRE0PVi0W0SCuOWlw='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Cross-Origin-Opener-Policy: same-origin
+/404.html
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-IfIu0KO5s6SsFQqIU3YTUUIEYObbBTge4Ckc0J0S/rY=' 'sha256-MdLLUjdcVRguES6J1WywgJ4Izjo+cCeF0RL/FrgM3To=' 'sha256-msPD6bRc4y28DUjwhqbidC3cEqIC3sr1fH6kR7/AdU8=' 'sha256-w0d44qoUx9IKhTCpFXr7LIp+sQqRE0PVi0W0SCuOWlw='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Cross-Origin-Opener-Policy: same-origin
+/admin/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://avatars.githubusercontent.com https://raw.githubusercontent.com; font-src 'self' data:; connect-src 'self' blob: data: https://api.github.com https://api.netlify.com; worker-src 'self' blob:; frame-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
 /img/*

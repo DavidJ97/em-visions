@@ -1,0 +1,38 @@
+{
+  "afficher": true,
+  "lundi": {
+    "ouvert": true,
+    "de": "09:00",
+    "a": "17:00"
+  },
+  "mardi": {
+    "ouvert": true,
+    "de": "09:00",
+    "a": "17:00"
+  },
+  "mercredi": {
+    "ouvert": true,
+    "de": "09:00",
+    "a": "17:00"
+  },
+  "jeudi": {
+    "ouvert": true,
+    "de": "09:00",
+    "a": "17:00"
+  },
+  "vendredi": {
+    "ouvert": true,
+    "de": "09:00",
+    "a": "17:00"
+  },
+  "samedi": {
+    "ouvert": true,
+    "de": "12:00",
+    "a": "14:00"
+  },
+  "dimanche": {
+    "ouvert": false,
+    "de": "",
+    "a": ""
+  }
+}

@@ -1,0 +1,2 @@
+# Pour reconstruire le site (Netlify, contrôle GitHub) : conversion des photos ajoutées dans /admin
+Pillow==12.3.0

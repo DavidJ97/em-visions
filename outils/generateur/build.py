@@ -3,7 +3,7 @@ import re
 Une seule page claire, en français (racine) et en anglais (/en/), plus le modélisateur 3D et la politique de confidentialité.
 Usage : python3 build.py   →   écrit le site dans out/"""
 import html as H, json, os, re
-from config import (SITE_URL, CONTACT_EMAIL, INSTAGRAM, HOURS, WEEK, ABOUT_FR, ABOUT_EN, FORM_NAME, FILE_MAX_MB, CONTENT_DATE, fontface, _h)
+from config import (SITE_URL, CONTACT_EMAIL, TELEPHONE, INSTAGRAM, HOURS, WEEK, ABOUT_FR, ABOUT_EN, FORM_NAME, FILE_MAX_MB, CONTENT_DATE, CONTENU, CONTENU_DIR, txt, fontface, _h)
 MAPS='https://www.google.com/maps/dir/?api=1&destination=5825+rue+Jean-Talon+Est%2C+Saint-L%C3%A9onard%2C+QC+H1S+1M4'
 import securite
 from i18n import EN as EN1, SLUG
@@ -12,12 +12,7 @@ import realisations as REA
 LOGO_VB=open('logo_vb.txt').read().strip(); LOGO_D=open('logo_path.txt').read().strip()
 ORDER=['accueil','services','realisations','catalogue','a-propos','contact']
 NAV={'accueil':('Accueil','Home'),'services':('Services','Services'),'realisations':('Réalisations','Our work'),'catalogue':('Catalogue','Catalog'),'a-propos':('À propos','About'),'contact':('Contact','Contact')}
-SVC=[('Design graphique','Des visuels qui marquent votre identité.','Illustration : une main trace au marqueur une orbite et une étoile bleues'),
-     ('Impression','Des supports de qualité pour vos projets.','Illustration : deux mains tirent une raclette d’encre bleue sur un cadre de sérigraphie'),
-     ('Vêtements personnalisés','Des textiles uniques à votre image.','Illustration : un t-shirt, une casquette et un chandail à capuchon imprimés en bleu'),
-     ('Impression 3D','Des idées qui prennent forme.','Illustration : la buse d’une imprimante 3D construit une pièce bleue couche par couche'),
-     ('Sites Web','Des plateformes sur mesure pour propulser votre marque.','Illustration : une page Web en papier déchiré, un curseur clique sur un bouton bleu'),
-     ('Applications','Des outils performants pour vos besoins spécifiques.','Illustration : une main tient un téléphone d’où s’échappent des icônes en papier')]
+SVC=[]   # (titre, texte, description de l'illustration), lus plus bas dans contenu/services.json
 SUPS=[('S&S Activewear','ss',184,26,'https://fr-ca.ssactivewear.com/'),('Canada Sportswear','canada',114,44,'https://canadasportswear.com/'),('Fabrik','fabrik',116,36,'https://fabrik.ca/'),
       ('Eside','eside',93,30,'https://eside.ca/fr/'),('Just Like Hero','jlh',71,52,'https://www.justlikehero.com/'),('Projob','projob',152,34,'https://texet.ca/pages/projob')]
 CATS=[('vet','Vêtements','Apparel',['tshirt','longsleeve','tank','polo','crewneck','hoodie','jacket','vest','pants']),
@@ -76,16 +71,87 @@ HERO=[('atelier','atelier-poster','L’atelier','Devanture de l’atelier EM Cus
       ('buono','hero-buono','Buono Bites','Lettrage de vitrine pour le pop-up shop Buono Bites'),('ma','hero-ma','Enseigne MA','Enseigne ronde suspendue M/A')]
 
 import datetime; YEAR=datetime.date.today().year
+
+# ---------- contenu modifiable (dossier contenu/, rempli depuis /admin)
+CT={}                                   # traductions venues du contenu : français -> anglais
+def pair(d,k,repli=''):
+    fr=txt(d,k+'_fr',repli); en=txt(d,k+'_en')
+    if en: CT.setdefault(fr,en)
+    return fr
+_SVC0=[('Design graphique','Des visuels qui marquent votre identité.','Illustration : une main trace au marqueur une orbite et une étoile bleues'),
+       ('Impression','Des supports de qualité pour vos projets.','Illustration : deux mains tirent une raclette d’encre bleue sur un cadre de sérigraphie'),
+       ('Vêtements personnalisés','Des textiles uniques à votre image.','Illustration : un t-shirt, une casquette et un chandail à capuchon imprimés en bleu'),
+       ('Impression 3D','Des idées qui prennent forme.','Illustration : la buse d’une imprimante 3D construit une pièce bleue couche par couche'),
+       ('Sites Web','Des plateformes sur mesure pour propulser votre marque.','Illustration : une page Web en papier déchiré, un curseur clique sur un bouton bleu'),
+       ('Applications','Des outils performants pour vos besoins spécifiques.','Illustration : une main tient un téléphone d’où s’échappent des icônes en papier')]
+_sv=[x for x in (CONTENU.get('services') or []) if isinstance(x,dict)]
+for i,(n0,d0,a0) in enumerate(_SVC0):       # toujours six services : une case vide reprend le texte d'origine
+    x=_sv[i] if i<len(_sv) else {}
+    SVC.append((pair(x,'titre',n0),pair(x,'texte',d0),pair(x,'image',a0)))
+_ac=CONTENU.get('accueil') or {}
+HERO_T=pair(_ac,'titre','Faites bonne impression.'); HERO_P=pair(_ac,'texte','Vêtements et objets personnalisés, impression et design.')
+HERO_L=pair(_ac,'lieu','Un atelier à Saint-Léonard, rue Jean-Talon Est')
+TEAM=[]
+for m in ((CONTENU.get('a_propos') or {}).get('equipe') or [])[:6]:
+    if isinstance(m,dict) and txt(m,'nom'): TEAM.append((txt(m,'nom'),pair(m,'role')))
+
+def _image(v):
+    """Chemin d'une image du contenu -> (grande, miniature) relatifs au site, ou None si introuvable.
+    Les photos téléversées dans /admin (contenu/images) sont converties en WebP : grande (1600 px max) et miniature carrée 540 px."""
+    if not isinstance(v,str) or '..' in v or not v.startswith('/img/'): return None
+    rel=v[1:]
+    if rel.startswith('img/contenu/'):
+        src=os.path.join(CONTENU_DIR,'images',os.path.basename(rel))
+        if not os.path.isfile(src): return None
+        base=os.path.splitext(os.path.basename(rel))[0]; base=re.sub(r'[^A-Za-z0-9_-]','-',base)[:80]
+        os.makedirs('out/img/contenu',exist_ok=True); b=f'img/contenu/{base}.webp'; sm=f'img/contenu/{base}-s.webp'
+        try:
+            from PIL import Image, ImageOps
+            if not (os.path.exists('out/'+b) and os.path.getmtime('out/'+b)>=os.path.getmtime(src)):
+                im=ImageOps.exif_transpose(Image.open(src)).convert('RGB'); big=im.copy(); big.thumbnail((1600,1600)); big.save('out/'+b,'WEBP',quality=80,method=6)
+                ImageOps.fit(im,(540,540)).save('out/'+sm,'WEBP',quality=78,method=6)
+            return b,sm
+        except Exception as x:
+            print('image ignorée :',v,x); return None
+    return (rel,rel) if os.path.isfile('out/'+rel) else None
+
+REAL=[]                                   # réalisations : [{'n','k','ph':[{'b','s','a'}],'vk','m','a'}]
+for r in (CONTENU.get('realisations') or []):
+    if not isinstance(r,dict) or not txt(r,'client'): continue
+    n=txt(r,'client')
+    if txt(r,'client_en'): CT.setdefault(n,txt(r,'client_en'))
+    ph=[]
+    for p in (r.get('photos') or []):
+        im=_image(p.get('image')) if isinstance(p,dict) else None
+        if not im: continue
+        mi=_image(p.get('miniature')) if txt(p,'miniature') else None
+        fr=txt(p,'fr',n)
+        if txt(p,'en'): CT.setdefault(fr,txt(p,'en'))
+        ph.append({'b':im[0],'s':(mi[0] if mi else im[1]),'a':fr})
+    if not ph: print('réalisation ignorée (aucune photo) :',n); continue
+    k=txt(r,'type_fr',''); ke=txt(r,'type_en')
+    if ke and k: CT.setdefault(k,ke)
+    it={'n':n,'k':k,'ph':ph}
+    v=r.get('video') or {}
+    if isinstance(v,dict) and re.fullmatch(r'[a-z0-9-]+',txt(v,'fichier')) and os.path.isfile(f"out/vid/{txt(v,'fichier')}.mp4"):
+        af=_image(v.get('affiche'))
+        if af:
+            it.update(vk=txt(v,'fichier'),m=af[0],a=txt(v,'fr',n))
+            if txt(v,'en'): CT.setdefault(it['a'],txt(v,'en'))
+    it.setdefault('m',ph[0]['b']); it.setdefault('a',ph[0]['a'])
+    REAL.append(it)
 def build(L):
     en=L=='en'; up='../' if en else ''; e=H.escape
     def t(s):
         if not en: return s
-        for d in (EN2,REA.EN,EN1):
+        for d in (CT,EN2,REA.EN,EN1):
             if s in d: return d[s]
         raise KeyError('traduction manquante : '+s)
     def tn(s):                                   # nom propre : traduit seulement s'il a une traduction
         try: return t(s)
         except KeyError: return s
+    def tc(s):                                   # texte du contenu : sans traduction, on garde le français plutôt que d'échouer
+        return tn(s)
     sid=lambda p:SLUG[p] if en else p            # identifiant de la section dans cette langue
     alt=lambda p:p if en else SLUG[p]            # … et dans l'autre
     tool='mockup/' if en else 'maquette/'; priv='privacy/' if en else 'confidentialite/'
@@ -119,18 +185,18 @@ def build(L):
     hero=(f'<section class="hero" id="{sid("accueil")}" data-alt="{alt("accueil")}" aria-label="{e(NAV["accueil"][en])}"><div class="stage"><div class="strip">{tiles}</div>'
           f'<img class="glass" src="{up}img/logo-chrome-1024.webp" srcset="{up}img/logo-chrome-768.webp 768w, {up}img/logo-chrome-1024.webp 1024w, {up}img/logo-chrome-2048.webp 2048w" sizes="(max-aspect-ratio:4/5) 96vw, min(90vw, 1020px)" alt="" width="1024" height="512" fetchpriority="high"><canvas class="gl" data-m="{up}img/logo-verre.webp" aria-hidden="true"></canvas>'
           f'<button type="button" class="pp" hidden aria-label="{e(t("Mettre la vidéo en pause"))}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="i-pa" d="M7 5h3.4v14H7zM13.6 5H17v14h-3.4z" fill="currentColor"/><path class="i-pl" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>'
-          f'<div class="hero-b"><div><p class="cap hero-k" aria-hidden="true"><span>01</span> <b>{e(tn(HERO[0][2]))}</b></p><h1>{e(t("Faites bonne impression."))}</h1></div>{quote()}</div></div></section>'
-          f'<div class="wrap intro"><p class="big">{e(t("Vêtements et objets personnalisés, impression et design."))}</p><p class="cap">{e(t("Un atelier à Saint-Léonard, rue Jean-Talon Est"))}</p>'
+          f'<div class="hero-b"><div><p class="cap hero-k" aria-hidden="true"><span>01</span> <b>{e(tn(HERO[0][2]))}</b></p><h1>{e(tc(HERO_T))}</h1></div>{quote()}</div></div></section>'
+          f'<div class="wrap intro"><p class="big">{e(tc(HERO_P))}</p><p class="cap">{e(tc(HERO_L))}</p>'
           f'<a class="btn ghost" href="#{sid("catalogue")}">{e(t("Voir les produits"))}</a></div>')
 
     # ---------- services
-    svc=''.join(f'<li><img src="{up}img/svc-{i+1}-640.webp" srcset="{up}img/svc-{i+1}-640.webp 640w, {up}img/svc-{i+1}.webp 900w" sizes="(max-width:560px) 100vw, (max-width:1040px) 50vw, 33vw" alt="{e(t(a))}" loading="lazy" decoding="async" width="800" height="600"><h3><span aria-hidden="true">{i+1:02d}</span>{e(t(n))}</h3><p>{e(t(d))}</p></li>' for i,(n,d,a) in enumerate(SVC))
+    svc=''.join(f'<li><img src="{up}img/svc-{i+1}-640.webp" srcset="{up}img/svc-{i+1}-640.webp 640w, {up}img/svc-{i+1}.webp 900w" sizes="(max-width:560px) 100vw, (max-width:1040px) 50vw, 33vw" alt="{e(tc(a))}" loading="lazy" decoding="async" width="800" height="600"><h3><span aria-hidden="true">{i+1:02d}</span>{e(tc(n))}</h3><p>{e(tc(d))}</p></li>' for i,(n,d,a) in enumerate(SVC))
     services=row('services','Six services sous un même toit.',f'<ul class="svc">{svc}</ul>')
 
     # ---------- réalisations
-    R=REA.REAL
+    R=REAL
     works=''.join(f'<li{" hidden" if i>=SHOWN else ""}><button type="button" data-i="{i}"><span class="sr">{e(t("Voir le projet : "))}</span><span class="im"><img src="{up}{r["ph"][0]["s"]}" alt="" loading="lazy" width="540" height="540"></span>'
-                  f'<b>{e(tn(r["n"]))}</b><small>{e(t(r["k"]))}</small></button></li>' for i,r in enumerate(R))
+                  f'<b>{e(tn(r["n"]))}</b><small>{e(tc(r["k"]))}</small></button></li>' for i,r in enumerate(R))
     real=row('realisations','Touchez un projet pour voir ses photos.',f'<ul class="grid works">{works}</ul>'
              +(f'<div class="end"><button type="button" class="btn ghost" id="more">{e(t("Voir les {n} réalisations").replace("{n}",str(len(R))))}</button></div>' if len(R)>SHOWN else ''))
 
@@ -148,7 +214,7 @@ def build(L):
 
     # ---------- à propos
     about=row('a-propos','',f'<div class="about"><img src="{up}img/equipe.webp" alt="{e(t("Deux membres de l’équipe EM Visions examinent un chandail imprimé"))}" loading="lazy" width="830" height="443"><div>'
-              f'<p>{e(ABOUT_EN if en else ABOUT_FR)}</p><ul class="team"><li><b>Eduardo Mazzonna</b><span>{e(t("Design graphique"))}</span></li><li><b>Vince Mariani</b><span>{e(t("Gestion de projets"))}</span></li></ul></div></div>')
+              f'<p>{e(ABOUT_EN if en else ABOUT_FR)}</p>'+(('<ul class="team">'+''.join(f'<li><b>{e(nm)}</b><span>{e(tc(ro))}</span></li>' for nm,ro in TEAM)+'</ul>') if TEAM else '')+f'</div></div>')
 
     # ---------- contact
     # Netlify Forms : Netlify repère ce formulaire au déploiement (data-netlify) ; le champ « bot-field » piège les robots
@@ -186,12 +252,14 @@ def build(L):
         hours='<ul class="hours">'+''.join((f'<li data-d="{n}"><span>{FULL[fr][en]}</span>{_h(s[0],en)} – {_h(s[1],en)}</li>' if s else f'<li class="off" data-d="{n}"><span>{FULL[fr][en]}</span>{e(t("Fermé"))}</li>') for fr,en_,n,s in WEEK)+'</ul>'
     contact=row('contact','Parlez-nous de votre idée. On vous répond avec les bonnes options.',
                 f'<div class="contact"><div class="info"><address>EM Custom Design<br>5825, rue Jean-Talon Est<br>Saint-Léonard, QC H1S 1M4</address>'
-                f'<a class="u cap" href="https://www.google.com/maps/dir/?api=1&destination=5825+rue+Jean-Talon+Est%2C+Saint-L%C3%A9onard%2C+QC+H1S+1M4" target="_blank" rel="noopener" aria-label="{e(t("Itinéraire (Google Maps)"))}">{e(t("Itinéraire"))}</a>{hours}</div>{form}</div>')
+                +(f'<a class="u cap tel" href="tel:{TELEPHONE[1]}">{e(TELEPHONE[0])}</a>' if TELEPHONE else '')
+                +f'<a class="u cap" href="https://www.google.com/maps/dir/?api=1&destination=5825+rue+Jean-Talon+Est%2C+Saint-L%C3%A9onard%2C+QC+H1S+1M4" target="_blank" rel="noopener" aria-label="{e(t("Itinéraire (Google Maps)"))}">{e(t("Itinéraire"))}</a>{hours}</div>{form}</div>')
 
     frow=lambda h,items:f'<div class="ft-r"><h2 class="cap">{e(t(h))}</h2><ul>'+''.join(f'<li>{x}</li>' for x in items if x)+'</ul></div>'
     foot=(f'<footer class="ft"><div class="wrap">'
           +frow('Besoin d’aide',[f'<a href="#contact">{e(NAV["contact"][en])}</a>',f'<a href="https://www.google.com/maps/dir/?api=1&destination=5825+rue+Jean-Talon+Est%2C+Saint-L%C3%A9onard%2C+QC+H1S+1M4" target="_blank" rel="noopener">{e(t("Itinéraire"))}</a>',
-                                 f'<a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>' if CONTACT_EMAIL else ''])
+                                 f'<a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>' if CONTACT_EMAIL else '',
+                                 f'<a href="tel:{TELEPHONE[1]}">{e(TELEPHONE[0])}</a>' if TELEPHONE else ''])
           +frow('Suivez-nous',[f'<a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a>'])
           +frow('Les choses sérieuses',[f'<a href="{priv}">{e(t("Politique de confidentialité"))}</a>',securite.link(L)])
           +f'<div class="ft-b"><p>© EM Custom Design {YEAR}. {e(t("Tous droits réservés."))}<br>5825, rue Jean-Talon Est, Saint-Léonard</p><a class="logo" href="#{sid("accueil")}" aria-label="EM Visions">{logo}</a></div></div></footer>')
@@ -199,15 +267,16 @@ def build(L):
          f'<button type="button" class="cap" data-g="close">{e(t("Fermer"))}</button></div></div><div class="gal-b"></div></div>')
 
     # ---------- données du script
-    RL=[{'n':tn(r['n']),'k':t(r['k']),'a':t(r['a']),'m':up+r['m'],'t':up+r['m'],'v':(up+'vid/'+r['vk']+'.mp4') if r.get('vk') else None,
-         'ph':[{'b':up+p['b'],'s':up+p['s'],'a':t(p['a'])} for p in r['ph']]} for r in R]
+    RL=[{'n':tn(r['n']),'k':tc(r['k']),'a':tc(r['a']),'m':up+r['m'],'t':up+r['m'],'v':(up+'vid/'+r['vk']+'.mp4') if r.get('vk') else None,
+         'ph':[{'b':up+p['b'],'s':up+p['s'],'a':tc(p['a'])} for p in r['ph']]} for r in R]
     TR={'dark':t('Passer au thème sombre'),'light':t('Passer au thème clair'),'pause':t('Mettre la vidéo en pause'),'play':t('Relancer la vidéo'),
         'prevPhoto':t('Photo précédente'),'nextPhoto':t('Photo suivante'),'prevProject':t('Projet précédent'),'nextProject':t('Projet suivant'),'photo':t('Photo '),'video':t('Vidéo '),
         'similarBtn':t('Demander un devis semblable'),'similar':t('Projet semblable à : '),'priceReq':t('Demande de prix : '),
         'eName':t('Indiquez votre nom'),'eMail':t('Courriel invalide'),'eProj':t('Décrivez votre projet'),'eFmt':t('Format non accepté : JPG, PNG ou PDF'),'eSize':t('Fichier trop lourd (max {n} Mo)').replace('{n}',str(FILE_MAX_MB)),'fmax':FILE_MAX_MB*1000000,
         'mbChange':t(' Mo — toucher pour changer'),'dec':'.' if en else ',','sending':t('Envoi en cours…'),'ref':t('Référence : '),'name':t('Nom'),'mail':t('Courriel'),'qty':t('Quantité approximative'),'due':t('Échéance'),
         'subject':t('Demande de devis'),'mockAdded':t('Maquette 3D ajoutée à votre demande.')}
-    js=open('script.js').read().replace('%TR%',json.dumps(TR,ensure_ascii=False)).replace('%RL%',json.dumps(RL,ensure_ascii=False))
+    J=lambda o:json.dumps(o,ensure_ascii=False).replace('<','\\u003c').replace('\u2028','\\u2028').replace('\u2029','\\u2029')
+    js=open('script.js').read().replace('%TR%',J(TR)).replace('%RL%',J(RL))
     css=open('style.css').read()
     headjs='(function(){var t;try{t=localStorage.getItem("em-theme")}catch(e){}document.documentElement.dataset.theme=t==="dark"?"dark":"light"})();'
     return (f'<!doctype html><html lang="{L}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="preload" href="{up}fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>{head_seo(L,up)}<script>{headjs}</script>'
@@ -224,7 +293,7 @@ SEO={'fr':{'path':'/','locale':'fr_CA','title':'EM Visions — Vêtements et obj
 def head_seo(L,up):
     m=SEO[L]; o=SEO['en' if L=='fr' else 'fr']; e=H.escape
     ld={'@context':'https://schema.org','@type':'LocalBusiness','@id':SITE_URL+'/#atelier','name':'EM Visions','alternateName':'EM Custom Design','description':m['desc'],
-        'url':SITE_URL+m['path'],'image':SITE_URL+'/img/og.jpg','logo':SITE_URL+'/img/icon-512.png',**({'email':CONTACT_EMAIL} if CONTACT_EMAIL else {}),
+        'url':SITE_URL+m['path'],'image':SITE_URL+'/img/og.jpg','logo':SITE_URL+'/img/icon-512.png',**({'email':CONTACT_EMAIL} if CONTACT_EMAIL else {}),**({'telephone':TELEPHONE[1]} if TELEPHONE else {}),
         'address':{'@type':'PostalAddress','streetAddress':'5825, rue Jean-Talon Est','addressLocality':'Saint-Léonard','addressRegion':'QC','postalCode':'H1S 1M4','addressCountry':'CA'},
         'areaServed':'Montréal','sameAs':[INSTAGRAM],'hasMap':MAPS,**({'openingHoursSpecification':[{'@type':'OpeningHoursSpecification','dayOfWeek':d,'opens':a,'closes':b} for d,a,b in HOURS]} if HOURS else {})}
     return (f'<title>{e(m["title"])}</title><meta name="description" content="{e(m["desc"])}">'
@@ -254,7 +323,8 @@ if __name__=='__main__':
     fr=build('fr'); open('out/index.html','w').write(fr); open('out/en/index.html','w').write(build('en'))
     import pages_extra; pages_extra.write(LOGO_VB,LOGO_D)
     import maquette_page; maquette_page.write(LOGO_VB,LOGO_D)
-    open('out/robots.txt','w').write(f'User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n')
+    import admin; admin.write()
+    open('out/robots.txt','w').write(f'User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: {SITE_URL}/sitemap.xml\n')
     X=lambda ps:''.join(f'<xhtml:link rel="alternate" hreflang="{h}" href="{SITE_URL}{p}"/>' for h,p in ps)
     G=[(('/','/en/'),X((('fr-CA','/'),('en-CA','/en/'),('x-default','/')))),(('/confidentialite/','/en/privacy/'),X((('fr-CA','/confidentialite/'),('en-CA','/en/privacy/'),('x-default','/confidentialite/')))),
        (('/maquette/','/en/mockup/'),X((('fr-CA','/maquette/'),('en-CA','/en/mockup/'),('x-default','/maquette/'))))]

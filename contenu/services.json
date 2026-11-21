@@ -1,0 +1,52 @@
+{
+  "services": [
+    {
+      "titre_fr": "Design graphique",
+      "titre_en": "Graphic design",
+      "texte_fr": "Des visuels qui marquent votre identité.",
+      "texte_en": "Visuals that define your identity.",
+      "image_fr": "Illustration : une main trace au marqueur une orbite et une étoile bleues",
+      "image_en": "Illustration: a hand draws a blue orbit and star with a marker"
+    },
+    {
+      "titre_fr": "Impression",
+      "titre_en": "Printing",
+      "texte_fr": "Des supports de qualité pour vos projets.",
+      "texte_en": "Quality materials for your projects.",
+      "image_fr": "Illustration : deux mains tirent une raclette d’encre bleue sur un cadre de sérigraphie",
+      "image_en": "Illustration: two hands pull a squeegee of blue ink across a screen-printing frame"
+    },
+    {
+      "titre_fr": "Vêtements personnalisés",
+      "titre_en": "Custom apparel",
+      "texte_fr": "Des textiles uniques à votre image.",
+      "texte_en": "Unique textiles that reflect you.",
+      "image_fr": "Illustration : un t-shirt, une casquette et un chandail à capuchon imprimés en bleu",
+      "image_en": "Illustration: a t-shirt, a cap and a hoodie printed in blue"
+    },
+    {
+      "titre_fr": "Impression 3D",
+      "titre_en": "3D printing",
+      "texte_fr": "Des idées qui prennent forme.",
+      "texte_en": "Ideas that take shape.",
+      "image_fr": "Illustration : la buse d’une imprimante 3D construit une pièce bleue couche par couche",
+      "image_en": "Illustration: a 3D printer nozzle builds a blue part layer by layer"
+    },
+    {
+      "titre_fr": "Sites Web",
+      "titre_en": "Websites",
+      "texte_fr": "Des plateformes sur mesure pour propulser votre marque.",
+      "texte_en": "Custom platforms to boost your brand.",
+      "image_fr": "Illustration : une page Web en papier déchiré, un curseur clique sur un bouton bleu",
+      "image_en": "Illustration: a web page made of torn paper, a cursor clicking a blue button"
+    },
+    {
+      "titre_fr": "Applications",
+      "titre_en": "Applications",
+      "texte_fr": "Des outils performants pour vos besoins spécifiques.",
+      "texte_en": "High-performance tools for your specific needs.",
+      "image_fr": "Illustration : une main tient un téléphone d’où s’échappent des icônes en papier",
+      "image_en": "Illustration: a hand holds a phone with paper icons floating out of it"
+    }
+  ]
+}

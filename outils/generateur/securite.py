@@ -107,13 +107,28 @@ def csp(out='out'):
            "frame-ancestors 'none'","upgrade-insecure-requests"]
     return '; '.join(parts)
 
+PERMS='accelerometer=(), camera=(), cross-origin-isolated=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(self), usb=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(), hid=(), idle-detection=(), serial=(), unload=(), browsing-topics=()'
+
+# Politique de sécurité de /admin (Decap CMS) : parle à GitHub (contenu, photos) et à Netlify (connexion GitHub).
+ADMIN_CSP="; ".join(["default-src 'self'","script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval'","style-src 'self' 'unsafe-inline'",   # unsafe-eval : exigé par Decap (validation de la configuration), seulement sur /admin
+    "img-src 'self' data: blob: https://avatars.githubusercontent.com https://raw.githubusercontent.com","font-src 'self' data:",
+    "connect-src 'self' blob: data: https://api.github.com https://api.netlify.com"+(" http://localhost:8081" if os.environ.get('ADMIN_LOCAL')=='1' else ""),"worker-src 'self' blob:","frame-src 'self' blob:",
+    "object-src 'none'","base-uri 'none'","form-action 'none'","frame-ancestors 'none'","upgrade-insecure-requests"])
+# Pages du site (pas /admin) : Netlify additionne les règles qui visent une même adresse, donc la politique des pages
+# n'est pas mise sur /* (elle s'ajouterait à celle de /admin et la bloquerait).
+PAGES=['/','/index.html','/en/*','/confidentialite/*','/maquette/*','/404.html']
+
 def write_headers(out='out'):
-    rules=[('/*',[('Content-Security-Policy',csp(out)),('X-Content-Type-Options','nosniff'),('Referrer-Policy','strict-origin-when-cross-origin'),
+    rules=[('/*',[('X-Content-Type-Options','nosniff'),('Referrer-Policy','strict-origin-when-cross-origin'),
                   # fonctions du navigateur interdites (liste OWASP Secure Headers, sauf autoplay : les vidéos d'accueil démarrent seules, en sourdine)
-                  ('Permissions-Policy','accelerometer=(), camera=(), cross-origin-isolated=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(self), usb=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(), hid=(), idle-detection=(), serial=(), unload=(), browsing-topics=()'),
+                  ('Permissions-Policy',PERMS),
                   ('X-DNS-Prefetch-Control','off'),('X-Permitted-Cross-Domain-Policies','none'),
-                  ('X-Frame-Options','DENY'),('Cross-Origin-Opener-Policy','same-origin'),('Strict-Transport-Security','max-age=63072000')]),
-           ('/fonts/*',[('Cache-Control','public, max-age=31536000, immutable')])]
+                  ('X-Frame-Options','DENY'),('Strict-Transport-Security','max-age=63072000')])]
+    pol=csp(out)
+    rules+=[(p,[('Content-Security-Policy',pol),('Cross-Origin-Opener-Policy','same-origin')]) for p in PAGES]
+    # /admin : sa propre politique ; pas de Cross-Origin-Opener-Policy (la fenêtre de connexion GitHub doit pouvoir répondre)
+    rules+=[('/admin/*',[('Content-Security-Policy',ADMIN_CSP),('X-Robots-Tag','noindex, nofollow'),('Cache-Control','no-cache')]),
+            ('/fonts/*',[('Cache-Control','public, max-age=31536000, immutable')])]
     rules+=[(f'/{d}/*',[('Cache-Control','public, max-age=604800')]) for d in ('img','vid','models','vendor')]
     open(os.path.join(out,'_headers'),'w').write('# En-têtes envoyés par Netlify (généré par securite.py, ne pas modifier à la main)\n'
         +''.join(p+'\n'+''.join(f'  {k}: {v}\n' for k,v in hs) for p,hs in rules))

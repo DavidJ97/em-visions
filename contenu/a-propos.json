@@ -1,0 +1,16 @@
+{
+  "texte_fr": "Ouvert depuis la pandémie, EM Visions est un atelier de Saint-Léonard qui s’occupe de design graphique, d’impression et de vêtements personnalisés. Vous arrivez avec une idée, on la mène jusqu’au produit fini. Passez nous voir, rue Jean-Talon Est.",
+  "texte_en": "Open since the pandemic, EM Visions is a Saint-Léonard workshop handling graphic design, printing and custom apparel. You come in with an idea, we take it all the way to the finished product. Come see us on Jean-Talon Street East.",
+  "equipe": [
+    {
+      "nom": "Eduardo Mazzonna",
+      "role_fr": "Design graphique",
+      "role_en": "Graphic design"
+    },
+    {
+      "nom": "Vince Mariani",
+      "role_fr": "Gestion de projets",
+      "role_en": "Project management"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
-# Contrôle de qualité du site à chaque envoi sur la branche version-2 :
+# Contrôle de qualité du site à chaque envoi sur la branche version-2 (y compris les modifications faites dans /admin) :
+# le site est d'abord reconstruit depuis contenu/, comme chez Netlify, puis vérifié :
 # HTML valide (html-validate), CSS compatible avec tous les navigateurs (Baseline « largement disponible »),
 # accessibilité WCAG 2 AA sur toutes les pages (pa11y : axe + HTML_CodeSniffer).
 # Outils à versions figées (package-lock.json), installés sans scripts ; actions GitHub figées par empreinte.
@@ -23,6 +24,12 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           persist-credentials: false
+      - name: Reconstruire le site depuis contenu/ (comme Netlify)
+        working-directory: .
+        run: |
+          python3 -m venv /tmp/py
+          /tmp/py/bin/pip install -q -r requirements.txt
+          PYTHON=/tmp/py/bin/python bash outils/generateur/construire.sh
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
