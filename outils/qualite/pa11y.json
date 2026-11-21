@@ -1,0 +1,29 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "runners": [
+      "axe",
+      "htmlcs"
+    ],
+    "timeout": 60000,
+    "wait": 1500,
+    "chromeLaunchConfig": {
+      "executablePath": "/usr/bin/google-chrome",
+      "args": [
+        "--no-sandbox",
+        "--disable-3d-apis"
+      ]
+    },
+    "hideElements": ".hero-b, #devis select",
+    "_note": "hideElements : texte posé sur la vidéo d'accueil et menu déroulant à flèche dessinée, dont l'outil ne peut pas mesurer le contraste (vérifiés à la main). --disable-3d-apis : pas de carte graphique sur le serveur de test."
+  },
+  "urls": [
+    "http://localhost:8080/",
+    "http://localhost:8080/en/",
+    "http://localhost:8080/confidentialite/",
+    "http://localhost:8080/en/privacy/",
+    "http://localhost:8080/maquette/",
+    "http://localhost:8080/en/mockup/",
+    "http://localhost:8080/404.html"
+  ]
+}

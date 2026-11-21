@@ -1,0 +1,12 @@
+{
+  "name": "em-visions-qualite",
+  "private": true,
+  "description": "Contrôles de qualité du site (HTML, CSS Baseline, accessibilité). Versions figées, installer avec npm ci --ignore-scripts.",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "html-validate": "11.21.1",
+    "pa11y-ci": "5.0.0",
+    "stylelint": "16.26.1",
+    "stylelint-plugin-use-baseline": "1.4.8"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "plugins": ["stylelint-plugin-use-baseline"],
+  "rules": {
+    "plugin/use-baseline": [true, {
+      "available": "widely",
+      "ignoreProperties": { "overscroll-behavior": ["contain"], "resize": [] }
+    }]
+  }
+}

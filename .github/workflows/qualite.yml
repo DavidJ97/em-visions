@@ -1,0 +1,39 @@
+# Contrôle de qualité du site à chaque envoi sur la branche version-2 :
+# HTML valide (html-validate), CSS compatible avec tous les navigateurs (Baseline « largement disponible »),
+# accessibilité WCAG 2 AA sur toutes les pages (pa11y : axe + HTML_CodeSniffer).
+# Outils à versions figées (package-lock.json), installés sans scripts ; actions GitHub figées par empreinte.
+name: Qualité du site
+on:
+  push:
+    branches: [version-2]
+  pull_request:
+    branches: [version-2]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verifier:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: outils/qualite
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: "1"
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+      - name: Installer les outils (sans scripts d'installation)
+        run: npm ci --ignore-scripts
+      - name: HTML valide
+        run: npx --no-install html-validate --config .htmlvalidate.json $(find ../../site -name '*.html')
+      - name: CSS compatible (Baseline)
+        run: npx --no-install stylelint --config .stylelintrc.json ../generateur/style.css
+      - name: Accessibilité (WCAG 2 AA)
+        run: |
+          python3 serveur.py 8080 ../../site &
+          sleep 2
+          npx --no-install pa11y-ci --config pa11y.json
