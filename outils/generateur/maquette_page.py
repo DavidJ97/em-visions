@@ -15,8 +15,8 @@ T={'fr':{'path':'/maquette/','up':'../','app':'app.js','title':'Maquette 3D','h1
   'send':'Attach to my quote request','prix':'Prices aren’t listed: we send them to you personally, in reply to your request.','note':'Indicative preview: exact colours, sizes and placement are confirmed with the quote. Your image stays on your device until you send the request.',
   'load':'Loading the model…','cr':'3D model credits','crp':'3D models under the Creative Commons Attribution licence (CC BY 4.0), lightened and recoloured for this tool.','by':'by','hint':'Drag to rotate','view':'3D preview of the product'}}
 # même allure que la version 2 : fond blanc, texte noir, filets fins, intertitres en capitales larges et grasses
-CSS='''*{box-sizing:border-box;margin:0;padding:0}:root{--bg:#fff;--fg:#000;--mut:#5f5f5f;--line:#d9d9d9;--card:#f3f3f3;--blue:#0a3cff;--stage1:#fdfdfd;--stage2:#e6e6e6}
-html[data-theme=dark]{--bg:#000;--fg:#fff;--mut:#a8a8a8;--line:#333;--card:#161616;--stage1:#2c2c2e;--stage2:#0b0b0c}
+CSS='''*{box-sizing:border-box;margin:0;padding:0}:root{color-scheme:light;--bg:#fff;--fg:#000;--mut:#5f5f5f;--line:#d9d9d9;--card:#f3f3f3;--blue:#0a3cff;--stage1:#fdfdfd;--stage2:#e6e6e6}
+html[data-theme=dark]{color-scheme:dark;--bg:#000;--fg:#fff;--mut:#a8a8a8;--line:#333;--card:#161616;--stage1:#2c2c2e;--stage2:#0b0b0c}
 html,body{height:100%}body{background:var(--bg);color:var(--fg);font:400 16px/1.5 Archivo,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}button,input,textarea,select{word-spacing:inherit}
 a{color:var(--fg)}button{font:inherit;color:inherit;cursor:pointer}:focus-visible{outline:3px solid var(--blue);outline-offset:2px}html[data-theme=dark] :focus-visible{outline-color:#8aa1ff}
 header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 24px;height:76px;border-bottom:1px solid var(--fg)}

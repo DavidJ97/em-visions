@@ -5,15 +5,15 @@
    menu sur deux colonnes, pied de page en rangées, coins légèrement arrondis.
    Le bleu du site sert uniquement aux actions. Texte gardé assez gros pour une clientèle peu à l'aise avec Internet. */
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#fff;--ink:#000;--mut:#5f5f5f;--line:#000;--hair:#d9d9d9;--tile:#f3f3f3;--blue:#0a3cff;--link:#0a3cff;--err:#c4001f;--w:1480px;--r:6px;--pad:clamp(16px,2.6vw,36px)}
-html[data-theme=dark]{--bg:#000;--ink:#fff;--mut:#a8a8a8;--line:#fff;--hair:#333;--tile:#141414;--link:#8aa1ff;--err:#ff7a8c}
+:root{color-scheme:light;--bg:#fff;--ink:#000;--mut:#5f5f5f;--line:#000;--hair:#d9d9d9;--tile:#f3f3f3;--blue:#0a3cff;--link:#0a3cff;--err:#c4001f;--w:1480px;--r:6px;--pad:clamp(16px,2.6vw,36px)}
+html[data-theme=dark]{color-scheme:dark;--bg:#000;--ink:#fff;--mut:#a8a8a8;--line:#fff;--hair:#333;--tile:#141414;--link:#8aa1ff;--err:#ff7a8c}
 html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--ink);font:400 17px/1.45 Archivo,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
 a{color:inherit;text-decoration:none}img,video{max-width:100%;height:auto;display:block}ul,ol{list-style:none}
 button,input,textarea,select{font:inherit;color:inherit}button{background:none;border:0;cursor:pointer;text-transform:inherit;letter-spacing:inherit}
 :focus-visible{outline:3px solid var(--link);outline-offset:2px}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.skip:focus{position:fixed;left:12px;top:12px;z-index:60;width:auto;height:auto;clip:auto;background:var(--blue);color:#fff;padding:12px 18px}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.skip:focus{position:fixed;left:12px;top:12px;z-index:60;width:auto;height:auto;margin:0;clip:auto;clip-path:none;background:var(--blue);color:#fff;padding:12px 18px}
 .hp{display:none!important}
 .wrap{max-width:var(--w);margin:0 auto;padding-inline:var(--pad)}
 .ic{width:20px;height:20px;flex:none}
@@ -66,7 +66,7 @@ button,input,textarea,select{font:inherit;color:inherit}button{background:none;b
 .hero h1{font-weight:800;font-stretch:62%;font-size:clamp(46px,7.4vw,118px);line-height:.86;text-transform:uppercase;max-width:6.4em}
 .hero .btn{min-height:58px}
 .pp{position:absolute;z-index:2;top:19px;right:var(--pad);width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:#000000a6;color:#fff;border:1px solid #ffffff38}
-.pp[hidden]{display:none}.pp .i-pl,.pp[aria-pressed=true] .i-pa{display:none}.pp[aria-pressed=true] .i-pl{display:block}
+.pp[hidden]{display:none}.pp .i-pl,.pp.off .i-pa{display:none}.pp.off .i-pl{display:block}
 .intro{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding-block:clamp(54px,8vw,110px)}
 .intro .big{font-size:clamp(24px,3.4vw,48px);line-height:1.05;max-width:20em}.intro .btn{margin-top:14px}
 

@@ -7,13 +7,13 @@ const AR='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h
 const toastEl=$('#toast');let tt;function toast(m){toastEl.textContent=m;toastEl.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('on'),2800)}
 
 // thème clair ou sombre (clair par défaut)
-function setTheme(t,save){H.dataset.theme=t;$$('.tog').forEach(b=>{b.setAttribute('aria-pressed',t==='dark');b.setAttribute('aria-label',t==='dark'?T.light:T.dark)});
+function setTheme(t,save){H.dataset.theme=t;$$('.tog').forEach(b=>b.setAttribute('aria-label',t==='dark'?T.light:T.dark));
  const m=$('meta[name=theme-color]');if(m)m.content=t==='dark'?'#0a0a0a':'#f6f6f3';if(save){try{localStorage.setItem('em-theme',t)}catch(e){}}}
 setTheme(H.dataset.theme==='dark'?'dark':'light');$$('.tog').forEach(b=>b.onclick=()=>setTheme(H.dataset.theme==='dark'?'light':'dark',true));
 
 // menu du cellulaire
 const menu=$('#menu'),bg=$('.burger'),gal=$('#gal');
-function lock(){H.classList.toggle('dlg',!menu.hidden||!gal.hidden)}
+function lock(){const o=!menu.hidden||!gal.hidden;H.classList.toggle('dlg',o);['.hd','main','.ft'].forEach(s=>{const x=$(s);if(x)x.inert=o})}
 function setMenu(o,quiet){menu.hidden=!o;bg.setAttribute('aria-expanded',o);lock();if(quiet)return;(o?$('.menu-x'):bg).focus()}
 bg.onclick=()=>setMenu(true);$('.menu-x').onclick=()=>setMenu(false);
 menu.addEventListener('click',e=>{if(e.target.closest('a[href^="#"]'))setMenu(false,true)});
@@ -33,7 +33,7 @@ const vid=j=>$('video',figs[j]),pad=j=>String(j+1).padStart(2,'0'),ease=x=>{x=Ma
 function scenes(){const c=clock/TOUR,f=c-Math.floor(c),i=Math.floor(c)%NS;scene=i;next=(i+1)%NS;mixK=NS>1?ease((f-.4)/.2):0;
  const k=mixK>.5?next:scene;if(kNum.textContent!==pad(k)){kNum.textContent=pad(k);kName.textContent=figs[k].dataset.n;figs.forEach((g,j)=>g.classList.toggle('cur',j===k))}
  videos()}
-function videos(){if(RM||LITE||!ready)return;pp.hidden=false;figs.forEach((g,j)=>{const v=vid(j),want=inView&&(j===scene||j===next);
+function videos(){if(RM||!ready)return;pp.hidden=false;if(LITE)return;figs.forEach((g,j)=>{const v=vid(j),want=inView&&(j===scene||j===next);
  if(want&&!v.src)v.src=v.dataset.src;if(want&&!stopped){if(v.paused)v.play().catch(()=>{})}else if(v.src&&!v.paused)v.pause()})}
 scenes();
 // le logo 3D ne démarre que 8 s après le chargement : la page est entièrement prête avant (le logo fixe, identique, est affiché d'ici là)
@@ -41,7 +41,7 @@ const glass=$('.glass'),place=()=>{const w=stage.clientWidth,h=stage.clientHeigh
 place();addEventListener('resize',place);
 const go=()=>{setTimeout(()=>{ready=true;videos();redraw()},600);if(!RM)setTimeout(startGL,8000)};D.readyState==='complete'?go():addEventListener('load',go,{once:true});
 if('IntersectionObserver' in window)new IntersectionObserver(es=>{inView=es[0].isIntersecting;videos();redraw()}).observe(hero);
-pp.onclick=()=>{stopped=!stopped;videos();pp.setAttribute('aria-pressed',stopped);pp.setAttribute('aria-label',stopped?T.play:T.pause);redraw()};
+pp.onclick=()=>{stopped=!stopped;videos();pp.classList.toggle('off',stopped);pp.setAttribute('aria-label',stopped?T.play:T.pause);redraw()};
 // sans WebGL : les vidéos changent quand même à chaque « tour »
 if(!RM)setInterval(()=>{if(!glOn&&!stopped&&inView&&!D.hidden){clock=(Math.floor(clock/TOUR)+1)*TOUR;scenes()}},TOUR*1000);
 
@@ -160,7 +160,7 @@ function project(i){gi=(i+RL.length)%RL.length;const p=RL[gi];media=(p.v&&!LITE?
   +'<div class="gal-n"><button type="button" class="cap" data-g="prev">← '+hx(T.prevProject)+'</button><button type="button" class="cap" data-g="next">'+hx(T.nextProject)+' →</button></div></div>';
  show(0);gal.scrollTop=0}
 function openGal(i){if(gal.hidden){galF=D.activeElement;gal.hidden=false;lock()}project(i);$('.gal-x',gal).focus({preventScroll:true})}
-function closeGal(){gal.hidden=true;$('.gal-b',gal).innerHTML='';lock();galF&&galF.focus&&galF.focus({preventScroll:true})}
+function closeGal(){gal.hidden=true;$('.gal-b',gal).replaceChildren();lock();galF&&galF.focus&&galF.focus({preventScroll:true})}
 $$('.works button').forEach(b=>b.onclick=()=>openGal(+b.dataset.i));
 gal.addEventListener('click',e=>{const t=e.target.closest('[data-g]');if(!t)return;const g=t.dataset.g;
  if(g==='close')closeGal();else if(g==='prev')project(gi-1);else if(g==='next')project(gi+1);else if(g==='pp')show(gp-1);else if(g==='pn')show(gp+1);else if(g[0]==='t')show(+g.slice(1));
@@ -183,7 +183,7 @@ addEventListener('pageshow',e=>{if(e.persisted)$('[type=submit]',form).disabled=
 const MSG={nom:T.eName,email:T.eMail,projet:T.eProj},N=['nom','email','projet'];
 function chk(n,showIt){const el=F(n),v=el.value.trim();let bad=false;
  if(n==='nom')bad=!v;if(n==='email')bad=!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);if(n==='projet')bad=!v;
- if(showIt){el.closest('.f').classList.toggle('bad',bad);ERR(n).textContent=bad?MSG[n]:'';el.setAttribute('aria-invalid',bad)}return !bad}
+ if(showIt){el.closest('.f').classList.toggle('bad',bad);ERR(n).textContent=bad?MSG[n]:'';el.setAttribute('aria-invalid',bad);bad?el.setAttribute('aria-describedby','e-'+n):el.removeAttribute('aria-describedby')}return !bad}
 N.forEach(n=>{const el=F(n);el.addEventListener('blur',()=>{if(el.value)chk(n,true)});el.addEventListener('input',()=>{if(el.closest('.f').classList.contains('bad'))chk(n,true)})});
 const fl=F('fichier'),fname=$('[data-fl]',form),fhint=$('[data-fh]',form),ft=[fname.textContent,fhint.textContent];
 function chkFile(){const e=ERR('fichier'),f=fl.files[0];e.textContent='';if(!f){fname.textContent=ft[0];fhint.textContent=ft[1];return true}

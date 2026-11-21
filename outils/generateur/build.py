@@ -1,3 +1,4 @@
+import re
 """Générateur du site EM Visions, version 2.
 Une seule page claire, en français (racine) et en anglais (/en/), plus le modélisateur 3D et la politique de confidentialité.
 Usage : python3 build.py   →   écrit le site dans out/"""
@@ -112,11 +113,11 @@ def build(L):
 
     # ---------- accueil
     # accueil à la Palace : le logo de verre tourne sur lui-même et suit le doigt ou la souris ; la vidéo de fond change à chaque tour
-    tiles=''.join('<figure'+(' class="cur"' if i==0 else '')+f' data-n="{e(tn(n))}"><img src="{up}img/{im}.webp" alt="{e(t(a))}" width="600" height="800"'+(' fetchpriority="high"' if i==0 else ' loading="lazy"')
+    tiles=''.join('<figure'+(' class="cur"' if i==0 else '')+f' data-n="{e(tn(n))}"><img src="{up}img/{im}.webp" alt="{e(t(a))}" width="600" height="800"'+(' fetchpriority="high"' if i==0 else ' loading="lazy" fetchpriority="low"')
                   +f'><video data-src="{up}vid/{v}.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></figure>' for i,(v,im,n,a) in enumerate(HERO))
     hero=(f'<section class="hero" id="{sid("accueil")}" data-alt="{alt("accueil")}" aria-label="{e(NAV["accueil"][en])}"><div class="stage"><div class="strip">{tiles}</div>'
           f'<img class="glass" src="{up}img/logo-chrome-1024.webp" srcset="{up}img/logo-chrome-768.webp 768w, {up}img/logo-chrome-1024.webp 1024w, {up}img/logo-chrome-2048.webp 2048w" sizes="(max-aspect-ratio:4/5) 96vw, min(90vw, 1020px)" alt="" width="1024" height="512" fetchpriority="high"><canvas class="gl" data-m="{up}img/logo-verre.webp" aria-hidden="true"></canvas>'
-          f'<button type="button" class="pp" hidden aria-pressed="false" aria-label="{e(t("Mettre la vidéo en pause"))}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="i-pa" d="M7 5h3.4v14H7zM13.6 5H17v14h-3.4z" fill="currentColor"/><path class="i-pl" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>'
+          f'<button type="button" class="pp" hidden aria-label="{e(t("Mettre la vidéo en pause"))}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="i-pa" d="M7 5h3.4v14H7zM13.6 5H17v14h-3.4z" fill="currentColor"/><path class="i-pl" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>'
           f'<div class="hero-b"><div><p class="cap hero-k" aria-hidden="true"><span>01</span> <b>{e(tn(HERO[0][2]))}</b></p><h1>{e(t("Faites bonne impression."))}</h1></div>{quote()}</div></div></section>'
           f'<div class="wrap intro"><p class="big">{e(t("Vêtements et objets personnalisés, impression et design."))}</p><p class="cap">{e(t("Un atelier à Saint-Léonard, rue Jean-Talon Est"))}</p>'
           f'<a class="btn ghost" href="#{sid("catalogue")}">{e(t("Voir les produits"))}</a></div>')
@@ -154,7 +155,12 @@ def build(L):
     fhid=(f'<input type="hidden" name="form-name" value="{FORM_NAME}"><input type="hidden" name="langue" value="{L}">'
           '<input type="hidden" name="subject" value="Demande de devis — site EM Visions (%{submissionId})">'
           '<p class="hp" aria-hidden="true"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>')
-    def fld(n,lab,ctl): return f'<label class="f"><span>{e(t(lab))}</span>{ctl}<em class="err" data-err="{n}" aria-live="polite"></em></label>'
+    def fld(n,lab,ctl):
+        # nom du champ = son étiquette seulement (sans le message d'erreur) ; l'astérisque n'est pas lu (« requis » l'est déjà)
+        L_=t(lab);req=L_.endswith(' *');L_=L_[:-2] if req else L_
+        ctl=re.sub(r'^<(input|textarea|select) ',lambda m:f'<{m.group(1)} aria-labelledby="l-{n}"'+(' aria-invalid="false"' if req else '')+' ',ctl)
+        return (f'<label class="f"><span id="l-{n}">{e(L_)}'+('<span aria-hidden="true"> *</span>' if req else '')
+                +f'</span>{ctl}<em class="err" id="e-{n}" data-err="{n}"></em></label>')
     if CONTACT_EMAIL:
         konote=t('Vos réponses sont conservées. Vous pouvez réessayer ou nous écrire directement par courriel.'); koalt=f'<a class="u cap bymail" data-mail="{CONTACT_EMAIL}" href="mailto:{CONTACT_EMAIL}">{e(t("Écrire par courriel"))}</a>'
     else:
@@ -162,12 +168,12 @@ def build(L):
     qopt=''.join(f'<option>{e(t(o))}</option>' for o in ('1 à 10','11 à 50','51 à 100','101 à 500','Plus de 500','Je ne sais pas encore'))
     form=(f'<div class="fcard"><h3>{e(t("Demande de devis"))}</h3><form id="devis" novalidate{fattr}>{fhid}'
           +'<div class="f2">'+fld('nom','Nom *',f'<input name="nom" type="text" autocomplete="name" maxlength="150" required>')
-          +fld('email','Courriel *',f'<input name="email" type="email" autocomplete="email" inputmode="email" required>')+'</div>'
+          +fld('email','Courriel *',f'<input name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" required>')+'</div>'
           +fld('projet','Votre projet *',f'<textarea name="projet" rows="4" maxlength="5000" placeholder="{e(t("Ex. : 50 t-shirts avec notre logo, cartes d’affaires, enseigne…"))}" required></textarea>')
           +'<div class="f2">'+fld('qte','Quantité approximative',f'<select name="qte"><option value="">{e(t("Sélectionnez une option"))}</option>{qopt}</select>')
           +fld('echeance','Échéance','<input name="echeance" type="date">')+'</div>'
-          +f'<div class="f"><span class="flab" id="fl-lab">{e(t("Joindre un visuel"))}</span><label class="drop"><input type="file" name="fichier" aria-labelledby="fl-lab" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf">'
-          f'<b data-fl>{e(t("Choisir un fichier"))}</b><small data-fh>{e(t("JPG, PNG, PDF (max {n} Mo)").replace("{n}",str(FILE_MAX_MB)))}</small></label><em class="err" data-err="fichier" aria-live="polite"></em>'
+          +f'<div class="f"><span class="flab" id="fl-lab">{e(t("Joindre un visuel"))}</span><label class="drop"><input type="file" name="fichier" aria-labelledby="fl-lab" aria-describedby="fl-h e-fichier" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf">'
+          f'<b data-fl>{e(t("Choisir un fichier"))}</b><small id="fl-h" data-fh>{e(t("JPG, PNG, PDF (max {n} Mo)").replace("{n}",str(FILE_MAX_MB)))}</small></label><em class="err" id="e-fichier" data-err="fichier"></em>'
           f'<p class="fnote"><a class="u" href="{tool}">{e(t("ou créer une maquette 3D"))}</a></p></div>'
           f'<button type="submit" class="btn send">{e(t("Envoyer ma demande"))}</button>'
           f'<p class="legal">{e(t("En soumettant ce formulaire, vous nous permettez de vous contacter concernant votre demande."))} <a href="{priv}">{e(t("Politique de confidentialité"))}</a></p></form>'

@@ -103,7 +103,7 @@ def csp(out='out'):
            f"img-src 'self' data: blob: {g['img']}".strip(),
            "font-src 'self'","media-src 'self' blob:",
            f"connect-src 'self' data: blob: {g['connect']}".strip(),
-           "worker-src 'self' blob:","frame-src 'none'","object-src 'none'","base-uri 'self'","form-action 'self'",
+           "worker-src 'self' blob:","frame-src 'none'","object-src 'none'","base-uri 'none'","form-action 'self'",
            "frame-ancestors 'none'","upgrade-insecure-requests"]
     return '; '.join(parts)
 
