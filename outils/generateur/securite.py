@@ -109,8 +109,10 @@ def csp(out='out'):
 
 def write_headers(out='out'):
     rules=[('/*',[('Content-Security-Policy',csp(out)),('X-Content-Type-Options','nosniff'),('Referrer-Policy','strict-origin-when-cross-origin'),
-                  ('Permissions-Policy','camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()'),
-                  ('X-Frame-Options','DENY'),('Cross-Origin-Opener-Policy','same-origin'),('Strict-Transport-Security','max-age=31536000')]),
+                  # fonctions du navigateur interdites (liste OWASP Secure Headers, sauf autoplay : les vidéos d'accueil démarrent seules, en sourdine)
+                  ('Permissions-Policy','accelerometer=(), camera=(), cross-origin-isolated=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(self), usb=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(), hid=(), idle-detection=(), serial=(), unload=(), browsing-topics=()'),
+                  ('X-DNS-Prefetch-Control','off'),('X-Permitted-Cross-Domain-Policies','none'),
+                  ('X-Frame-Options','DENY'),('Cross-Origin-Opener-Policy','same-origin'),('Strict-Transport-Security','max-age=63072000')]),
            ('/fonts/*',[('Cache-Control','public, max-age=31536000, immutable')])]
     rules+=[(f'/{d}/*',[('Cache-Control','public, max-age=604800')]) for d in ('img','vid','models','vendor')]
     open(os.path.join(out,'_headers'),'w').write('# En-têtes envoyés par Netlify (généré par securite.py, ne pas modifier à la main)\n'

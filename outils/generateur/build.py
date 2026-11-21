@@ -89,7 +89,7 @@ def build(L):
     sid=lambda p:SLUG[p] if en else p            # identifiant de la section dans cette langue
     alt=lambda p:p if en else SLUG[p]            # … et dans l'autre
     tool='mockup/' if en else 'maquette/'; priv='privacy/' if en else 'confidentialite/'
-    logo=f'<svg viewBox="{LOGO_VB}" aria-hidden="true"><use href="#emlogo"/></svg>'
+    logo=f'<svg viewBox="{LOGO_VB}" aria-hidden="true"> <use href="#emlogo"/> </svg>'
     cur='aria-current="true"'
     def lang():
         fr=f'<a href="../#accueil" data-other="../" hreflang="fr" lang="fr">FR</a>' if en else f'<a href="#accueil" {cur} hreflang="fr" lang="fr">FR</a>'
@@ -155,7 +155,7 @@ def build(L):
     fattr=f' name="{FORM_NAME}" method="post" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" data-send="netlify"'
     fhid=(f'<input type="hidden" name="form-name" value="{FORM_NAME}"><input type="hidden" name="langue" value="{L}">'
           '<input type="hidden" name="subject" value="Demande de devis — site EM Visions (%{submissionId})">'
-          '<p class="hp" aria-hidden="true"><label>Ne pas remplir <input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label></p>')
+          '<p class="hp" aria-hidden="true"><label>Ne pas remplir <input type="text" name="bot-field" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" data-protonpass-ignore></label></p>')
     def fld(n,lab,ctl):
         # nom du champ = son étiquette seulement (sans le message d'erreur) ; l'astérisque n'est pas lu (« requis » l'est déjà)
         L_=t(lab);req=L_.endswith(' *');L_=L_[:-2] if req else L_
@@ -236,6 +236,19 @@ def head_seo(L,up):
       f'<link rel="icon" href="{up}img/favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="{up}img/favicon-64.png" sizes="64x64" type="image/png"><link rel="apple-touch-icon" href="{up}img/apple-touch-icon.png">'
       f'<script type="application/ld+json">{json.dumps(ld,ensure_ascii=False)}</script>')
 
+def nouvel_onglet():
+    import glob,html as H
+    for f in glob.glob('out/**/*.html',recursive=True):
+        s=open(f).read();en='<html lang="en' in s;suf=' (opens in a new tab)' if en else ' (s’ouvre dans un nouvel onglet)'
+        def fix(m):
+            a,txt=m.group(1),m.group(2)
+            if 'onglet' in a or 'new tab' in a: return m.group(0)
+            lab=re.search(r'aria-label="([^"]*)"',a)
+            if lab: a=a.replace(lab.group(0),f'aria-label="{lab.group(1)}{H.escape(suf)}"')
+            else: a+=f' aria-label="{H.escape(H.unescape(re.sub("<[^>]+>","",txt)).strip())}{H.escape(suf)}"'
+            return f'<a {a}>{txt}</a>'
+        open(f,'w').write(re.sub(r'<a ([^>]*target="_blank"[^>]*)>(.*?)</a>',fix,s,flags=re.S))
+
 if __name__=='__main__':
     os.makedirs('out/en',exist_ok=True)
     fr=build('fr'); open('out/index.html','w').write(fr); open('out/en/index.html','w').write(build('en'))
@@ -248,5 +261,6 @@ if __name__=='__main__':
     open('out/sitemap.xml','w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
         +''.join(f'<url><loc>{SITE_URL}{p}</loc><lastmod>{CONTENT_DATE}</lastmod>{a}</url>\n' for ps,a in G for p in ps)+'</urlset>\n')
     securite.write_consent(); securite.write_404(LOGO_VB,LOGO_D,fontface)
+    nouvel_onglet()               # annonce les liens qui s’ouvrent dans un nouvel onglet
     securite.write_headers()      # en dernier : la CSP reprend les scripts de toutes les pages écrites
     print('site écrit :',len(fr)//1024,'Ko par page')

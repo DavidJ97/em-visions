@@ -39,7 +39,7 @@ h2{display:flex;align-items:center;gap:12px;font:500 14.5px/1 Archivo,sans-serif
 .prod[aria-pressed=true]{border-color:var(--blue)}.prod[aria-pressed=true] span{color:var(--fg)}.prod:hover{border-color:var(--line)}.prod[aria-pressed=true]:hover{border-color:var(--blue)}
 .cols{display:flex;flex-wrap:wrap;gap:10px}.sw{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);box-shadow:inset 0 0 0 2px var(--bg)}.sw[aria-pressed=true]{border-color:var(--blue);box-shadow:inset 0 0 0 3px var(--bg)}
 .tabs{display:flex;gap:8px;margin-bottom:12px}.tabs[hidden]{display:none}.tabs button{flex:1;background:var(--card);border:2px solid transparent;border-radius:6px;padding:10px;font-weight:500;font-size:14.5px}.tabs button[aria-pressed=true]{border-color:var(--blue)}
-.up{display:flex;align-items:center;gap:14px;border:1px dashed #8f8f8f;border-radius:6px;padding:14px 16px;cursor:pointer}.up:hover{border-color:var(--fg)}.up input{position:absolute;opacity:0;width:1px;height:1px}.up:focus-within{outline:3px solid var(--blue);outline-offset:2px}
+.up{display:flex;align-items:center;gap:14px;border:1px dashed #767676;border-radius:6px;padding:14px 16px;cursor:pointer}.up:hover{border-color:var(--fg)}.up input{position:absolute;opacity:0;width:1px;height:1px}.up:focus-within{outline:3px solid var(--blue);outline-offset:2px}
 .up svg{flex:none;color:var(--fg)}.up b{display:block;font-weight:600;overflow-wrap:anywhere}.up small{color:var(--mut);font-size:13px}
 #adj{margin-top:14px;display:grid;gap:10px}#adj[hidden]{display:none}.sl{display:grid;grid-template-columns:92px 1fr;align-items:center;gap:12px;font-size:14px}.sl input{width:100%;accent-color:var(--blue);height:28px}
 .rm{justify-self:start;background:none;border:0;text-decoration:underline;text-underline-offset:3px;color:var(--mut);font-size:14px;padding:6px 0}
@@ -72,8 +72,8 @@ def page(L,logo_vb,logo_d):
       f'<link rel="modulepreload" href="{up}vendor/three.module.min.js"><script>{HEADJS}</script><style>{ff}{CSS}</style></head><body>'
       f'<header><a class="logo" href="{t["home"]}" aria-label="EM Visions"><svg viewBox="{logo_vb}" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="{logo_d}"/></svg></a>'
       f'<nav><a href="{t["home"]}">← {e(t["back"])}</a><a href="{t["other"][1]}" hreflang="{t["other"][0].lower()}" lang="{t["other"][0].lower()}">{t["other"][0]}</a></nav></header>'
-      f'<main class="wrap"><section class="stagebox"><canvas id="view" tabindex="0" role="img" aria-label="{e(t["view"])}"></canvas>'
-      f'<p class="ld" id="ld" hidden>{e(t["load"])}</p><p class="cap"><b><span id="pname"></span><small id="colname"></small></b><i><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 4 0 1 0 8-4M9 5l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>{e(t["hint"])}</i></p></section>'
+      f'<main class="wrap"><div class="stagebox"><canvas id="view" tabindex="0" role="img" aria-label="{e(t["view"])}"></canvas>'
+      f'<p class="ld" id="ld" hidden>{e(t["load"])}</p><p class="cap"><b><span id="pname"></span><small id="colname"></small></b><i><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 4 0 1 0 8-4M9 5l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>{e(t["hint"])}</i></p></div>'
       f'<aside class="panel"><h1>{e(t["h1"])}</h1><p class="lead">{e(t["lead"])}</p>'
       f'<h2><b>1</b>{e(t["s1"])}</h2><div class="prods" id="prods"></div>'
       f'<h2><b>2</b>{e(t["s2"])}</h2><div class="cols" id="cols"></div>'
